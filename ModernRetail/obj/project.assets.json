@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GIT\\GitHub\\ModernRetail\\ModernRetail.csproj",
+      "projectUniqueName": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
       "projectName": "ModernRetail",
-      "projectPath": "D:\\GIT\\GitHub\\ModernRetail\\ModernRetail.csproj",
+      "projectPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
       "packagesPath": "C:\\Users\\Sanchita_Saha\\.nuget\\packages\\",
-      "outputPath": "D:\\GIT\\GitHub\\ModernRetail\\obj\\",
+      "outputPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Sanchita_Saha\\AppData\\Roaming\\NuGet\\NuGet.Config",

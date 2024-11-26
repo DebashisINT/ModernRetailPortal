@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj": {}
+    "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj": {}
   },
   "projects": {
-    "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj": {
+    "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
-        "projectName": "ModernRetail",
-        "projectPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
+        "projectUniqueName": "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj",
+        "projectName": "RetailAPI",
+        "projectPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj",
         "packagesPath": "C:\\Users\\Sanchita_Saha\\.nuget\\packages\\",
-        "outputPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\obj\\",
+        "outputPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sanchita_Saha\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,6 +44,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

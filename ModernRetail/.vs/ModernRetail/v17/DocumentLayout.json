@@ -1,12 +1,36 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GIT\\GitHub\\ModernRetail\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AB88DB6D-C664-41CF-A2C0-0426676AEA21}|..\\RetailAPI\\RetailAPI.csproj|d:\\git\\github\\modernretailportal\\retailapi\\retailapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RetailAPI",
+              "DocumentMoniker": "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj",
+              "RelativeDocumentMoniker": "..\\RetailAPI\\RetailAPI.csproj",
+              "ToolTip": "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj",
+              "RelativeToolTip": "..\\RetailAPI\\RetailAPI.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-26T13:50:02.352Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
