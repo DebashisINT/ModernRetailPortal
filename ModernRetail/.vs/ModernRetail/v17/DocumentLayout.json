@@ -1,9 +1,36 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\",
+  "WorkspaceRootPath": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AB88DB6D-C664-41CF-A2C0-0426676AEA21}|..\\RetailAPI\\RetailAPI.csproj|d:\\git\\github\\modernretailportal\\retailapi\\retailapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|d:\\github\\modernretailportal\\modernretail\\controllers\\branchmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|solutionrelative:controllers\\branchmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|d:\\github\\modernretailportal\\modernretail\\views\\branchmaster\\branchlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|solutionrelative:views\\branchmaster\\branchlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB88DB6D-C664-41CF-A2C0-0426676AEA21}|..\\RetailAPI\\RetailAPI.csproj|d:\\github\\modernretailportal\\retailapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB88DB6D-C664-41CF-A2C0-0426676AEA21}|..\\RetailAPI\\RetailAPI.csproj|d:\\github\\modernretailportal\\retailapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|d:\\github\\modernretailportal\\modernretail\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|d:\\github\\modernretailportal\\modernretail\\views\\branchmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|solutionrelative:views\\branchmaster\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|d:\\github\\modernretailportal\\modernretail\\models\\branchmastermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|solutionrelative:models\\branchmastermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|d:\\github\\modernretailportal\\modernretail\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{772B10F8-F3E6-4E5B-9ACC-A83CF9EFD88A}|ModernRetail.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,19 +40,110 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-02T09:38:03.769Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\RetailAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "..\\RetailAPI\\appsettings.json",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\RetailAPI\\appsettings.json",
+              "RelativeToolTip": "..\\RetailAPI\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-02T09:37:54.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\RetailAPI\\Program.cs",
+              "RelativeDocumentMoniker": "..\\RetailAPI\\Program.cs",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\RetailAPI\\Program.cs",
+              "RelativeToolTip": "..\\RetailAPI\\Program.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAwBkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T09:37:50.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BranchList.cshtml",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Views\\BranchMaster\\BranchList.cshtml",
+              "RelativeDocumentMoniker": "Views\\BranchMaster\\BranchList.cshtml",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Views\\BranchMaster\\BranchList.cshtml",
+              "RelativeToolTip": "Views\\BranchMaster\\BranchList.cshtml",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAAAHMAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-02T09:17:13.405Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAwBMAAABfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-02T06:13:34.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BranchMasterModel.cs",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Models\\BranchMasterModel.cs",
+              "RelativeDocumentMoniker": "Models\\BranchMasterModel.cs",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Models\\BranchMasterModel.cs",
+              "RelativeToolTip": "Models\\BranchMasterModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T06:09:52.609Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Views\\BranchMaster\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\BranchMaster\\Index.cshtml",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Views\\BranchMaster\\Index.cshtml",
+              "RelativeToolTip": "Views\\BranchMaster\\Index.cshtml",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAACwAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-02T06:07:09.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RetailAPI",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj",
-              "RelativeDocumentMoniker": "..\\RetailAPI\\RetailAPI.csproj",
-              "ToolTip": "D:\\GIT\\GitHub\\ModernRetailPortal\\RetailAPI\\RetailAPI.csproj",
-              "RelativeToolTip": "..\\RetailAPI\\RetailAPI.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-11-26T13:50:02.352Z",
+              "Title": "BranchMasterController.cs",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Controllers\\BranchMasterController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BranchMasterController.cs",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\Controllers\\BranchMasterController.cs",
+              "RelativeToolTip": "Controllers\\BranchMasterController.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBcAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-02T06:06:26.126Z",
               "EditorCaption": ""
             }
           ]
