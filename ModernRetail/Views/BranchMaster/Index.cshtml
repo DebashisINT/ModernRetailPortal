@@ -1,0 +1,119 @@
+﻿@using ModernRetail.Models;
+@model ModernRetail.Models.BranchMasterModel;
+@{
+    ViewBag.Title = "Add/Edit Branch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    function EntrySave(mode) {
+        $("#hdnAdd").val("0");
+        savemode = mode;
+        hasmsg = 0;
+        var Branch_Name = $('#BranchName').val();
+      
+        if (Branch_Name.trim() == "Select" || Branch_Name.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please add Branch to proceed.'
+            });
+            return false;
+        }
+        
+        var formData = {
+            BranchName: Branch_Name
+            
+        }
+
+        $.ajax({
+                type: "POST",
+            url: "@Url.Action("SaveBranch", "BranchMaster")",
+                //data: JSON.stringify({ Details: formData }), // Fixed JSON formatting
+                data: formData,
+                async: true,
+               // contentType: "application/json; charset=utf-8",
+               // dataType: "json",
+                success: function (response) {
+                    if (response != null) {
+                        var Sucess = response.split('~')[0];
+                        var DetailsID = response.split('~')[1];                       
+                        var Message = response.split('~')[2];
+
+                        $('#hdnDetailsID').val(DetailsID);
+
+                        if (DetailsID > 0 ) {
+                            ProductionID = 0;
+                            DetailsID = 0;
+
+                            Swal.fire({
+                                title: 'Success!',
+                                /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
+                            html: 'Sales Target Number: <strong style="color: #007bff;">' + BranchName + '</strong> saved successfully.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    if (savemode === "Exit") {
+                                        setTimeout(function () {
+                                            var url = $('#hdnListPage').val();
+                                            window.location.href = url;
+                                        }, 500);
+                                    }
+                                }
+                            });
+
+                        } else {
+                            DetailsID = 0;
+                            savemode = "";
+
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Please try again later.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+
+                            return false;
+                        }
+                        Message = "";
+                    }
+                }
+            });
+    }
+</script>
+<div class="breadCumb">
+    <span id="HeaderLableID">BRANCH</span>
+    <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+</div>
+<div class="container">
+    <div class="form_main backBox p-3 mb-3">
+        <div class="row mb-4">            
+            <div class=" col-sm-4">
+                <label>Branch Name. <span style="color:red">*</span></label>
+                <div class="relative">
+                @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control", @MaxLength = "30" })
+                    <span id="EBOMNo" class="customerno pullleftClass fa fa-exclamation-circle iconRed " style="color: red; position: absolute; display: none" title="Mandatory"></span>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <div class="form_main backBox p-3">      
+        <div class="">
+            <div class=" mt-4">
+                <button type="button" class="btn btn-success" id="btnSave" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" value="" id="hdnTARGETLEVELID" />
+<input type="hidden" value="" id="hdnINTERNALID" />
+<input type="hidden" value="" id="hdnLevelGuiIDS" />
+
+

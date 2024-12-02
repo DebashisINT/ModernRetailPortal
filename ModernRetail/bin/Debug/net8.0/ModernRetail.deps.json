@@ -1,0 +1,1649 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ModernRetail/1.0.0": {
+        "dependencies": {
+          "IKVM": "8.10.3",
+          "System.Data.SqlClient": "4.9.0",
+          "DataAccessLayer": "1.0.0.0",
+          "DevExpress.Web.ASPxSpreadsheet.v15.1": "15.1.5.0",
+          "DevExpress.Web.ASPxTreeList.v15.1": "15.1.5.0",
+          "DevExpress.Web.Mvc5.v15.1": "15.1.5.0",
+          "DevExpress.Web.v15.1": "15.1.5.0",
+          "DevExpress.XtraBars.v15.1": "15.1.5.0",
+          "DevExpress.XtraCharts.v15.1": "15.1.5.0",
+          "DevExpress.XtraCharts.v15.1.Web": "15.1.5.0",
+          "DevExpress.XtraGauges.v15.1.Core": "15.1.5.0",
+          "DevExpress.XtraGauges.v15.1.Presets": "15.1.5.0",
+          "DevExpress.XtraGauges.v15.1.Win": "15.1.5.0",
+          "DevExpress.XtraMap.v15.1": "15.1.5.0",
+          "DevExpress.XtraPivotGrid.v15.1": "15.1.5.0",
+          "DevExpress.XtraPrinting.v15.1": "15.1.5.0",
+          "DevExpress.XtraReports.v15.1": "15.1.5.0",
+          "DevExpress.XtraReports.v15.1.Extensions": "15.1.5.0",
+          "DevExpress.XtraReports.v15.1.Web": "15.1.5.0",
+          "DevExpress.XtraScheduler.v15.1.Core": "15.1.5.0",
+          "DevExpress.XtraTreeList.v15.1": "15.1.5.0",
+          "DocumentFormat.OpenXml": "2.7.2.0",
+          "Microsoft.Office.Interop.Excel": "12.0.0.0",
+          "System.Web.Helpers": "3.0.0.0",
+          "System.Web.Mvc": "5.2.9.0"
+        },
+        "runtime": {
+          "ModernRetail.dll": {}
+        }
+      },
+      "IKVM/8.10.3": {
+        "dependencies": {
+          "IKVM.ByteCode": "9.2.2",
+          "IKVM.Image": "8.10.3",
+          "IKVM.MSBuild": "8.10.3",
+          "Microsoft.Extensions.DependencyModel": "8.0.0",
+          "System.Data.Odbc": "8.0.0"
+        },
+        "runtimeTargets": {
+          "runtimes/linux/lib/net8.0/IKVM.Java.dll": {
+            "rid": "linux",
+            "assetType": "runtime",
+            "assemblyVersion": "8.10.3.0",
+            "fileVersion": "8.10.3.60000"
+          },
+          "runtimes/linux/lib/net8.0/IKVM.Runtime.dll": {
+            "rid": "linux",
+            "assetType": "runtime",
+            "assemblyVersion": "8.10.3.0",
+            "fileVersion": "8.10.3.60000"
+          },
+          "runtimes/osx/lib/net8.0/IKVM.Java.dll": {
+            "rid": "osx",
+            "assetType": "runtime",
+            "assemblyVersion": "8.10.3.0",
+            "fileVersion": "8.10.3.60000"
+          },
+          "runtimes/osx/lib/net8.0/IKVM.Runtime.dll": {
+            "rid": "osx",
+            "assetType": "runtime",
+            "assemblyVersion": "8.10.3.0",
+            "fileVersion": "8.10.3.60000"
+          },
+          "runtimes/win/lib/net8.0/IKVM.Java.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "8.10.3.0",
+            "fileVersion": "8.10.3.60000"
+          },
+          "runtimes/win/lib/net8.0/IKVM.Runtime.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "8.10.3.0",
+            "fileVersion": "8.10.3.60000"
+          },
+          "runtimes/linux-arm/native/libikvm.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libikvm.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-arm/native/libikvm.so": {
+            "rid": "linux-musl-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-arm64/native/libikvm.so": {
+            "rid": "linux-musl-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-x64/native/libikvm.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libikvm.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-arm64/native/libikvm.dylib": {
+            "rid": "osx-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libikvm.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/ikvm.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/ikvm.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/ikvm.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "IKVM.ByteCode/9.2.2": {
+        "runtime": {
+          "lib/net8.0/IKVM.ByteCode.dll": {
+            "assemblyVersion": "9.2.2.0",
+            "fileVersion": "9.2.2.60000"
+          }
+        }
+      },
+      "IKVM.Image/8.10.3": {
+        "dependencies": {
+          "IKVM.Image.runtime.linux-arm": "8.10.3",
+          "IKVM.Image.runtime.linux-arm64": "8.10.3",
+          "IKVM.Image.runtime.linux-musl-arm": "8.10.3",
+          "IKVM.Image.runtime.linux-musl-arm64": "8.10.3",
+          "IKVM.Image.runtime.linux-musl-x64": "8.10.3",
+          "IKVM.Image.runtime.linux-x64": "8.10.3",
+          "IKVM.Image.runtime.osx-arm64": "8.10.3",
+          "IKVM.Image.runtime.osx-x64": "8.10.3",
+          "IKVM.Image.runtime.win-arm64": "8.10.3",
+          "IKVM.Image.runtime.win-x64": "8.10.3",
+          "IKVM.Image.runtime.win-x86": "8.10.3"
+        }
+      },
+      "IKVM.Image.runtime.linux-arm/8.10.3": {},
+      "IKVM.Image.runtime.linux-arm64/8.10.3": {},
+      "IKVM.Image.runtime.linux-musl-arm/8.10.3": {},
+      "IKVM.Image.runtime.linux-musl-arm64/8.10.3": {},
+      "IKVM.Image.runtime.linux-musl-x64/8.10.3": {},
+      "IKVM.Image.runtime.linux-x64/8.10.3": {},
+      "IKVM.Image.runtime.osx-arm64/8.10.3": {},
+      "IKVM.Image.runtime.osx-x64/8.10.3": {},
+      "IKVM.Image.runtime.win-arm64/8.10.3": {},
+      "IKVM.Image.runtime.win-x64/8.10.3": {},
+      "IKVM.Image.runtime.win-x86/8.10.3": {},
+      "IKVM.MSBuild/8.10.3": {
+        "dependencies": {
+          "IKVM.MSBuild.Tools": "8.10.3"
+        }
+      },
+      "IKVM.MSBuild.Tools/8.10.3": {
+        "dependencies": {
+          "IKVM.MSBuild.Tools.runtime.linux-arm": "8.10.3",
+          "IKVM.MSBuild.Tools.runtime.linux-arm64": "8.10.3",
+          "IKVM.MSBuild.Tools.runtime.linux-x64": "8.10.3",
+          "IKVM.MSBuild.Tools.runtime.osx-arm64": "8.10.3",
+          "IKVM.MSBuild.Tools.runtime.osx-x64": "8.10.3",
+          "IKVM.MSBuild.Tools.runtime.win-arm64": "8.10.3",
+          "IKVM.MSBuild.Tools.runtime.win-x64": "8.10.3"
+        }
+      },
+      "IKVM.MSBuild.Tools.runtime.linux-arm/8.10.3": {},
+      "IKVM.MSBuild.Tools.runtime.linux-arm64/8.10.3": {},
+      "IKVM.MSBuild.Tools.runtime.linux-x64/8.10.3": {},
+      "IKVM.MSBuild.Tools.runtime.osx-arm64/8.10.3": {},
+      "IKVM.MSBuild.Tools.runtime.osx-x64/8.10.3": {},
+      "IKVM.MSBuild.Tools.runtime.win-arm64/8.10.3": {},
+      "IKVM.MSBuild.Tools.runtime.win-x64/8.10.3": {},
+      "Microsoft.Extensions.DependencyModel/8.0.0": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0",
+          "System.Text.Json": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
+      "runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "dependencies": {
+          "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
+          "runtime.win-x64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
+          "runtime.win-x86.runtime.native.System.Data.SqlClient.sni": "4.4.0"
+        }
+      },
+      "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/sni.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "4.6.25512.1"
+          }
+        }
+      },
+      "runtime.win-x64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "runtimeTargets": {
+          "runtimes/win-x64/native/sni.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "4.6.25512.1"
+          }
+        }
+      },
+      "runtime.win-x86.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "runtimeTargets": {
+          "runtimes/win-x86/native/sni.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "4.6.25512.1"
+          }
+        }
+      },
+      "System.Data.Odbc/8.0.0": {
+        "dependencies": {
+          "System.Text.Encoding.CodePages": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Data.Odbc.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/freebsd/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "freebsd",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
+          "runtimes/illumos/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "illumos",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
+          "runtimes/ios/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "ios",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
+          "runtimes/linux/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "linux",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
+          "runtimes/osx/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "osx",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
+          "runtimes/solaris/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "solaris",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
+          "runtimes/tvos/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "tvos",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
+          "runtimes/win/lib/net8.0/System.Data.Odbc.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
+      "System.Data.SqlClient/4.9.0": {
+        "dependencies": {
+          "runtime.native.System.Data.SqlClient.sni": "4.4.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Data.SqlClient.dll": {
+            "assemblyVersion": "4.6.1.6",
+            "fileVersion": "4.900.24.56208"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/net8.0/System.Data.SqlClient.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "4.6.1.6",
+            "fileVersion": "4.900.24.56208"
+          },
+          "runtimes/win/lib/net8.0/System.Data.SqlClient.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.6.1.6",
+            "fileVersion": "4.900.24.56208"
+          }
+        }
+      },
+      "System.Text.Encoding.CodePages/8.0.0": {},
+      "System.Text.Encodings.Web/8.0.0": {},
+      "System.Text.Json/8.0.0": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0"
+        }
+      },
+      "DataAccessLayer/1.0.0.0": {
+        "runtime": {
+          "DataAccessLayer.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "DevExpress.Web.ASPxSpreadsheet.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.ASPxSpreadsheet.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Web.ASPxSpreadsheet.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Web.ASPxSpreadsheet.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Web.ASPxSpreadsheet.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Web.ASPxSpreadsheet.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Web.ASPxTreeList.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.ASPxTreeList.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Web.ASPxTreeList.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Web.ASPxTreeList.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Web.ASPxTreeList.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Web.ASPxTreeList.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Web.Mvc5.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.Mvc5.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.Web.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Web.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Web.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Web.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Web.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraBars.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraBars.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraBars.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraBars.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraBars.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraBars.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraCharts.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraCharts.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraCharts.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraCharts.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraCharts.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraCharts.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraCharts.v15.1.Web/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraCharts.v15.1.Web.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.XtraGauges.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraGauges.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraGauges.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraGauges.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraGauges.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraGauges.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraGauges.v15.1.Presets/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraGauges.v15.1.Presets.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraGauges.v15.1.Presets.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraGauges.v15.1.Presets.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraGauges.v15.1.Presets.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraGauges.v15.1.Presets.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraGauges.v15.1.Win/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraGauges.v15.1.Win.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.XtraMap.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraMap.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.XtraPivotGrid.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraPivotGrid.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraPivotGrid.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraPivotGrid.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraPivotGrid.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraPivotGrid.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraPrinting.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraPrinting.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraPrinting.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraPrinting.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraPrinting.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraPrinting.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraReports.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraReports.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraReports.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraReports.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraReports.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraReports.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraReports.v15.1.Extensions/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraReports.v15.1.Extensions.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.XtraReports.v15.1.Web/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraReports.v15.1.Web.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraReports.v15.1.Web.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraReports.v15.1.Web.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraReports.v15.1.Web.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraReports.v15.1.Web.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraScheduler.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraScheduler.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraScheduler.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraScheduler.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraScheduler.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraScheduler.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraTreeList.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraTreeList.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraTreeList.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraTreeList.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraTreeList.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraTreeList.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml/2.7.2.0": {
+        "runtime": {
+          "DocumentFormat.OpenXml.dll": {
+            "assemblyVersion": "2.7.2.0",
+            "fileVersion": "2.7.2.0"
+          }
+        }
+      },
+      "Microsoft.Office.Interop.Excel/12.0.0.0": {
+        "runtime": {
+          "Microsoft.Office.Interop.Excel.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.4518.1014"
+          }
+        }
+      },
+      "System.Web.Helpers/3.0.0.0": {
+        "runtime": {
+          "System.Web.Helpers.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.11001.0"
+          }
+        }
+      },
+      "System.Web.Mvc/5.2.9.0": {
+        "runtime": {
+          "System.Web.Mvc.dll": {
+            "assemblyVersion": "5.2.9.0",
+            "fileVersion": "5.2.61129.10"
+          }
+        }
+      },
+      "DevExpress.Spreadsheet.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Spreadsheet.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Spreadsheet.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Spreadsheet.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Spreadsheet.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Spreadsheet.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Data.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Data.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Data.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Data.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Data.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Data.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Office.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Office.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Office.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Office.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Office.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Office.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Printing.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Printing.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Printing.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Printing.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Printing.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Printing.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Charts.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Charts.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.Web.ASPxHtmlEditor.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.ASPxHtmlEditor.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Web.ASPxHtmlEditor.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Web.ASPxHtmlEditor.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Web.ASPxHtmlEditor.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Web.ASPxHtmlEditor.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Web.ASPxSpellChecker.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.ASPxSpellChecker.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Web.ASPxSpellChecker.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Web.ASPxSpellChecker.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Web.ASPxSpellChecker.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Web.ASPxSpellChecker.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Web.ASPxPivotGrid.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.ASPxPivotGrid.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.PivotGrid.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.PivotGrid.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.PivotGrid.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.PivotGrid.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.PivotGrid.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.PivotGrid.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Web.ASPxRichEdit.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.ASPxRichEdit.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Web.ASPxRichEdit.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Web.ASPxRichEdit.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Web.ASPxRichEdit.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Web.ASPxRichEdit.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Web.ASPxScheduler.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Web.ASPxScheduler.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Web.ASPxScheduler.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Web.ASPxScheduler.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Web.ASPxScheduler.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Web.ASPxScheduler.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.RichEdit.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.RichEdit.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.RichEdit.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.RichEdit.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.RichEdit.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.RichEdit.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.SpellChecker.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.SpellChecker.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        }
+      },
+      "DevExpress.Utils.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Utils.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Utils.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Utils.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Utils.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Utils.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraEditors.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraEditors.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraEditors.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraEditors.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraEditors.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraEditors.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.XtraLayout.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.XtraLayout.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.XtraLayout.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.XtraLayout.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.XtraLayout.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.XtraLayout.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Map.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Map.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Map.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Map.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Map.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Map.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.Sparkline.v15.1.Core/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Sparkline.v15.1.Core.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Sparkline.v15.1.Core.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Sparkline.v15.1.Core.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Sparkline.v15.1.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Sparkline.v15.1.Core.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "DevExpress.DataAccess.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.DataAccess.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.DataAccess.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.DataAccess.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.DataAccess.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.DataAccess.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "office/12.0.0.0": {
+        "runtime": {
+          "office.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.4518.1014"
+          }
+        }
+      },
+      "Microsoft.Vbe.Interop/12.0.0.0": {
+        "runtime": {
+          "Microsoft.Vbe.Interop.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.4518.1014"
+          }
+        }
+      },
+      "System.Web.WebPages/3.0.0.0": {
+        "runtime": {
+          "System.Web.WebPages.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.11001.0"
+          }
+        }
+      },
+      "System.Web.Razor/3.0.0.0": {
+        "runtime": {
+          "System.Web.Razor.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.11001.0"
+          }
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0.0": {
+        "runtime": {
+          "Microsoft.Web.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          }
+        }
+      },
+      "DevExpress.Xpo.v15.1/15.1.5.0": {
+        "runtime": {
+          "DevExpress.Xpo.v15.1.dll": {
+            "assemblyVersion": "15.1.5.0",
+            "fileVersion": "15.1.5.15225"
+          }
+        },
+        "resources": {
+          "de/DevExpress.Xpo.v15.1.resources.dll": {
+            "locale": "de"
+          },
+          "es/DevExpress.Xpo.v15.1.resources.dll": {
+            "locale": "es"
+          },
+          "ja/DevExpress.Xpo.v15.1.resources.dll": {
+            "locale": "ja"
+          },
+          "ru/DevExpress.Xpo.v15.1.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "stdole/7.0.3300.0": {
+        "runtime": {
+          "stdole.dll": {
+            "assemblyVersion": "7.0.3300.0",
+            "fileVersion": "7.0.9466.0"
+          }
+        }
+      },
+      "System.Web.WebPages.Deployment/3.0.0.0": {
+        "runtime": {
+          "System.Web.WebPages.Deployment.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.11001.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ModernRetail/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IKVM/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GDNzeQpOMDey09pteljGFkLEssas1tyhWTnP+XMQ43K/e7tD3bjsV4fTK6lBb89hxkn4Z18SHf7O0FkIxSZI7Q==",
+      "path": "ikvm/8.10.3",
+      "hashPath": "ikvm.8.10.3.nupkg.sha512"
+    },
+    "IKVM.ByteCode/9.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oMZXxKod6SuioM83vsPfRbDyBW4h1deFN/6wL5bkm+q1MWxd/0Hkp0KqWJ9VbLwpOP1H/nuzhcI9BEKC2tJSzQ==",
+      "path": "ikvm.bytecode/9.2.2",
+      "hashPath": "ikvm.bytecode.9.2.2.nupkg.sha512"
+    },
+    "IKVM.Image/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SOttLARePDXcjLplqwJZJdXyaK6LhT/ssyA44dyM61E5gpZEKZf7BC16RcoKM7coSk+i2EgpkHGkuBlPjLVuJg==",
+      "path": "ikvm.image/8.10.3",
+      "hashPath": "ikvm.image.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.linux-arm/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eRvXBq4QzsA9+vxMqQmGJwj71dopUP5Zrj4RPVkNV82/xSC4riEM0NgtJxTFis0JoBq38tdS8HGs3W7dXovsbQ==",
+      "path": "ikvm.image.runtime.linux-arm/8.10.3",
+      "hashPath": "ikvm.image.runtime.linux-arm.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.linux-arm64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cCKX4juwnH81br790yHZ6W4zFOwPT3E7mhvIh88R6WFw4e7kc78RvYUXyJSHsFC/JpeS2uGpyeY/VZwenTSGXA==",
+      "path": "ikvm.image.runtime.linux-arm64/8.10.3",
+      "hashPath": "ikvm.image.runtime.linux-arm64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.linux-musl-arm/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-W69/MW6PqpFKsx9RJWOFs9N4NknLa3z/AbbZqos9JlnFqWeOLFQ7NnFS0dL06frnTUR6C34GX0+nqnzIYK+pPQ==",
+      "path": "ikvm.image.runtime.linux-musl-arm/8.10.3",
+      "hashPath": "ikvm.image.runtime.linux-musl-arm.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.linux-musl-arm64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uHHgieliXvoSiexUxwLaP1PHF5kdE5wc4gGmDKGfk1WwjZbEWeW3izgnaLBw+8A15Q8SvJWrNBjiGFVB8k4DTQ==",
+      "path": "ikvm.image.runtime.linux-musl-arm64/8.10.3",
+      "hashPath": "ikvm.image.runtime.linux-musl-arm64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.linux-musl-x64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-znLCkxCwA35cw+DxB0uAkrwzRExnEMJIB1qJ4EfjBppW39n6bn0ekndcUm/it/UsTsKVgxzvjGfKiTc4SYwQ2w==",
+      "path": "ikvm.image.runtime.linux-musl-x64/8.10.3",
+      "hashPath": "ikvm.image.runtime.linux-musl-x64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.linux-x64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wNUfDMRF4Bod3esFFQ3nraxduMO95C5wMxvjnY9doJNXicCb7O5nZrunBn2nH0owJJCWr+5aCigA8PfHfJ/RNw==",
+      "path": "ikvm.image.runtime.linux-x64/8.10.3",
+      "hashPath": "ikvm.image.runtime.linux-x64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.osx-arm64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-b/buNIIPZTFVnsuVfhxjnJSlNWuwV4mwS5TwAzfT04gd5sHRy6X2OuDzj6GYTG/Wc0HpYSQcUgvJOA9m0bb67w==",
+      "path": "ikvm.image.runtime.osx-arm64/8.10.3",
+      "hashPath": "ikvm.image.runtime.osx-arm64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.osx-x64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aEaUsTa9dHxce9XBVkQuh3p6U6J8yjxdgBEM9UJ5OozmW7PTcqeWEjRM8//pOLVh3KzPv2AF+fb8l2eZ8NEAaA==",
+      "path": "ikvm.image.runtime.osx-x64/8.10.3",
+      "hashPath": "ikvm.image.runtime.osx-x64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.win-arm64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Gs5xuiae1MElmikYvbZfZ/oKcQ5r3BqBu0ZNV7FOB9kNEJ2wH8/fTWMhyLtQKnRBrt8t5JykvHrBAMsHh0EtSA==",
+      "path": "ikvm.image.runtime.win-arm64/8.10.3",
+      "hashPath": "ikvm.image.runtime.win-arm64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.win-x64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nFzFD61+9xmb/DqsL6zF+hHcJfNM47i/zuHpgcFrMYgpH6/L9ywaz+4DH6wN+1ZtZiANfQBQFiNbioeFhcA3tQ==",
+      "path": "ikvm.image.runtime.win-x64/8.10.3",
+      "hashPath": "ikvm.image.runtime.win-x64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.Image.runtime.win-x86/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-E41aE+w4cbzi7gCG5frydtdYT3VL3XhTuMx8+OO4ZirkLUOdHR3kiBdQ+AhBa3W4JP5X6GrrGmtYfMhZMh8kvA==",
+      "path": "ikvm.image.runtime.win-x86/8.10.3",
+      "hashPath": "ikvm.image.runtime.win-x86.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7rWe69osZf9HnNNeu6BMsiKEUtdD5FnKG52uGdRdNdyzCmfiFFMUVA2r8CL1v2hBAz7BjOv3bQ0MC5SI8vRVog==",
+      "path": "ikvm.msbuild/8.10.3",
+      "hashPath": "ikvm.msbuild.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IsesbYHtWYZXJp9rmL3yUUrbXueUtThoAFfL76/q9BXsMMp9ycCjKFLkQVuDYQltRIO0YKYKixPKbUIdnpQ3mQ==",
+      "path": "ikvm.msbuild.tools/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools.runtime.linux-arm/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6cyS6I9XQSm/QAh9bLUlAQZyTnXz2vrUesSTXlvXvG7VBHYb+iOz30m+JYO+3eLQ7mYOyMQpJ0x9sw4tTbLHTQ==",
+      "path": "ikvm.msbuild.tools.runtime.linux-arm/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.runtime.linux-arm.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools.runtime.linux-arm64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2aIhjuQegskpr0pZ1zdvNSCyh6Te1k6IeOHJa9bbesDWICqy/1QdMaFpfDiFE8qtg5+pShxEZBCiLHFoGWB2MQ==",
+      "path": "ikvm.msbuild.tools.runtime.linux-arm64/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.runtime.linux-arm64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools.runtime.linux-x64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HeNbVr0aOnNNlxG5ZY80SXi8GyJHShjvAjwdch5ChGkR4IKlqsOkD5YB5ya0Bz2QWq8OUFAlxdRN+EROMkMmbQ==",
+      "path": "ikvm.msbuild.tools.runtime.linux-x64/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.runtime.linux-x64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools.runtime.osx-arm64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JkrzwsDarhC23cU/pJ+o52XbYEDLoMs04RdMqL5UB/ULQzFg1okfmy1PnRCwGZJ4s+kwBy+3bPbjDAPuJLuLkQ==",
+      "path": "ikvm.msbuild.tools.runtime.osx-arm64/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.runtime.osx-arm64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools.runtime.osx-x64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sQcCDaeTbwEbYeA2aRrXD9+7Qo0FSW/FxYE/Ex8rnvPls/TZSqS9Hv/HwlFcy6JwN9VUNpxRizqUsMMWygOPkA==",
+      "path": "ikvm.msbuild.tools.runtime.osx-x64/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.runtime.osx-x64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools.runtime.win-arm64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9vYco6NaOErzcHgMJ1RKqkmCvQYXRuh3iM7mPDygN6V/C8cXibIhxzkpbWaXEXRCX8GEvpzedqlY1QhJ+OgYYg==",
+      "path": "ikvm.msbuild.tools.runtime.win-arm64/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.runtime.win-arm64.8.10.3.nupkg.sha512"
+    },
+    "IKVM.MSBuild.Tools.runtime.win-x64/8.10.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jol2iF1xsYyeEa6Z3w0WAgAJEayq6VzvpAVUB97XGh4/CZ2J4lMBlOr0Iy7ULEE5UFzo985D0no4Vxmvnhanig==",
+      "path": "ikvm.msbuild.tools.runtime.win-x64/8.10.3",
+      "hashPath": "ikvm.msbuild.tools.runtime.win-x64.8.10.3.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyModel/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NSmDw3K0ozNDgShSIpsZcbFIzBX4w28nDag+TfaQujkXGazBm+lid5onlWoCBy4VsLxqnnKjEBbGSJVWJMf43g==",
+      "path": "microsoft.extensions.dependencymodel/8.0.0",
+      "hashPath": "microsoft.extensions.dependencymodel.8.0.0.nupkg.sha512"
+    },
+    "runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A8v6PGmk+UGbfWo5Ixup0lPM4swuSwOiayJExZwKIOjTlFFQIsu3QnDXECosBEyrWSPryxBVrdqtJyhK3BaupQ==",
+      "path": "runtime.native.system.data.sqlclient.sni/4.4.0",
+      "hashPath": "runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LbrynESTp3bm5O/+jGL8v0Qg5SJlTV08lpIpFesXjF6uGNMWqFnUQbYBJwZTeua6E/Y7FIM1C54Ey1btLWupdg==",
+      "path": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0",
+      "hashPath": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "runtime.win-x64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-38ugOfkYJqJoX9g6EYRlZB5U2ZJH51UP8ptxZgdpS07FgOEToV+lS11ouNK2PM12Pr6X/PpT5jK82G3DwH/SxQ==",
+      "path": "runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0",
+      "hashPath": "runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "runtime.win-x86.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
+      "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
+      "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "System.Data.Odbc/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c+GfnZt2/HyU+voKw2fctLZClcNjPZPWS+mnIhGvDknRMqL/fwWlREWPgA4csbp9ZkQIgB4qkufgdh/oh5Ubow==",
+      "path": "system.data.odbc/8.0.0",
+      "hashPath": "system.data.odbc.8.0.0.nupkg.sha512"
+    },
+    "System.Data.SqlClient/4.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-j4KJO+vC62NyUtNHz854njEqXbT8OmAa5jb1nrGfYWBOcggyYUQE0w/snXeaCjdvkSKWuUD+hfvlbN8pTrJTXg==",
+      "path": "system.data.sqlclient/4.9.0",
+      "hashPath": "system.data.sqlclient.4.9.0.nupkg.sha512"
+    },
+    "System.Text.Encoding.CodePages/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OZIsVplFGaVY90G2SbpgU7EnCoOO5pw1t4ic21dBF3/1omrJFpAGoNAVpPyMVOC90/hvgkGG3VFqR13YgZMQfg==",
+      "path": "system.text.encoding.codepages/8.0.0",
+      "hashPath": "system.text.encoding.codepages.8.0.0.nupkg.sha512"
+    },
+    "System.Text.Encodings.Web/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ==",
+      "path": "system.text.encodings.web/8.0.0",
+      "hashPath": "system.text.encodings.web.8.0.0.nupkg.sha512"
+    },
+    "System.Text.Json/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OdrZO2WjkiEG6ajEFRABTRCi/wuXQPxeV6g8xvUJqdxMvvuCCEk86zPla8UiIQJz3durtUEbNyY/3lIhS0yZvQ==",
+      "path": "system.text.json/8.0.0",
+      "hashPath": "system.text.json.8.0.0.nupkg.sha512"
+    },
+    "DataAccessLayer/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.ASPxSpreadsheet.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.ASPxTreeList.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.Mvc5.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraBars.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraCharts.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraCharts.v15.1.Web/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraGauges.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraGauges.v15.1.Presets/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraGauges.v15.1.Win/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraMap.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraPivotGrid.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraPrinting.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraReports.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraReports.v15.1.Extensions/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraReports.v15.1.Web/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraScheduler.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraTreeList.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocumentFormat.OpenXml/2.7.2.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Office.Interop.Excel/12.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web.Helpers/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web.Mvc/5.2.9.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Spreadsheet.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Data.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Office.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Printing.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Charts.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.ASPxHtmlEditor.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.ASPxSpellChecker.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.ASPxPivotGrid.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.PivotGrid.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.ASPxRichEdit.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Web.ASPxScheduler.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.RichEdit.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.SpellChecker.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Utils.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraEditors.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.XtraLayout.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Map.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Sparkline.v15.1.Core/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.DataAccess.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "office/12.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Vbe.Interop/12.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web.WebPages/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web.Razor/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Web.Infrastructure/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DevExpress.Xpo.v15.1/15.1.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "stdole/7.0.3300.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Web.WebPages.Deployment/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

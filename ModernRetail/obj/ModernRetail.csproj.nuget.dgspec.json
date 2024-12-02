@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj": {}
+    "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj": {}
   },
   "projects": {
-    "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj": {
+    "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
+        "projectUniqueName": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
         "projectName": "ModernRetail",
-        "projectPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
-        "packagesPath": "C:\\Users\\Sanchita_Saha\\.nuget\\packages\\",
-        "outputPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\obj\\",
+        "projectPath": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
+        "packagesPath": "C:\\Users\\Priti_Roy\\.nuget\\packages\\",
+        "outputPath": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sanchita_Saha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Priti_Roy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "IKVM": {
+              "target": "Package",
+              "version": "[8.10.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.9.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -63,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

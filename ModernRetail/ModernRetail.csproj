@@ -1,9 +1,86 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IKVM" Version="8.10.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DataAccessLayer">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DataAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.Web.ASPxSpreadsheet.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.Web.ASPxTreeList.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.Mvc5.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.Web.Mvc5.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.Web.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraBars.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraCharts.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v15.1.Web">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraCharts.v15.1.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v15.1.Core">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraGauges.v15.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v15.1.Presets">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraGauges.v15.1.Presets.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v15.1.Win">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraGauges.v15.1.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraMap.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraMap.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraPivotGrid.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraPrinting.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraReports.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v15.1.Extensions">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraReports.v15.1.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v15.1.Web">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraReports.v15.1.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v15.1.Core">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraScheduler.v15.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v15.1">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraTreeList.v15.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel">
+      <HintPath>..\..\BreezeFSMGIT_VS22\TargetVsAchievement\bin\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>bin\Debug\net8.0\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>
