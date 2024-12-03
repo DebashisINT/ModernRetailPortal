@@ -1,6 +1,0 @@
-@RetailAPI_HostAddress = http://localhost:5239
-
-GET {{RetailAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
