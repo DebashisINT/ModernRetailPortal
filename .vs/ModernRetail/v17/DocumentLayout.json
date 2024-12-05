@@ -1,12 +1,98 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\GITHUB\\ModernRetailPortal\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|UtilityLayer||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ModernRetailAPI||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Reports||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|BusinessLogicLayer||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ModernRetail||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EF4694B-5BDD-4166-BC99-A29CB30EDE60}|ModernRetailAPI\\ModernRetailAPI.csproj|d:\\github\\modernretailportal\\modernretailapi\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F45F4C2-A1B9-4AEA-9F77-72B9F864B593}|UtilityLayer\\UtilityLayer.csproj|d:\\github\\modernretailportal\\utilitylayer\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UtilityLayer",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\UtilityLayer\\UtilityLayer.csproj",
+              "RelativeDocumentMoniker": "UtilityLayer\\UtilityLayer.csproj",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\UtilityLayer\\UtilityLayer.csproj",
+              "RelativeToolTip": "UtilityLayer\\UtilityLayer.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-05T05:36:11.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ModernRetailAPI",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetailAPI\\ModernRetailAPI.csproj",
+              "RelativeDocumentMoniker": "ModernRetailAPI\\ModernRetailAPI.csproj",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetailAPI\\ModernRetailAPI.csproj",
+              "RelativeToolTip": "ModernRetailAPI\\ModernRetailAPI.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-05T05:35:59.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Reports",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\Reports\\Reports.csproj",
+              "RelativeDocumentMoniker": "Reports\\Reports.csproj",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\Reports\\Reports.csproj",
+              "RelativeToolTip": "Reports\\Reports.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-05T05:35:51.588Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BusinessLogicLayer",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "RelativeToolTip": "BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-05T05:32:52.479Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ModernRetail",
+              "DocumentMoniker": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
+              "RelativeDocumentMoniker": "ModernRetail\\ModernRetail.csproj",
+              "ToolTip": "D:\\GITHUB\\ModernRetailPortal\\ModernRetail\\ModernRetail.csproj",
+              "RelativeToolTip": "ModernRetail\\ModernRetail.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-05T05:32:22.192Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
