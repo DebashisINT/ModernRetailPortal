@@ -110,3 +110,17 @@ D:\GITHUB\ModernRetailPortal\UtilityLayer\bin\Debug\BusinessLogicLayer.pdb
 D:\GITHUB\ModernRetailPortal\UtilityLayer\bin\Debug\EntityLayer.pdb
 D:\GITHUB\ModernRetailPortal\UtilityLayer\bin\Debug\DataAccessLayer.pdb
 D:\GITHUB\ModernRetailPortal\UtilityLayer\obj\Debug\UtilityL.BC4B101D.Up2Date
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\UtilityLayer.pdb
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\BusinessLogicLayer.dll
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\EntityLayer.dll
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\DataAccessLayer.dll
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\Aspose.Pdf.Kit.dll
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\Ionic.Zip.dll
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\BusinessLogicLayer.pdb
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\EntityLayer.pdb
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\bin\Debug\DataAccessLayer.pdb
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\obj\Debug\UtilityLayer.csproj.AssemblyReference.cache
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\obj\Debug\UtilityLayer.csproj.CoreCompileInputs.cache
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\obj\Debug\UtilityL.BC4B101D.Up2Date
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\obj\Debug\UtilityLayer.dll
+D:\PROJECTS\ModernRetailPortal\UtilityLayer\obj\Debug\UtilityLayer.pdb
