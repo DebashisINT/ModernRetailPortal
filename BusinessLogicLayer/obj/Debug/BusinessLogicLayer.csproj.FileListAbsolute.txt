@@ -119,3 +119,14 @@ D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.dll
 D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
 D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.pdb
 D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\obj\Debug\Business.450209FB.Up2Date
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.dll
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.pdb
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.AssemblyReference.cache
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\Business.450209FB.Up2Date
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
