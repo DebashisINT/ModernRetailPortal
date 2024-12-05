@@ -112,3 +112,10 @@ D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csp
 D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
 D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
 D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.dll
+D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.pdb
+D:\GITHUB\ModernRetailPortal\BusinessLogicLayer\obj\Debug\Business.450209FB.Up2Date
