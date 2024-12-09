@@ -795,9 +795,116 @@
 </style>
 <script>
 
+    var ID = 0;
+    var urlKeys = getUrlVars();
     function BranchAdd() {
-        window.location.href = '/BranchMaster/Index';
+        window.location.href = '/BranchMaster/BranchMasterList';
     }
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+    if (urlKeys.key != 'Add' ) {
+        ID = urlKeys.key;
+        $("#hdnAdd").val(ID);
+        if (ID != 0) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("EditBranch", "BranchMaster")",
+            data: { id: ID },
+            success: function (response) {
+                if (response.code == "") {
+                    jAlert('No data found');
+                }
+                else {
+                    $("#ShortName").val(response.ShortName);
+                    $("#ddlParentBranch").val(response.ParentBranch);
+
+
+                    $("#BranchName").val(response.BranchName);
+                    $("#Address1").val(response.Address1);
+                    $("#ddlCountry").val(response.Country);
+                    EditCountryOnChange(response.State);
+                    EditStateOnChange(response.City);
+                    EditCityOnChange(response.PIN);
+
+
+
+                }
+            }
+        });
+    }
+    }
+
+
+    function EditCountryOnChange(State) {
+    var CountryID = $('#ddlCountry option:selected').val();
+         $.ajax({
+             type: "POST",
+             url: "@Url.Action("GetState", "BranchMaster")",
+             data: { CountryID: CountryID },
+             async: false,
+             success: function (response) {
+                 $('#ddlState').html('');
+                 var html = "";
+                 for (var i = 0; i < response.length; i++) {
+                     html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+                 }
+                 $('#ddlState').html(html);
+
+                 $('#ddlState').val(State);
+
+             }
+         });
+    }
+
+    function EditStateOnChange(City) {
+    var StateID = $('#ddlState option:selected').val();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GETCITY", "BranchMaster")",
+            data: { StateID: StateID },
+            async: false,
+            success: function (response) {
+                $('#ddlCity').html('');
+                var html = "";
+                for (var i = 0; i < response.length; i++) {
+                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+                }
+                $('#ddlCity').html(html);
+                $('#ddlCity').val(City);
+            }
+        });
+}
+    function EditCityOnChange(PIN) {
+    var CityID = $('#ddlCity option:selected').val();
+    $.ajax({
+        type: "POST",
+        url: "@Url.Action("GETPINZIP", "BranchMaster")",
+        data: { CityID: CityID },
+        async: false,
+        success: function (response) {
+            $('#ddlPIN').html('');
+            var html = "";
+            for (var i = 0; i < response.length; i++) {
+                html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+            }
+            $('#ddlPIN').html(html);
+
+            $('#ddlPIN').val(PIN);
+        }
+    });
+}
 
     function CountryOnChange() {
         var CountryID = $('#ddlCountry option:selected').val();
@@ -813,6 +920,8 @@
 
              }
              $('#ddlState').html(html);
+
+
          }
      });
     }
@@ -857,7 +966,7 @@
     $("#hdnAdd").val("0");
     savemode = mode;
     hasmsg = 0;
-    var ShortName = $('#ShortName').val();    
+    var ShortName = $('#ShortName').val();
     var ParentBranch = $('#ddlParentBranch option:selected').val();
     var BranchName = $('#BranchName').val();
     var Address1 = $('#Address1').val();
@@ -865,53 +974,84 @@
         var State = $('#ddlState option:selected').val();
         var City = $('#ddlCity option:selected').val();
         var PIN = $('#ddlPIN option:selected').val();
-        
-        
-        
-        
-
-    //    if (ParentBranch.trim() == "Select" || TargetLevel.trim() == "") {
-    //    // SweetAlert for empty category description
-    //    Swal.fire({
-    //        icon: 'warning',
-    //        title: 'Sorry!',
-    //        text: 'Please Select Target Level to proceed.'
-    //    });
-    //    return false;
-    //}
-    //else if ($("#ShortName").val().trim() == "") {
-    //    // SweetAlert for empty category name
-    //    Swal.fire({
-    //        icon: 'warning',
-    //        title: 'Sorry!',
-    //        text: 'Please Enter Short Name to proceed'
-    //    });
-    //    return false;
-    //} else if (TargetDate.trim() == "") {
-    //    // SweetAlert for empty category description
-    //    Swal.fire({
-    //        icon: 'warning',
-    //        title: 'Sorry!',
-    //        text: 'Please Select Target Date to proceed.'
-    //    });
-    //    return false;
-    //}
-
-    //var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
-    //if (noofvisiblerows == 0) {
-    //    Swal.fire({
-    //        icon: 'warning',
-    //        title: 'Sorry!',
-    //        text: 'Please Add One Target For to proceed.'
-    //    });
-    //    return false;
-    //}
 
 
 
-    //var TargetNo = $('#SalesTargetNo').val();
-    //var TargetDate = GetServerDateFormat(SalesTargetDate.GetValue());
-    //var TargetLevel = $('#ddlTargetLevel option:selected').val();
+
+        if ($("#ShortName").val().trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please Enter Short Name to proceed'
+            });
+            return false;
+        }
+        else if (ParentBranch.trim() == "Select" || TargetLevel.trim() == "") {
+        // SweetAlert for empty category description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Select Parent Branch to proceed.'
+        });
+        return false;
+    }
+        else if (BranchName.trim() == "") {
+        // SweetAlert for empty category description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Enter Branch Name to proceed.'
+        });
+        return false;
+    }
+        else if (Address1.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please Enter Address1 to proceed.'
+            });
+            return false;
+        }
+   
+        else if (Country.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please select country to proceed.'
+            });
+            return false;
+        }
+        else if (State.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please select state to proceed.'
+            });
+            return false;
+        }
+        else if (City.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please select city to proceed.'
+            });
+            return false;
+        }
+        else if (PIN.trim() == "") {
+            // SweetAlert for empty category description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please select pin to proceed.'
+            });
+            return false;
+        }
+    
     var hdnDetailsID = $('#hdnDetailsID').val();
 
     var data = {
@@ -927,7 +1067,7 @@
     }
 
 
-    
+
 
 
     $.ajax({
@@ -953,14 +1093,14 @@
                     Swal.fire({
                         title: 'Success!',
                         /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
-                        html: 'Sales Target Number: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
+                        html: 'Branch: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             if (savemode === "Exit") {
                                 setTimeout(function () {
-                                    var url = $('#hdnListPage').val();
+                                    var url = '/BranchMaster/BranchMasterList';
                                     window.location.href = url;
                                 }, 500);
                             }
@@ -984,12 +1124,34 @@
             }
         }
     });
+    }
 
+    function CancelAdd() {
+        if ($("#hdnAdd").val() == "1") {
+            Swal.fire({
+                title: 'Are you sure you want to Close with out save data.?',
+                text: "This action cannot be undone!",
+                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                imageWidth: 40, // Adjust the width as needed
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/BranchMaster/BranchMasterList';
 
-}
+                }
+            });
+        }
+
+        else {
+            window.location.href = '/BranchMaster/BranchMasterList';
+        }
+
+    }
 </script>
-
-
 <div class="breadCumb">
     <span id="HeaderLableID">Branch</span>
     <div id="ApprovalCross" onclick="BranchAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
@@ -1012,7 +1174,6 @@
                 "Select",
                 new { @id = "ddlParentBranch", @class = "form-control" }
             )
-
             </div>
             <div class="col-sm-3">
                 <label>Branch Name<span style="color:red">*</span></label>
@@ -1020,14 +1181,12 @@
                     @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control", @MaxLength = "100" })
                 </div>
             </div>
-
             <div class="col-sm-6">
                 <label>Address1<span style="color:red">*</span></label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @MaxLength = "500" })
                 </div>
             </div>
-            
             <div class="col-sm-3  h-branch-select">
                 <label>Country<span style="color:red">*</span></label>
                 @Html.DropDownListFor(
@@ -1036,9 +1195,7 @@
                 "Select",
                 new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
             )
-
             </div>
-
             <div class="col-sm-3  h-branch-select">
                 <label>State<span style="color:red">*</span></label>
                 <div>
@@ -1059,15 +1216,15 @@
                     <select id="ddlPIN" class="form-control"></select>
                 </div>
             </div>
-            <div class="clear"></div>            
-                <div class="mt-4">
-                    @if (Convert.ToInt16(ViewBag.IsView) == 0)
-                    {
-                        <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
-                    }
-                    <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+            <div class="clear"></div>
+            <div class="mt-4">
+                @if (Convert.ToInt16(ViewBag.IsView) == 0)
+                {
+                    <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
+                }
+                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
-                </div>           
+            </div>
         </div>
     </div>
 

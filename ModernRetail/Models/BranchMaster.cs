@@ -9,6 +9,7 @@ namespace ModernRetail.Models
 {
     public class BranchMaster
     {
+        public string Is_PageLoad { get; set; }
         public Int64 branch_ID { get; set; }
         public string ShortName { get; set; }
         public string ParentBranch { get; set; }
@@ -60,7 +61,32 @@ namespace ModernRetail.Models
             return ds;
         }
 
+        public DataSet EditBranch(string ID)
+        {
+            ProcedureExecute proc;
+            int rtrnvalue = 0;
+            DataSet dt = new DataSet();
+            try
+            {
+                using (proc = new ProcedureExecute("PRC_MR_BRANCHDETAILS"))
+                {
+                    proc.AddVarcharPara("@BRANCH_ID", 100, ID);
+                    proc.AddVarcharPara("@ACTION", 100, "EDIT");
+                    dt = proc.GetDataSet();
+                    return dt;
+                }
+            }
 
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                proc = null;
+            }
+        }
 
 
     }

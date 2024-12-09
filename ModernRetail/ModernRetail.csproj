@@ -202,6 +202,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -290,6 +291,11 @@
     </Compile>
     <Compile Include="Models\BranchMaster.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ModernRetail.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModernRetail.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1034,6 +1040,14 @@
     <Content Include="assests\pluggins\Transfer\icon_font\font\iconfont.eot" />
     <Content Include="assests\pluggins\Transfer\icon_font\font\iconfont.ttf" />
     <Content Include="assests\pluggins\Transfer\icon_font\font\iconfont.woff" />
+    <Content Include="Models\ModernRetail.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ModernRetail.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Models\ModernRetail.dbml.layout">
+      <DependentUpon>ModernRetail.dbml</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1062,6 +1076,8 @@
     <Content Include="Views\Common\_PartialMenu.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\BranchMaster\Index.cshtml" />
+    <Content Include="Views\BranchMaster\_PartialBranchMasterList.cshtml" />
+    <Content Include="Views\BranchMaster\BranchMasterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1105,6 +1121,9 @@
       <Project>{d31c544e-8eb6-4a69-b0f2-9c46ff7fc533}</Project>
       <Name>EntityLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
