@@ -1,4 +1,9 @@
-﻿using System;
+﻿#region======================================Revision History=========================================================
+//Written By : Debashis Talukder On 09/12/2024
+//Purpose: LMS Info Details.Row: 2
+#endregion===================================End of Revision History==================================================
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,27 +25,10 @@ namespace ModernRetailAPI.Controllers
 {
     public class UserLoginController : ApiController
     {
-        string Address_ShortName = "";
-        string Address_country = "";
-        string Address_administrative_area_level_1 = "";
-        string Address_administrative_area_level_2 = "";
-        string Address_administrative_area_level_3 = "";
-        string Address_colloquial_area = "";
-        string Address_locality = "";
-        string Address_sublocality = "";
-        string Address_neighborhood = "";
-
-
-        [HttpPost]
-        public HttpResponseMessage Login(ClassLogin model)
+       [HttpPost]
+        public HttpResponseMessage Login(MDRUserLoginModel model)
         {
-            //ClassLoginOutput omodel = new ClassLoginOutput();
             MDRClassLoginOutput omodel = new MDRClassLoginOutput();
-            UserClass oview = new UserClass();
-            UserClasscounting ocounting = new UserClasscounting();
-            List<WorkTypeslogin> worktype = new List<WorkTypeslogin>();
-            List<StateListLogin> statelist = new List<StateListLogin>();
-            MDRUserClass oviewMDR = new MDRUserClass();
 
             try
             {
@@ -52,182 +40,84 @@ namespace ModernRetailAPI.Controllers
                 }
                 else
                 {
-                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
-                    String profileImg = System.Configuration.ConfigurationManager.AppSettings["ProfileImageURL"];
+                    string token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
+                    string profileImg = System.Configuration.ConfigurationManager.AppSettings["ProfileImageURL"];
                     Encryption epasswrd = new Encryption();
-                    string Encryptpass = epasswrd.Encrypt(model.password);
+                    string Encryptpass = epasswrd.Encrypt(model.login_password);
                     string sessionId = "";
 
 
                     sessionId = HttpContext.Current.Session.SessionID;
                     string location_name = "Login from ";
-                   // location_name = "Login from  " + RetrieveFormatedAddressNew(model.latitude, model.longitude);
 
-                    if(!string.IsNullOrEmpty(model.address))
-                    {
-
-                        location_name =location_name + model.address;
-                    }
-
-                    //  location_name = "Login from  " + RetrieveFormatedAddress(Convert.ToDouble(model.latitude), Convert.ToDouble(model.longitude));
-
-
-                    DataSet dt = new DataSet();
+                    DataTable dt = new DataTable();
                     String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                     SqlCommand sqlcmd = new SqlCommand();
 
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcon.Open();
 
-
-                    //sqlcmd = new SqlCommand("Sp_ApiShopUserLogin", sqlcon);
-                    //sqlcmd.Parameters.AddWithValue("@userName", model.username);
-                    //sqlcmd.Parameters.AddWithValue("@password", Encryptpass);
-                    //sqlcmd.Parameters.AddWithValue("@SessionToken", sessionId);
-                    //sqlcmd.Parameters.AddWithValue("@latitude", model.latitude);
-                    //sqlcmd.Parameters.AddWithValue("@longitude", model.longitude);
-                    //sqlcmd.Parameters.AddWithValue("@login_time", model.login_time);
-                    //sqlcmd.Parameters.AddWithValue("@ImeiNo", model.Imei);
-                    //sqlcmd.Parameters.AddWithValue("@location_name", location_name);
-                    //sqlcmd.Parameters.AddWithValue("@version_name", model.version_name);
-                    //sqlcmd.Parameters.AddWithValue("@Weburl", profileImg);
-                    //sqlcmd.Parameters.AddWithValue("@device_token", model.device_token);
-
-
-                    //if (dt.Tables[1].Rows.Count > 0)
-                    //{
-
-                    //    if (Convert.ToString(dt.Tables[1].Rows[0]["success"]) == "200")
-                    //    {
-                    //        oview = APIHelperMethods.ToModel<UserClass>(dt.Tables[1]);
-                    //        ocounting = APIHelperMethods.ToModel<UserClasscounting>(dt.Tables[0]);
-                    //        if (dt.Tables.Count == 3)
-                    //        {
-                    //            if (dt.Tables[2] != null && dt.Tables[2].Rows.Count > 0)
-                    //            {
-                    //                statelist = APIHelperMethods.ToModelList<StateListLogin>(dt.Tables[2]);
-                    //            }
-                    //        }
-
-                    //        omodel.status = "200";
-                    //        omodel.session_token = sessionId;
-                    //        omodel.user_details = oview;
-                    //        omodel.user_count = ocounting;
-                    //        omodel.state_list = statelist;
-                    //        omodel.message = "User successfully logged in.";
-
-                    //    }
-
-                    //    else if (Convert.ToString(dt.Tables[1].Rows[0]["success"]) == "207")
-                    //    {
-                    //        omodel.status = "207";
-                    //        omodel.message = "Your IMEI is not authorized. Please contact with Administrator";
-                    //    }
-
-                    //    else if (Convert.ToString(dt.Tables[1].Rows[0]["success"]) == "202")
-                    //    {
-                    //        omodel.status = "202";
-                    //        omodel.message = "Invalid user credential.";
-                    //    }
-
-                    //    else if (Convert.ToString(dt.Tables[1].Rows[0]["success"]) == "220")
-                    //    {
-                    //        omodel.status = "220";
-                    //        omodel.message = "Login time expired for the day.";
-                    //    }
-                    //    else if (Convert.ToString(dt.Tables[1].Rows[0]["success"]) == "206")
-                    //    {
-                    //        omodel.status = "206";
-                    //        omodel.message = Convert.ToString(dt.Tables[1].Rows[0]["Dynamic_message"]);// "New version is available now. Please update it from the Play Store. Unless you can't login into the app. ";//Html.fromHtml('http://www.google.com')"
-                    //    }
-
-                    //}
-                    //else
-                    //{
-                    //    omodel.status = "202";
-                    //    omodel.message = "Invalid user credential.";
-
-                    //}
-
-
-                    sqlcmd = new SqlCommand("PRC_MDR_ApiUserLogin", sqlcon);
-                    sqlcmd.Parameters.AddWithValue("@userName", model.username);
-                    sqlcmd.Parameters.AddWithValue("@password", Encryptpass);
-                    sqlcmd.Parameters.AddWithValue("@version_name", model.version_name);
-                    sqlcmd.Parameters.AddWithValue("@device_token", model.device_token);
-                    sqlcmd.Parameters.AddWithValue("@SessionToken", sessionId);
+                    sqlcmd = new SqlCommand("PRC_MDRAPIUSERLOGIN", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@LOGIN_ID", model.login_id);
+                    sqlcmd.Parameters.AddWithValue("@LOGIN_PASSWORD", Encryptpass);
+                    sqlcmd.Parameters.AddWithValue("@APP_VERSION", model.app_version);
+                    sqlcmd.Parameters.AddWithValue("@DEVICE_TOKEN", model.device_token);
+                    sqlcmd.Parameters.AddWithValue("@Weburl", profileImg);
 
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                     da.Fill(dt);
                     sqlcon.Close();
 
-                    if (dt.Tables[0].Rows.Count > 0)
+                    if (dt.Rows.Count > 0)
                     {
 
-                        if (Convert.ToString(dt.Tables[0].Rows[0]["success"]) == "200")
+                        if (Convert.ToString(dt.Rows[0]["success"]) == "200")
                         {
-                            oviewMDR = APIHelperMethods.ToModel<MDRUserClass>(dt.Tables[0]);
-                            //ocounting = APIHelperMethods.ToModel<UserClasscounting>(dt.Tables[0]);
-                            if (dt.Tables.Count == 2)
-                            {
-                                if (dt.Tables[1] != null && dt.Tables[1].Rows.Count > 0)
-                                {
-                                    statelist = APIHelperMethods.ToModelList<StateListLogin>(dt.Tables[1]);
-                                }
-                            }
-
                             omodel.status = "200";
-                            omodel.session_token = sessionId;
-                            omodel.user_details = oviewMDR;
-                            // omodel.user_count = ocounting;
-                            omodel.state_list = statelist;
                             omodel.message = "User successfully logged in.";
-
+                            omodel.user_name = Convert.ToString(dt.Rows[0]["user_name"]);
+                            omodel.user_id = Convert.ToString(dt.Rows[0]["user_id"]);
+                            omodel.contact_number = Convert.ToString(dt.Rows[0]["contact_number"]);
+                            omodel.email = Convert.ToString(dt.Rows[0]["email"]);
+                            omodel.city = Convert.ToString(dt.Rows[0]["city"]);
+                            omodel.state = Convert.ToString(dt.Rows[0]["state"]);
+                            omodel.country = Convert.ToString(dt.Rows[0]["country"]);
+                            omodel.pincode = Convert.ToString(dt.Rows[0]["pincode"]);
+                            omodel.address = Convert.ToString(dt.Rows[0]["address"]);
+                            omodel.profile_pic_url = Convert.ToString(dt.Rows[0]["profile_pic_url"]);
                         }
-
-                        else if (Convert.ToString(dt.Tables[0].Rows[0]["success"]) == "202")
+                        else if (Convert.ToString(dt.Rows[0]["success"]) == "202")
                         {
                             omodel.status = "202";
                             omodel.message = "Invalid user credential.";
                         }
-                        else if (Convert.ToString(dt.Tables[0].Rows[0]["success"]) == "206")
+                        else if (Convert.ToString(dt.Rows[0]["success"]) == "206")
                         {
                             omodel.status = "206";
-                            omodel.message = Convert.ToString(dt.Tables[0].Rows[0]["Dynamic_message"]);// "New version is available now. Please update it from the Play Store. Unless you can't login into the app. ";//Html.fromHtml('http://www.google.com')"
+                            omodel.message = Convert.ToString(dt.Rows[0]["Dynamic_message"]);// "New version is available now. Please update it from the Play Store. Unless you can't login into the app. ";//Html.fromHtml('http://www.google.com')"
                         }
-
                     }
                     else
                     {
                         omodel.status = "202";
                         omodel.message = "Invalid user credential.";
-
                     }
 
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
                 }
-
             }
             catch (Exception ex)
             {
-
-
                 omodel.status = "209";
-
                 omodel.message = ex.Message;
                 var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                 return message;
             }
-
         }
 
-
-
         string location = string.Empty;
-
-
 
         public string RetrieveFormatedAddress(string lat, string lng)
         {
@@ -249,15 +139,8 @@ namespace ModernRetailAPI.Controllers
             {
                 locationName = "";
             }
-
-
-
-
             return locationName;
-
-        }
-
-       
+        }       
 
         public static string RetrieveFormatedAddressNew(string lat, string lng)
         {
@@ -292,27 +175,6 @@ namespace ModernRetailAPI.Controllers
   "http://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=true";
 
 
-        //public static string RetrieveFormatedAddress(double lat, double lng)
-        //{
-        //    string locationfetch = "";
-        //    string url = "https://maps.google.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false&key=AIzaSyBif3telvlrJn61kkLXDQA0ViQdDVJWifk";
-        //    url = string.Format(url, lat, lng);
-        //    WebRequest request = WebRequest.Create(url);
-        //    using (WebResponse response = (HttpWebResponse)request.GetResponse())
-        //    {
-        //        using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-        //        {
-        //            DataSet dsResult = new DataSet();
-        //            dsResult.ReadXml(reader);
-        //            locationfetch = dsResult.Tables["result"].Rows[0]["formatted_address"].ToString();
-        //        }
-        //    }
-        //    return locationfetch;
-        //}
-
-
-
-
         [HttpPost]
         public HttpResponseMessage SubmitHomeLocation(UserHomeLocation model)
         {
@@ -330,7 +192,7 @@ namespace ModernRetailAPI.Controllers
             }
             else
             {
-                String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
 
                 string sessionId = "";
 
@@ -338,18 +200,18 @@ namespace ModernRetailAPI.Controllers
                 DataTable dt = new DataTable();
                 DataSet ds = new DataSet();
 
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Proc_FTS_UserHomeaddress", sqlcon);
-                sqlcmd.Parameters.Add("@user_id", model.user_id);
-                sqlcmd.Parameters.Add("@latitude", model.latitude);
-                sqlcmd.Parameters.Add("@longitude", model.longitude);
-                sqlcmd.Parameters.Add("@address", model.address);
-                sqlcmd.Parameters.Add("@city", model.city);
-                sqlcmd.Parameters.Add("@state", model.state);
-                sqlcmd.Parameters.Add("@pincode", model.pincode);
+                sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                sqlcmd.Parameters.AddWithValue("@latitude", model.latitude);
+                sqlcmd.Parameters.AddWithValue("@longitude", model.longitude);
+                sqlcmd.Parameters.AddWithValue("@address", model.address);
+                sqlcmd.Parameters.AddWithValue("@city", model.city);
+                sqlcmd.Parameters.AddWithValue("@state", model.state);
+                sqlcmd.Parameters.AddWithValue("@pincode", model.pincode);
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
@@ -357,23 +219,18 @@ namespace ModernRetailAPI.Controllers
                 sqlcon.Close();
                 if (dt.Rows.Count > 0)
                 {
-
                     omodel.status = "200";
                     omodel.message = "Home address submitted successfully.";
-
                 }
                 else
                 {
-
                     omodel.status = "205";
                     omodel.message = "No data found";
-
                 }
 
                 var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                 return message;
             }
-
         }
 
 
@@ -392,21 +249,21 @@ namespace ModernRetailAPI.Controllers
                 }
                 else
                 {
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
                     Encryption epasswrd = new Encryption();
                     string OldEncryptpass = epasswrd.Encrypt(model.old_pwd);
                     string NewEncryptpass = epasswrd.Encrypt(model.new_pwd);
                     string sessionId = "";
 
                     DataTable dt = new DataTable();
-                    String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                     SqlCommand sqlcmd = new SqlCommand();
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcon.Open();
                     sqlcmd = new SqlCommand("PRC_APIUserPasswordChange", sqlcon);
-                    sqlcmd.Parameters.Add("@user_id", model.user_id);
-                    sqlcmd.Parameters.Add("@Old_password", OldEncryptpass);
-                    sqlcmd.Parameters.Add("@New_password", NewEncryptpass);
+                    sqlcmd.Parameters.AddWithValue("@user_id", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@Old_password", OldEncryptpass);
+                    sqlcmd.Parameters.AddWithValue("@New_password", NewEncryptpass);
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                     da.Fill(dt);
@@ -458,15 +315,15 @@ namespace ModernRetailAPI.Controllers
                 }
                 else
                 {
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
                    
                     DataTable dt = new DataTable();
-                    String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                     SqlCommand sqlcmd = new SqlCommand();
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcon.Open();
                     sqlcmd = new SqlCommand("PRC_GetUserLoginByPhone", sqlcon);
-                    sqlcmd.Parameters.Add("@Phone", model.Phone);
+                    sqlcmd.Parameters.AddWithValue("@Phone", model.Phone);
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                     da.Fill(dt);
@@ -510,10 +367,10 @@ namespace ModernRetailAPI.Controllers
                 }
                 else
                 {
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
 
                     DataTable dt = new DataTable();
-                    String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                     SqlCommand sqlcmd = new SqlCommand();
                     SqlConnection sqlcon = new SqlConnection(con);
                     sqlcon.Open();

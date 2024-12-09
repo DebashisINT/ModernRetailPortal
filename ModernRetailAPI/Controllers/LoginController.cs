@@ -39,13 +39,13 @@ namespace ModernRetailAPI.Controllers
             try
             {
  
-                    String token = System.Configuration.ConfigurationSettings.AppSettings["AuthToken"];
+                    String token = System.Configuration.ConfigurationManager.AppSettings["AuthToken"];
                     string sessionId = HttpContext.Session.SessionID;
 
                     DataTable dt = new DataTable();
                     Encryption epasswrd = new Encryption();
-                    string Encryptpass = epasswrd.Encrypt(model.password);
-                    String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                    string Encryptpass = epasswrd.Encrypt(model.login_password);
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
 
                     SqlCommand sqlcmd = new SqlCommand();
 
@@ -53,9 +53,9 @@ namespace ModernRetailAPI.Controllers
                     sqlcon.Open();
 
                     sqlcmd = new SqlCommand("Sp_ApiLogin", sqlcon);
-                    sqlcmd.Parameters.Add("@userName", model.username);
-                    sqlcmd.Parameters.Add("@password", Encryptpass);
-                    sqlcmd.Parameters.Add("@SessionToken", sessionId);
+                    sqlcmd.Parameters.AddWithValue("@userName", model.login_id);
+                    sqlcmd.Parameters.AddWithValue("@password", Encryptpass);
+                    sqlcmd.Parameters.AddWithValue("@SessionToken", sessionId);
                     sqlcmd.CommandType = CommandType.StoredProcedure;
 
                     SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
