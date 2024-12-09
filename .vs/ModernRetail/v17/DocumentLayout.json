@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\PROJECTS\\ModernRetailPortal\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|d:\\projects\\modernretailportal\\modernretailapi\\models\\modelmdr.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\models\\modelmdr.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|d:\\projects\\modernretailportal\\modernretailapi\\controllers\\userlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\controllers\\userlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|d:\\projects\\modernretailportal\\modernretailapi\\models\\mdruserloginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\models\\mdruserloginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +31,45 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MDRUserLoginModel.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\MDRUserLoginModel.cs",
+              "RelativeDocumentMoniker": "ModernRetailAPI\\Models\\MDRUserLoginModel.cs",
+              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\MDRUserLoginModel.cs",
+              "RelativeToolTip": "ModernRetailAPI\\Models\\MDRUserLoginModel.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAA3wCQAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T11:02:57.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ModelMDR.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\ModelMDR.cs",
+              "RelativeDocumentMoniker": "ModernRetailAPI\\Models\\ModelMDR.cs",
+              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\ModelMDR.cs",
+              "RelativeToolTip": "ModernRetailAPI\\Models\\ModelMDR.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAASwA4AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T10:00:19.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserLoginController.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "RelativeDocumentMoniker": "ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "RelativeToolTip": "ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAADgvykAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T06:52:24.391Z",
+              "EditorCaption": ""
             }
           ]
         }

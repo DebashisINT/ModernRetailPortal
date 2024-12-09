@@ -1,10 +1,8 @@
 ﻿#region======================================Revision History=========================================================
-//1.0   V2.0.39     Debashis    21/04/2023      Some new parameters have been added.Row: 819
-//2.0   V2.0.39     Debashis    19/05/2023      Some new parameters have been added.Row: 843
-//3.0   V2.0.42     Debashis    06/10/2023      Some new parameter has been added.Row: 868,869,874 & 875
-//4.0   V2.0.43     Debashis    22/12/2023      Some new parameters have been added.Row: 893,894,896 & 897
-//5.0   V2.0.46     Debashis    26/04/2024      A new parameter has been added.Row: 927
+//Written By : Debashis Talukder On 09/12/2024
+//Purpose: LMS Info Details.Row: 2
 #endregion===================================End of Revision History==================================================
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,9 +21,9 @@ namespace ModernRetailAPI.Models
     public class ClassLogin
     {
         [Required]
-        public string username { get; set; }
+        public string login_id { get; set; }
         [Required]
-        public string password { get; set; }
+        public string login_password { get; set; }
 
         public string latitude { get; set; }
         public string longitude { get; set; }
@@ -34,7 +32,7 @@ namespace ModernRetailAPI.Models
 
         //[Required]
         public string Imei { get; set; }
-        public string version_name { get; set; }
+        public string app_version { get; set; }
         public string address { get; set; }
         public string device_token { get; set; }
 
@@ -42,7 +40,7 @@ namespace ModernRetailAPI.Models
 
     public class ChangePassword
     {
-        public String session_token { get; set; }
+        public string session_token { get; set; }
         [Required]
         public string user_id { get; set; }
         [Required]
@@ -68,15 +66,15 @@ namespace ModernRetailAPI.Models
         public UserClass user_details { get; set; }
 
         public UserClasscounting user_count { get; set; }
-        public List<StateListLogin> state_list { get; set; }
+        //public List<StateListLogin> state_list { get; set; }
     }
 
-    public class StateListLogin
-    {
-        public int id { get; set; }
-        public string state_name { get; set; }
+    //public class StateListLogin
+    //{
+    //    public int id { get; set; }
+    //    public string state_name { get; set; }
 
-    }
+    //}
 
     public class GetUserInput
     {
@@ -159,17 +157,17 @@ namespace ModernRetailAPI.Models
         public string JointVisitSelectedUserName { get; set; }
         public string JointVisit_Employee_Code { get; set; }
         //End of Rev Debashis Row: 781
-        public List<WorkTypeslogin> worktype { get; set; }
+        //public List<WorkTypeslogin> worktype { get; set; }
         public List<RouteDetailsOutputuser> route_list { get; set; }
     }
 
-    public class WorkTypeslogin
-    {
-        public long id { get; set; }
+    //public class WorkTypeslogin
+    //{
+    //    public long id { get; set; }
 
-        public string name { get; set; }
+    //    public string name { get; set; }
 
-    }
+    //}
 
     public class RouteDetailsOutputuser
     {
