@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: LMS Info Details.Row: 2
+//Purpose: Modern Retail Login.Row: 2
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -91,6 +91,16 @@ namespace ModernRetailAPI.Controllers
                         {
                             omodel.status = "202";
                             omodel.message = "Invalid user credential.";
+                            omodel.user_name = "";
+                            omodel.user_id = "";
+                            omodel.contact_number = "";
+                            omodel.email = "";
+                            omodel.city = "";
+                            omodel.state = "";
+                            omodel.country = "";
+                            omodel.pincode = "";
+                            omodel.address = "";
+                            omodel.profile_pic_url = "";
                         }
                         else if (Convert.ToString(dt.Rows[0]["success"]) == "206")
                         {

@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: LMS Info Details.Row: 2
+//Purpose: Modern Retail Login.Row: 2
 #endregion===================================End of Revision History==================================================
 
 using System;
