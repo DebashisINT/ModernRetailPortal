@@ -181,6 +181,7 @@
     <Compile Include="Controllers\LoginConcurrentusersController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\ModernRetailInfoDetailsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\UserHierarchyController.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Models\ModelNotification.cs" />
     <Compile Include="Models\ModelMDR.cs" />
     <Compile Include="Models\Model_Logout.cs" />
+    <Compile Include="Models\ModernRetailInfoDetailsModel.cs" />
     <Compile Include="Models\PushnotificationModel.cs" />
     <Compile Include="Models\MDRdaywiseModel.cs" />
     <Compile Include="Models\UserHierarchyModel.cs" />
