@@ -1,4 +1,4 @@
-﻿using ShopAPI.Models;
+﻿using ModernRetailAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 
-namespace ShopAPI.Controllers
+namespace ModernRetailAPI.Controllers
 {
     public class NotificationController : ApiController
     {

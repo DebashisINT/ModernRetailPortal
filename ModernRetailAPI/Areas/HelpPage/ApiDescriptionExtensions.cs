@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace ShopAPI.Areas.HelpPage
+namespace ModernRetailAPI.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

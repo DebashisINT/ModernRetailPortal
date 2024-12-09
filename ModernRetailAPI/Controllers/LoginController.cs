@@ -1,4 +1,4 @@
-﻿using ShopAPI.Models;
+﻿using ModernRetailAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 
 
-namespace ShopAPI.Controllers
+namespace ModernRetailAPI.Controllers
 {
     public class LoginController : Controller
     {

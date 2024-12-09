@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ShopAPI.Controllers
+namespace ModernRetailAPI.Controllers
 {
     public class HomeController : Controller
     {

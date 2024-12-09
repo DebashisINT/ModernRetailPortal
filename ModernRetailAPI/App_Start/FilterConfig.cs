@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace ShopAPI
+namespace ModernRetailAPI
 {
     public class FilterConfig
     {

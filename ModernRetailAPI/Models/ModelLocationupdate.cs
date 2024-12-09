@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Web;
 using System.Xml;
 
-namespace ShopAPI.Models
+namespace ModernRetailAPI.Models
 {
     public class ModelLocationupdate
     {

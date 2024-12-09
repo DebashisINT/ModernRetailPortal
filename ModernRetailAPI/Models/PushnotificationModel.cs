@@ -16,7 +16,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
-namespace ShopAPI.Models
+namespace ModernRetailAPI.Models
 {
     public class PushnotificationModel
     {

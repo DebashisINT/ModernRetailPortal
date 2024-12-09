@@ -1,4 +1,4 @@
-﻿using ShopAPI.Models;
+﻿using ModernRetailAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Http;
 using System.Xml.Linq;
 
-namespace ShopAPI.Controllers
+namespace ModernRetailAPI.Controllers
 {
     public class LogoutController : ApiController
     {

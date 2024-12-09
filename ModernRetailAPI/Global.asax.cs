@@ -8,7 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.SessionState;
 
-namespace ShopAPI
+namespace ModernRetailAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

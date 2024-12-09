@@ -16,7 +16,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace ShopAPI.Models
+namespace ModernRetailAPI.Models
 {
 
     #region Login
