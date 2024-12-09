@@ -1,5 +1,5 @@
 ﻿/**************************************************************************************************************************************
- * Rev 1.0      V2.0.48     Sanchita        27673: If the settings IsUserWiseLMSFeatureOnly is set as true then in the portal end only LMS dashboard and LMS menu shall be visiible
+ * Rev 1.0      V2.0.48     Sanchita        27673: If the settings IsUserWiseMDRFeatureOnly is set as true then in the portal end only MDR dashboard and MDR menu shall be visiible
  * **************************************************************************************************************************************/
 using DataAccessLayer;
 using EntityLayer.CommonELS;

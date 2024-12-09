@@ -45,8 +45,8 @@ value = value.replace("*.", prefix);
 return value;
 }
 function onError(error, inputElement) {  // 'this' is the form element
-var container = $(this).find("[data-valmsg-for='" + escapeAttributeValue(inputElement[0].name) + "']"),
-replaceAttrValue = container.attr("data-valmsg-replace"),
+var container = $(this).find("[data-vaMDRg-for='" + escapeAttributeValue(inputElement[0].name) + "']"),
+replaceAttrValue = container.attr("data-vaMDRg-replace"),
 replace = replaceAttrValue ? $.parseJSON(replaceAttrValue) !== false : null;
 container.removeClass("field-validation-valid").addClass("field-validation-error");
 error.data("unobtrusiveContainer", container);
@@ -59,7 +59,7 @@ error.hide();
 }
 }
 function onErrors(event, validator) {  // 'this' is the form element
-var container = $(this).find("[data-valmsg-summary=true]"),
+var container = $(this).find("[data-vaMDRg-summary=true]"),
 list = container.find("ul");
 if (list && list.length && validator.errorList.length) {
 list.empty();
@@ -71,7 +71,7 @@ $("<li />").html(this.message).appendTo(list);
 }
 function onSuccess(error) {  // 'this' is the form element
 var container = error.data("unobtrusiveContainer"),
-replaceAttrValue = container.attr("data-valmsg-replace"),
+replaceAttrValue = container.attr("data-vaMDRg-replace"),
 replace = replaceAttrValue ? $.parseJSON(replaceAttrValue) : null;
 if (container) {
 container.addClass("field-validation-valid").removeClass("field-validation-error");
@@ -91,7 +91,7 @@ $form.find(".field-validation-error")
 .addClass("field-validation-valid")
 .removeClass("field-validation-error")
 .removeData("unobtrusiveContainer")
-.find(">*")  // If we were using valmsg-replace, get the underlying error
+.find(">*")  // If we were using vaMDRg-replace, get the underlying error
 .removeData("unobtrusiveContainer");
 }
 function validationInfo(form) {
