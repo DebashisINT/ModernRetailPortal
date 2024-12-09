@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace ShopAPI
+namespace ModernRetailAPI
 {
     public class BundleConfig
     {

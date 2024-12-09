@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using ShopAPI.Models;
+using ModernRetailAPI.Models;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,7 +16,7 @@ using System.Device.Location;
 using System.Data.Spatial;
 using System.Xml;
 
-namespace ShopAPI.Controllers
+namespace ModernRetailAPI.Controllers
 {
     public class UserLoginController : ApiController
     {

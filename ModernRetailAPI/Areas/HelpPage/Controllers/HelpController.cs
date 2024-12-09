@@ -1,9 +1,9 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using ShopAPI.Areas.HelpPage.Models;
+using ModernRetailAPI.Areas.HelpPage.Models;
 
-namespace ShopAPI.Areas.HelpPage.Controllers
+namespace ModernRetailAPI.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

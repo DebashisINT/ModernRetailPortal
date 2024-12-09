@@ -1,7 +1,7 @@
 ﻿#region======================================Revision History=========================================================
 //1.0   V2.0.32     Debashis    17/01/2023      Some new parameters have been added.Row: 798
 #endregion===================================End of Revision History==================================================
-using ShopAPI.Models;
+using ModernRetailAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace ShopAPI.Controllers
+namespace ModernRetailAPI.Controllers
 {
     public class UserHierarchyController : ApiController
     {

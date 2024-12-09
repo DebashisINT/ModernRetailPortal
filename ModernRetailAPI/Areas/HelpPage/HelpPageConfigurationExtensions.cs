@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
-using ShopAPI.Areas.HelpPage.Models;
+using ModernRetailAPI.Areas.HelpPage.Models;
 
-namespace ShopAPI.Areas.HelpPage
+namespace ModernRetailAPI.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {
