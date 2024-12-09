@@ -35,12 +35,12 @@ namespace ModernRetailAPI.Controllers
         public HttpResponseMessage Login(ClassLogin model)
         {
             //ClassLoginOutput omodel = new ClassLoginOutput();
-            LMSClassLoginOutput omodel = new LMSClassLoginOutput();
+            MDRClassLoginOutput omodel = new MDRClassLoginOutput();
             UserClass oview = new UserClass();
             UserClasscounting ocounting = new UserClasscounting();
             List<WorkTypeslogin> worktype = new List<WorkTypeslogin>();
             List<StateListLogin> statelist = new List<StateListLogin>();
-            LMSUserClass oviewLMS = new LMSUserClass();
+            MDRUserClass oviewMDR = new MDRUserClass();
 
             try
             {
@@ -150,7 +150,7 @@ namespace ModernRetailAPI.Controllers
                     //}
 
 
-                    sqlcmd = new SqlCommand("PRC_LMS_ApiUserLogin", sqlcon);
+                    sqlcmd = new SqlCommand("PRC_MDR_ApiUserLogin", sqlcon);
                     sqlcmd.Parameters.AddWithValue("@userName", model.username);
                     sqlcmd.Parameters.AddWithValue("@password", Encryptpass);
                     sqlcmd.Parameters.AddWithValue("@version_name", model.version_name);
@@ -167,7 +167,7 @@ namespace ModernRetailAPI.Controllers
 
                         if (Convert.ToString(dt.Tables[0].Rows[0]["success"]) == "200")
                         {
-                            oviewLMS = APIHelperMethods.ToModel<LMSUserClass>(dt.Tables[0]);
+                            oviewMDR = APIHelperMethods.ToModel<MDRUserClass>(dt.Tables[0]);
                             //ocounting = APIHelperMethods.ToModel<UserClasscounting>(dt.Tables[0]);
                             if (dt.Tables.Count == 2)
                             {
@@ -179,7 +179,7 @@ namespace ModernRetailAPI.Controllers
 
                             omodel.status = "200";
                             omodel.session_token = sessionId;
-                            omodel.user_details = oviewLMS;
+                            omodel.user_details = oviewMDR;
                             // omodel.user_count = ocounting;
                             omodel.state_list = statelist;
                             omodel.message = "User successfully logged in.";
@@ -316,12 +316,12 @@ namespace ModernRetailAPI.Controllers
         [HttpPost]
         public HttpResponseMessage SubmitHomeLocation(UserHomeLocation model)
         {
-            ShopdaywiseOutput omodel = new ShopdaywiseOutput();
-            List<ShopdaywiseList> oview = new List<ShopdaywiseList>();
-            List<ShopdaywiseList> oview1 = new List<ShopdaywiseList>();
+            MDRdaywiseOutput omodel = new MDRdaywiseOutput();
+            List<MDRdaywiseList> oview = new List<MDRdaywiseList>();
+            List<MDRdaywiseList> oview1 = new List<MDRdaywiseList>();
             ShopList odata = new ShopList();
             List<ShopList> shoplst = new List<ShopList>();
-            ShopdaywiseList odelails = new ShopdaywiseList();
+            MDRdaywiseList odelails = new MDRdaywiseList();
             if (!ModelState.IsValid)
             {
                 omodel.status = "213";

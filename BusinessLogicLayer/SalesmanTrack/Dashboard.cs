@@ -422,10 +422,10 @@ namespace BusinessLogicLayer.SalesmanTrack
             return ds;
         }
 
-        public DataSet LINQFORLMSDASHBOARD(string stateid, string branchid)
+        public DataSet LINQFORMDRDASHBOARD(string stateid, string branchid)
         {
             DataSet ds = new DataSet();
-            ProcedureExecute proc = new ProcedureExecute("prc_LMSDASHBOARDDATA");
+            ProcedureExecute proc = new ProcedureExecute("prc_MDRDASHBOARDDATA");
             proc.AddPara("@ACTION", "TOTALCOUNT");
             proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["userid"]));
             proc.AddPara("@STATEID", stateid);           

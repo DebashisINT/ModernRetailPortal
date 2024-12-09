@@ -188,12 +188,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChatModal.cs" />
+    <Compile Include="Models\MDRUserLoginModel.cs" />
     <Compile Include="Models\LoginConcurrentusersModel.cs" />
     <Compile Include="Models\ModelLocationupdate.cs" />
     <Compile Include="Models\ModelNotification.cs" />
-    <Compile Include="Models\ModelShop.cs" />
+    <Compile Include="Models\ModelMDR.cs" />
     <Compile Include="Models\Model_Logout.cs" />
     <Compile Include="Models\PushnotificationModel.cs" />
+    <Compile Include="Models\MDRdaywiseModel.cs" />
     <Compile Include="Models\UserHierarchyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

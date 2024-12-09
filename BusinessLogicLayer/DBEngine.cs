@@ -1484,7 +1484,7 @@ namespace BusinessLogicLayer
                     tem_id = part[1];
                     tem_SenderType = part[2];
                 }
-                int NoOfRowsEffected = InsurtFieldValue(" tbl_trans_email ", " hem_senderemail,hem_mailmsg,hem_mailsub,hem_temid,hem_sendertype,hem_activityid, CreateDate,CreateUser ", "'" + sendermail + "','" + message + "','" + subject + "','" + tem_id + "','" + tem_SenderType + "','','" + DateTime.Now + "', '" + HttpContext.Current.Session["userid"] + "'");
+                int NoOfRowsEffected = InsurtFieldValue(" tbl_trans_email ", " hem_senderemail,hem_maiMDRg,hem_mailsub,hem_temid,hem_sendertype,hem_activityid, CreateDate,CreateUser ", "'" + sendermail + "','" + message + "','" + subject + "','" + tem_id + "','" + tem_SenderType + "','','" + DateTime.Now + "', '" + HttpContext.Current.Session["userid"] + "'");
                 //_______End____//
                 //_______inserting Data in tbl_trans_email_recipient___//
                 string[,] lastID = GetFieldValue(" tbl_trans_email ", " top 1 hem_id ", " CreateUser=" + HttpContext.Current.Session["userid"] + " and hem_mailsub='" + subject + "'", 1, " CreateDate desc ");
