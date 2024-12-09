@@ -227,12 +227,12 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                //EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/LMSCategory/Index");
-                //ViewBag.CanAdd = rights.CanAdd;
-                //ViewBag.CanView = rights.CanView;
-                //ViewBag.CanExport = rights.CanExport;
-                //ViewBag.CanEdit = rights.CanEdit;
-                //ViewBag.CanDelete = rights.CanDelete;
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/BranchMaster/BranchMasterList");
+                ViewBag.CanAdd = rights.CanAdd;
+                ViewBag.CanView = rights.CanView;
+                ViewBag.CanExport = rights.CanExport;
+                ViewBag.CanEdit = rights.CanEdit;
+                ViewBag.CanDelete = rights.CanDelete;
 
                 string Is_PageLoad = string.Empty;
                 DataTable dt = new DataTable();
@@ -467,6 +467,13 @@ namespace ModernRetail.Controllers
                 return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+        public JsonResult Delete(string ID)
+        {
+            int output = 0;
+            output = objdata.DeleteBranch(ID);
+            return Json(output, JsonRequestBehavior.AllowGet);
         }
     }
 
