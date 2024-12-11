@@ -71,6 +71,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_COUNTRYMASTERLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_STATEMASTERLIST> MR_STATEMASTERLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_STATEMASTERLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -500,6 +508,195 @@ namespace ModernRetail.Models
 				if ((this._ModifyUser != value))
 				{
 					this._ModifyUser = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_STATEMASTERLIST")]
+	public partial class MR_STATEMASTERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _STATEID;
+		
+		private string _STATENAME;
+		
+		private string _STATECODE;
+		
+		private string _COUNTRYNAME;
+		
+		private System.Nullable<System.DateTime> _CREATEDATE;
+		
+		private string _CREATEUSER;
+		
+		private System.Nullable<System.DateTime> _MODIFYDATE;
+		
+		private string _MODIFYUSER;
+		
+		public MR_STATEMASTERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATEID", DbType="Int")]
+		public System.Nullable<int> STATEID
+		{
+			get
+			{
+				return this._STATEID;
+			}
+			set
+			{
+				if ((this._STATEID != value))
+				{
+					this._STATEID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATENAME", DbType="NVarChar(250)")]
+		public string STATENAME
+		{
+			get
+			{
+				return this._STATENAME;
+			}
+			set
+			{
+				if ((this._STATENAME != value))
+				{
+					this._STATENAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATECODE", DbType="NVarChar(250)")]
+		public string STATECODE
+		{
+			get
+			{
+				return this._STATECODE;
+			}
+			set
+			{
+				if ((this._STATECODE != value))
+				{
+					this._STATECODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COUNTRYNAME", DbType="NVarChar(250)")]
+		public string COUNTRYNAME
+		{
+			get
+			{
+				return this._COUNTRYNAME;
+			}
+			set
+			{
+				if ((this._COUNTRYNAME != value))
+				{
+					this._COUNTRYNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATEDATE
+		{
+			get
+			{
+				return this._CREATEDATE;
+			}
+			set
+			{
+				if ((this._CREATEDATE != value))
+				{
+					this._CREATEDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEUSER", DbType="NVarChar(100)")]
+		public string CREATEUSER
+		{
+			get
+			{
+				return this._CREATEUSER;
+			}
+			set
+			{
+				if ((this._CREATEUSER != value))
+				{
+					this._CREATEUSER = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFYDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> MODIFYDATE
+		{
+			get
+			{
+				return this._MODIFYDATE;
+			}
+			set
+			{
+				if ((this._MODIFYDATE != value))
+				{
+					this._MODIFYDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFYUSER", DbType="NVarChar(100)")]
+		public string MODIFYUSER
+		{
+			get
+			{
+				return this._MODIFYUSER;
+			}
+			set
+			{
+				if ((this._MODIFYUSER != value))
+				{
+					this._MODIFYUSER = value;
 				}
 			}
 		}

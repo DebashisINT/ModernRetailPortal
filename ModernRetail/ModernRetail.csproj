@@ -50,10 +50,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="BusinessLogicLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\BusinessLogicLayer.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.Charts.v15.1.Core, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\DevExpress.Charts.v15.1.Core.dll</HintPath>
@@ -287,6 +283,7 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\StateMasterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,6 +295,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModernRetail.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\StateMasterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1082,6 +1080,8 @@
     <Content Include="Views\BranchMaster\BranchMasterList.cshtml" />
     <Content Include="Views\Country\Index.cshtml" />
     <Content Include="Views\Country\_PartialCountryList.cshtml" />
+    <Content Include="Views\StateMaster\Index.cshtml" />
+    <Content Include="Views\StateMaster\_PartialStateMasterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1117,6 +1117,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{ea505340-6c3f-4a45-8876-61c0c8a17a5f}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{e0403ce7-71f7-4d02-85d1-1ee7125c1e75}</Project>
       <Name>DataAccessLayer</Name>
