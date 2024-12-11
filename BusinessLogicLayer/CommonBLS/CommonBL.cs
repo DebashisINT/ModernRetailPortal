@@ -17,11 +17,11 @@ namespace BusinessLogicLayer.CommonBLS
 
     public class CommonBL
     {
-        public static void CreateUserRightSession(string url)
+        public static void CreateUserRightSession(string url, string Prefix)
         {
             DestroyUserRightSession();
-            UserRightsForPage rights = GetUserRightsForPage(url);
-            HttpContext.Current.Session["UserRightSession"+url] = rights;
+            UserRightsForPage rights = GetUserRightsForPage(url, Prefix);
+            HttpContext.Current.Session["UserRightSession"+url + Prefix] = rights;
         }
 
         public static void DestroyUserRightSession()
@@ -32,15 +32,15 @@ namespace BusinessLogicLayer.CommonBLS
             }
         }
 
-        public static UserRightsForPage GetUserRightSession(string url)
+        public static UserRightsForPage GetUserRightSession(string url,string Prefix)
         {
 
             
-            if (HttpContext.Current.Session["UserRightSession" + url] != null)
+            if (HttpContext.Current.Session["UserRightSession" + url + Prefix] != null)
             {
                 try
                 {
-                    UserRightsForPage rights = (UserRightsForPage)HttpContext.Current.Session["UserRightSession" + url];
+                    UserRightsForPage rights = (UserRightsForPage)HttpContext.Current.Session["UserRightSession" + url + Prefix];
                     return rights;
                 }
                 catch
@@ -49,11 +49,11 @@ namespace BusinessLogicLayer.CommonBLS
                 }
             }
 
-            CreateUserRightSession(url);
-            return (UserRightsForPage)HttpContext.Current.Session["UserRightSession" + url];
+            CreateUserRightSession(url, Prefix);
+            return (UserRightsForPage)HttpContext.Current.Session["UserRightSession" + url + Prefix];
         }
 
-        public static UserRightsForPage GetUserRightsForPage(string url)
+        public static UserRightsForPage GetUserRightsForPage(string url, string Prefix)
         {
             int usergroupid = 0;
 
@@ -66,6 +66,7 @@ namespace BusinessLogicLayer.CommonBLS
                         ProcedureExecute Proc = new ProcedureExecute(CommonHelperProcedures.Proc_Common);
                         Proc.AddPara("@usergroupid", usergroupid);
                         Proc.AddPara("@url", url);
+                        Proc.AddPara("@Prefix", Prefix);
                         Proc.AddPara("@mode", Proc_Common_Modes.GetUserRightsForPage.ToString());
                         DataTable dt = Proc.GetTable();
                         return DbHelpers.ToModel<UserRightsForPage>(dt);
