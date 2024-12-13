@@ -282,10 +282,12 @@
     <Compile Include="Controllers\CityMasterController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DesignationMasterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
+    <Compile Include="Controllers\SecurityRolesController.cs" />
     <Compile Include="Controllers\StateMasterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -293,6 +295,7 @@
     <Compile Include="Models\BranchMaster.cs" />
     <Compile Include="Models\CityMasterModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\DesignationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ModernRetail.designer.cs">
@@ -1057,6 +1060,8 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\CityMaster\Index.cshtml" />
     <Content Include="Views\CityMaster\_PartialCityMasterList.cshtml" />
+    <Content Include="Views\DesignationMaster\Index.cshtml" />
+    <Content Include="Views\DesignationMaster\_PartialDesignationList.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1081,8 +1086,8 @@
     <Content Include="Views\StateMaster\Index.cshtml" />
     <Content Include="Views\StateMaster\_PartialStateMasterList.cshtml" />
     <Content Include="Views\LogOut\Index.cshtml" />
-    <Content Include="Views\DesignationMaster\Index.cshtml" />
-    <Content Include="Views\DesignationMaster\_PartialDesignationList.cshtml" />
+    <Content Include="Views\SecurityRoles\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1152,7 +1157,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50377</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44392/</IISUrl>
+          <IISUrl>http://localhost:44393/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
