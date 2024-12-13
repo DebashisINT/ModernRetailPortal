@@ -20,5 +20,17 @@
         <elementListCompartment Id="834bca36-84ad-4247-887e-9232a46bcdaf" absoluteBounds="5.89, 1.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="057dc9cb-fe98-43d0-abc7-d5f2b9c537bc" absoluteBounds="3.375, 3.75, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_DESIGNATIONMASTERLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="10ac91dc-6acb-4fe1-b94b-655dfc167454" absoluteBounds="3.39, 4.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="17f7d462-a502-4804-9467-0dab7e02f0ff" absoluteBounds="6.125, 4, 2, 3.1170068359375">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_CITYMASTERLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ea8033ac-8a7c-4274-8338-07ac6ec9d8d4" absoluteBounds="6.14, 4.46, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
