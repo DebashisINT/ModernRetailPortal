@@ -637,7 +637,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right profDrop" aria-labelledby="dropdownMenu2">
 
-                        <li>
+                        @*<li>
                             <a class="dropdown-item" href='@Url.Action("ChangePassword", "Login", new { area = "" })'>
                                 <span class="lnr lnr-keyboard"></span>
                                 <span>Change Password</span>
@@ -648,9 +648,9 @@
                                 <span class="lnr lnr-picture"></span>
                                 <span>Interface Overview</span>
                             </a>
-                        </li>
+                        </li>*@
                         <li>
-                            <a class="dropdown-item" href='@Url.Action("Logout","Login",new { area = "" })'>
+                            <a class="dropdown-item" href='@Url.Action("Index","LogOut",new { area = "" })'>
                                 <span class="lnr lnr-exit"></span>
                                 <span>Logout</span>
                             </a>

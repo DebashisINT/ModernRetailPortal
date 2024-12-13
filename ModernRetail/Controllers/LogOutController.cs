@@ -11,14 +11,14 @@ namespace ModernRetail.Controllers
 {
     public class LogOutController : Controller
     {
-        // GET: Login
+        // GET: LogOut
 
-        LoginModel model = new LoginModel();
-        DBEngine oDBEngine = new DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
+
 
         public ActionResult Index()
         {
-            return View();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
        
     }

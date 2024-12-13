@@ -36,7 +36,7 @@ namespace ModernRetail.Controllers
             Validuser = oDBEngine.AuthenticateUser(omodel.username, Encryptpass).ToString();
             if (Validuser == "Y")
             {
-                return RedirectToAction("Index", "Country");
+                return RedirectToAction("Index", "Dashboard");
             }
 
             else
