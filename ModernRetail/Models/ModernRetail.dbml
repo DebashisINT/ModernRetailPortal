@@ -44,4 +44,32 @@
       <Column Name="MODIFYUSER" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MR_DESIGNATIONMASTERLIST" Member="MR_DESIGNATIONMASTERLISTs">
+    <Type Name="MR_DESIGNATIONMASTERLIST">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DESIGNATIONID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DESIGNATIONNAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateUser" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifyUser" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MR_CITYMASTERLIST" Member="MR_CITYMASTERLISTs">
+    <Type Name="MR_CITYMASTERLIST">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CITYID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CITYNAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="COUNTRYNAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="STATENAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CityLocationLat" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="CityLocationLong" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="CREATEDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CREATEUSER" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MODIFYDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MODIFYUSER" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

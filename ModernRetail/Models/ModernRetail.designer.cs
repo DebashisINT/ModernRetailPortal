@@ -79,6 +79,22 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_STATEMASTERLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_DESIGNATIONMASTERLIST> MR_DESIGNATIONMASTERLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_DESIGNATIONMASTERLIST>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MR_CITYMASTERLIST> MR_CITYMASTERLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_CITYMASTERLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -633,6 +649,384 @@ namespace ModernRetail.Models
 				if ((this._COUNTRYNAME != value))
 				{
 					this._COUNTRYNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATEDATE
+		{
+			get
+			{
+				return this._CREATEDATE;
+			}
+			set
+			{
+				if ((this._CREATEDATE != value))
+				{
+					this._CREATEDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEUSER", DbType="NVarChar(100)")]
+		public string CREATEUSER
+		{
+			get
+			{
+				return this._CREATEUSER;
+			}
+			set
+			{
+				if ((this._CREATEUSER != value))
+				{
+					this._CREATEUSER = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFYDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> MODIFYDATE
+		{
+			get
+			{
+				return this._MODIFYDATE;
+			}
+			set
+			{
+				if ((this._MODIFYDATE != value))
+				{
+					this._MODIFYDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFYUSER", DbType="NVarChar(100)")]
+		public string MODIFYUSER
+		{
+			get
+			{
+				return this._MODIFYUSER;
+			}
+			set
+			{
+				if ((this._MODIFYUSER != value))
+				{
+					this._MODIFYUSER = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_DESIGNATIONMASTERLIST")]
+	public partial class MR_DESIGNATIONMASTERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _DESIGNATIONID;
+		
+		private string _DESIGNATIONNAME;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private string _CreateUser;
+		
+		private System.Nullable<System.DateTime> _ModifyDate;
+		
+		private string _ModifyUser;
+		
+		public MR_DESIGNATIONMASTERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESIGNATIONID", DbType="Int")]
+		public System.Nullable<int> DESIGNATIONID
+		{
+			get
+			{
+				return this._DESIGNATIONID;
+			}
+			set
+			{
+				if ((this._DESIGNATIONID != value))
+				{
+					this._DESIGNATIONID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESIGNATIONNAME", DbType="NVarChar(250)")]
+		public string DESIGNATIONNAME
+		{
+			get
+			{
+				return this._DESIGNATIONNAME;
+			}
+			set
+			{
+				if ((this._DESIGNATIONNAME != value))
+				{
+					this._DESIGNATIONNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(100)")]
+		public string CreateUser
+		{
+			get
+			{
+				return this._CreateUser;
+			}
+			set
+			{
+				if ((this._CreateUser != value))
+				{
+					this._CreateUser = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ModifyDate
+		{
+			get
+			{
+				return this._ModifyDate;
+			}
+			set
+			{
+				if ((this._ModifyDate != value))
+				{
+					this._ModifyDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(100)")]
+		public string ModifyUser
+		{
+			get
+			{
+				return this._ModifyUser;
+			}
+			set
+			{
+				if ((this._ModifyUser != value))
+				{
+					this._ModifyUser = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_CITYMASTERLIST")]
+	public partial class MR_CITYMASTERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _CITYID;
+		
+		private string _CITYNAME;
+		
+		private string _COUNTRYNAME;
+		
+		private string _STATENAME;
+		
+		private System.Nullable<decimal> _CityLocationLat;
+		
+		private System.Nullable<decimal> _CityLocationLong;
+		
+		private System.Nullable<System.DateTime> _CREATEDATE;
+		
+		private string _CREATEUSER;
+		
+		private System.Nullable<System.DateTime> _MODIFYDATE;
+		
+		private string _MODIFYUSER;
+		
+		public MR_CITYMASTERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CITYID", DbType="Int")]
+		public System.Nullable<int> CITYID
+		{
+			get
+			{
+				return this._CITYID;
+			}
+			set
+			{
+				if ((this._CITYID != value))
+				{
+					this._CITYID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CITYNAME", DbType="NVarChar(250)")]
+		public string CITYNAME
+		{
+			get
+			{
+				return this._CITYNAME;
+			}
+			set
+			{
+				if ((this._CITYNAME != value))
+				{
+					this._CITYNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COUNTRYNAME", DbType="NVarChar(250)")]
+		public string COUNTRYNAME
+		{
+			get
+			{
+				return this._COUNTRYNAME;
+			}
+			set
+			{
+				if ((this._COUNTRYNAME != value))
+				{
+					this._COUNTRYNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATENAME", DbType="NVarChar(250)")]
+		public string STATENAME
+		{
+			get
+			{
+				return this._STATENAME;
+			}
+			set
+			{
+				if ((this._STATENAME != value))
+				{
+					this._STATENAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CityLocationLat", DbType="Decimal(18,4)")]
+		public System.Nullable<decimal> CityLocationLat
+		{
+			get
+			{
+				return this._CityLocationLat;
+			}
+			set
+			{
+				if ((this._CityLocationLat != value))
+				{
+					this._CityLocationLat = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CityLocationLong", DbType="Decimal(18,4)")]
+		public System.Nullable<decimal> CityLocationLong
+		{
+			get
+			{
+				return this._CityLocationLong;
+			}
+			set
+			{
+				if ((this._CityLocationLong != value))
+				{
+					this._CityLocationLong = value;
 				}
 			}
 		}
