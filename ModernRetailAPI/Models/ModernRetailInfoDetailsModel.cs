@@ -40,6 +40,7 @@ namespace ModernRetailAPI.Models
         public string store_long { get; set; }
         public string store_contact_name { get; set; }
         public string store_contact_number { get; set; }
+        public string store_alternet_contact_number { get; set; }
         public string store_whatsapp_number { get; set; }
         public string store_email { get; set; }
         public long store_type { get; set; }
@@ -89,6 +90,7 @@ namespace ModernRetailAPI.Models
         public string store_long { get; set; }
         public string store_contact_name { get; set; }
         public string store_contact_number { get; set; }
+        public string store_alternet_contact_number { get; set; }
         public string store_whatsapp_number { get; set; }
         public string store_email { get; set; }
         public long store_type { get; set; }
@@ -113,6 +115,7 @@ namespace ModernRetailAPI.Models
         public string store_long { get; set; }
         public string store_contact_name { get; set; }
         public string store_contact_number { get; set; }
+        public string store_alternet_contact_number { get; set; }
         public string store_whatsapp_number { get; set; }
         public string store_email { get; set; }
         public long store_type { get; set; }
