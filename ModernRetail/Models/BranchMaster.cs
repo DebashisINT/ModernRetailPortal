@@ -92,7 +92,7 @@ namespace ModernRetail.Models
         {
             int i;
             int rtrnvalue = 0;
-            ProcedureExecute proc = new ProcedureExecute("PRC_LMS_QUESTIONS");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_BRANCHDETAILS");
             proc.AddNVarcharPara("@action", 50, "DELETE");
             proc.AddBigIntegerPara("@BRANCH_ID",Convert.ToInt64(ID));
             proc.AddVarcharPara("@ReturnValue", 200, "0", QueryParameterDirection.Output);

@@ -289,6 +289,7 @@
     <Compile Include="Controllers\LogOutController.cs" />
     <Compile Include="Controllers\SecurityRolesController.cs" />
     <Compile Include="Controllers\StateMasterController.cs" />
+    <Compile Include="Controllers\UserConfigurationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -304,6 +305,7 @@
       <DependentUpon>ModernRetail.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\StateMasterModel.cs" />
+    <Compile Include="Models\UserMasterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1088,6 +1090,9 @@
     <Content Include="Views\LogOut\Index.cshtml" />
     <Content Include="Views\SecurityRoles\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\UserConfiguration\Index.cshtml" />
+    <Content Include="Views\UserConfiguration\UserMasterList.cshtml" />
+    <Content Include="Views\UserConfiguration\_PartialUserMasterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
