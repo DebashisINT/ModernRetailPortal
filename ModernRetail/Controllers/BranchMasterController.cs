@@ -184,6 +184,26 @@ namespace ModernRetail.Controllers
             return dt;
         }
 
+        public string CheckUniqueShortName(string ShortName, string branch_ID)
+        {
+            string ShortNameFount = "0";
+
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_BRANCHDETAILS");
+            proc.AddPara("@ACTION", "CHECKUNIQUESHORTNAME");
+            proc.AddPara("@branch_code", ShortName);
+            proc.AddPara("@BRANCH_ID", branch_ID);
+            proc.AddVarcharPara("@ReturnValue", 50, "", QueryParameterDirection.Output);
+            dt = proc.GetTable();
+            string output = Convert.ToString(proc.GetParaValue("@ReturnValue"));
+
+            ShortNameFount = output;
+
+            return ShortNameFount;
+
+        }
+
         [WebMethod]
         public JsonResult SaveBranch(BranchMaster Details)
         {
