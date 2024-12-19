@@ -765,7 +765,7 @@ namespace ModernRetail.Controllers
             }
         }
 
-        public ActionResult ExporBranchList(int type)
+        public ActionResult ExportList(int type)
         {
             switch (type)
             {
