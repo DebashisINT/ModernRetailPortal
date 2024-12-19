@@ -635,7 +635,7 @@ namespace ModernRetail.Controllers
             saveModel.CreateUser = userId;
             saveModel.LastModifyUser = userId;
 
-            if (Details.grp_id != null)
+            if (Details.grp_id != null & Details.grp_id != 0)
             {
                 try
                 {

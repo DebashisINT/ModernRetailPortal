@@ -1321,6 +1321,18 @@ if (urlKeys.key != 'Add' ) {
     function EntrySave(mode) {
         SelectrightData();
         savemode = mode;
+        
+        if ($("#grp_name").val().trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please Enter Group Name to proceed'
+            });
+            return false;
+        }
+
+
 
         var data = {
             UserGroupRights: $('#GroupUserRights').val(),

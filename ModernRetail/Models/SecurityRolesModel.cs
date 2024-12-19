@@ -55,7 +55,7 @@ namespace ModernRetail.Models
             int i;
             int rtrnvalue = 0;
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_SECURITYROLESDETAILS");
-            proc.AddNVarcharPara("@action", 50, "DELETE");
+            proc.AddNVarcharPara("@ACTION", 50, "DELETE");
             proc.AddNVarcharPara("@ID", 30, ID);
             proc.AddVarcharPara("@ReturnValue", 200, "0", QueryParameterDirection.Output);
             i = proc.RunActionQuery();
