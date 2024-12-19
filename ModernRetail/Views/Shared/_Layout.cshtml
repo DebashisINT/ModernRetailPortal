@@ -93,6 +93,10 @@
     <!---Jalert-->
     <link href="~/Scripts/jAlert-master/dist/jAlert.css" rel="stylesheet" />
 
+    @*Select2*@
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     @RenderSection("HeadResources", false)
     <style>
@@ -610,7 +614,7 @@
         <div class="prof flex-grow-1 align-items-center ">
             <ul class="nav">
                 @*<li> <i class="fa fa-search" style="cursor:pointer" id="searchScreenHandle"></i></li>*@
-                <li class="relative">
+                <li class="relative search-module">
                     <div class="searcherInput"><input type="text" onkeyup="myMenuFilter()" id="searchOnMenu" autocomplete="off" /><span class="iconZR"><i class="fa fa-search" style="cursor:pointer"></i></span></div>
                     <div class="resulter">
                         @*rev Pallab 25528*@
@@ -623,7 +627,7 @@
                         <ul id="clonedMenus"></ul>
                     </div>
                 </li>
-                <li class=" dropdown">
+                <li class=" dropdown user-details">
                     <a href="#" class="nav-link dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @*<span class="user"><img src="/assests/images/user1.png" style="max-width:40px;" /></span>*@
                         <span class="user"><img src="/assests/images/user1.png" style="" /></span>

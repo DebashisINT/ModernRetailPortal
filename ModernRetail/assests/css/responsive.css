@@ -174,9 +174,37 @@
         font-size: 70%;
     }
 
-    .headerMain
+    .headerMain {
+        padding: 0 20px 30px;
+    }
+
+    .searcherInput > input:focus
     {
-        padding-bottom: 20px;
+        width: 100% !important;
+    }
+
+    .hamburger {
+        margin-left: 0;
+    }
+
+    .flex-loader {
+        width: 25% !important;
+        height: 100vh !important;
+    }
+
+    .cancel-catg, .save-btn
+    {
+        font-size: 12px !important;
+    }
+
+    .breadCumb > span {
+        width: 100%;
+        text-align: center;
+    }
+
+    .btn
+    {
+        margin-bottom: 10px;
     }
 
     .boxWidget {
@@ -241,13 +269,35 @@
     }
 
     .prof {
-        justify-content: center;
-        display: flex;
+        /*justify-content: center;
+        display: flex;*/
         margin-right: 0;
     }
 
-    ul.mapShowlist
+        .prof .nav {
+            /* display: inline-block; */
+            /* float: right; */
+            width: 100%;
+            justify-content: space-between;
+            display: flex;
+        }
+
+            .prof .nav .search-module
+            {
+                width: 74%;
+                margin-right: 4%;
+            }
+
+            .prof .nav .user-details {
+                width: 22%;
+            }
+
+    .searcherInput > input
     {
+        width: 100% !important;
+    }
+
+    ul.mapShowlist {
         border: none !important;
     }
 
@@ -400,6 +450,11 @@
     {
         margin-bottom: 10px !important;
     }
+
+
+
+
+
 }
 
 

@@ -552,7 +552,7 @@
     }
 
         .btn-export:hover {
-            background: #a24716 !important;
+            background: #9d9d9d !important;
             color: #fff;
         }
 
@@ -601,10 +601,11 @@
         position: absolute;
         z-index: 99;
         bottom: 130%;
-        left: 42%;
+        left: 48%;
         transform: translateX(-50%);
         opacity: 0;
         transition: opacity 0.3s;
+        word-break: keep-all;
     }
 
         .tooltip::after {
@@ -671,6 +672,62 @@
     .close:hover, .close:focus {
         color: #111 !important;
     }
+
+    /*Rev Pallab: grid modification*/
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        /*overflow: hidden;*/
+        word-break: break-word;
+    }
+
+    .rowActive {
+        background-color: #ebf4ff !important;
+        color: #000 !important;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: none; /* Initially hidden */
+    }
+
+    .flex-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dxgvLoadingPanel_PlasticBlue {
+        display: none !important;
+    }
+
+    .flex-loader img {
+        width: 120px;
+    }
+
+    .flex-loader h4 {
+        font-size: 22px;
+        color: #000000;
+    }
+
+    .btn-export {
+        background: #d0d0d0;
+    }
+
+    .btn-export .btn-icon img {
+        width: 30px;
+        height: 30px;
+        
+    }
+    /*Rev End Pallab: grid modification*/
 </style>
 <script>
     var Is_PageLoad = "0";
@@ -705,7 +762,18 @@
 
     function OnStartCallback(s, e) {
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
+        /*Rev Pallab: grid modification*/
+        document.getElementById("loading-overlay").style.display = "block";
+        /*Rev End Pallab: grid modification*/
     }
+    /*Rev Pallab: grid modification*/
+    function OnEndCallback() {
+
+        document.getElementById("loading-overlay").style.display = "none";
+
+    }
+    /*Rev End Pallab: grid modification*/
+
     function AddBranch() {
         $("#hdnID").val('0');
         var url = '/BranchMaster/Index?key=Add';
@@ -737,7 +805,7 @@
 
      function DeleteClick(ID) {
         $("#hdnID").val(ID);
-       
+
 
         // SweetAlert confirmation with custom icon
     Swal.fire({
@@ -784,11 +852,29 @@
     });
     }
 
+    /*Rev Pallab: grid modification*/
+    function gridRowclick(s, e) {
+        $('#gridList').find('tr').removeClass('rowActive');
 
+
+        $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+
+    }
+    /*Rev End Pallab: grid modification*/
 </script>
 <div class="breadCumb">
     <span>Branch</span>
 </div>
+@*Rev Pallab: grid modification*@
+<div class="overlay" id="loading-overlay">
+    <div class="flex-loader">
+        <img src="/assests/images/new-loader.gif" />
+        <h4>Data is loading, Please Wait</h4>
+    </div>
+
+</div>
+@*Rev End Pallab: grid modification*@
+
 <div class="container">
     <div class="form_main backBox p-3">
         <div class="row">
@@ -806,9 +892,10 @@
                     @*}
                         @if (ViewBag.CanExport)
                         {*@
-                    <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
-                        <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                    </button>
+                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                    <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                    <div class="tooltip">Export to XLSX</div>
+                </button>
 
                     @*}*@
                 </div>
