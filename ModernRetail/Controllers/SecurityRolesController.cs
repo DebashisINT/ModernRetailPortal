@@ -616,11 +616,11 @@ namespace ModernRetail.Controllers
 
             int? userId = null;
 
-            if (Session["userid"] != null)
+            if (Session["MRuserid"] != null)
             {
                 try
                 {
-                    userId = Convert.ToInt32(Session["userid"]);
+                    userId = Convert.ToInt32(Session["MRuserid"]);
                 }
                 catch
                 {
@@ -701,7 +701,7 @@ namespace ModernRetail.Controllers
                     Is_PageLoad = "Ispageload";
 
                 ViewData["ModelData"] = model;
-                string Userid = Convert.ToString(Session["userid"]);
+                string Userid = Convert.ToString(Session["MRuserid"]);
 
                 String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
@@ -726,7 +726,7 @@ namespace ModernRetail.Controllers
         public IEnumerable GetDetailsList(string Is_PageLoad)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-            string Userid = Convert.ToString(Session["userid"]);
+            string Userid = Convert.ToString(Session["MRuserid"]);
             if (Is_PageLoad != "Ispageload")
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
