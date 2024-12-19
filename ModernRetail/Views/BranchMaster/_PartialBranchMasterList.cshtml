@@ -24,13 +24,16 @@
     settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
     settings.Settings.ShowFilterRowMenu = true;
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.EndCallback = "OnEndCallback";
+    //Rev End Pallab: grid modification
     settings.Columns.Add(x =>
     {
         x.FieldName = "BRANCH_CODE";
         x.Caption = "Short Name";
         x.VisibleIndex = 1;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
 
     });
     settings.Columns.Add(x =>
@@ -39,7 +42,7 @@
         x.Caption = "Parent Branch";
         x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
     });
     settings.Columns.Add(x =>
@@ -48,7 +51,7 @@
         x.Caption = "Branch Name";
         x.VisibleIndex = 3;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
     });
     settings.Columns.Add(x =>
@@ -66,7 +69,7 @@
         x.Caption = "Country";
         x.VisibleIndex = 5;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
 
     });
     settings.Columns.Add(x =>
@@ -75,7 +78,7 @@
         x.Caption = "State";
         x.VisibleIndex = 6;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(120);
 
     });
 
@@ -85,7 +88,7 @@
         x.Caption = "City / District";
         x.VisibleIndex = 7;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
 
     });
 
@@ -95,7 +98,7 @@
         x.Caption = "PIN";
         x.VisibleIndex = 8;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(80);
 
     });
 
@@ -110,7 +113,7 @@
         x.Caption = "Created By";
         x.VisibleIndex = 9;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
     });
     settings.Columns.Add(x =>
     {
@@ -118,7 +121,7 @@
         x.Caption = "Created On";
         x.VisibleIndex = 10;
         x.Width = 120;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -131,7 +134,7 @@
         x.Caption = "Updated By";
         x.VisibleIndex = 11;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
     });
 
     settings.Columns.Add(x =>
@@ -140,7 +143,7 @@
         x.Caption = "Updated On";
         x.VisibleIndex = 12;
         x.Width = 120;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -155,7 +158,7 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
         x.SetDataItemTemplateContent(c =>
         {
             //if (ViewBag.CanEdit)
@@ -170,6 +173,9 @@
         });
 
     });
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.RowClick = "gridRowclick";
+    //Rev End Pallab: grid modification
 
 }).Bind(Model).GetHtml()
 
