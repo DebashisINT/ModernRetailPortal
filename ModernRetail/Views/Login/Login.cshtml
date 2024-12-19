@@ -841,7 +841,7 @@
                         <div><img src="/assests/images/NLogin/logo.png" class="mlogos" /></div>
                         <div class="login-part">
                             <div style="margin: 5px 0 10px 0; font-size: 22px; color: #3737bb; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">Login to your Account</div>
-                            @*<p style="font-family: poppins;">A single dashboard to manage all your team members with real time updates and notifications.</p>*@
+                            <div style="margin: 5px 0 10px 0; font-size: 15px; color: red; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">@ViewBag.ValidateMessage</div>
                             <div class="formBox">
                                 <div class="form-group">
                                     <label for="username">Username</label>
@@ -853,15 +853,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    @*<img src="/assests/images/NLogin/password.png" class="inputIcons" />*@
                                     <img src="/assests/images/NLogin/password-2.png" class="inputIcons" />
-                                    @Html.TextBoxFor(m => m.password, new { @class = "form-control " })
+                                    @Html.TextBoxFor(m => m.password, new { @class = "form-control ", Type = "password", id = "passwordInput" })
+                                    <span class="passWordView"><i class="fa fa-eye-slash" id="togglePassword"></i></span>
                                 </div>
                                 <div style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #4a4a4a; text-align: center; ">Application best viewed at <a href="#">1280 x 720</a> resolution in <a href="#">Google Chrome</a> 59 or above</div>
                                 <input type="submit" value="Sign in" class="btn btn-block loginbtn" />
 
                                 <div class="ftFooter">
-                                    © Copyright 2024 Modern Retail [Version 1.0.1]
+                                    © Copyright 2024 Modern Retail <span id="lblVersion">@ViewBag.ApplicationVersion</span>
                                     @*[BreezeERP Version <span id="lblVersion">2.0.29]</span>*@
                                 </div>
                             </div>
@@ -957,4 +957,37 @@
     }
 </body>
 </html>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('passwordInput');
+        const icon = this;
+
+        // Toggle input type between password and text
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    });
+</script>
+<style>
+    .passWordView {
+        position: absolute;
+        right: 14px;
+        top: 38px;
+        width: 21px;
+        height: 20px;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
 

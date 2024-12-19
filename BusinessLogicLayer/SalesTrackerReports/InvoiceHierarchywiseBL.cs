@@ -36,7 +36,7 @@ namespace BusinessLogicLayer.SalesTrackerReports
             ProcedureExecute proc = new ProcedureExecute("Proc_FTS_ReceiptEntry");
             proc.AddPara("@invoicenumber", invoicenumber);
             proc.AddPara("@receiptamount", receiptamount);
-            proc.AddPara("@user_id", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@user_id", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             ds = proc.GetTable();
         }
     }

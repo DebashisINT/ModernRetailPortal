@@ -14,8 +14,8 @@ namespace ModernRetail.Controllers
         public PartialViewResult _PartialMenu()
         {
             MenuBL menuBL = new MenuBL();
-            Session["usergoup"] = "1";
-            Session["EntryProfileType"] = "F";
+            Session["MRusergoup"] = "1";
+            Session["MREntryProfileType"] = "F";
             List<MenuListModel> ModelLsit = menuBL.GetUserMenuListByGroup();
             return PartialView(ModelLsit);
         }

@@ -61,7 +61,7 @@ namespace BusinessLogicLayer
                     //proc.AddNVarcharPara("@emp_totalLeavePA", 100, emp_totalLeavePA);
                     proc.AddNVarcharPara("@emp_totalMedicalLeavePA", 100, "");
 
-                    proc.AddIntegerPara("@userid", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                    proc.AddIntegerPara("@userid", Convert.ToInt32(HttpContext.Current.Session["MRuserid"]));
                     proc.AddNVarcharPara("@emp_LeaveSchemeAppliedFrom", 100, emp_LeaveSchemeAppliedFrom);
                     proc.AddIntegerPara("@emp_branch", Convert.ToInt32(emp_branch));
                     proc.AddNVarcharPara("@emp_Remarks", 100, emp_Remarks);
@@ -149,8 +149,8 @@ namespace BusinessLogicLayer
                     proc.AddVarcharPara("@cnt_contactSource", 100, cmbSource);
                     proc.AddVarcharPara("@cnt_referedBy", 100, referedID);
                     proc.AddVarcharPara("@cnt_contactType", 100, "EM");
-                    proc.AddVarcharPara("@lastModifyUser", 100, Convert.ToString(HttpContext.Current.Session["userid"]));
-                    proc.AddVarcharPara("@UserContactID", 100, Convert.ToString(HttpContext.Current.Session["usercontactID"]));
+                    proc.AddVarcharPara("@lastModifyUser", 100, Convert.ToString(HttpContext.Current.Session["MRuserid"]));
+                    proc.AddVarcharPara("@UserContactID", 100, Convert.ToString(HttpContext.Current.Session["MRusercontactID"]));
                     proc.AddVarcharPara("@bloodgroup", 100, cmbBloodgroup);
                     string webLogin = "No";
                     string Password = string.Empty;

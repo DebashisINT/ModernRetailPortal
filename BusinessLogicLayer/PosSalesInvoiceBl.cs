@@ -350,8 +350,8 @@ namespace BusinessLogicLayer
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("prc_GetProductActualStock");
-            proc.AddVarcharPara("@companyId", 100, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
-            proc.AddVarcharPara("@finYear", 50, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
+            proc.AddVarcharPara("@companyId", 100, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
+            proc.AddVarcharPara("@finYear", 50, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
             proc.AddIntegerPara("@branchId", branchId);
             proc.AddVarcharPara("@prodId", 10, ProdId);
             ds = proc.GetTable();
@@ -377,7 +377,7 @@ namespace BusinessLogicLayer
             proc.AddIntegerPara("@pos_assignBranch", pos_assignBranch);
             proc.AddIntegerPara("@pos_wareHouse", pos_wareHouse);
             proc.AddIntegerPara("@Invoice_Id", Invoice_Id);
-            proc.AddIntegerPara("@UserID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+            proc.AddIntegerPara("@UserID", Convert.ToInt32(HttpContext.Current.Session["MRuserid"]));
             ds = proc.GetTable();
             return ds;
         }
@@ -555,8 +555,8 @@ namespace BusinessLogicLayer
                     {
 
                         BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                        //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
-                        DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockForAlreadyDelivered(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date).ToString("yyyy-MM-dd") + "') as branchopenstock");
+                        //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
+                        DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockForAlreadyDelivered(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date).ToString("yyyy-MM-dd") + "') as branchopenstock");
 
                         if (dtAvailableStockCheck.Rows.Count > 0)
                         {
@@ -583,8 +583,8 @@ namespace BusinessLogicLayer
         {
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("prc_GetProductAvailableListStatewise");
-            proc.AddVarcharPara("@companyId", 100, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
-            proc.AddVarcharPara("@finYear", 50, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
+            proc.AddVarcharPara("@companyId", 100, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
+            proc.AddVarcharPara("@finYear", 50, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
             proc.AddIntegerPara("@branchId", branchId);
             proc.AddVarcharPara("@productId", 10, ProdId);
             ds = proc.GetTable();
@@ -613,7 +613,7 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@Action", 100, "AssignOldunitBranch");
             proc.AddIntegerPara("@Invoice_Id", Convert.ToInt32(invoiceId));
             proc.AddIntegerPara("@branch", Convert.ToInt32(branchId));
-            proc.AddIntegerPara("@UserID", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+            proc.AddIntegerPara("@UserID", Convert.ToInt32(HttpContext.Current.Session["MRuserid"]));
             proc.RunActionQuery();
         }
     }

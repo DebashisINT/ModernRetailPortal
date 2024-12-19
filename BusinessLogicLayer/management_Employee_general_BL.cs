@@ -61,8 +61,8 @@ namespace BusinessLogicLayer
                     proc.AddVarcharPara("@cnt_contactSource", 100, cmbSource);
                     proc.AddVarcharPara("@cnt_referedBy",100, referedID);
                     proc.AddVarcharPara("@cnt_contactType",100, "EM");
-                    proc.AddVarcharPara("@lastModifyUser", 100, Convert.ToString(HttpContext.Current.Session["userid"]));
-                    proc.AddVarcharPara("@UserContactID",100, Convert.ToString(HttpContext.Current.Session["usercontactID"]));
+                    proc.AddVarcharPara("@lastModifyUser", 100, Convert.ToString(HttpContext.Current.Session["MRuserid"]));
+                    proc.AddVarcharPara("@UserContactID",100, Convert.ToString(HttpContext.Current.Session["MRusercontactID"]));
                     proc.AddVarcharPara("@bloodgroup",100, cmbBloodgroup);
                     string webLogin = "No";
                     string Password = string.Empty;

@@ -18,7 +18,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@ACTION", "SAVE");
             proc.AddPara("@ordernumber", ordernumber);
             proc.AddPara("@stageid", stageid);
-            proc.AddPara("@USER", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USER", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             ds = proc.GetTable();
             return ds;
         }

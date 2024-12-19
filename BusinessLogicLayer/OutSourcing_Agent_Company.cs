@@ -13,7 +13,7 @@ namespace BusinessLogicLayer
       //"Outsourcing Agents/Companies", "", CmbSalutation.SelectedItem.Value.ToString(), txtFirstName.Text.Trim(),
       //                     "", "", txtCode.Text, cmbBranch.SelectedItem.Value.ToString(), "", "", dtDob, dtanniversary, cmbLegalStatus.SelectedItem.Value.ToString(),
       //                     "", "", "", "", "", "", "", "", "", "", cmbSource.SelectedItem.Value.ToString(), txtReferedBy.Text.Trim(), "OC",
-      //                     cmbContactStatus.SelectedItem.Value.ToString(), HttpContext.Current.Session["userid"].ToString(), "",
+      //                     cmbContactStatus.SelectedItem.Value.ToString(), HttpContext.Current.Session["MRuserid"].ToString(), "",
       //                     "No", ""
 
         public string Insert_ContactGeneral(string vcontacttype, string vcnt_ucc, string vcnt_salutation, string vcnt_firstName,

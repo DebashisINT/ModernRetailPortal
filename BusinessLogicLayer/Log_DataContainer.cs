@@ -122,8 +122,8 @@ namespace BusinessLogicLayer
             DataTable Dt = new DataTable();
             string[] DateArray = GetDBDateTime();
             DateTime Date = Convert.ToDateTime(DateArray[3].ToString());
-            Dt = oDbEngine.GetDataTable("tbl_Master_User", "User_Activity", "User_ID=" + HttpContext.Current.Session["UserID"].ToString() +
-                " and User_LastSegement=" + HttpContext.Current.Session["userLastSegment"].ToString());
+            Dt = oDbEngine.GetDataTable("tbl_Master_User", "User_Activity", "User_ID=" + HttpContext.Current.Session["MRuserid"].ToString() +
+                " and User_LastSegement=" + HttpContext.Current.Session["MRuserlastsegment"].ToString());
             if (Dt.Rows.Count > 0)
                 return Dt.Rows[0][0].ToString().Trim() + "_" + UserID.Trim() + "_" + GetAutoGenerateNo(Date);
 
@@ -132,7 +132,7 @@ namespace BusinessLogicLayer
         public int Log_Container(DataSet DsLog)
         {
             DataSet TempDs;
-            string FileName = GetFileName(HttpContext.Current.Session["userid"].ToString());
+            string FileName = GetFileName(HttpContext.Current.Session["MRuserid"].ToString());
             if (FileName != null)
             {
                 foreach (DataTable DT in DsLog.Tables)

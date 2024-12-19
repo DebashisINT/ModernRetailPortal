@@ -99,7 +99,7 @@ namespace BusinessLogicLayer
                 {
                     Int64 ProductId = Convert.ToInt64(row["ProductID"]);
                     BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                    DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableQuotation(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "'," + ProductId + ") as branchopenstock");
+                    DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableQuotation(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "'," + ProductId + ") as branchopenstock");
                     if (dtAvailableStockCheck.Rows.Count > 0)
                     {
                         StockCheck = Convert.ToString(Math.Round(Convert.ToDecimal(dtAvailableStockCheck.Rows[0]["branchopenstock"]), 2));
@@ -133,8 +133,8 @@ namespace BusinessLogicLayer
                     {
 
                         BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                        //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
-                        DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date).ToString("yyyy-MM-dd") + "') as branchopenstock");
+                        //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
+                        DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date).ToString("yyyy-MM-dd") + "') as branchopenstock");
 
                         if (dtAvailableStockCheck.Rows.Count > 0)
                         {
@@ -174,8 +174,8 @@ namespace BusinessLogicLayer
                     {
 
                         BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                        //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
-                        DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date).ToString("yyyy-MM-dd") + "') as branchopenstock");
+                        //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
+                        DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date).ToString("yyyy-MM-dd") + "') as branchopenstock");
 
                         if (dtAvailableStockCheck.Rows.Count > 0)
                         {
@@ -231,8 +231,8 @@ namespace BusinessLogicLayer
                 {
                     Int64 ProductId = Convert.ToInt64(row["ProductID"]);
                     BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                    //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
-                    DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["LastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["LastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date) + "') as branchopenstock");
+                    //DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "'," + ProductId + "'," + Convert.ToDateTime(Date) + ") as branchopenstock");
+                    DataTable dtAvailableStockCheck = oDBEngine.GetDataTable("Select dbo.fn_CheckAvailableStockSCBOIST(" + BranchId + ",'" + Convert.ToString(HttpContext.Current.Session["MRLastCompany"]) + "','" + Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]) + "','" + ProductId + "','" + Convert.ToDateTime(Date) + "') as branchopenstock");
                     
                     if (dtAvailableStockCheck.Rows.Count > 0)
                     {
@@ -790,7 +790,7 @@ namespace BusinessLogicLayer
             proc.AddDateTimePara("@OrderDate", Convert.ToDateTime(OrderDate));
             //proc.AddDateTimePara("@OrderDate", Convert.ToDateTime(OrderDate));
             proc.AddVarcharPara("@Status", 50, Status);
-            proc.AddVarcharPara("@userbranchlist", 1000, Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"]));
+            proc.AddVarcharPara("@userbranchlist", 1000, Convert.ToString(HttpContext.Current.Session["MRuserbranchHierarchy"]));
             //proc.AddIntegerPara("@Branch_Id", BranchId);
             dt = proc.GetTable();
             return dt;
@@ -820,7 +820,7 @@ namespace BusinessLogicLayer
             proc.AddDateTimePara("@InvoiceDate", Convert.ToDateTime(ChallanDate));
             proc.AddVarcharPara("@Status", 50, Status);
            // proc.AddIntegerPara("@Branch_Id", BranchId);
-            proc.AddVarcharPara("@userbranchlist", 4000, Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"]));
+            proc.AddVarcharPara("@userbranchlist", 4000, Convert.ToString(HttpContext.Current.Session["MRuserbranchHierarchy"]));
             dt = proc.GetTable();
             return dt;
         }
@@ -859,7 +859,7 @@ namespace BusinessLogicLayer
             ProcedureExecute proc = new ProcedureExecute("prc_GetIssueToServiceCentreDetails");
             proc.AddDateTimePara("@date", Convert.ToDateTime(ChallanDate));
             proc.AddVarcharPara("@Status", 50, Status);
-            proc.AddVarcharPara("@userbranchlist", 1000, Convert.ToString(context.Session["userbranchHierarchy"]));
+            proc.AddVarcharPara("@userbranchlist", 1000, Convert.ToString(context.Session["MRuserbranchHierarchy"]));
 
             dt = proc.GetTable();
             return dt;

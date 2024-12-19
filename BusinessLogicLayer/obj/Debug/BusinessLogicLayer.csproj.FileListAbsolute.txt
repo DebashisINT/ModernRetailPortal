@@ -130,3 +130,14 @@ D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.c
 D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\Business.450209FB.Up2Date
 D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
 D:\PROJECTS\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\bin\Debug\EntityLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.AssemblyReference.cache
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\obj\Debug\Business.450209FB.Up2Date
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb

@@ -1079,7 +1079,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Common\_PartialMenu.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\BranchMaster\Index.cshtml" />
     <Content Include="Views\BranchMaster\_PartialBranchMasterList.cshtml" />
     <Content Include="Views\BranchMaster\BranchMasterList.cshtml" />
@@ -1093,6 +1092,7 @@
     <Content Include="Views\UserConfiguration\Index.cshtml" />
     <Content Include="Views\UserConfiguration\UserMasterList.cshtml" />
     <Content Include="Views\UserConfiguration\_PartialUserMasterList.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

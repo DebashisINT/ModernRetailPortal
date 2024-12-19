@@ -652,7 +652,7 @@ namespace BusinessLogicLayer
         {
             string savedXmlPath = null;
 
-            string XmlPath = filePath + @"\" + HttpContext.Current.Session["UserID"].ToString();
+            string XmlPath = filePath + @"\" + HttpContext.Current.Session["MRuserid"].ToString();
             if (File.Exists(XmlPath))
             {
                 try { File.Delete(XmlPath); }

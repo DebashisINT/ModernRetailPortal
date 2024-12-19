@@ -113,7 +113,7 @@ namespace BusinessLogicLayer
                 cmd.Parameters.AddWithValue("@Balance", Balance);
                 cmd.Parameters.AddWithValue("@DpStatus", DpStatus);
                 cmd.Parameters.AddWithValue("@Narration", Narration);
-                cmd.Parameters.AddWithValue("@User", HttpContext.Current.Session["userid"].ToString());
+                cmd.Parameters.AddWithValue("@User", HttpContext.Current.Session["MRuserid"].ToString());
 
                 cmd.Parameters.AddWithValue("@DivestmentNo1", DivestmentNo1);
                 cmd.Parameters.AddWithValue("@DivestmentDt1", DivestmentDt1);

@@ -31,7 +31,7 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@Action", 500, "SalesOrder");
             proc.AddVarcharPara("@userbranchlist", 500, Branch);
             proc.AddVarcharPara("@lastCompany", 500, company);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
             proc.AddDateTimePara("@FinYearStartdate", Convert.ToDateTime(StartDate));
             proc.AddDateTimePara("@FinYearEnddate", Convert.ToDateTime(EndDate));
             dt = proc.GetTable();
@@ -46,7 +46,7 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@Action", 500, "SalesOrderFilteredByDate");
             proc.AddVarcharPara("@userbranchlist", 500, Branch);
             proc.AddVarcharPara("@lastCompany", 500, company);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
             proc.AddDateTimePara("@FromDate", StartDate);
             proc.AddDateTimePara("@ToDate", EndDate);
             proc.AddIntegerPara("@branchId", Convert.ToInt32(BranchId));
@@ -83,8 +83,8 @@ namespace BusinessLogicLayer
             DataTable dt = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("prc_ProductValuation_Report");
             proc.AddIntegerPara("@PRODUCT_ID", Product_id);
-            proc.AddVarcharPara("@COMPANYID", 50, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
-            proc.AddVarcharPara("@FINYEAR", 50, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
+            proc.AddVarcharPara("@COMPANYID", 50, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
+            proc.AddVarcharPara("@FINYEAR", 50, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
             //proc.AddVarcharPara("@FROMDATE", 10, dt_BTOut.Date.ToString("yyyy-MM-dd"));
             proc.AddVarcharPara("@FROMDATE", 10, Fromdate);
             proc.AddVarcharPara("@TODATE", 10, Todate);
@@ -203,8 +203,8 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@ProductID", 500, Convert.ToString(ProductId));
             proc.AddVarcharPara("@BatchID", 500, BatchID);
             proc.AddVarcharPara("@WarehouseID", 500, WarehouseID);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
             proc.AddVarcharPara("@Serial", 500, Serial);
             proc.AddVarcharPara("@LastSerial", 500, LastSerial);
             proc.AddVarcharPara("@TotalIds", 500, TotalId);
@@ -221,8 +221,8 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@ProductID", 500, Convert.ToString(ProductId));
             proc.AddVarcharPara("@BatchID", 500, BatchID);
             proc.AddVarcharPara("@WarehouseID", 500, WarehouseID);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
             proc.AddVarcharPara("@Serial", 500, Serial);
             proc.AddVarcharPara("@LastSerial", 500, LastSerial);
             proc.AddVarcharPara("@TotalIds", 500, TotalId);
@@ -237,8 +237,8 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@ProductID", 500, Convert.ToString(ProductId));
             proc.AddVarcharPara("@BatchID", 500, BatchID);
             proc.AddVarcharPara("@WarehouseID", 500, WarehouseID);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
             proc.AddVarcharPara("@Serial", 500, Serial);
             proc.AddVarcharPara("@LastSerial", 500, LastSerial);
             proc.AddVarcharPara("@TotalIds", 500, TotalId);
@@ -253,8 +253,8 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@ProductID", 500, Convert.ToString(ProductId));
             proc.AddVarcharPara("@BatchID", 500, BatchID);
             proc.AddVarcharPara("@WarehouseID", 500, WarehouseID);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+            proc.AddVarcharPara("@companyId", 500, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
             proc.AddVarcharPara("@Serial", 500, Serial);
             proc.AddVarcharPara("@LastSerial", 500, LastSerial);
             proc.AddVarcharPara("@TotalIds", 500, TotalId);
@@ -360,8 +360,8 @@ namespace BusinessLogicLayer
             ProcedureExecute proc = new ProcedureExecute("prc_CRMSalesChallan");
             proc.AddVarcharPara("@Action", 100, "SalesChallanDelete");
             proc.AddVarcharPara("@Challan_Id", 50, SalesChallanid);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-            proc.AddVarcharPara("@CompanyID", 500, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+            proc.AddVarcharPara("@CompanyID", 500, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
             proc.AddVarcharPara("@ReturnValue", 50, "0", QueryParameterDirection.Output);
             i = proc.RunActionQuery();
             rtrnvalue = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
@@ -393,7 +393,7 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@Action", 100, "BTOCancelReason");
             proc.AddVarcharPara("@KeyVal", 50, KeyVal);
             proc.AddVarcharPara("@Reason", 50, Reason);
-            proc.AddVarcharPara("@CancelledBy", 50, Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddVarcharPara("@CancelledBy", 50, Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddVarcharPara("@ReturnValue", 50, "0", QueryParameterDirection.Output);
             i = proc.RunActionQuery();
             rtrnvalue = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
@@ -408,8 +408,8 @@ namespace BusinessLogicLayer
             ProcedureExecute proc = new ProcedureExecute("Prc_CancelBranchTransferOut");
             proc.AddVarcharPara("@Action", 100, "CancelBTO");
             proc.AddVarcharPara("@Document_Id", 50, KeyVal);
-            proc.AddVarcharPara("@CompanyID", 50, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
-            proc.AddVarcharPara("@FinYear", 50, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
+            proc.AddVarcharPara("@CompanyID", 50, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
+            proc.AddVarcharPara("@FinYear", 50, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
             proc.AddVarcharPara("@ReturnValue", 50, "0", QueryParameterDirection.Output);
             i = proc.RunActionQuery();
             rtrnvalue = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
@@ -425,7 +425,7 @@ namespace BusinessLogicLayer
 
             proc.AddVarcharPara("@VoucherNumber", 50, VoucherNo);
             proc.AddVarcharPara("@Module_Type", 50, Type);
-            proc.AddVarcharPara("@CreatedBy", 50, Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddVarcharPara("@CreatedBy", 50, Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddDateTimePara("@ValueDate", DateTime.ParseExact(ValueDate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture));
             proc.AddVarcharPara("@InstrumentNo", 150, InstrumentNo);
             proc.AddDateTimePara("@Instrumentdate", DateTime.ParseExact(InstrumentDate, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture));
@@ -713,7 +713,7 @@ namespace BusinessLogicLayer
                     proc.AddIntegerPara("@S_SalesOrderAdd_cityId", city);
                     proc.AddVarcharPara("@S_SalesOrderAdd_pin", 12, pin);
                     proc.AddIntegerPara("@S_SalesOrderAdd_areaId", area);
-                    proc.AddIntegerPara("@S_SalesOrderAdd_CreatedUser", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                    proc.AddIntegerPara("@S_SalesOrderAdd_CreatedUser", Convert.ToInt32(HttpContext.Current.Session["MRuserid"]));
 
                     //End here 04-01-2017
 

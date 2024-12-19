@@ -235,7 +235,7 @@ namespace BusinessLogicLayer
                     proc.AddIntegerPara("@S_QuoteAdd_cityId", city);
                     proc.AddVarcharPara("@S_QuoteAdd_pin", 12, pin);
                     proc.AddIntegerPara("@S_QuoteAdd_areaId", area);
-                    proc.AddIntegerPara("@S_QuoteAdd_CreatedUser", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                    proc.AddIntegerPara("@S_QuoteAdd_CreatedUser", Convert.ToInt32(HttpContext.Current.Session["MRuserid"]));
 
                     //End here 04-01-2017
 

@@ -16,10 +16,35 @@ namespace ModernRetail.Controllers
         LoginModel model = new LoginModel();
         DBEngine oDBEngine = new DBEngine(ConfigurationManager.AppSettings["DBConnectionDefault"]);
 
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+        
+        public ActionResult Login()
         {
+            ViewBag.ApplicationVersion = oDBEngine.GetApplicationVersion();
+            ViewBag.ValidateMessage = "";
+
+            if (Session["LMSuserid"] != null)
+            {
+
+                if (Request.Cookies["ERPACTIVEURL"] != null && Convert.ToString(Request.Cookies["ERPACTIVEURL"].Value) == "1")
+                {
+                    Response.Redirect("/OMS/MultiTabError.aspx", true);
+                }
+
+                Session["DeveloperRedirect"] = "Yes";
+
+                HttpCookie ERPACTIVEURL = new HttpCookie("ERPACTIVEURL");
+                ERPACTIVEURL.Value = "1";
+                Response.Cookies.Add(ERPACTIVEURL);
+
+            }
+
             return View();
-        }       
+        }
+
         public ActionResult Logout()
         {
             return Redirect("/OMS/Signoff.aspx");
@@ -30,19 +55,54 @@ namespace ModernRetail.Controllers
         }
         public ActionResult SubmitForm(LoginModel omodel)
         {
-            Encryption epasswrd = new Encryption();
-            string Encryptpass = epasswrd.Encrypt(omodel.password.Trim());
-            string Validuser;
-            Validuser = oDBEngine.AuthenticateUser(omodel.username, Encryptpass).ToString();
-            if (Validuser == "Y")
+            ViewBag.ValidateMessage = "";
+
+            if ((omodel.username is null || omodel.username == "") && (omodel.password is null || omodel.password == ""))
             {
-                return RedirectToAction("Index", "Dashboard");
+                ViewBag.ValidateMessage = "Please enter User Name and Password";
+                return View("Login");
+            }
+            else if (omodel.username is null || omodel.username == "")
+            {
+                ViewBag.ValidateMessage = "Please enter User Name";
+                return View("Login");
+            }
+            else if (omodel.password is null || omodel.password == "")
+            {
+                ViewBag.ValidateMessage = "Please enter Password";
+                return View("Login");
             }
 
             else
             {
-                return View();
+                Encryption epasswrd = new Encryption();
+                string Encryptpass = epasswrd.Encrypt(omodel.password.Trim());
+                string Validuser;
+
+                Validuser = oDBEngine.AuthenticateUser(omodel.username, Encryptpass).ToString();
+                if (Validuser == "Y")
+                {
+                    HttpCookie cookie = new HttpCookie("sKeyMR");
+                    cookie.Value = omodel.username;
+                    cookie.Expires = DateTime.Now.AddDays(1);
+                    Response.Cookies.Add(cookie);
+
+                    HttpCookie ERPACTIVEURL = new HttpCookie("ERPACTIVEURL");
+                    ERPACTIVEURL.Value = "1";
+                    Response.Cookies.Add(ERPACTIVEURL);
+
+
+                    return RedirectToAction("Index", "Dashboard");
+                }
+
+                else
+                {
+                    ViewBag.ValidateMessage = Validuser;
+                    return View("Login");
+                }
             }
+
+            
         }       
         public ActionResult DownloadAPK()
         {            

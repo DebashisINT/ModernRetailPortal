@@ -41,7 +41,7 @@ namespace BusinessLogicLayer
                     //else
                     //    proc.Parameters.Add("@AccountGroupParentID", SqlDbType.Int).Value = Convert.ToInt32(e.NewValues["AccountGroupParentID"].ToString());
 
-                    //   proc.Parameters.Add("@CreateUser", SqlDbType.Int).Value = Convert.ToInt32(HttpContext.Current.Session["userid"]);
+                    //   proc.Parameters.Add("@CreateUser", SqlDbType.Int).Value = Convert.ToInt32(HttpContext.Current.Session["MRuserid"]);
 
                     int NoOfRowEffected = proc.RunActionQuery();
 

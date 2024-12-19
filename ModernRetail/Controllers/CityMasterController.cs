@@ -56,7 +56,7 @@ namespace ModernRetail.Controllers
                     Is_PageLoad = "Ispageload";
 
                 ViewData["ModelData"] = model;
-                string Userid = Convert.ToString(Session["userid"]);
+                string Userid = Convert.ToString(Session["MRuserid"]);
 
                 String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
@@ -80,7 +80,7 @@ namespace ModernRetail.Controllers
         public IEnumerable GetDetailsList(string Is_PageLoad)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-            string Userid = Convert.ToString(Session["userid"]);
+            string Userid = Convert.ToString(Session["MRuserid"]);
             if (Is_PageLoad != "Ispageload")
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
@@ -102,7 +102,7 @@ namespace ModernRetail.Controllers
         public JsonResult SaveCity(Int64 Country, string id, Int64 State, string City, string CityLocationLat, string CityLocationLong)
         {
             int output = 0;
-            string Userid = Convert.ToString(Session["userid"]);
+            string Userid = Convert.ToString(Session["MRuserid"]);
             output = obj.SaveCity(State, City, CityLocationLat, CityLocationLong, Userid, id);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
