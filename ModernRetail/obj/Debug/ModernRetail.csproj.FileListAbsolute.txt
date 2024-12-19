@@ -314,3 +314,7 @@ D:\GIT\GitHub\ModernRetailPortal\ModernRetail\obj\Debug\ModernRetail.csproj.Core
 D:\GIT\GitHub\ModernRetailPortal\ModernRetail\obj\Debug\ModernRe.D326AC48.Up2Date
 D:\GIT\GitHub\ModernRetailPortal\ModernRetail\obj\Debug\ModernRetail.dll
 D:\GIT\GitHub\ModernRetailPortal\ModernRetail\obj\Debug\ModernRetail.pdb
+D:\GITHUB\ModernRetailPortal\ModernRetail\bin\BusinessLogicLayer.dll
+D:\GITHUB\ModernRetailPortal\ModernRetail\bin\Aspose.Pdf.Kit.dll
+D:\GITHUB\ModernRetailPortal\ModernRetail\bin\Ionic.Zip.dll
+D:\GITHUB\ModernRetailPortal\ModernRetail\bin\BusinessLogicLayer.pdb

@@ -304,6 +304,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModernRetail.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SecurityRolesModel.cs" />
     <Compile Include="Models\StateMasterModel.cs" />
     <Compile Include="Models\UserMasterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1093,6 +1094,8 @@
     <Content Include="Views\UserConfiguration\UserMasterList.cshtml" />
     <Content Include="Views\UserConfiguration\_PartialUserMasterList.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\SecurityRoles\SecurityRolesList.cshtml" />
+    <Content Include="Views\SecurityRoles\_PartialSecurityRolesListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
