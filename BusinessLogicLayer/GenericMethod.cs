@@ -61,9 +61,9 @@ namespace BusinessLogicLayer
         {
             strAppConnection = "Data Source=" + strDataSource + ";Initial Catalog=" + strInitialCatalog + ";User ID=" + strUID + "; Password=" + strPwd + ";pooling='" + strPooling + "';Max Pool Size=" + strPoolSize + "";
             // added for read only user
-            //if (HttpContext.Current.Session["EntryProfileType"] != null)
+            //if (HttpContext.Current.Session["MREntryProfileType"] != null)
             //{
-            //    if (Convert.ToString(HttpContext.Current.Session["EntryProfileType"]) == "R")
+            //    if (Convert.ToString(HttpContext.Current.Session["MREntryProfileType"]) == "R")
             //    {
             //        strAppConnection = ConfigurationSettings.AppSettings["DBReadOnlyConnection"];
             //    }
@@ -106,7 +106,7 @@ namespace BusinessLogicLayer
             string ProductTypeID = String.Empty;
 
             if (ExchangeSegmentID == 0)
-                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
             if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
             {
@@ -155,7 +155,7 @@ namespace BusinessLogicLayer
             if (AssetOrDerivativeIndicator == "A")
             {
                 if (ExchangeSegmentID == 0)
-                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
                 if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
                 {
@@ -189,7 +189,7 @@ namespace BusinessLogicLayer
             else if (AssetOrDerivativeIndicator == "D")
             {
                 if (ExchangeSegmentID == 0)
-                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
                 if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
                 {
@@ -223,7 +223,7 @@ namespace BusinessLogicLayer
             else if (AssetOrDerivativeIndicator == "AD")
             {
                 if (ExchangeSegmentID == 0)
-                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
                 if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
                 {
@@ -276,7 +276,7 @@ namespace BusinessLogicLayer
             string strQuery_GroupBy = null;
 
             if (ExchangeSegmentID == 0)
-                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
             if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 19)//For CM
             {
@@ -355,7 +355,7 @@ namespace BusinessLogicLayer
             string strQuery_GroupBy = null;
 
             if (ExchangeSegmentID == 0)
-                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
             if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 19)//For CM
             {
@@ -456,9 +456,9 @@ namespace BusinessLogicLayer
 
         public void  ReadOnlyConnection()
         {           
-            if (Convert.ToString(HttpContext.Current.Session["EntryProfileType"]) != null)
+            if (Convert.ToString(HttpContext.Current.Session["MREntryProfileType"]) != null)
             {
-                if (Convert.ToString(HttpContext.Current.Session["EntryProfileType"]) == "R")
+                if (Convert.ToString(HttpContext.Current.Session["MREntryProfileType"]) == "R")
                 {
                     strAppConnection = ConfigurationSettings.AppSettings["DBReadOnlyConnection"];
                 }
@@ -698,7 +698,7 @@ namespace BusinessLogicLayer
             return GetDataTable(@"(Select Exch_CompID,Exch_InternalID,Exh_ShortName,Exch_SegmentID from Tbl_Master_Exchange,
             Tbl_Master_CompanyExchange Where Exh_CntId=Exch_ExchID) as T1,Master_Exchange", @"
             isnull(Exh_ShortName,'') ExchangeName", "Exchange_ShortName=Exh_ShortName and exch_internalId='" +
-            HttpContext.Current.Session["UserSegID"].ToString() + "'", "Exchange_ID").Rows[0][0].ToString();
+            HttpContext.Current.Session["MRusersegid"].ToString() + "'", "Exchange_ID").Rows[0][0].ToString();
         }
         #endregion
 
@@ -737,7 +737,7 @@ namespace BusinessLogicLayer
             {
                 strQuery_Table = "Master_DPAccounts";
                 strQuery_FieldName = "Top 10 Ltrim(Rtrim(isnull(DPAccounts_ShortName,''))) TextField,Cast(DPAccounts_ID as Varchar(10))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountName,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountType,'')))+'~'+Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10))))+'~'+Ltrim(Rtrim(isnull(DPAccounts_DPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_ClientID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CMBPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField";
-                strQuery_WhereClause = "(DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'";
+                strQuery_WhereClause = "(DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'";
                 strQuery_OrderBy = "DPAccounts_AccountType";
                 strQuery_GroupBy = "";
             }
@@ -745,7 +745,7 @@ namespace BusinessLogicLayer
             {
                 strQuery_Table = "Master_DPAccounts";
                 strQuery_FieldName = "Top 10 Ltrim(Rtrim(isnull(DPAccounts_ShortName,''))) TextField,Cast(DPAccounts_ID as Varchar(10))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountName,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountType,'')))+'~'+Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10))))+'~'+Ltrim(Rtrim(isnull(DPAccounts_DPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_ClientID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CMBPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField";
-                strQuery_WhereClause = "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And (DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'";
+                strQuery_WhereClause = "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And (DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'";
                 strQuery_OrderBy = "DPAccounts_AccountType";
                 strQuery_GroupBy = "";
             }
@@ -753,7 +753,7 @@ namespace BusinessLogicLayer
             {
                 strQuery_Table = "Master_DPAccounts";
                 strQuery_FieldName = "Top 10 Ltrim(Rtrim(isnull(DPAccounts_ShortName,''))) TextField,Cast(DPAccounts_ID as Varchar(10))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountName,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountType,'')))+'~'+Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10))))+'~'+Ltrim(Rtrim(isnull(DPAccounts_DPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_ClientID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CMBPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField";
-                strQuery_WhereClause = "DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ") And(DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'";
+                strQuery_WhereClause = "DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ") And(DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'";
                 strQuery_OrderBy = "DPAccounts_AccountType";
                 strQuery_GroupBy = "";
             }
@@ -761,7 +761,7 @@ namespace BusinessLogicLayer
             {
                 strQuery_Table = "Master_DPAccounts";
                 strQuery_FieldName = "Top 10 Ltrim(Rtrim(isnull(DPAccounts_ShortName,''))) TextField,Cast(DPAccounts_ID as Varchar(10))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountName,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_AccountType,'')))+'~'+Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10))))+'~'+Ltrim(Rtrim(isnull(DPAccounts_DPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_ClientID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CMBPID,'')))+'~'+Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField";
-                strQuery_WhereClause = "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ") And(DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'";
+                strQuery_WhereClause = "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ") And(DPAccounts_ShortName Like '%RequestLetter%' Or DPAccounts_AccountName Like '%RequestLetter%' Or DPAccounts_AccountType Like '%RequestLetter%' Or DPAccounts_DPID Like '%RequestLetter%' Or DPAccounts_ClientID Like '%RequestLetter%') And DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'";
                 strQuery_OrderBy = "DPAccounts_AccountType";
                 strQuery_GroupBy = "";
             }
@@ -937,9 +937,9 @@ namespace BusinessLogicLayer
         public string GetSettlementsAQuery(string AllOrSpecific, DateTime SpecificStartFrom)
         {
             if (AllOrSpecific == "A")
-                strQuery_Table = @"(Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_EndDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayin,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayout,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FinYear='" + HttpContext.Current.Session["LastFinYear"] + "' and Settlements_ExchangeSegmentID=1 Union Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FundsPayout>(Select FinYear_StartDate from Master_FinYear Where FinYear_Code='" + HttpContext.Current.Session["LastFinYear"].ToString() + "') and Settlements_ExchangeSegmentID=1 and Settlements_FinYear='" + GetPreviousFinYear() + "') Settlements";
+                strQuery_Table = @"(Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_EndDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayin,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayout,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FinYear='" + HttpContext.Current.Session["MRLastFinYear"] + "' and Settlements_ExchangeSegmentID=1 Union Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FundsPayout>(Select FinYear_StartDate from Master_FinYear Where FinYear_Code='" + HttpContext.Current.Session["MRLastFinYear"].ToString() + "') and Settlements_ExchangeSegmentID=1 and Settlements_FinYear='" + GetPreviousFinYear() + "') Settlements";
             else
-                strQuery_Table = @"(Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_EndDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayin,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayout,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FinYear='" + HttpContext.Current.Session["LastFinYear"] + "' and Settlements_StartDateTime>'" + SpecificStartFrom.ToString("yyyy-MM-dd") + "' and Settlements_ExchangeSegmentID=1 Union Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FundsPayout>(Select FinYear_StartDate from Master_FinYear Where FinYear_Code='" + HttpContext.Current.Session["LastFinYear"] + "') and Settlements_ExchangeSegmentID=1 and Settlements_FinYear='" + GetPreviousFinYear() + "' and Settlements_StartDateTime>'" + HttpContext.Current.Session["StartdateFundsPayindate"].ToString() + "') Settlements";
+                strQuery_Table = @"(Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_EndDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayin,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_FundsPayout,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FinYear='" + HttpContext.Current.Session["MRLastFinYear"] + "' and Settlements_StartDateTime>'" + SpecificStartFrom.ToString("yyyy-MM-dd") + "' and Settlements_ExchangeSegmentID=1 Union Select Ltrim(Rtrim(Isnull(Settlements_Number,'')))+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,''))) TextField,Ltrim(Rtrim(Isnull(Settlements_Number,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_TypeSuffix,'')))+'~'+Ltrim(Rtrim(Isnull(Settlements_Type,'')))+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-')+'~'+Replace(CONVERT(Varchar,Settlements_StartDateTime,111),'/','-') ValueField,Settlements_Number,Settlements_TypeSuffix,Settlements_StartDateTime,Settlements_EndDateTime,Settlements_FundsPayin,Settlements_FundsPayout from Master_Settlements Where Settlements_FundsPayout>(Select FinYear_StartDate from Master_FinYear Where FinYear_Code='" + HttpContext.Current.Session["MRLastFinYear"] + "') and Settlements_ExchangeSegmentID=1 and Settlements_FinYear='" + GetPreviousFinYear() + "' and Settlements_StartDateTime>'" + HttpContext.Current.Session["StartdateFundsPayindate"].ToString() + "') Settlements";
             strQuery_FieldName = " Top 10 * ";
             strQuery_OrderBy = "Settlements_StartDateTime";
             strQuery_GroupBy = "";
@@ -954,7 +954,7 @@ namespace BusinessLogicLayer
 
         #region Cash/Bank A/C Relavant
         //AllOrSpecific : A/S
-        //SpecificSegment : If Specific Then Pass Specific SegmentID(Session["UserSegID"]) To Find Out Bank Or Cash Account Of Same
+        //SpecificSegment : If Specific Then Pass Specific SegmentID(Session["MRusersegid"]) To Find Out Bank Or Cash Account Of Same
         //CashOrBankOrCashBank : Pass Cash For Only Cash A/c,Pass Bank For Only Bank A/c,Pass CashBank For Both Cash/Bank A/c
         public string GetCashBankAccAQuery(string AllOrSpecific, string SpecificSegment, string CashOrBankOrCashBank)
         {
@@ -966,7 +966,7 @@ namespace BusinessLogicLayer
             else
                 strSegmentAndBankCashType = strSegmentAndBankCashType + " and (MainAccount_BankCashType='" + CashOrBankOrCashBank + "')";
 
-            string strQuery_Table = "(Select MainAccount_AccountCode+'-'+MainAccount_Name+' [ '+MainAccount_BankAcNumber+' ]'+' ~ '+MainAccount_BankCashType as TextField,MainAccount_AccountCode+'~'+MainAccount_BankCashType ValueField,MainAccount_Name,MainAccount_BankAcNumber,MainAccount_AccountCode from Master_MainAccount where (MainAccount_BankCompany='" + HttpContext.Current.Session["LastCompany"] + "' Or IsNull(MainAccount_BankCompany,'')='')" + strSegmentAndBankCashType + ") as t1";
+            string strQuery_Table = "(Select MainAccount_AccountCode+'-'+MainAccount_Name+' [ '+MainAccount_BankAcNumber+' ]'+' ~ '+MainAccount_BankCashType as TextField,MainAccount_AccountCode+'~'+MainAccount_BankCashType ValueField,MainAccount_Name,MainAccount_BankAcNumber,MainAccount_AccountCode from Master_MainAccount where (MainAccount_BankCompany='" + HttpContext.Current.Session["MRLastCompany"] + "' Or IsNull(MainAccount_BankCompany,'')='')" + strSegmentAndBankCashType + ") as t1";
             string strQuery_FieldName = " Top 10 * ";
             string strQuery_WhereClause = "MainAccount_AccountCode like ('%RequestLetter%') or MainAccount_Name like ('%RequestLetter%') or MainAccount_BankAcNumber like ('%RequestLetter%')";
             string strQuery_OrderBy = "MainAccount_AccountCode";
@@ -1200,7 +1200,7 @@ namespace BusinessLogicLayer
             return GetDataTable(@"(Select Exch_CompID,Exch_InternalID,Exh_ShortName,Exch_SegmentID from Tbl_Master_Exchange,
             Tbl_Master_CompanyExchange Where Exh_CntId=Exch_ExchID) as T1,Master_Exchange", @"
             isnull(Exch_SegmentID ,'') SegmentName", "Exchange_ShortName=Exh_ShortName and exch_internalId='" +
-            HttpContext.Current.Session["UserSegID"].ToString() + "'", "Exchange_ID").Rows[0][0].ToString();
+            HttpContext.Current.Session["MRusersegid"].ToString() + "'", "Exchange_ID").Rows[0][0].ToString();
         }
         #endregion
 
@@ -1249,7 +1249,7 @@ namespace BusinessLogicLayer
             Tbl_Master_CompanyExchange Where Exh_CntId=Exch_ExchID) as T1,Master_Exchange", @"
             isnull(Exh_ShortName,'')+Case When isnull(Exch_SegmentID ,'')!='' Then ' - ' Else '' End
             +isnull(Exch_SegmentID ,'') SegmentName", "Exchange_ShortName=Exh_ShortName and exch_internalId='" +
-            HttpContext.Current.Session["UserSegID"].ToString() + "'", "Exchange_ID").Rows[0][0].ToString();
+            HttpContext.Current.Session["MRusersegid"].ToString() + "'", "Exchange_ID").Rows[0][0].ToString();
         }
         public DataTable GetExchangeSegmentName(string UserSegIDs)
         {
@@ -1337,7 +1337,7 @@ namespace BusinessLogicLayer
                 return GetDataTable("Master_DPAccounts", @"DPAccounts_ShortName TextField,Cast(DPAccounts_ID as Varchar(10)),Ltrim(Rtrim(isnull(DPAccounts_AccountName,''))),
                     Ltrim(Rtrim(isnull(DPAccounts_AccountType,''))),Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10)))),
                     Ltrim(Rtrim(isnull(DPAccounts_DPID,''))),Ltrim(Rtrim(isnull(DPAccounts_ClientID,''))),Ltrim(Rtrim(isnull(DPAccounts_CMBPID,''))),
-                    Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField", "DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'",
+                    Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField", "DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'",
                     "DPAccounts_AccountType");
             }
             else if (AllOrSpecificAccountType == "S" && AllOrSpecificSegmentID == "A")
@@ -1346,7 +1346,7 @@ namespace BusinessLogicLayer
                     Ltrim(Rtrim(isnull(DPAccounts_AccountType,''))),Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10)))),
                     Ltrim(Rtrim(isnull(DPAccounts_DPID,''))),Ltrim(Rtrim(isnull(DPAccounts_ClientID,''))),Ltrim(Rtrim(isnull(DPAccounts_CMBPID,''))),
                     Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField",
-                    "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'",
+                    "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'",
                     "DPAccounts_AccountType");
             }
             else if (AllOrSpecificAccountType == "A" && AllOrSpecificSegmentID == "S")
@@ -1355,7 +1355,7 @@ namespace BusinessLogicLayer
                     Ltrim(Rtrim(isnull(DPAccounts_AccountType,''))),Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10)))),
                     Ltrim(Rtrim(isnull(DPAccounts_DPID,''))),Ltrim(Rtrim(isnull(DPAccounts_ClientID,''))),Ltrim(Rtrim(isnull(DPAccounts_CMBPID,''))),
                     Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField",
-                    "DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ",0) And DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'",
+                    "DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ",0) And DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'",
                     "DPAccounts_AccountType");
             }
             else if (AllOrSpecificAccountType == "S" && AllOrSpecificSegmentID == "S")
@@ -1364,7 +1364,7 @@ namespace BusinessLogicLayer
                     Ltrim(Rtrim(isnull(DPAccounts_AccountType,''))),Ltrim(Rtrim(Cast(isnull(DPAccounts_ExchangeSegmentID,'') as Varchar(10)))),
                     Ltrim(Rtrim(isnull(DPAccounts_DPID,''))),Ltrim(Rtrim(isnull(DPAccounts_ClientID,''))),Ltrim(Rtrim(isnull(DPAccounts_CMBPID,''))),
                     Ltrim(Rtrim(isnull(DPAccounts_CompanyID,''))) ValueField",
-                    "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ",0) And DPAccounts_CompanyID='" + HttpContext.Current.Session["LastCompany"].ToString() + "'",
+                    "DPAccounts_AccountType in (" + SpecificDpAccountType + ") And DPAccounts_ExchangeSegmentID in (" + SpecificSegmentID + ",0) And DPAccounts_CompanyID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'",
                     "DPAccounts_AccountType");
             }
             return null;
@@ -1919,7 +1919,7 @@ namespace BusinessLogicLayer
         {
             string ProductTypeID = null;
             if (ExchangeSegmentID == 0)
-                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
             if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
             {
@@ -1959,7 +1959,7 @@ namespace BusinessLogicLayer
             if (AssetOrDerivativeIndicator == "A")
             {
                 if (ExchangeSegmentID == 0)
-                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
                 if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
                 {
@@ -1993,7 +1993,7 @@ namespace BusinessLogicLayer
             else if (AssetOrDerivativeIndicator == "D")
             {
                 if (ExchangeSegmentID == 0)
-                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
                 if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
                 {
@@ -2027,7 +2027,7 @@ namespace BusinessLogicLayer
             else if (AssetOrDerivativeIndicator == "AD")
             {
                 if (ExchangeSegmentID == 0)
-                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["ExchangeSegmentID"].ToString());
+                    ExchangeSegmentID = Convert.ToInt32(HttpContext.Current.Session["MRExchangeSegmentID"].ToString());
 
                 if (ExchangeSegmentID == 1 || ExchangeSegmentID == 4 || ExchangeSegmentID == 15 || ExchangeSegmentID == 19)//for CM
                 {
@@ -2248,7 +2248,7 @@ namespace BusinessLogicLayer
 
             string strQuery_Table = @"Master_DigitalSignature,tbl_master_contact";
             string strQuery_FieldName = "Top 10 Ltrim(Rtrim(IsNull(cnt_firstName,''))) +' '+Ltrim(Rtrim(IsNull(cnt_middleName,'')))+' '+Ltrim(Rtrim(IsNull(cnt_lastName,''))) +'['+Ltrim(Rtrim(IsNull(cnt_shortName,'')))+']' TextField,Cast(Ltrim(Rtrim(DigitalSignature_ID)) as Varchar(10))+'~'+Ltrim(Rtrim(IsNull(cnt_firstName,''))) +' '+Ltrim(Rtrim(IsNull(cnt_middleName,'')))+' '+Ltrim(Rtrim(IsNull(cnt_lastName,''))) +'['+Ltrim(Rtrim(IsNull(cnt_shortName,'')))+']'+'~'+isnull(digitalsignature_Type,'N')+'~'+isnull(digitalSignature_Name,'NA')+'~DigiSign'+ ValueField";
-            string strQuery_WhereClause = @"cnt_firstName Like '%RequestLetter%' and cnt_internalid=DigitalSignature_ContactID and '" + HttpContext.Current.Session["UserID"] + @"' in ( select * from dbo.fnSplitReturnTable(DigitalSignature_AuthorizedUsers,','))  and DigitalSignature_ValidUntil>=cast(convert(varchar(9),getdate(),06) as datetime)";
+            string strQuery_WhereClause = @"cnt_firstName Like '%RequestLetter%' and cnt_internalid=DigitalSignature_ContactID and '" + HttpContext.Current.Session["MRuserid"] + @"' in ( select * from dbo.fnSplitReturnTable(DigitalSignature_AuthorizedUsers,','))  and DigitalSignature_ValidUntil>=cast(convert(varchar(9),getdate(),06) as datetime)";
             string strQuery_OrderBy = "TextField";
             string strQuery_GroupBy = null;
             return ReturnCombinedQuery(strQuery_Table, strQuery_FieldName, strQuery_WhereClause, strQuery_GroupBy, strQuery_OrderBy, "EDUCATION");
@@ -2462,10 +2462,10 @@ namespace BusinessLogicLayer
             string strQuery_Table = @"(Select ls_lastdpcoid,ls_lastCompany,ls_lastFinYear,ls_lastSettlementNo,ls_lastSettlementType,
         Session_ExchangeSegmentID,CmpLedgerView from 
         (Select ls_lastdpcoid,ls_lastCompany,ls_lastFinYear,ls_lastSettlementNo,ls_lastSettlementType,ls_lastSegment,
-        (Select seg_name from tbl_master_segment Where seg_id='" + HttpContext.Current.Session["UserLastSegment"] + @"') SegName
+        (Select seg_name from tbl_master_segment Where seg_id='" + HttpContext.Current.Session["MRuserlastsegment"] + @"') SegName
         from tbl_trans_LastSegment 
-        WHERE  ls_lastSegment='" + HttpContext.Current.Session["UserLastSegment"] + @"' 
-        and ls_userId='" + HttpContext.Current.Session["UserID"] + @"') T1
+        WHERE  ls_lastSegment='" + HttpContext.Current.Session["MRuserlastsegment"] + @"' 
+        and ls_userId='" + HttpContext.Current.Session["MRuserid"] + @"') T1
         Left outer Join 
         (Select Exch_CompID,
         (Select Ltrim(RTrim(Cmp_Name))+' ['+Cmp_InternalID+']' from Tbl_Master_Company Where Cmp_InternalID=Exch_CompID) as Company,
@@ -3418,8 +3418,8 @@ namespace BusinessLogicLayer
         //        if (Version == 1)
         //        {
         //            //Fetch Expiry From Encrypted File
-        //            string CurrentSegmentName = GetFieldValue1("tbl_master_segment", "Seg_Name", "Seg_id=" + HttpContext.Current.Session["userlastsegment"], 1)[0];
-        //            string CurrentCompanyName = GetCompanyDetail(HttpContext.Current.Session["LastCompany"].ToString()).Rows[0][1].ToString();
+        //            string CurrentSegmentName = GetFieldValue1("tbl_master_segment", "Seg_Name", "Seg_id=" + HttpContext.Current.Session["MRuserlastsegment"], 1)[0];
+        //            string CurrentCompanyName = GetCompanyDetail(HttpContext.Current.Session["MRLastCompany"].ToString()).Rows[0][1].ToString();
         //            string ExpiryValue = null;
 
         //            //====Start Decoding=======================================
@@ -3457,7 +3457,7 @@ namespace BusinessLogicLayer
                 {
                     //Fetch Expiry From Encrypted File
                     string ExpiryValue = null;
-                    string CurrentSegmentName = GetFieldValue1("tbl_master_segment", "Seg_Name", "Seg_id=" + HttpContext.Current.Session["userlastsegment"], 1)[0];
+                    string CurrentSegmentName = GetFieldValue1("tbl_master_segment", "Seg_Name", "Seg_id=" + HttpContext.Current.Session["MRuserlastsegment"], 1)[0];
                     string CurrentCompanyName = null;
 
                     if (CurrentSegmentName == "HR")
@@ -3468,11 +3468,11 @@ namespace BusinessLogicLayer
                         HttpContext.Current.Session["ExpireDate"] = Convert.ToDateTime("2300-12-31");
                     else
                     {
-                        if (HttpContext.Current.Session["LastCompany"].ToString() != "")
-                            CurrentCompanyName = GetCompanyDetail(HttpContext.Current.Session["LastCompany"].ToString()).Rows[0][1].ToString();
+                        if (HttpContext.Current.Session["MRLastCompany"].ToString() != "")
+                            CurrentCompanyName = GetCompanyDetail(HttpContext.Current.Session["MRLastCompany"].ToString()).Rows[0][1].ToString();
                         else
                         {
-                            string contactID = HttpContext.Current.Session["usercontactID"].ToString();
+                            string contactID = HttpContext.Current.Session["MRusercontactID"].ToString();
                             DataTable dtcmp = GetDataTable(" tbl_master_company  ", "*", "cmp_id=(select emp_organization from tbl_trans_employeectc where emp_cntId='" + contactID + "' and emp_effectiveuntil is null)");
                             CurrentCompanyName = dtcmp.Rows[0]["cmp_Name"].ToString();
                             dtcmp = null;

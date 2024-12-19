@@ -34,3 +34,9 @@ D:\PROJECTS\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.
 D:\PROJECTS\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
 D:\PROJECTS\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 D:\PROJECTS\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\GIT\GitHub\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\GIT\GitHub\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

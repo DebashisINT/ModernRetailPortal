@@ -629,9 +629,9 @@
                         <span class="user"><img src="/assests/images/user1.png" style="" /></span>
                         <span>
                             Welcome,
-                            @if (!string.IsNullOrEmpty(Convert.ToString(Request.Cookies["sKey"])))
+                            @if (!string.IsNullOrEmpty(Convert.ToString(Request.Cookies["sKeyMR"])))
                             {
-                                @Convert.ToString(Request.Cookies["sKey"].Value);
+                                @Convert.ToString(Request.Cookies["sKeyMR"].Value);
                             }
                         </span> <span class="lnr lnr-chevron-down"></span>
                     </a>
@@ -668,9 +668,9 @@
                             <span class="user"><img src="/assests/images/user1.png" style="max-width:40px;" /></span>
                             <span>
                                 Welcome,
-                                @if (!string.IsNullOrEmpty(Convert.ToString(Request.Cookies["sKey"])))
+                                @if (!string.IsNullOrEmpty(Convert.ToString(Request.Cookies["sKeyMR"])))
                                 {
-                                @Convert.ToString(Request.Cookies["sKey"].Value);
+                                @Convert.ToString(Request.Cookies["sKeyMR"].Value);
                                 }
                             </span> <span class="lnr lnr-chevron-down"></span>
                         </a>

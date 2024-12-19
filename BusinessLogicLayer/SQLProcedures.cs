@@ -20,9 +20,9 @@ namespace BusinessLogicLayer
         {
             string SqlConnection = System.Configuration.ConfigurationManager.ConnectionStrings["crmConnectionString"].ToString();//Default connection
 
-            if (HttpContext.Current.Session["EntryProfileType"] != null)
+            if (HttpContext.Current.Session["MREntryProfileType"] != null)
             {
-                if (Convert.ToString(HttpContext.Current.Session["EntryProfileType"]) == "R")//DBReadOnlyConnection
+                if (Convert.ToString(HttpContext.Current.Session["MREntryProfileType"]) == "R")//DBReadOnlyConnection
                 {
                     SqlConnection = System.Configuration.ConfigurationManager.AppSettings["DBReadOnlyConnection"].ToString();
                 }               

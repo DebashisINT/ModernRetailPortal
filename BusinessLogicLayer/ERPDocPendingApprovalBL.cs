@@ -14,7 +14,7 @@ namespace BusinessLogicLayer
    public class ERPDocPendingApprovalBL
    {
 
-        //ConditionWiseShowApprovalStatusButton(8, branchid, Convert.ToString(Session["userid"]), "PB");
+        //ConditionWiseShowApprovalStatusButton(8, branchid, Convert.ToString(Session["MRuserid"]), "PB");
        public int ConditionWiseShowApprovalStatusButton(int EntityId, string branchid, string userid,string doctype)
        {
 

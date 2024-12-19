@@ -44,7 +44,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             ProcedureExecute proc = new ProcedureExecute("PRC_FTSTARGETVSACHIEVEMENTSUMMARY_REPORT");
             proc.AddPara("@STATEID", states);
             proc.AddPara("@MONTH", month);
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@YEAR", year);
             ds = proc.GetTable();
         }

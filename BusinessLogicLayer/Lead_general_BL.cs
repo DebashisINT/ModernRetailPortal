@@ -47,7 +47,7 @@ namespace BusinessLogicLayer
                     proc.AddNVarcharPara("@emp_totalLeavePA", 100, emp_totalLeavePA);
                     proc.AddNVarcharPara("@emp_totalMedicalLeavePA", 100, "");
 
-                    proc.AddIntegerPara("@userid", Convert.ToInt32(HttpContext.Current.Session["userid"]));
+                    proc.AddIntegerPara("@userid", Convert.ToInt32(HttpContext.Current.Session["MRuserid"]));
                     proc.AddNVarcharPara("@emp_LeaveSchemeAppliedFrom", 100, emp_LeaveSchemeAppliedFrom);
                     proc.AddIntegerPara("@emp_branch", Convert.ToInt32(emp_branch));
                     proc.AddNVarcharPara("@emp_Remarks", 100, emp_Remarks);

@@ -17,8 +17,9 @@ namespace ModernRetail.Controllers
 
         public ActionResult Index()
         {
+            Session.Clear();
             Session.Abandon();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Login");
         }
        
     }

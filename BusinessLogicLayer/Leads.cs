@@ -72,7 +72,7 @@ namespace BusinessLogicLayer
                     proc.AddIntegerPara("@cnt_contactStatus", Convert.ToInt32(cmbContactStatus));
                     proc.AddVarcharPara("@cnt_rating", 100, cmbRating);
 
-                    proc.AddVarcharPara("@lastModifyUser", 100, Convert.ToString(HttpContext.Current.Session["userid"]));
+                    proc.AddVarcharPara("@lastModifyUser", 100, Convert.ToString(HttpContext.Current.Session["MRuserid"]));
                     proc.AddVarcharPara("@bloodgroup", 100, cmbBloodgroup);
                     proc.AddVarcharPara("@result", 100, "", QueryParameterDirection.Output);
                     int NoOfRowEffected = proc.RunActionQuery();

@@ -17,9 +17,9 @@ namespace BusinessLogicLayer
        {
            ProcedureExecute proc = new ProcedureExecute("Prc_CustomerReceiptAdjustment_details");
            proc.AddVarcharPara("@Action", 50, "GetLoadDetails");
-           proc.AddVarcharPara("@companyId", 20, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
-           proc.AddVarcharPara("@FinYear", 10, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-           proc.AddVarcharPara("@BranchList", -1, Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"]));
+           proc.AddVarcharPara("@companyId", 20, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
+           proc.AddVarcharPara("@FinYear", 10, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+           proc.AddVarcharPara("@BranchList", -1, Convert.ToString(HttpContext.Current.Session["MRuserbranchHierarchy"]));
            return proc.GetDataSet();
        }
 
@@ -50,9 +50,9 @@ namespace BusinessLogicLayer
            ProcedureExecute proc = new ProcedureExecute("Prc_CustomerReceiptAdjustment_details");
            proc.AddVarcharPara("@Action", 50, "GetEditedData");
            proc.AddVarcharPara("@AdjId", 10, AdjId);
-           proc.AddVarcharPara("@companyId", 20, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
-           proc.AddVarcharPara("@FinYear", 10, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-           proc.AddVarcharPara("@BranchList", -1, Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"]));
+           proc.AddVarcharPara("@companyId", 20, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
+           proc.AddVarcharPara("@FinYear", 10, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+           proc.AddVarcharPara("@BranchList", -1, Convert.ToString(HttpContext.Current.Session["MRuserbranchHierarchy"]));
            return proc.GetDataSet();
        }
 
@@ -82,8 +82,8 @@ namespace BusinessLogicLayer
                 cmd.Parameters.AddWithValue("@userId", userId);
                 cmd.Parameters.AddWithValue("@DetailTable", AdjustmentTable);
                 cmd.Parameters.AddWithValue("@Adj_id", Adj_id);
-                cmd.Parameters.AddWithValue("@FinYear", HttpContext.Current.Session["LastFinYear"].ToString());
-                cmd.Parameters.AddWithValue("@CompanyID", HttpContext.Current.Session["LastCompany"].ToString());
+                cmd.Parameters.AddWithValue("@FinYear", HttpContext.Current.Session["MRLastFinYear"].ToString());
+                cmd.Parameters.AddWithValue("@CompanyID", HttpContext.Current.Session["MRLastCompany"].ToString());
 
                 cmd.Parameters.Add("@ReturnValue", SqlDbType.VarChar, 50);
                 cmd.Parameters.Add("@ReturnId", SqlDbType.VarChar,10);

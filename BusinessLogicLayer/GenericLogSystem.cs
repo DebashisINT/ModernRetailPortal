@@ -244,7 +244,7 @@ namespace BusinessLogicLayer
         //LogCreation Main Methods
         public string GetLogID()
         {
-            return oconverter.GetAutoGenerateNo() + "_" + HttpContext.Current.Session["UserID"].ToString();
+            return oconverter.GetAutoGenerateNo() + "_" + HttpContext.Current.Session["MRuserid"].ToString();
         }
         public void CreateLog(string FromClause, string WhereClause, Enum LogState, string UserID, string PhysicalTableRowRef, string TableName, string AutoGenNumber, LogType LogType)
         {
@@ -285,7 +285,7 @@ namespace BusinessLogicLayer
             //Get Master File XML
             SqlDataReader DrSingleXmlFile;
             XmlDocument XmlDocFile;
-            string XmlPath = ConfigurationManager.AppSettings["SaveCSVsql"] + @"\LogFiles\Log_" + ModuleType.Trim() + "_MasterTable_" + HttpContext.Current.Session["UserID"].ToString();
+            string XmlPath = ConfigurationManager.AppSettings["SaveCSVsql"] + @"\LogFiles\Log_" + ModuleType.Trim() + "_MasterTable_" + HttpContext.Current.Session["MRuserid"].ToString();
             string strOutCombineXmlfilePaths = null;
             DataSet DsGetAllTable;
 
@@ -386,7 +386,7 @@ namespace BusinessLogicLayer
             }
             foreach (string TableName in DetailTableNames.Split(','))
             {
-                XmlPath = ConfigurationManager.AppSettings["SaveCSVsql"] + @"\LogFiles\Log_" + ModuleType.Trim() + "_" + TableName + "_" + HttpContext.Current.Session["UserID"].ToString();
+                XmlPath = ConfigurationManager.AppSettings["SaveCSVsql"] + @"\LogFiles\Log_" + ModuleType.Trim() + "_" + TableName + "_" + HttpContext.Current.Session["MRuserid"].ToString();
                 if (File.Exists(XmlPath))
                 {
                     try { File.Delete(XmlPath); }
@@ -551,7 +551,7 @@ namespace BusinessLogicLayer
                     sqlParameterType[3] = "D";
                     sqlParameterSize[3] = "";
                     sqlParameterName[4] = "AuditTrail_UserID";
-                    sqlParameterValue[4] = HttpContext.Current.Session["UserID"].ToString();
+                    sqlParameterValue[4] = HttpContext.Current.Session["MRuserid"].ToString();
                     sqlParameterType[4] = "I";
                     sqlParameterSize[4] = "";
                     sqlParameterName[5] = "AuditTrail_ModuleType";
@@ -560,19 +560,19 @@ namespace BusinessLogicLayer
                     sqlParameterSize[5] = "2";
 
                     DataTable DtEOD = null;
-                    //string UserLastSegment = HttpContext.Current.Session["userlastsegment"].ToString();
+                    //string UserLastSegment = HttpContext.Current.Session["MRuserlastsegment"].ToString();
                     string SegmentID = "R";
                     //if (UserLastSegment != "1" && UserLastSegment != "4" && UserLastSegment != "6")
                     //{
                     //    if (UserLastSegment == "9" || UserLastSegment == "10")
                     //    {
-                    //        DtEOD = oDbEngine.GetDataTable("tbl_master_CompanyExchange", "Exch_InternalID", "Exch_CompID='" + HttpContext.Current.Session["LastCompany"].ToString() + "' and Exch_TMCode='" + HttpContext.Current.Session["UserSegID"].ToString() + "'");
+                    //        DtEOD = oDbEngine.GetDataTable("tbl_master_CompanyExchange", "Exch_InternalID", "Exch_CompID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "' and Exch_TMCode='" + HttpContext.Current.Session["MRusersegid"].ToString() + "'");
                     //        SegmentID = DtEOD.Rows[0][0].ToString();
                     //        DtEOD = null;
                     //    }
                     //    else
                     //    {
-                    //        SegmentID = HttpContext.Current.Session["UserSegID"].ToString();
+                    //        SegmentID = HttpContext.Current.Session["MRusersegid"].ToString();
                     //    }
                     //}
                     sqlParameterName[6] = "ExchangeSegmentID";

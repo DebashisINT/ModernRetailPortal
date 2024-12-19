@@ -105,7 +105,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@Action", "ShopDetails");
             proc.AddPara("@ToDate", DateTime.Now.ToString("yyyy-MM-dd"));
             proc.AddPara("@Fromdate", DateTime.Now.ToString("yyyy-MM-dd"));
-            proc.AddPara("@user_id", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@user_id", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@EMPCODE", empcode);
             ds = proc.GetTable();
             return ds;
@@ -129,7 +129,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@Action", "TODAYDATA");
             proc.AddPara("@ToDate", DateTime.Now.ToString("yyyy-MM-dd"));
             proc.AddPara("@Fromdate", DateTime.Now.ToString("yyyy-MM-dd"));
-            proc.AddPara("@userid", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@userid", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@stateid", stateid);
             // Mantis Issue 25468
             proc.AddPara("@branchid", branchid);
@@ -151,7 +151,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@Action", "TODAYTEAMVISITDATA");
             proc.AddPara("@ToDate", DateTime.Now.ToString("yyyy-MM-dd"));
             proc.AddPara("@Fromdate", DateTime.Now.ToString("yyyy-MM-dd"));
-            proc.AddPara("@userid", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@userid", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@stateid", stateid);
             proc.AddPara("@branchid", branchid);
             ds = proc.GetDataSet();
@@ -161,7 +161,7 @@ namespace BusinessLogicLayer.SalesmanTrack
         //public DataTable GetDashboardAttendanceData()
         //{
         //    DBEngine Dbengine = new DBEngine();
-        //    DataTable DashboardTable = Dbengine.GetDataTable("select ACTION,COUNT(*) Count from FTSDASHBOARD_REPORT   WHERE USERID='" + Convert.ToString(HttpContext.Current.Session["userid"]) + "' group by ACTION");
+        //    DataTable DashboardTable = Dbengine.GetDataTable("select ACTION,COUNT(*) Count from FTSDASHBOARD_REPORT   WHERE USERID='" + Convert.ToString(HttpContext.Current.Session["MRuserid"]) + "' group by ACTION");
         //    return DashboardTable;
         //}
         // Mantis Issue 25468
@@ -178,7 +178,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@Action", "TODAYTEAMVISITDATA");
             proc.AddPara("@ToDate", DateTime.Now.ToString("yyyy-MM-dd"));
             proc.AddPara("@Fromdate", DateTime.Now.ToString("yyyy-MM-dd"));
-            proc.AddPara("@userid", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@userid", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@stateid", stateid);
             proc.AddPara("@branchid", branchid);
             ds = proc.GetDataSet();
@@ -193,7 +193,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@TODAYDATE", DateTime.Now.ToString("yyyy-MM-dd"));
             proc.AddPara("@STATEID", stateid);
             proc.AddPara("@DESIGNID", designid);
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@EMPID", empid);
             proc.AddPara("@HIERARCHY", "A");
             //proc.AddPara("@DAYCOUNT", "7");
@@ -299,7 +299,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@HIERARCHY", "A");
             proc.AddPara("@STATEID", stateID);
             proc.AddPara("@RPTTYPE", "Summary");
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
 
             dt = proc.GetTable();
             return dt;
@@ -314,7 +314,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@STATEID", stateid);
             proc.AddPara("@DESIGNID", "");
 
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@EMPID", "");
 
             proc.AddPara("@ACTION", "AT_WORK");
@@ -334,7 +334,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@TODAYDATE", DateTime.Now.ToString("yyyy-MM-dd"));
             proc.AddPara("@STATEID", stateid);
             proc.AddPara("@DESIGNID", designid);
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@EMPID", empid);
             proc.AddPara("@HIERARCHY", "A");
             //proc.AddPara("@DAYCOUNT", "7");
@@ -427,7 +427,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             DataSet ds = new DataSet();
             ProcedureExecute proc = new ProcedureExecute("prc_MDRDASHBOARDDATA");
             proc.AddPara("@ACTION", "TOTALCOUNT");
-            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USERID", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@STATEID", stateid);           
             proc.AddPara("@BRANCHID", branchid);
             ds = proc.GetDataSet();

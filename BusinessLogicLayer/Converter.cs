@@ -838,7 +838,7 @@ namespace BusinessLogicLayer
             EndDate = String.Empty;
 
 
-            financialYear = HttpContext.Current.Session["LastFinYear"].ToString();
+            financialYear = HttpContext.Current.Session["MRLastFinYear"].ToString();
             int month = DateTime.Parse("1." + strmonth + " 2008").Month;
             string[] yearSplit;
 
@@ -1401,7 +1401,7 @@ namespace BusinessLogicLayer
                     }
                     int j = 0;
 
-                    string[] str = oDBEngine.GetFieldValue1("tbl_master_segment", "seg_name", "seg_id=" + HttpContext.Current.Session["userlastsegment"], 1);
+                    string[] str = oDBEngine.GetFieldValue1("tbl_master_segment", "seg_name", "seg_id=" + HttpContext.Current.Session["MRuserlastsegment"], 1);
                     //if ((str[0].ToString() == "ICEX-COMM")  )
                     //{
                     //    j = oDBEngine.insertSignedDocument(CompanyID, Segment_OR_DPID, str[0].ToString(), strDate,
@@ -1523,7 +1523,7 @@ namespace BusinessLogicLayer
                     }
                     int j = 0;
 
-                    string[] str = oDBEngine.GetFieldValue1("tbl_master_segment", "seg_name", "seg_id=" + HttpContext.Current.Session["userlastsegment"], 1);
+                    string[] str = oDBEngine.GetFieldValue1("tbl_master_segment", "seg_name", "seg_id=" + HttpContext.Current.Session["MRuserlastsegment"], 1);
                     //if ((str[0].ToString() == "ICEX-COMM"))
                     //{
                     //    j = oDBEngine.insertSignedDocument1(CompanyID, Segment_OR_DPID, str[0].ToString(), strDate,strDate2,

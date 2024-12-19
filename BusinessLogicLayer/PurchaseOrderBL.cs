@@ -170,8 +170,8 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@Status", 50, Status);
            // proc.AddIntegerPara("@branch",Convert.ToInt32(branch));
             proc.AddVarcharPara("@branch", 500, branch);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-            proc.AddVarcharPara("@campany_Id", 500, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+            proc.AddVarcharPara("@campany_Id", 500, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
             dt = proc.GetTable();
             return dt;
         }
@@ -203,8 +203,8 @@ namespace BusinessLogicLayer
             proc.AddVarcharPara("@IndentDetails_Id", 1000, Order_Key);
             proc.AddVarcharPara("@Product_Id", 1000, Product_Ids);
             proc.AddVarcharPara("@Mode", 10, Action);
-            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["LastFinYear"]));
-            proc.AddVarcharPara("@campany_Id", 500, Convert.ToString(HttpContext.Current.Session["LastCompany"]));
+            proc.AddVarcharPara("@FinYear", 500, Convert.ToString(HttpContext.Current.Session["MRLastFinYear"]));
+            proc.AddVarcharPara("@campany_Id", 500, Convert.ToString(HttpContext.Current.Session["MRLastCompany"]));
             return proc.GetTable();
         }
         public DataTable GetCurrentConvertedRate(int BaseCurrencyId, int ConvertedCurrencyId, string CompID)

@@ -217,13 +217,13 @@ namespace ModernRetail.Controllers
             {
                 dt = objdata.BranchEntryInsertUpdate("UPDATEBRANCH", Convert.ToInt64(Details.branch_ID), Details.ShortName, Convert.ToInt64(Details.ParentBranch), Details.BranchName, Details.Address1,
                     Convert.ToInt64(Details.Country), Convert.ToInt64(Details.State), Convert.ToInt64(Details.City), Convert.ToInt64(Details.PIN)
-                       , Convert.ToInt64(Session["userid"]));
+                       , Convert.ToInt64(Session["MRuserid"]));
             }
             else
             {
                 dt = objdata.BranchEntryInsertUpdate("INSERTBRANCH", Convert.ToInt64(Details.branch_ID), Details.ShortName, Convert.ToInt64(Details.ParentBranch), Details.BranchName, Details.Address1,
                     Convert.ToInt64(Details.Country), Convert.ToInt64(Details.State), Convert.ToInt64(Details.City), Convert.ToInt64(Details.PIN)
-                       , Convert.ToInt64(Session["userid"]));
+                       , Convert.ToInt64(Session["MRuserid"]));
 
             }
 
@@ -261,7 +261,7 @@ namespace ModernRetail.Controllers
                     Is_PageLoad = "Ispageload";
 
                 ViewData["ModelData"] = model;
-                string Userid = Convert.ToString(Session["userid"]);
+                string Userid = Convert.ToString(Session["MRuserid"]);
 
                 String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
@@ -286,7 +286,7 @@ namespace ModernRetail.Controllers
         public IEnumerable GetBranchDetailsList(string Is_PageLoad)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-            string Userid = Convert.ToString(Session["userid"]);
+            string Userid = Convert.ToString(Session["MRuserid"]);
             if (Is_PageLoad != "Ispageload")
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);

@@ -256,7 +256,7 @@ namespace BusinessLogicLayer
             DataTable dt = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("prc_GetPendingDeliveryGRN");
 
-            proc.AddVarcharPara("@BranchID", -1, (branchID == "0") ? Convert.ToString(HttpContext.Current.Session["userbranchHierarchy"]) : branchID);
+            proc.AddVarcharPara("@BranchID", -1, (branchID == "0") ? Convert.ToString(HttpContext.Current.Session["MRuserbranchHierarchy"]) : branchID);
             proc.AddVarcharPara("@CompanyID", 50, companyID.Trim());
             proc.AddVarcharPara("@FromDelivDate", 10, frmDate.Trim());
             proc.AddVarcharPara("@ToDelivDate", 10, toDate.Trim());

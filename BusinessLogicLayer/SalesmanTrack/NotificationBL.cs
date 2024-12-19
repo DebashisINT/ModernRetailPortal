@@ -41,7 +41,7 @@ namespace BusinessLogicLayer.SalesmanTrack
             proc.AddPara("@endtime", endtime);
             proc.AddPara("@NOTIFICATION_ID", NOTIFICATION_ID);
             proc.AddBooleanPara("@IsActive", IsActive);
-            proc.AddPara("@USER_ID", Convert.ToString(HttpContext.Current.Session["userid"]));
+            proc.AddPara("@USER_ID", Convert.ToString(HttpContext.Current.Session["MRuserid"]));
             proc.AddPara("@returntext",SqlDbType.VarChar, 500, ParameterDirection.Output);
             //ds = proc.GetTable();
             proc.GetScalar();

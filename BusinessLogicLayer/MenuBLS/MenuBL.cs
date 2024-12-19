@@ -40,16 +40,16 @@ namespace BusinessLogicLayer.MenuBLS
         }
         public List<MenuListModel> GetUserMenuListByGroup()
         {
-            if (HttpContext.Current.Session["usergoup"] != null)
+            if (HttpContext.Current.Session["MRusergoup"] != null)
             {
                 try
                 {
-                    int UserGroupId = Convert.ToInt32(HttpContext.Current.Session["usergoup"]);
+                    int UserGroupId = Convert.ToInt32(HttpContext.Current.Session["MRusergoup"]);
                     ProcedureExecute Proc = new ProcedureExecute(UserMenuHelperProcedures.Proc_MenuHelper);
                     Proc.AddPara("@groupid", UserGroupId);
                     Proc.AddPara("@mode", Proc_MenuHelper_Mode.GetUserMenuList.ToString());
                     // Rev 1.0
-                    Proc.AddPara("@userid", Convert.ToInt32(HttpContext.Current.Session["userid"]) );
+                    Proc.AddPara("@userid", Convert.ToInt32(HttpContext.Current.Session["MRuserid"]) );
                     // End of Rev 1.0
                     DataTable dt = Proc.GetTable();
                     List<UserMenuListModel> AllMenus = DbHelpers.ToModelList<UserMenuListModel>(dt);

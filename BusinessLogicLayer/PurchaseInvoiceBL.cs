@@ -116,7 +116,7 @@ namespace BusinessLogicLayer
            return ds;
        }
 
-       //PopulateVendorProductTaxDataOnLoad(Convert.ToString(Session["LastCompany"]), Convert.ToString(Session["LastFinYear1"]), Convert.ToString(Session["userbranchID"]), Convert.ToString(ddlInventory.SelectedItem.Value), DateTime.Now.ToString("yyyy-MM-dd"), Convert.ToString(ddl_TdsScheme.Value));
+       //PopulateVendorProductTaxDataOnLoad(Convert.ToString(Session["MRLastCompany"]), Convert.ToString(Session["LastFinYear1"]), Convert.ToString(Session["MRuserbranchID"]), Convert.ToString(ddlInventory.SelectedItem.Value), DateTime.Now.ToString("yyyy-MM-dd"), Convert.ToString(ddl_TdsScheme.Value));
        public DataSet PopulateVendorProductTaxDataOnLoad(string companyid, string FinYear, string branchid,string inventorytype,string curdate,string tdssection)
        {
            try
@@ -579,7 +579,7 @@ namespace BusinessLogicLayer
            dt = proc.GetTable();
            return dt;
        }
-       //Convert.ToString(Session["LastCompany"]), Convert.ToString(Session["LastFinYear1"]), Convert.ToString(Session["userbranchID"]), Convert.ToString(ddlInventory.SelectedItem.Value), DateTime.Now.ToString("yyyy-MM-dd"), Convert.ToString(ddl_TdsScheme.Value)
+       //Convert.ToString(Session["MRLastCompany"]), Convert.ToString(Session["LastFinYear1"]), Convert.ToString(Session["MRuserbranchID"]), Convert.ToString(ddlInventory.SelectedItem.Value), DateTime.Now.ToString("yyyy-MM-dd"), Convert.ToString(ddl_TdsScheme.Value)
        public DataTable PopulateProductOnDemand(string filter, int startindex, int EndIndex, string companyid, string FinYear, string branchid, string inventorytype, string curdate, string tdssection)
        {
            DataTable dt = new DataTable();

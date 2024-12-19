@@ -376,9 +376,9 @@ namespace DataAccessLayer
             if (blnLocalConn)
             {
                 string conn = string.Empty;
-                if (HttpContext.Current.Session["EntryProfileType"] != null)
+                if (HttpContext.Current.Session["MREntryProfileType"] != null)
                 {
-                    if (Convert.ToString(HttpContext.Current.Session["EntryProfileType"]) == "R")
+                    if (Convert.ToString(HttpContext.Current.Session["MREntryProfileType"]) == "R")
                     {
                         conn = System.Configuration.ConfigurationSettings.AppSettings["DBReadOnlyConnection"]; //DBReadOnlyConnection
                     }
@@ -879,9 +879,9 @@ namespace DataAccessLayer
             {
                 oSqlConnection.ConnectionString = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
 
-                if (HttpContext.Current.Session["EntryProfileType"] != null)
+                if (HttpContext.Current.Session["MREntryProfileType"] != null)
                 {
-                    if (Convert.ToString(HttpContext.Current.Session["EntryProfileType"]) == "R")
+                    if (Convert.ToString(HttpContext.Current.Session["MREntryProfileType"]) == "R")
                     {
                         oSqlConnection.ConnectionString = System.Configuration.ConfigurationSettings.AppSettings["DBReadOnlyConnection"];//DBReadOnlyConnection
                     }

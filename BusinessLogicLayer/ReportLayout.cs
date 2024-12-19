@@ -24,7 +24,7 @@ namespace BusinessLogicLayer
                 com.Parameters.AddWithValue("@layoutData",data);
                 com.Parameters.AddWithValue("@ReportName", "TestReport");
                 com.Parameters.AddWithValue("@ModuleKey", "ACT");
-                com.Parameters.AddWithValue("@CreatedBy", HttpContext.Current.Session["userid"]);
+                com.Parameters.AddWithValue("@CreatedBy", HttpContext.Current.Session["MRuserid"]);
                 com.ExecuteNonQuery();
                 con.Close();
                 
@@ -81,7 +81,7 @@ namespace BusinessLogicLayer
             try
             {
                 //SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["DBConnectionDefault"]);
-                //SqlCommand com = new SqlCommand("insert into tbl_reportDesigner select LayoutData,'"+fileName+"','"+moduleKey+"',GETDATE()," +Convert.ToString( HttpContext.Current.Session["userid"]) + ",GETDATE() from tbl_reportDesigner where id=@id", con);
+                //SqlCommand com = new SqlCommand("insert into tbl_reportDesigner select LayoutData,'"+fileName+"','"+moduleKey+"',GETDATE()," +Convert.ToString( HttpContext.Current.Session["MRuserid"]) + ",GETDATE() from tbl_reportDesigner where id=@id", con);
                 //con.Open();
                 //com.Parameters.AddWithValue("@id", copyId); 
 
@@ -93,7 +93,7 @@ namespace BusinessLogicLayer
                     com.Parameters.AddWithValue("@Mode", "CPY");
                     com.Parameters.AddWithValue("@fileName", fileName);
                     com.Parameters.AddWithValue("@ModuleKey", moduleKey);
-                    com.Parameters.AddWithValue("@CreatedBy", HttpContext.Current.Session["userid"]);
+                    com.Parameters.AddWithValue("@CreatedBy", HttpContext.Current.Session["MRuserid"]);
                     con.Open();
                     com.ExecuteNonQuery();
                     com.CommandText = "select @@IDENTITY";
