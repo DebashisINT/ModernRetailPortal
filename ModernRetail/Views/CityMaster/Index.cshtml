@@ -725,11 +725,13 @@
     function OnStartCallback(s, e) {
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
     }
-    function AddState() {
+    function AddCity() {
         $("#hdnID").val('0');
         $("#ddlCountry").val('0');
+        $("#ddlState").val('0');        
         $("#txtCity").val('');
-        $("#txtStateCode").val('');
+        $("#txtCityLocationLat").val('');
+        $("#txtCityLocationLong").val('');
         $("#CityModel").modal('show')
     }
     function SaveCity() {
@@ -803,6 +805,7 @@
                         jAlert('No data found');
                     }
                     else {
+                        $("#CityModel").modal('show');
                         $("#ddlCountry").val(response.Country);
                         EditCountryOnChange(response.State);
                         //$("#ddlState").val();
@@ -891,8 +894,8 @@
                 <div class="add-show-btns">
                     @*@if (ViewBag.CanAdd)
                         {*@
-                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddState();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> City Add
+                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCity();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> City 
                     </button>
                     @*}
                         @if (ViewBag.CanView)
@@ -968,11 +971,12 @@
             </div>
             <div class="modal-footer">
                 <div>
-                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
                     @*@if (ViewBag.CanAdd)
-                        {*@
+                    {*@
                     <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCity()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
                     @*}*@
+                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
                 </div>
 
             </div>

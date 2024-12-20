@@ -99,11 +99,11 @@ namespace ModernRetail.Controllers
                 return q;
             }
         }
-        public JsonResult SaveState(string Country, string id, string StateCode)
+        public JsonResult SaveState(string Country, string id,string State, string StateCode)
         {
             int output = 0;
             string Userid = Convert.ToString(Session["MRuserid"]);
-            output = obj.SaveState(Country, Userid, id, StateCode);
+            output = obj.SaveState(Country, Userid, id, State, StateCode);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
         public JsonResult EditState(string id)
