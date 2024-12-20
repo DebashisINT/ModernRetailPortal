@@ -24,6 +24,9 @@
     settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
     settings.Settings.ShowFilterRowMenu = true;
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.EndCallback = "OnEndCallback";
+    //Rev End Pallab: grid modification
     settings.Columns.Add(x =>
     {
         x.FieldName = "COUNTRYNAME";
@@ -137,6 +140,10 @@
         });
 
     });
+
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.RowClick = "gridRowclick";
+    //Rev End Pallab: grid modification
 
 }).Bind(Model).GetHtml()
 
