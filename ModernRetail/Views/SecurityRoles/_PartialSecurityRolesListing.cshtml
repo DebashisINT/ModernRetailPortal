@@ -21,6 +21,9 @@
     settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
     settings.Settings.ShowFilterRowMenu = true;
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.EndCallback = "OnEndCallback";
+    //Rev End Pallab: grid modification
     settings.Columns.Add(x =>
     {
         x.FieldName = "GRP_NAME";
@@ -93,10 +96,14 @@
             //{
             ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "GRP_ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
 
-        //}
+            //}
+        });
+
     });
 
-});
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.RowClick = "gridRowclick";
+    //Rev End Pallab: grid modification
 
 }).Bind(Model).GetHtml()
 

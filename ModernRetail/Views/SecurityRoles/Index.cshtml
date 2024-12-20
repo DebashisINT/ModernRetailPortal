@@ -718,6 +718,7 @@ if (urlKeys.key != 'Add' ) {
 
     .cancel-catg, .save-btn {
         transition: all .3s ease-in-out;
+        margin-right: 10px;
     }
 
         .cancel-catg .btn-icon img {
@@ -869,6 +870,16 @@ if (urlKeys.key != 'Add' ) {
     .chckRights {
         /* left: 3px;*/
         position: relative;
+    }
+
+    .form-horizontal .form-group {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .mt-25
+    {
+        margin-top: 25px;
     }
 </style>
 <script type="text/javascript" src="/assests/pluggins/easyui/jquery.easyui.min.js"></script>
@@ -1226,6 +1237,10 @@ if (urlKeys.key != 'Add' ) {
         border-radius: 4px !important;
         height: 34px;
     }
+
+    .scroller2 {
+        overflow: auto;
+    }
 </style>
 <script>
     $(function () {
@@ -1435,34 +1450,34 @@ if (urlKeys.key != 'Add' ) {
     <div class="form_main backBox p-3 mb-3">
         <div class="form-horizontal" style="padding: 10px;">
             <div class="row">
-                <div class="col-sm-6 mb-3">
+                @*<div class="col-sm-6 mb-3">*@
                     <div class=" col-sm-3">
                         <label>Group Name<span style="color:red">*</span></label>
                         <div class="relative">
                             @Html.TextBoxFor(m => m.grp_name, new { @class = "form-control", @MaxLength = "100" })
                         </div>
                     </div>
-                    <div class="mt-4">
+                    <div class="col-sm-4 mt-25">
                         <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                         <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
                     </div>
-                </div>
+                @*</div>*@
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <div class=" col-sm-12">
+                    <div class="  col-sm-12 clearfix p-0 mt-4">
                         <div class="col-sm-3 divDown">
                             <input type="button" class="btn btn-primary" id="btnTagAll" value="Tag All" />&nbsp;
-                            <input type="button" class="btn btn-primary " id="btnUnTagAll" value="Untag All" />
+                            <input type="button" class="btn btn-warning " id="btnUnTagAll" value="Untag All" />
                             <input type="hidden" value="@Model.UserGroupRights" id="GroupUserRights"  />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row px-3">
                 <div class="scroller1">
                     <div class="div1">
                     </div>

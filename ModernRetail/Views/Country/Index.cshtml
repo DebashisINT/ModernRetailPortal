@@ -670,6 +670,59 @@
     .close:hover, .close:focus {
         color: #111 !important;
     }
+
+
+    /*Rev Pallab: grid modification*/
+
+    
+
+    .rowActive {
+        background-color: #ebf4ff !important;
+        color: #000 !important;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: none; /* Initially hidden */
+    }
+
+    .flex-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dxgvLoadingPanel_PlasticBlue {
+        display: none !important;
+    }
+
+    .flex-loader img {
+        width: 120px;
+    }
+
+    .flex-loader h4 {
+        font-size: 22px;
+        color: #000000;
+    }
+
+    .btn-export {
+        background: #d0d0d0;
+    }
+
+        .btn-export .btn-icon img {
+            width: 30px;
+            height: 30px;
+        }
+    /*Rev End Pallab: grid modification*/
 </style>
 <script>
     var Is_PageLoad = "0";
@@ -704,13 +757,23 @@
 
     function OnStartCallback(s, e) {
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
+        /*Rev Pallab: grid modification*/
+        document.getElementById("loading-overlay").style.display = "block";
+        /*Rev End Pallab: grid modification*/
     }
+    /*Rev Pallab: grid modification*/
+    function OnEndCallback() {
+
+        document.getElementById("loading-overlay").style.display = "none";
+
+    }
+    /*Rev End Pallab: grid modification*/
     function AddCountry() {
         $("#hdnID").val('0');
-        $("#txtCountryName").val('');       
+        $("#txtCountryName").val('');
         $("#CountryModal").modal('show')
     }
-    
+
 
     function SaveCountry() {
     var id = $("#hdnID").val();
@@ -723,15 +786,15 @@
         });
         return false;
     }  else {
-        
+
         $.ajax({
             type: "POST",
             url: '@Url.Action("SaveCountry", "Country")',
             data: {
                 name: $("#txtCountryName").val().trim(),
                 id: id
-               
-               
+
+
             },
             success: function (response) {
                 if (parseInt(response) > 0) {
@@ -769,7 +832,7 @@
                         jAlert('No data found');
                     }
                     else {
-                        $("#txtCountryName").val(response.NAME);                    
+                        $("#txtCountryName").val(response.NAME);
 
                         $("#CountryModal").modal('show');
                     }
@@ -779,7 +842,7 @@
 
      function DeleteClick(ID) {
         $("#hdnID").val(ID);
-        
+
         // SweetAlert confirmation with custom icon
     Swal.fire({
         title: 'Are you sure you want to delete?',
@@ -830,30 +893,53 @@
             $('#txtCountryName').focus();
         });
     });
+
+
+    /*Rev Pallab: grid modification*/
+    function gridRowclick(s, e) {
+        $('#gridList').find('tr').removeClass('rowActive');
+
+
+        $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+
+    }
+    /*Rev End Pallab: grid modification*/
 </script>
 <div class="breadCumb">
     <span>Country</span>
 </div>
+
+@*Rev Pallab: grid modification*@
+<div class="overlay" id="loading-overlay">
+    <div class="flex-loader">
+        <img src="/assests/images/new-loader.gif" />
+        <h4>Data is loading, Please Wait</h4>
+    </div>
+
+</div>
+@*Rev End Pallab: grid modification*@
+
 <div class="container">
     <div class="form_main backBox p-3">
         <div class="row">
             <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
                 <div class="add-show-btns">
                     @*@if (ViewBag.CanAdd)
-                    {*@
-                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCountry();">
-                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Country
-                        </button>
+                        {*@
+                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddCountry();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Country
+                    </button>
                     @*}
-                    @if (ViewBag.CanView)
-                    {*@
-                        <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+                        @if (ViewBag.CanView)
+                        {*@
+                    <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
                     @*}
-                    @if (ViewBag.CanExport)
-                    {*@
-                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export">
-                            <span class="btn-icon"><img src="/assests/images/xlsx.png" /></span>&nbsp; Export to XLSX
-                        </button>
+                        @if (ViewBag.CanExport)
+                        {*@
+                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                    <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                    <div class="tooltip">Export to XLSX</div>
+                </button>
 
                     @*}*@
                 </div>
@@ -877,7 +963,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                
+
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add/Modify Country</h4>
             </div>
@@ -890,17 +976,19 @@
                                 <input type="text" id="txtCountryName" maxlength="200" class="form-control" />
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <div>
-                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
                     @*@if (ViewBag.CanAdd)
-                    {*@
-                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCountry()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
+                        {*@
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveCountry()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
                     @*}*@
+                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
                 </div>
 
             </div>
