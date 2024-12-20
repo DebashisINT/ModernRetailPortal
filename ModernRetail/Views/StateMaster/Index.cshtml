@@ -821,7 +821,7 @@
         $("#ddlCountry").val('0');
         $("#txtState").val('');
         $("#txtStateCode").val('');
-        $("#StateModal").modal('show')
+        $("#StateModal").modal('show');
     }
     function SaveState() {
         var id = $("#hdnID").val();
@@ -882,6 +882,7 @@
                         jAlert('No data found');
                     }
                     else {
+                        $("#StateModal").modal('show');
                         $("#ddlCountry").val(response.Country);
                         $("#txtState").val(response.State);
                         $("#txtStateCode").val(response.StateCode);

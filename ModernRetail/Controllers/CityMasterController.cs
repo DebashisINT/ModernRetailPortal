@@ -164,12 +164,12 @@ namespace ModernRetail.Controllers
             var settings = new GridViewSettings();
             settings.Name = "PartialGridList";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
-            settings.SettingsExport.FileName = "State";
+            settings.SettingsExport.FileName = "City";
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "STATENAME";
-                x.Caption = "State";
+                x.FieldName = "COUNTRYNAME";
+                x.Caption = "Country";
                 x.VisibleIndex = 1;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -177,18 +177,36 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "STATECODE";
-                x.Caption = "State Code";
+                x.FieldName = "STATENAME";
+                x.Caption = "State";
                 x.VisibleIndex = 2;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+             
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CITYNAME";
+                x.Caption = "City";
+                x.VisibleIndex = 3;
+                x.ColumnType = MVCxGridViewColumnType.TextBox;
+                x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "COUNTRYNAME";
-                x.Caption = "Country";
-                x.VisibleIndex = 3;
+                x.FieldName = "CityLocationLat";
+                x.Caption = "City Location Lat";
+                x.VisibleIndex = 4;
+                x.ColumnType = MVCxGridViewColumnType.TextBox;
+                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+            
+            });
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "CityLocationLong";
+                x.Caption = "City Location Long";
+                x.VisibleIndex = 5;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
 
@@ -197,7 +215,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "CREATEUSER";
                 x.Caption = "Created By";
-                x.VisibleIndex = 4;
+                x.VisibleIndex = 6;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
             });
@@ -205,19 +223,19 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "CREATEDATE";
                 x.Caption = "Created On";
-                x.VisibleIndex = 5;
+                x.VisibleIndex = 7;
                 x.Width = 120;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
-
+               
             });
 
             settings.Columns.Add(x =>
             {
                 x.FieldName = "MODIFYUSER";
                 x.Caption = "Updated By";
-                x.VisibleIndex = 6;
+                x.VisibleIndex = 8;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
             });
@@ -226,11 +244,12 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "MODIFYDATE";
                 x.Caption = "Updated On";
-                x.VisibleIndex = 7;
+                x.VisibleIndex = 9;
                 x.Width = 120;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(16);
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+               
 
             });
 

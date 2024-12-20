@@ -18,7 +18,7 @@ namespace ModernRetail.Models
         public List<COUNTRYLIST> COUNTRYLIST { get; set; }
         //
         public string Is_PageLoad { get; set; }
-        public int SaveState(string Section, string user, string ID = "0", string Points = "", string ActiveStatus = "0")
+        public int SaveState(string COUNTRYID, string user, string ID = "0", string State = "", string StateCode = "0")
         {
             ProcedureExecute proc;
             try
@@ -33,9 +33,9 @@ namespace ModernRetail.Models
                     sqlcmd.Parameters.AddWithValue("@ACTION", "ADD");
                 else
                     sqlcmd.Parameters.AddWithValue("@ACTION", "UPDATE");
-                sqlcmd.Parameters.AddWithValue("@STATENAME", Section);
-                sqlcmd.Parameters.AddWithValue("@STATECODE", Section);
-                sqlcmd.Parameters.AddWithValue("@COUNTRYID", Section);
+                sqlcmd.Parameters.AddWithValue("@STATENAME", State);
+                sqlcmd.Parameters.AddWithValue("@STATECODE", StateCode);
+                sqlcmd.Parameters.AddWithValue("@COUNTRYID", COUNTRYID);
                 sqlcmd.Parameters.AddWithValue("@USER_ID", user);               
                 sqlcmd.Parameters.AddWithValue("@ID", ID);
 
