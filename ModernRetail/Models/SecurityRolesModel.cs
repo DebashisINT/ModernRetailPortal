@@ -9,6 +9,9 @@ namespace ModernRetail.Models
 {
     public class SecurityRolesModel
     {
+        public string Is_PageLoad { get; set; }
+        public string Is_GMPageLoad { get; set; }
+        
         public int grp_id { get; set; }
 
         public int grp_segmentId { get; set; }

@@ -111,6 +111,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_CITYMASTERLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_GROUPMEMBERLIST> MR_GROUPMEMBERLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_GROUPMEMBERLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -1449,6 +1457,159 @@ namespace ModernRetail.Models
 				if ((this._MODIFYUSER != value))
 				{
 					this._MODIFYUSER = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_GROUPMEMBERLIST")]
+	public partial class MR_GROUPMEMBERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<long> _USER_ID;
+		
+		private string _USER_NAME;
+		
+		private string _USER_LOGINID;
+		
+		private string _GRSTATUS;
+		
+		private System.Nullable<int> _ONLINESTATUS;
+		
+		private string _DESIGNATION;
+		
+		public MR_GROUPMEMBERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_ID", DbType="BigInt")]
+		public System.Nullable<long> USER_ID
+		{
+			get
+			{
+				return this._USER_ID;
+			}
+			set
+			{
+				if ((this._USER_ID != value))
+				{
+					this._USER_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_NAME", DbType="NVarChar(250)")]
+		public string USER_NAME
+		{
+			get
+			{
+				return this._USER_NAME;
+			}
+			set
+			{
+				if ((this._USER_NAME != value))
+				{
+					this._USER_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_LOGINID", DbType="NVarChar(250)")]
+		public string USER_LOGINID
+		{
+			get
+			{
+				return this._USER_LOGINID;
+			}
+			set
+			{
+				if ((this._USER_LOGINID != value))
+				{
+					this._USER_LOGINID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GRSTATUS", DbType="NVarChar(100)")]
+		public string GRSTATUS
+		{
+			get
+			{
+				return this._GRSTATUS;
+			}
+			set
+			{
+				if ((this._GRSTATUS != value))
+				{
+					this._GRSTATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ONLINESTATUS", DbType="Int")]
+		public System.Nullable<int> ONLINESTATUS
+		{
+			get
+			{
+				return this._ONLINESTATUS;
+			}
+			set
+			{
+				if ((this._ONLINESTATUS != value))
+				{
+					this._ONLINESTATUS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESIGNATION", DbType="NVarChar(200)")]
+		public string DESIGNATION
+		{
+			get
+			{
+				return this._DESIGNATION;
+			}
+			set
+			{
+				if ((this._DESIGNATION != value))
+				{
+					this._DESIGNATION = value;
 				}
 			}
 		}
