@@ -1009,12 +1009,7 @@ if (urlKeys.key != 'Add' ) {
         });
     });
 
-    function OnMemberInfoClick(keyValue) {
-        //alert(keyValue);
-        $('#dvUserList').load('/Ajax/_PartialGroupUserListForShow', { GroupId: keyValue }, function () {
-            $('#dvgrpUserList').modal('show');
-        });
-    }
+    
 
     function CheckSelectedValues() {
         var $rightChecked = $('.chckRights');
@@ -1043,9 +1038,6 @@ if (urlKeys.key != 'Add' ) {
             }
         }
     }
-
-
-
     function SelectrightData() {
         //alert('Hi');
         var $rightChecked = $('.chckRights:checked');

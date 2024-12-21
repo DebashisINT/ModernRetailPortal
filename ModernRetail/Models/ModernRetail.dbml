@@ -98,4 +98,16 @@
       <Column Name="MODIFYUSER" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MR_GROUPMEMBERLIST" Member="MR_GROUPMEMBERLISTs">
+    <Type Name="MR_GROUPMEMBERLIST">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="USER_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="USER_NAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="USER_LOGINID" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="GRSTATUS" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ONLINESTATUS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DESIGNATION" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

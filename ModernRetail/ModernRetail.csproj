@@ -1096,6 +1096,8 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\SecurityRoles\SecurityRolesList.cshtml" />
     <Content Include="Views\SecurityRoles\_PartialSecurityRolesListing.cshtml" />
+    <Content Include="Views\SecurityRoles\_PartialGroupMember.cshtml" />
+    <Content Include="Views\SecurityRoles\GroupMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1165,7 +1167,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50377</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44394/</IISUrl>
+          <IISUrl>http://localhost:44395/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

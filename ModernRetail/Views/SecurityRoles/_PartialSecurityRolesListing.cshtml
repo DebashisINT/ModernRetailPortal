@@ -88,6 +88,11 @@
         x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
         x.SetDataItemTemplateContent(c =>
         {
+
+            //if (ViewBag.CanEdit)
+            //{
+            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OnMemberInfoClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "GRP_ID")) + "')\"><img src='/assests/images/Members.png' style='margin-right:3px' /><div class=\"tooltip\">Members</div></a>");
+            //}
             //if (ViewBag.CanEdit)
             //{
             ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "GRP_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
