@@ -71,22 +71,22 @@ namespace ModernRetail.Controllers
             }
            
 
-            DataSet dt = new DataSet();
-            dt = GetListData();
+            //DataSet dt = new DataSet();
+            //dt = GetListData();
 
-            if (dt != null)
-            {
-                List<BranchList> BranchList = new List<BranchList>();
-                BranchList = APIHelperMethods.ToModelList<BranchList>(dt.Tables[0]);
-                objdata.BranchList = BranchList;
+            //if (dt != null)
+            //{
+                //List<BranchList> BranchList = new List<BranchList>();
+                //BranchList = APIHelperMethods.ToModelList<BranchList>(dt.Tables[0]);
+                //objdata.BranchList = BranchList;
 
                 
 
-                List<CountryList> Country_List = new List<CountryList>();
-                Country_List = APIHelperMethods.ToModelList<CountryList>(dt.Tables[1]);
-                objdata.CountryList = Country_List;
+                //List<CountryList> Country_List = new List<CountryList>();
+                //Country_List = APIHelperMethods.ToModelList<CountryList>(dt.Tables[1]);
+                //objdata.CountryList = Country_List;
 
-            }
+            //}
             return View("~/Views/BranchMaster/Index.cshtml", objdata);
             // return View(objdata);
         }
@@ -474,7 +474,7 @@ namespace ModernRetail.Controllers
                     ShortName = Convert.ToString(output.Tables[0].Rows[0]["branch_code"]),
                     ParentBranch = Convert.ToString(output.Tables[0].Rows[0]["branch_parentId"]),
                     BranchName = Convert.ToString(output.Tables[0].Rows[0]["branch_description"]),
-                    Address1 = Convert.ToString(output.Tables[0].Rows[0]["branch_address1"]),
+                    Address1 = Convert.ToString(output.Tables[0].Rows[0]["branch_address"]),
                     Country = Convert.ToString(output.Tables[0].Rows[0]["branch_country"]),
                     State = Convert.ToString(output.Tables[0].Rows[0]["branch_state"]),
                     City = Convert.ToString(output.Tables[0].Rows[0]["branch_city"]),
@@ -495,6 +495,44 @@ namespace ModernRetail.Controllers
             output = objdata.DeleteBranch(ID);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetBranch(string branch_ID)
+        {
+
+            DataTable DT = new DataTable();            
+            DT = GetBranchData(branch_ID);          
+
+            return Json(APIHelperMethods.ToModelList<BranchList>(DT));
+
+        }
+        public DataTable GetBranchData(string branch_ID)
+        {
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_BRANCHDETAILS");
+            proc.AddPara("@ACTION", "GETBRANCH");
+            proc.AddBigIntegerPara("@BRANCH_ID", Convert.ToInt64(branch_ID));
+            dt = proc.GetTable();
+            return dt;
+        }
+
+        public JsonResult GetCountry()
+        {
+            DataTable DT = new DataTable();
+            DT = GetCountryData();
+            return Json(APIHelperMethods.ToModelList<BranchList>(DT));
+        }
+        public DataTable GetCountryData()
+        {
+            DataTable dt = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_BRANCHDETAILS");
+            proc.AddPara("@ACTION", "GETCOUNTRY");         
+            dt = proc.GetTable();
+            return dt;
+        }
+
+
+        
     }
 
 

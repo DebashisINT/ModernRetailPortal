@@ -830,6 +830,72 @@
     }
 </style>
 <script>
+    $(document).ready(function () {
+
+        GETBRANCH();
+        GETCOUNTRY();
+
+        $('#ddlParentBranch').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlCountry').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlState').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlCity').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlPIN').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+    });
+
+    function GETCOUNTRY() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetCountry", "BranchMaster")",
+            async: false,
+            success: function (response) {
+                $('#ddlCountry').html('');
+                var html = "";
+                for (var i = 0; i < response.length; i++) {
+                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+                }
+                $('#ddlCountry').html(html);
+            }
+        });
+    }
+
+    function GETBRANCH() {
+     var branch_ID = $('#hdnDetailsID').val();
+     $.ajax({
+         type: "POST",
+         url: "@Url.Action("GetBranch", "BranchMaster")",
+         data: { branch_ID: branch_ID },
+         async: false,
+         success: function (response) {
+             $('#ddlParentBranch').html('');
+             var html = "";
+             for (var i = 0; i < response.length; i++) {
+                 html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+             }
+             $('#ddlParentBranch').html(html);
+         }
+     });
+}
+</script>
+<script>
 
     var ID = 0;
     var urlKeys = getUrlVars();
@@ -860,20 +926,18 @@
                     jAlert('No data found');
                 }
                 else {
+                    GETBRANCH();
+                    GETCOUNTRY();
                     $("#ShortName").val(response.ShortName);
-                   // $("#ddlParentBranch").val(response.ParentBranch);
-                    $("#ddlParentBranch").val(response.ParentBranch).trigger('change');
-
+                    $("#ddlParentBranch").val(response.ParentBranch);
+                   // $("#ddlParentBranch").val(response.ParentBranch).trigger('change');
                     $("#BranchName").val(response.BranchName);
                     $("#Address1").val(response.Address1);
                     $("#ddlCountry").val(response.Country);
                    // $("#ddlCountry").val(response.Country).trigger('change');
                     EditCountryOnChange(response.State);
                     EditStateOnChange(response.City);
-                    EditCityOnChange(response.PIN);
-
-
-                   
+                    EditCityOnChange(response.PIN);                   
                 }
             }
         });
@@ -1040,7 +1104,7 @@
                             return false;
                         }
                         //else if (ParentBranch.trim() == "Select" || TargetLevel.trim() == "") {
-                        else if (ParentBranch.trim() == null || ParentBranch.trim() == "" || ParentBranch.trim() == "Select") {
+                        else if ($('#ddlParentBranch option:selected').val() == null || $('#ddlParentBranch option:selected').val() == "" || $('#ddlParentBranch option:selected').val() == "Select" || $('#ddlParentBranch option:selected').val() == "undefined") {
                             // SweetAlert for empty category description
                             Swal.fire({
                                 icon: 'warning',
@@ -1063,7 +1127,7 @@
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Sorry!',
-                                text: 'Please Enter Address1 to proceed.'
+                                text: 'Please Enter Address to proceed.'
                             });
                             return false;
                         }
@@ -1207,34 +1271,7 @@
     }
 </script>
 
-<script>
-    $(document).ready(function () {
-        $('#ddlParentBranch').select2({
-            placeholder: "Select", 
-            allowClear: false     
-        });
 
-        //$('#ddlCountry').select2({
-        //    placeholder: "Select",
-        //    allowClear: false
-        //});
-
-        $('#ddlState').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-
-        $('#ddlCity').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-
-        $('#ddlPIN').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-    });
-</script>
 
 <div class="breadCumb">
     <span id="HeaderLableID">Branch</span>
@@ -1252,12 +1289,14 @@
             </div>
             <div class="col-sm-3  mb-3 h-branch-select">
                 <label>Parent Branch<span style="color:red">*</span></label>
-                @Html.DropDownListFor(
-                m => m.ParentBranch,
-                new SelectList(Model.BranchList, "ID", "NAME"),
-                "Select",
-                new { @id = "ddlParentBranch", @class = "form-control" }
-            )
+                @*@Html.DropDownListFor(
+            m => m.ParentBranch,
+            new SelectList(Model.BranchList, "ID", "NAME"),
+            "Select",
+            new { @id = "ddlParentBranch", @class = "form-control" }
+        )*@
+                <select id="ddlParentBranch" class="form-control" ></select>
+
             </div>
             <div class="col-sm-3 mb-3">
                 <label>Branch Name<span style="color:red">*</span></label>
@@ -1273,12 +1312,14 @@
             </div>
             <div class="col-sm-3  mb-3 h-branch-select">
                 <label>Country<span style="color:red">*</span></label>
-                @Html.DropDownListFor(
+                @*@Html.DropDownListFor(
                 m => m.Country,
                 new SelectList(Model.CountryList, "ID", "NAME"),
                 "Select",
                 new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
-            )
+            )*@
+
+                <select id="ddlCountry" class="form-control" onchange="CountryOnChange()"></select>
             </div>
             <div class="col-sm-3  mb-3 h-branch-select">
                 <label>State<span style="color:red">*</span></label>

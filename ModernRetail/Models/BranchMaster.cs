@@ -51,7 +51,7 @@ namespace ModernRetail.Models
             proc.AddVarcharPara("@BranchName", 100, BranchName);
             proc.AddBigIntegerPara("@BRANCH_ID", branch_ID);
             proc.AddBigIntegerPara("@branch_parentId", ParentBranch);
-            proc.AddVarcharPara("@branch_address1", 100, Address1);
+            proc.AddVarcharPara("@branch_address", 100, Address1);
             proc.AddBigIntegerPara("@countryId", Country);
             proc.AddBigIntegerPara("@state_id", State);
             proc.AddBigIntegerPara("@city_id", City);
