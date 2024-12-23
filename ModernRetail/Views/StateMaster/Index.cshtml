@@ -883,7 +883,8 @@
                     }
                     else {
                         $("#StateModal").modal('show');
-                        $("#ddlCountry").val(response.Country);
+                       // $("#ddlCountry").val(response.Country);
+                        $("#ddlCountry").val(response.Country).trigger('change');
                         $("#txtState").val(response.State);
                         $("#txtStateCode").val(response.StateCode);
                     }

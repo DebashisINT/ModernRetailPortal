@@ -366,7 +366,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "BRANCH_ADDRESS1";
-                x.Caption = "Address1";
+                x.Caption = "Address";
                 x.VisibleIndex = 4;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);

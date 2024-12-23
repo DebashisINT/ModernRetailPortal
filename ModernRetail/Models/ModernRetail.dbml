@@ -110,4 +110,22 @@
       <Column Name="DESIGNATION" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MR_ProductMasterList" Member="MR_ProductMasterLists">
+    <Type Name="MR_ProductMasterList">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sProducts_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sProducts_Code" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="sProducts_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="sProducts_Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ProductClass_Code" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductClass_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Brand_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Brand_Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Size_Name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="sProduct_Price" Type="System.Decimal" DbType="Decimal(18,5)" CanBeNull="true" />
+      <Column Name="sProduct_MRP" Type="System.Decimal" DbType="Decimal(18,5)" CanBeNull="true" />
+      <Column Name="sProduct_Status" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="UOM_Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

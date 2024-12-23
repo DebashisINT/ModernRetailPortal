@@ -861,18 +861,19 @@
                 }
                 else {
                     $("#ShortName").val(response.ShortName);
-                    $("#ddlParentBranch").val(response.ParentBranch);
-
+                   // $("#ddlParentBranch").val(response.ParentBranch);
+                    $("#ddlParentBranch").val(response.ParentBranch).trigger('change');
 
                     $("#BranchName").val(response.BranchName);
                     $("#Address1").val(response.Address1);
                     $("#ddlCountry").val(response.Country);
+                   // $("#ddlCountry").val(response.Country).trigger('change');
                     EditCountryOnChange(response.State);
                     EditStateOnChange(response.City);
                     EditCityOnChange(response.PIN);
 
 
-
+                   
                 }
             }
         });
@@ -895,8 +896,8 @@
 
                  }
                  $('#ddlState').html(html);
-
                  $('#ddlState').val(State);
+               
 
              }
          });
@@ -1213,10 +1214,10 @@
             allowClear: false     
         });
 
-        $('#ddlCountry').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
+        //$('#ddlCountry').select2({
+        //    placeholder: "Select",
+        //    allowClear: false
+        //});
 
         $('#ddlState').select2({
             placeholder: "Select",
@@ -1294,7 +1295,7 @@
             </div>
 
             <div class="col-sm-3  mb-3 h-branch-select">
-                <label>PIN</label>
+                <label>PIN<span style="color:red">*</span></label>
                 <div>
                     <select id="ddlPIN" class="form-control"></select>
                 </div>

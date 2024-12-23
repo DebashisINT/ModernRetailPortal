@@ -287,6 +287,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
+    <Compile Include="Controllers\ProductMasterController.cs" />
     <Compile Include="Controllers\SecurityRolesController.cs" />
     <Compile Include="Controllers\StateMasterController.cs" />
     <Compile Include="Controllers\UserConfigurationController.cs" />
@@ -304,6 +305,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModernRetail.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductMasterModel.cs" />
     <Compile Include="Models\SecurityRolesModel.cs" />
     <Compile Include="Models\StateMasterModel.cs" />
     <Compile Include="Models\UserMasterModel.cs" />
@@ -1098,6 +1100,10 @@
     <Content Include="Views\SecurityRoles\_PartialSecurityRolesListing.cshtml" />
     <Content Include="Views\SecurityRoles\_PartialGroupMember.cshtml" />
     <Content Include="Views\SecurityRoles\GroupMember.cshtml" />
+    <Content Include="Views\ProductMaster\ImportLog.cshtml" />
+    <Content Include="Views\ProductMaster\Index.cshtml" />
+    <Content Include="Views\ProductMaster\_PartialProductGrid.cshtml" />
+    <Content Include="Views\ProductMaster\_ProductImportManualLogView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1167,7 +1173,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50377</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44395/</IISUrl>
+          <IISUrl>http://localhost:44396/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
