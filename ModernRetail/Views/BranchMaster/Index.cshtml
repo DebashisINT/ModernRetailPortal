@@ -832,8 +832,12 @@
 <script>
     $(document).ready(function () {
 
-        GETBRANCH();
-        GETCOUNTRY();
+        var branch_ID = $('#hdnDetailsID').val();
+        if (branch_ID== 0) {
+            GETBRANCH();
+            GETCOUNTRY();
+        }
+       
 
         $('#ddlParentBranch').select2({
             placeholder: "Select",
@@ -913,36 +917,37 @@
         }
         return vars;
     }
-    if (urlKeys.key != 'Add' ) {
+    if (urlKeys.key != 'Add') {
         ID = urlKeys.key;
         $("#hdnAdd").val(ID);
         if (ID != 0) {
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("EditBranch", "BranchMaster")",
-            data: { id: ID },
-            success: function (response) {
-                if (response.code == "") {
-                    jAlert('No data found');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EditBranch", "BranchMaster")",
+                data: { id: ID },
+                success: function (response) {
+                    if (response.code == "") {
+                        jAlert('No data found');
+                    }
+                    else {
+                        GETBRANCH();
+                        GETCOUNTRY();
+                        $("#ShortName").val(response.ShortName);
+                        $("#ddlParentBranch").val(response.ParentBranch);
+                        // $("#ddlParentBranch").val(response.ParentBranch).trigger('change');
+                        $("#BranchName").val(response.BranchName);
+                        $("#Address1").val(response.Address1);
+                        $("#ddlCountry").val(response.Country);
+                        // $("#ddlCountry").val(response.Country).trigger('change');
+                        EditCountryOnChange(response.State);
+                        EditStateOnChange(response.City);
+                        EditCityOnChange(response.PIN);
+                    }
                 }
-                else {
-                    GETBRANCH();
-                    GETCOUNTRY();
-                    $("#ShortName").val(response.ShortName);
-                    $("#ddlParentBranch").val(response.ParentBranch);
-                   // $("#ddlParentBranch").val(response.ParentBranch).trigger('change');
-                    $("#BranchName").val(response.BranchName);
-                    $("#Address1").val(response.Address1);
-                    $("#ddlCountry").val(response.Country);
-                   // $("#ddlCountry").val(response.Country).trigger('change');
-                    EditCountryOnChange(response.State);
-                    EditStateOnChange(response.City);
-                    EditCityOnChange(response.PIN);                   
-                }
-            }
-        });
+            });
+        }
     }
-    }
+    
 
 
     function EditCountryOnChange(State) {
