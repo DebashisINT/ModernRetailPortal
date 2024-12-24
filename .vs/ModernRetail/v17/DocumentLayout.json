@@ -1,26 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GIT\\GitHub\\ModernRetailPortal\\",
+  "WorkspaceRootPath": "D:\\PROJECTS\\ModernRetailPortal\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|d:\\git\\github\\modernretailportal\\businesslogiclayer\\dbengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\dbengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|d:\\projects\\modernretailportal\\modernretailapi\\controllers\\modernretailinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\controllers\\modernretailinfodetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|d:\\git\\github\\modernretailportal\\modernretail\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|solutionrelative:modernretail\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|d:\\projects\\modernretailportal\\modernretailapi\\models\\modernretailinfodetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\models\\modernretailinfodetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|d:\\git\\github\\modernretailportal\\modernretail\\controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|solutionrelative:modernretail\\controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|d:\\git\\github\\modernretailportal\\modernretail\\views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|solutionrelative:modernretail\\views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|d:\\git\\github\\modernretailportal\\modernretail\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|solutionrelative:modernretail\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|d:\\projects\\modernretailportal\\modernretailapi\\controllers\\userlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\controllers\\userlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,68 +25,50 @@
           "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LogOutController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Controllers\\LogOutController.cs",
-              "RelativeDocumentMoniker": "ModernRetail\\Controllers\\LogOutController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Controllers\\LogOutController.cs",
-              "RelativeToolTip": "ModernRetail\\Controllers\\LogOutController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-19T07:04:57.429Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "ModernRetail\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "ModernRetail\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAHkCAAAAAAAAAAAIwIUCAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-19T06:57:11.482Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Views\\Login\\Login.cshtml",
-              "RelativeDocumentMoniker": "ModernRetail\\Views\\Login\\Login.cshtml",
-              "ToolTip": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Views\\Login\\Login.cshtml",
-              "RelativeToolTip": "ModernRetail\\Views\\Login\\Login.cshtml",
-              "ViewState": "AQIAADcDAAAAAAAAAAAuwE0DAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-19T06:47:35.916Z",
+              "Title": "ModernRetailInfoDetailsModel.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
+              "RelativeDocumentMoniker": "ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
+              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
+              "RelativeToolTip": "ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAADwv8gAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-24T08:29:43.268Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DBEngine.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\ModernRetailPortal\\BusinessLogicLayer\\DBEngine.cs",
-              "RelativeDocumentMoniker": "BusinessLogicLayer\\DBEngine.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\ModernRetailPortal\\BusinessLogicLayer\\DBEngine.cs",
-              "RelativeToolTip": "BusinessLogicLayer\\DBEngine.cs",
-              "ViewState": "AQIAAPkBAAAAAAAAAAAmwB4CAABPAAAA",
+              "Title": "ModernRetailInfoDetailsController.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\ModernRetailInfoDetailsController.cs",
+              "RelativeDocumentMoniker": "ModernRetailAPI\\Controllers\\ModernRetailInfoDetailsController.cs",
+              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\ModernRetailInfoDetailsController.cs",
+              "RelativeToolTip": "ModernRetailAPI\\Controllers\\ModernRetailInfoDetailsController.cs",
+              "ViewState": "AgIAAFABAAAAAAAAAAA0wPIBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-19T06:45:24.263Z",
+              "WhenOpened": "2024-12-24T08:28:39.427Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "ModernRetail\\Controllers\\LoginController.cs",
-              "ToolTip": "D:\\GIT\\GitHub\\ModernRetailPortal\\ModernRetail\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "ModernRetail\\Controllers\\LoginController.cs",
-              "ViewState": "AQIAAEEAAAAAAAAAAAAswEcAAAAnAAAA",
+              "DocumentIndex": 2,
+              "Title": "UserLoginController.cs",
+              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "RelativeDocumentMoniker": "ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "RelativeToolTip": "ModernRetailAPI\\Controllers\\UserLoginController.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAABwAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-19T06:35:13.67Z",
+              "WhenOpened": "2024-12-24T07:32:59.364Z",
               "EditorCaption": ""
             }
           ]

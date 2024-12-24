@@ -442,5 +442,59 @@ namespace ModernRetailAPI.Controllers
                 return message;
             }
         }
+
+        [HttpPost]
+        public HttpResponseMessage ProductUomLists(ProductUomListInput model)
+        {
+            ProductUomListOutput omodel = new ProductUomListOutput();
+            List<ProdUomlistOutput> Uview = new List<ProdUomlistOutput>();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    DataSet ds = new DataSet();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "PRODUCTUOMLIST");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(ds);
+                    sqlcon.Close();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Successfully Get List.";
+                        Uview = APIHelperMethods.ToModelList<ProdUomlistOutput>(ds.Tables[0]);
+                        omodel.uom_list = Uview;
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No Data Found.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
     }
 }
