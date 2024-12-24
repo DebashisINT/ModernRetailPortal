@@ -190,4 +190,20 @@ namespace ModernRetailAPI.Models
         public int state_id { get; set; }
         public decimal rate { get; set; }
     }
+    public class ProductUomListInput
+    {
+        public long user_id { get; set; }
+    }
+    public class ProductUomListOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public List<ProdUomlistOutput> uom_list { get; set; }
+    }
+    public class ProdUomlistOutput
+    {
+        public long product_id { get; set; }
+        public long uom_id { get; set; }
+        public string uom_name { get; set; }
+    }
 }
