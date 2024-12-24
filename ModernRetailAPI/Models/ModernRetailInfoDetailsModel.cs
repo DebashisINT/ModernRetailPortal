@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: Modern Retail Info Details.Row: 3,4,5,6,7
+//Purpose: Modern Retail Info Details.Row: 3,4,5,6,7,11
 #endregion===================================End of Revision History==================================================
 
 using System;

@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: Modern Retail Info Details.Row: 3,4,6,7
+//Purpose: Modern Retail Info Details.Row: 3,4,6,7,11
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -187,6 +187,11 @@ namespace ModernRetailAPI.Controllers
                         STview = APIHelperMethods.ToModelList<StoreFetchlists>(ds.Tables[0]);
                         omodel.user_id = model.user_id;
                         omodel.store_list = STview;
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No Data Found.";
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
