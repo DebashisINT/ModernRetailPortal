@@ -10,26 +10,102 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
+using UtilityLayer;
+using DataAccessLayer;
+using System.Web.Services;
+using BusinessLogicLayer;
+using System.Web.UI.WebControls;
 
 namespace ModernRetail.Controllers
 {
     public class UserConfigurationController : Controller
     {
         // GET: UserConfiguration
+        UserMasterModel objdata = null;
+        Int64 DetailsID = 0;
+        string UserName = string.Empty;
+        public UserConfigurationController()
+        {
+            objdata = new UserMasterModel();
+        }
 
         public ActionResult UserMasterList()
         {
-            //objdata.branch_ID = 0;
-            //TempData["branch_ID"] = null;
+            objdata.user_id = 0;
+            TempData["user_id"] = null;
 
-            //TempData.Keep();
+            TempData.Keep();
             return View();
         }
 
         public ActionResult Index()
         {
-            return View();
+            if (TempData["user_id"] != null)
+            {
+                objdata.user_id = Convert.ToInt64(TempData["user_id"]);
+                TempData.Keep();
+
+            }
+
+            if (TempData["IsView"] != null)
+            {
+                ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
+                TempData["IsView"] = null;
+                if (ViewBag.IsView == 0)
+                {
+                    ViewBag.PageTitle = "Modify User";
+                }
+                else
+                {
+                    ViewBag.PageTitle = "Add User";
+                }
+
+            }
+
+            DataSet dt = new DataSet();
+            dt = GetListData();
+
+            if (dt != null)
+            {
+                List<BranchList> BranchList = new List<BranchList>();
+                BranchList = APIHelperMethods.ToModelList<BranchList>(dt.Tables[0]);
+                objdata.BranchList = BranchList;
+
+                List<DepartmentList> DepartmentList = new List<DepartmentList>();
+                DepartmentList = APIHelperMethods.ToModelList<DepartmentList>(dt.Tables[1]);
+                objdata.DepartmentList = DepartmentList;
+
+                List<DesignationList> DesignationList = new List<DesignationList>();
+                DesignationList = APIHelperMethods.ToModelList<DesignationList>(dt.Tables[2]);
+                objdata.DesignationList = DesignationList;
+
+                List<GroupList> GroupList = new List<GroupList>();
+                GroupList = APIHelperMethods.ToModelList<GroupList>(dt.Tables[3]);
+                objdata.GroupList = GroupList;
+
+                List<CountryList> CountryList = new List<CountryList>();
+                CountryList = APIHelperMethods.ToModelList<CountryList>(dt.Tables[4]);
+                objdata.CountryList = CountryList;
+
+              
+
+            }
+
+
+            return View("~/Views/UserConfiguration/Index.cshtml", objdata);
         }
+
+
+        public DataSet GetListData()
+        {
+            DataSet dt = new DataSet();
+
+            ProcedureExecute proc = new ProcedureExecute("Prc_MR_UserAccountData");
+            proc.AddPara("@ACTION", "GETDETAILS");
+            dt = proc.GetDataSet();
+            return dt;
+        }
+
 
         public ActionResult PartialGridList(UserMasterModel model)
         {
@@ -56,6 +132,7 @@ namespace ModernRetail.Controllers
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("Prc_MR_UserAccountData", sqlcon);
+                sqlcmd.Parameters.Add("@ACTION", "SHOWLISTINGDATA");
                 sqlcmd.Parameters.Add("@USER_ID", Userid);
                 sqlcmd.Parameters.Add("@ISPAGELOAD", model.Is_PageLoad);
                 sqlcmd.CommandType = CommandType.StoredProcedure;
@@ -94,7 +171,7 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporBranchList(int type)
+        public ActionResult ExporUserList(int type)
         {
             switch (type)
             {
@@ -125,8 +202,8 @@ namespace ModernRetail.Controllers
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_CODE";
-                x.Caption = "Short Name";
+                x.FieldName = "USER_LOGINID";
+                x.Caption = "User ID";
                 x.VisibleIndex = 1;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -134,8 +211,8 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "PARENTBRANCH";
-                x.Caption = "Parent Branch";
+                x.FieldName = "USER_NAME";
+                x.Caption = "User Name";
                 x.VisibleIndex = 2;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -143,8 +220,8 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCHNAME";
-                x.Caption = "Branch Name";
+                x.FieldName = "DEPARTMENTNAME";
+                x.Caption = "Department";
                 x.VisibleIndex = 3;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -152,8 +229,8 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_ADDRESS1";
-                x.Caption = "Address1";
+                x.FieldName = "DESIGNATIONNAME";
+                x.Caption = "Designation";
                 x.VisibleIndex = 4;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -161,8 +238,8 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_COUNTRY";
-                x.Caption = "Country";
+                x.FieldName = "REPORTTONAME";
+                x.Caption = "Report To";
                 x.VisibleIndex = 5;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -170,8 +247,8 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_STATE";
-                x.Caption = "State";
+                x.FieldName = "GROUPNAME";
+                x.Caption = "Group";
                 x.VisibleIndex = 6;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -180,65 +257,14 @@ namespace ModernRetail.Controllers
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_CITY";
-                x.Caption = "City / District";
+                x.FieldName = "USER_INACTIVE";
+                x.Caption = "Active";
                 x.VisibleIndex = 7;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
 
             });
 
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "BRANCH_PIN";
-                x.Caption = "PIN";
-                x.VisibleIndex = 8;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-
-            });
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "CreateUser";
-                x.Caption = "Created By";
-                x.VisibleIndex = 9;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-            });
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "CreateDate";
-                x.Caption = "Created On";
-                x.VisibleIndex = 10;
-                x.Width = 120;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-                x.ColumnType = MVCxGridViewColumnType.DateEdit;
-                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
-                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "ModifyUser";
-                x.Caption = "Updated By";
-                x.VisibleIndex = 11;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "ModifyDate";
-                x.Caption = "Updated On";
-                x.VisibleIndex = 12;
-                x.Width = 120;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
-                x.ColumnType = MVCxGridViewColumnType.DateEdit;
-                x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
-                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-
-            });
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
             settings.SettingsExport.LeftMargin = 20;
             settings.SettingsExport.RightMargin = 20;
@@ -247,5 +273,161 @@ namespace ModernRetail.Controllers
 
             return settings;
         }
+
+        public string CheckUniqueUserLoginId(string LoginId, string User_ID)
+        {
+            string UserLoginIdFount = "0";
+
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_USERACCOUNTDATA");
+            proc.AddPara("@ACTION", "CHECKUNIQUEUSERLOGINID");
+            proc.AddPara("@LOGINID", LoginId);
+            proc.AddPara("@USERID", User_ID);
+            proc.AddVarcharPara("@ReturnValue", 50, "", QueryParameterDirection.Output);
+            dt = proc.GetTable();
+            string output = Convert.ToString(proc.GetParaValue("@ReturnValue"));
+
+            UserLoginIdFount = output;
+
+            return UserLoginIdFount;
+
+        }
+
+        [WebMethod]
+        public JsonResult SaveUser(UserMasterAddEditModel Details)
+        {
+            String Message = "";
+            Boolean Success = false;
+            string Action = "";
+
+            if(Details.UserId > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
+            {
+                Action = "UPDATEUSER";
+            }
+            else
+            {
+                Action = "ADDUSER";
+            }
+
+            string PartyTypeId = "";
+            int k = 1;
+
+            Encryption epasswrd = new Encryption();
+            var Encryptpass = epasswrd.Encrypt(Details.Password.Trim());
+
+            DataSet ds = new DataSet();
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_USERACCOUNTDATA");
+
+            proc.AddPara("@ACTION", Action);
+            proc.AddPara("@USERID", Details.UserId);
+            proc.AddPara("@USERNAME", Details.UserName);
+            proc.AddPara("@LOGINID", Details.LoginId);
+            proc.AddPara("@PASSWORD", Encryptpass);
+            proc.AddPara("@BRANCH", Details.Branch);
+            proc.AddPara("@DEPARTMENT", Details.Department);
+            proc.AddPara("@DESIGNATION", Details.Designation);
+            proc.AddPara("@REPORTTO", Details.ReportTo);
+            proc.AddPara("@GROUP", Details.Group);
+            proc.AddPara("@ADDRESS", Details.Address);
+            proc.AddPara("@COUNTRY", Details.Country);
+            proc.AddPara("@STATE", Details.State);
+            proc.AddPara("@CITY", Details.City);
+            proc.AddPara("@PIN", Details.PIN);
+            proc.AddPara("@PHONE", Details.Phone);
+            proc.AddPara("@EMAIL", Details.Email);
+            proc.AddPara("@ISACTIVE", Details.IsActive);
+            proc.AddPara("@USER_ID", Convert.ToInt64(Session["MRuserid"]));
+            proc.AddVarcharPara("@ReturnValue", 50, "", QueryParameterDirection.Output);
+            ds = proc.GetDataSet();
+
+            string output = Convert.ToString(proc.GetParaValue("@ReturnValue"));
+
+            return Json(output);
+
+        }
+
+        public JsonResult SetMapDataByID(Int64 ID = 0, Int16 IsView = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                TempData["user_id"] = ID;
+                TempData["IsView"] = IsView;
+                TempData.Keep();
+                Success = true;
+            }
+            catch { }
+            return Json(Success, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditUser(string id)
+        {
+            DataSet dt = new DataSet();
+
+            ProcedureExecute proc = new ProcedureExecute("Prc_MR_UserAccountData");
+            proc.AddPara("@ACTION", "EDITUSER");
+            proc.AddPara("@USERID", id);
+
+            dt = proc.GetDataSet();
+
+            if (dt.Tables[0].Rows.Count > 0)
+            {
+               
+                Encryption epasswrd = new Encryption();
+                string Encryptpass = epasswrd.Decrypt(dt.Tables[0].Rows[0]["USER_PASSWORD"].ToString().Trim());
+
+                var strBRANCH = "";
+
+                for (int i = 0; i < dt.Tables[0].Rows.Count; i++)
+                {
+                    if (strBRANCH == "")
+                    {
+                        strBRANCH = Convert.ToString(dt.Tables[0].Rows[i]["BRANCH_ID"]);
+                    }
+                    else
+                    {
+                        strBRANCH = strBRANCH + "," + Convert.ToString(dt.Tables[0].Rows[i]["BRANCH_ID"]);
+                    }
+                    
+                }
+
+                return Json(new
+                {
+                    USER_ID = Convert.ToString(dt.Tables[0].Rows[0]["USER_ID"]),
+                    USER_NAME = Convert.ToString(dt.Tables[0].Rows[0]["USER_NAME"]),
+                    USER_LOGINID = Convert.ToString(dt.Tables[0].Rows[0]["USER_LOGINID"]),
+                    USER_PASSWORD = Convert.ToString(Encryptpass),
+                    USER_DEPTID = Convert.ToString(dt.Tables[0].Rows[0]["USER_DEPTID"]),
+                    USER_DEGID = Convert.ToString(dt.Tables[0].Rows[0]["USER_DEGID"]),
+                    USER_REPORTTO_ID = Convert.ToString(dt.Tables[0].Rows[0]["USER_REPORTTO_ID"]),
+                    USER_REPORTTONAME = Convert.ToString(dt.Tables[0].Rows[0]["REPORTTONAME"]),
+                    USER_GROUPID = Convert.ToString(dt.Tables[0].Rows[0]["USER_GROUPID"]),
+                    USER_ADDRESS = Convert.ToString(dt.Tables[0].Rows[0]["USER_ADDRESS"]),
+                    USER_COUNTRYID = Convert.ToString(dt.Tables[0].Rows[0]["USER_COUNTRYID"]),
+                    USER_STATEID = Convert.ToString(dt.Tables[0].Rows[0]["USER_STATEID"]),
+                    USER_CITYID = Convert.ToString(dt.Tables[0].Rows[0]["USER_CITYID"]),
+                    USER_PINID = Convert.ToString(dt.Tables[0].Rows[0]["USER_PINID"]),
+                    USER_PHONE = Convert.ToString(dt.Tables[0].Rows[0]["USER_PHONE"]),
+                    USER_EMAIL = Convert.ToString(dt.Tables[0].Rows[0]["USER_EMAIL"]),
+                    ISACTIVE = Convert.ToString(dt.Tables[0].Rows[0]["USER_ISACTIVE"]),
+                    BRANCH_LIST = strBRANCH
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        //public JsonResult DeleteUser(string ID)
+        //{
+        //    int output = 0;
+        //    output = objdata.DeleteBranch(ID);
+        //    return Json(output, JsonRequestBehavior.AllowGet);
+        //}
+
     }
 }
