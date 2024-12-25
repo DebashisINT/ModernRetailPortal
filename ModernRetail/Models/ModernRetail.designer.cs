@@ -88,14 +88,6 @@ namespace ModernRetail.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<MR_USERLIST> MR_USERLISTs
-		{
-			get
-			{
-				return this.GetTable<MR_USERLIST>();
-			}
-		}
-		
 		public System.Data.Linq.Table<MR_SECURITYROLESLIST> MR_SECURITYROLESLISTs
 		{
 			get
@@ -109,6 +101,14 @@ namespace ModernRetail.Models
 			get
 			{
 				return this.GetTable<MR_CITYMASTERLIST>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MR_USERLIST> MR_USERLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_USERLIST>();
 			}
 		}
 	}
@@ -887,195 +887,6 @@ namespace ModernRetail.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_USERLIST")]
-	public partial class MR_USERLIST
-	{
-		
-		private System.Nullable<int> _USERID;
-		
-		private System.Nullable<long> _SEQ;
-		
-		private System.Nullable<decimal> _UID;
-		
-		private string _USER_ID;
-		
-		private string _USER_NAME;
-		
-		private string _BRANCHNAME;
-		
-		private string _REPORTTO;
-		
-		private string _CREATEDATE;
-		
-		private string _DEG_DESIGNATION;
-		
-		private string _USER_INACTIVE;
-		
-		public MR_USERLIST()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
-		public System.Nullable<int> USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this._USERID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
-		public System.Nullable<long> SEQ
-		{
-			get
-			{
-				return this._SEQ;
-			}
-			set
-			{
-				if ((this._SEQ != value))
-				{
-					this._SEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", DbType="Decimal(10,0)")]
-		public System.Nullable<decimal> UID
-		{
-			get
-			{
-				return this._UID;
-			}
-			set
-			{
-				if ((this._UID != value))
-				{
-					this._UID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_ID", DbType="VarChar(50)")]
-		public string USER_ID
-		{
-			get
-			{
-				return this._USER_ID;
-			}
-			set
-			{
-				if ((this._USER_ID != value))
-				{
-					this._USER_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_NAME", DbType="VarChar(50)")]
-		public string USER_NAME
-		{
-			get
-			{
-				return this._USER_NAME;
-			}
-			set
-			{
-				if ((this._USER_NAME != value))
-				{
-					this._USER_NAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCHNAME", DbType="VarChar(200)")]
-		public string BRANCHNAME
-		{
-			get
-			{
-				return this._BRANCHNAME;
-			}
-			set
-			{
-				if ((this._BRANCHNAME != value))
-				{
-					this._BRANCHNAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REPORTTO", DbType="VarChar(300)")]
-		public string REPORTTO
-		{
-			get
-			{
-				return this._REPORTTO;
-			}
-			set
-			{
-				if ((this._REPORTTO != value))
-				{
-					this._REPORTTO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDATE", DbType="VarChar(100)")]
-		public string CREATEDATE
-		{
-			get
-			{
-				return this._CREATEDATE;
-			}
-			set
-			{
-				if ((this._CREATEDATE != value))
-				{
-					this._CREATEDATE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEG_DESIGNATION", DbType="VarChar(50)")]
-		public string DEG_DESIGNATION
-		{
-			get
-			{
-				return this._DEG_DESIGNATION;
-			}
-			set
-			{
-				if ((this._DEG_DESIGNATION != value))
-				{
-					this._DEG_DESIGNATION = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_INACTIVE", DbType="VarChar(10)")]
-		public string USER_INACTIVE
-		{
-			get
-			{
-				return this._USER_INACTIVE;
-			}
-			set
-			{
-				if ((this._USER_INACTIVE != value))
-				{
-					this._USER_INACTIVE = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_SECURITYROLESLIST")]
 	public partial class MR_SECURITYROLESLIST
 	{
@@ -1449,6 +1260,213 @@ namespace ModernRetail.Models
 				if ((this._MODIFYUSER != value))
 				{
 					this._MODIFYUSER = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_USERLIST")]
+	public partial class MR_USERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<long> _USER_ID;
+		
+		private string _USER_NAME;
+		
+		private string _USER_LOGINID;
+		
+		private string _DEPARTMENTNAME;
+		
+		private string _DESIGNATIONNAME;
+		
+		private string _REPORTTONAME;
+		
+		private string _GROUPNAME;
+		
+		private string _CREATEDATE;
+		
+		private string _USER_INACTIVE;
+		
+		public MR_USERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_ID", DbType="BigInt")]
+		public System.Nullable<long> USER_ID
+		{
+			get
+			{
+				return this._USER_ID;
+			}
+			set
+			{
+				if ((this._USER_ID != value))
+				{
+					this._USER_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_NAME", DbType="VarChar(50)")]
+		public string USER_NAME
+		{
+			get
+			{
+				return this._USER_NAME;
+			}
+			set
+			{
+				if ((this._USER_NAME != value))
+				{
+					this._USER_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_LOGINID", DbType="VarChar(50)")]
+		public string USER_LOGINID
+		{
+			get
+			{
+				return this._USER_LOGINID;
+			}
+			set
+			{
+				if ((this._USER_LOGINID != value))
+				{
+					this._USER_LOGINID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DEPARTMENTNAME", DbType="VarChar(200)")]
+		public string DEPARTMENTNAME
+		{
+			get
+			{
+				return this._DEPARTMENTNAME;
+			}
+			set
+			{
+				if ((this._DEPARTMENTNAME != value))
+				{
+					this._DEPARTMENTNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESIGNATIONNAME", DbType="VarChar(200)")]
+		public string DESIGNATIONNAME
+		{
+			get
+			{
+				return this._DESIGNATIONNAME;
+			}
+			set
+			{
+				if ((this._DESIGNATIONNAME != value))
+				{
+					this._DESIGNATIONNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REPORTTONAME", DbType="VarChar(300)")]
+		public string REPORTTONAME
+		{
+			get
+			{
+				return this._REPORTTONAME;
+			}
+			set
+			{
+				if ((this._REPORTTONAME != value))
+				{
+					this._REPORTTONAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GROUPNAME", DbType="VarChar(200)")]
+		public string GROUPNAME
+		{
+			get
+			{
+				return this._GROUPNAME;
+			}
+			set
+			{
+				if ((this._GROUPNAME != value))
+				{
+					this._GROUPNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDATE", DbType="VarChar(100)")]
+		public string CREATEDATE
+		{
+			get
+			{
+				return this._CREATEDATE;
+			}
+			set
+			{
+				if ((this._CREATEDATE != value))
+				{
+					this._CREATEDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USER_INACTIVE", DbType="VarChar(10)")]
+		public string USER_INACTIVE
+		{
+			get
+			{
+				return this._USER_INACTIVE;
+			}
+			set
+			{
+				if ((this._USER_INACTIVE != value))
+				{
+					this._USER_INACTIVE = value;
 				}
 			}
 		}

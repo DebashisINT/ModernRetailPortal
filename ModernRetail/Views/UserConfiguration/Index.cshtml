@@ -3,11 +3,24 @@
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
 
+
 @model ModernRetail.Models.UserMasterModel
 @{
     ViewBag.Title = "USER CONFIGURATION";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script type="text/javascript" src="~/Scripts/globalize.js"></script>
+<script src="~/Scripts/cultures/globalize.cultures.js"></script>
+
+<link href="~/assests/pluggins/LightBox/lightbox.css" rel="stylesheet" />
+<script src="~/assests/pluggins/LightBox/lightbox.js"></script>
+
+<script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
+<link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
+<link href="~/Content/media.css" rel="stylesheet" />
+<script src="~/Scripts/SearchPopup.js"></script>
+<script src="~/Scripts/SearchMultiPopup.js"></script>
 
 
 <style>
@@ -793,11 +806,630 @@
         width: 100%;
         white-space: break-spaces;
     }
+
+    #PartyTypeGridLookup_ET > tbody > tr > td: first - child {
+        display: none;
+    }
 </style>
+
+<link href="/Scripts/pluggins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
+
+
+<style>
+    #ddlBranch + div ul.multiselect-container {
+        max-height: 250px;
+        overflow-y: auto;
+    }
+
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
+
+    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear{
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .multiselect-container.dropdown-menu {
+        right: 0 !important;
+        left: auto;
+        min-width: 340px;
+    }
+
+    .iminentSpan .multiselect-container.dropdown-menu {
+        right: auto !important;
+        left: 0;
+        min-width: 340px;
+        margin-top: -12px;
+    }
+
+    .multiselect-container > li > a {
+        padding: 5px 0;
+    }
+
+        .multiselect-container > li > a input[type="checkbox"] {
+            transform: translateY(3px);
+        }
+
+    .multiselect-container > li.active > a {
+        background: transparent !important;
+        color: #333;
+    }
+
+        .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
+            background: #f3f3f3 !important;
+            color: #333 !important;
+        }
+
+    .multiselect-item.multiselect-filter {
+        padding-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .multiselect-item.multiselect-filter .form-control.multiselect-search {
+            height: 32px;
+        }
+
+        .multiselect-item.multiselect-filter .input-group-addon {
+            background: #41a8f1;
+            color: #fff;
+            border-color: #41a8f1;
+        }
+
+    .input-group-btn .multiselect-clear-filter {
+        background: #f98181;
+        color: #fffefe;
+        /* box-shadow: none; */
+        text-shadow: none;
+        border-color: #f96a6a;
+        padding: 5px 10px 4px 10px;
+    }
+
+    .multiselect.dropdown-toggle {
+        background: #fff;
+        border-radius: 5px;
+        border: 1px solid #b7b7b7;
+        margin-bottom: 12px;
+    }
+
+    #ReportToModel label {
+        font-weight: 500;
+        margin-top: 5px;
+    }
+
+    #ReportToModel label {
+        margin-top: 8px;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    #ddlBranch button, .multiselect.dropdown-toggle {
+        color: #111 !important;
+    }
+
+    .multiselect.dropdown-toggle, .multiselect.dropdown-toggle:hover {
+        z-index: 1;
+        background: transparent;
+    }
+</style>
+
+
+<script>
+    var ID = 0;
+    var urlKeys = getUrlVars();
+    function UserAdd() {
+        window.location.href = '/UserConfiguration/UserMasterList';
+    }
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function CountryOnChange() {
+        var CountryID = $('#ddlCountry option:selected').val();
+     $.ajax({
+         type: "POST",
+         url: "@Url.Action("GetState", "BranchMaster")",
+         data: { CountryID: CountryID },
+         success: function (response) {
+             $('#ddlState').html('');
+             var html = "";
+             for (var i = 0; i < response.length; i++) {
+                 html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+             }
+             $('#ddlState').html(html);
+
+
+         }
+     });
+    }
+
+    function StateOnChange() {
+        var StateID = $('#ddlState option:selected').val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GETCITY", "BranchMaster")",
+                data: { StateID: StateID },
+                success: function (response) {
+                    $('#ddlCity').html('');
+                    var html = "";
+                    for (var i = 0; i < response.length; i++) {
+                        html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+                    }
+                    $('#ddlCity').html(html);
+                }
+            });
+    }
+    function CityOnChange() {
+        var CityID = $('#ddlCity option:selected').val();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GETPINZIP", "BranchMaster")",
+            data: { CityID: CityID },
+            success: function (response) {
+                $('#ddlPIN').html('');
+                var html = "";
+                for (var i = 0; i < response.length; i++) {
+                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+                }
+                $('#ddlPIN').html(html);
+            }
+        });
+    }
+
+    var PartyTypeId = [];
+
+    function PartyTypeSelectionChanged(s, e) {
+        PartyTypeGridLookup.gridView.GetSelectedFieldValues("desgid", GetPartyTypeSelectedFieldValuesCallback);
+    }
+    function GetPartyTypeSelectedFieldValuesCallback(values) {
+        try {
+            PartyTypeId = [];
+            for (var i = 0; i < values.length; i++) {
+                PartyTypeId.push(values[i]);
+            }
+        } finally {
+            console.log(PartyTypeId);
+        }
+    }
+
+
+    function CancelAdd() {
+        if ($("#hdnAdd").val() == "1") {
+            Swal.fire({
+                title: 'Are you sure you want to Close with out save data.?',
+                text: "This action cannot be undone!",
+                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                imageWidth: 40, // Adjust the width as needed
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/UserConfiguration/UserMasterList';
+
+                }
+            });
+        }
+
+        else {
+            window.location.href = '/UserConfiguration/UserMasterList';
+        }
+
+    }
+
+    if (urlKeys.key != 'Add' ) {
+        ID = urlKeys.key;
+        $("#hdnAdd").val(ID);
+        if (ID != 0)
+        {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EditUser", "UserConfiguration")",
+                data: { id: ID },
+                success: function (response) {
+                    if (response.USER_ID == "") {
+                        jAlert('No data found');
+                    }
+                    else {
+
+                        $('#hdnUserId').val(response.USER_ID);
+                        $('#UserName').val(response.USER_NAME);
+                        $('#LoginId').val(response.USER_LOGINID);
+                        $('#Password').val(response.USER_PASSWORD);
+
+                        $('#hdnReportToCode').val(response.USER_REPORTTO_ID);
+                        //$('#ReportToTxt').val(response.USER_REPORTTO_ID);
+                        $('#ReportToTxt').text(response.USER_REPORTTONAME);
+
+
+                        $('#Address').val(response.USER_ADDRESS);
+                        $('#Phone').val(response.USER_PHONE);
+                        $('#Email').val(response.USER_EMAIL);
+                        //$('#IsActive').val(response.ISACTIVE);
+                        $('#IsActive').prop('checked', response.ISACTIVE);
+
+
+                        // Branch Load
+                        // Split the string into an array of values
+                        var branchList = response.BRANCH_LIST.split(',');
+
+                        // Set the selected values in the dropdown
+                        $('#ddlBranch').val(branchList);
+
+                        // Trigger the change event (optional)
+                        $('#ddlBranch').trigger('change');
+
+                        $('#ddlBranch').multiselect('refresh');
+                        // Branch Load
+
+                        $('#ddlDepartment').val(response.USER_DEPTID);
+                        $('#ddlDesignation').val(response.USER_DEGID);
+                        $('#ddlGroup').val(response.USER_GROUPID);
+                        $('#ddlCountry').val(response.USER_COUNTRYID);
+
+
+                        EditCountryOnChange(response.USER_STATEID);
+                        EditStateOnChange(response.USER_CITYID);
+                        EditCityOnChange(response.USER_PINID);
+
+
+
+                    }
+                }
+            });
+        }
+    }
+
+    function EditCountryOnChange(State) {
+        var CountryID = $('#ddlCountry option:selected').val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GetState", "BranchMaster")",
+                    data: { CountryID: CountryID },
+                    async: false,
+                    success: function (response) {
+                        $('#ddlState').html('');
+                        var html = "";
+                        for (var i = 0; i < response.length; i++) {
+                            html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+                        }
+                        $('#ddlState').html(html);
+
+                        $('#ddlState').val(State);
+
+                    }
+                });
+        }
+
+    function EditStateOnChange(City) {
+        var StateID = $('#ddlState option:selected').val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GETCITY", "BranchMaster")",
+                data: { StateID: StateID },
+                async: false,
+                success: function (response) {
+                    $('#ddlCity').html('');
+                    var html = "";
+                    for (var i = 0; i < response.length; i++) {
+                        html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+                    }
+                    $('#ddlCity').html(html);
+                    $('#ddlCity').val(City);
+                }
+            });
+    }
+
+    function EditCityOnChange(PIN) {
+        var CityID = $('#ddlCity option:selected').val();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GETPINZIP", "BranchMaster")",
+            data: { CityID: CityID },
+            async: false,
+            success: function (response) {
+                $('#ddlPIN').html('');
+                var html = "";
+                for (var i = 0; i < response.length; i++) {
+                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+
+                }
+                $('#ddlPIN').html(html);
+
+                $('#ddlPIN').val(PIN);
+            }
+        });
+    }
+
+    function EntrySave(mode)
+    {
+
+        $("#hdnAdd").val("0");
+        savemode = mode;
+        hasmsg = 0;
+
+        var User_ID = $('#hdnUserId').val();
+
+        var UserName = $('#UserName').val();
+        var LoginId = $('#LoginId').val();
+
+        var Password = $('#Password').val();
+        var ReportTo = $('#hdnReportToCode').val();  // $('#ReportToTxt').val();
+        var Address = $('#Address').val();
+        var Phone = $('#Phone').val();
+        var Email = $('#Email').val();
+        var IsActive = $('#IsActive').prop('checked');
+
+        //var Branch = $('#ddlBranch').val();  // $('#ddlBranch option:selected').val();
+
+        var Branch = "";
+
+        if($('#ddlBranch').val() != null){
+            Branch = $('#ddlBranch').val().join(',');
+        }
+
+
+        var Department = $('#ddlDepartment option:selected').val();
+        var Designation = $('#ddlDesignation option:selected').val();
+        var Group = $('#ddlGroup option:selected').val();
+        var Country = $('#ddlCountry option:selected').val();
+        var State = $('#ddlState option:selected').val();
+        var City = $('#ddlCity option:selected').val();
+        var PIN = $('#ddlPIN option:selected').val();
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CheckUniqueUserLoginId", "UserConfiguration")",
+            data: { LoginId: LoginId, User_ID: User_ID },
+            async: false,
+            success: function (response) {
+                if(response=="1"){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Sorry!',
+                        text: 'Please Enter Unique User Login ID to proceed'
+                    });
+                    return false;
+                }
+                else
+                {
+                    if ($("#UserName").val().trim() == "") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Please Enter User Name to proceed'
+                        });
+                        return false;
+                    }
+                    else if ($("#LoginId").val().trim() == "") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Please Enter Login Id to proceed'
+                        });
+                        return false;
+                    }
+                    else if ($("#Password").val().trim() == "") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Please Enter Password to proceed'
+                        });
+                        return false;
+                    }
+                     else if (Branch == null || Branch == ""  ) {
+                         Swal.fire({
+                             icon: 'warning',
+                             title: 'Sorry!',
+                             text: 'Please Select Branch to proceed.'
+                         });
+                         return false;
+                     }
+                     else if (Department.trim() == null || Department.trim() == "" || Department.trim() == "Select") {
+                         Swal.fire({
+                             icon: 'warning',
+                             title: 'Sorry!',
+                             text: 'Please Select Department to proceed.'
+                         });
+                         return false;
+                     }
+                     else if (Designation.trim() == null || Designation.trim() == "" || Designation.trim() == "Select") {
+                         Swal.fire({
+                             icon: 'warning',
+                             title: 'Sorry!',
+                             text: 'Please Select Designation to proceed.'
+                         });
+                         return false;
+                     }
+                    else if ($('#hdnReportToCode').val() == "") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Please Enter ReportToTxt to proceed'
+                        });
+                        return false;
+                    }
+                    else if (Group.trim() == null || Group.trim() == "" || Group.trim() == "Select") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Please Select Group to proceed.'
+                        });
+                        return false;
+                    }
+
+
+                    var UserId = $('#hdnUserId').val();
+
+
+                    var data = {
+                        UserId: User_ID,
+                        UserName: UserName,
+                        LoginId: LoginId,
+                        Password: Password,
+                        Branch: Branch,
+                        Department: Department,
+                        Designation: Designation,
+                        ReportTo: ReportTo,
+                        Group: Group,
+                        Address: Address,
+                        Country: Country,
+                        State: State,
+                        City: City,
+                        PIN: PIN,
+                        Phone: Phone,
+                        Email: Email,
+                        IsActive: IsActive
+
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("SaveUser", "UserConfiguration")",
+                        data: JSON.stringify({ Details: data }), // Fixed JSON formatting
+                        async: true,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response != null)
+                            {
+                                if (response == "-20") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'Error in Add.'
+                                    });
+                                } else if (response == "-10") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'Login Id already exists..'
+                                    });
+                                } else if (response == "1") {
+                                    Swal.fire({
+                                        title: 'Success!',
+                                        html: 'User saved successfully.',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            setTimeout(function () {
+                                                var url = '/UserConfiguration/UserMasterList';
+                                                window.location.href = url;
+                                            }, 500);
+                                        }
+                                    });
+                                }
+                                else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'An error occurred while use Add.'
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'An error occurred while use Add.'
+                                });
+                            }
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'An error occurred while use Add.'
+                            });
+                        }
+
+                    });
+                }
+            }
+        })
+
+
+    }
+
+    function ReportToButnClick(s, e) {
+        $('#ReportToModel').modal('show');
+    }
+
+    function ReportTo_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+            $('#ReportToModel').modal('show');
+            $("#txtReportToSearch").focus();
+        }
+    }
+
+
+    function ReportTokeydown(e) {
+        var OtherDetails = {}
+        if ($.trim($("#txtReportToSearch").val()) == "" || $.trim($("#txtReportToSearch").val()) == null) {
+            return false;
+        }
+        OtherDetails.SearchKey = $("#txtReportToSearch").val();
+
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+            var HeaderCaption = [];
+            HeaderCaption.push("Name");
+
+            if ($("#txtReportToSearch").val() != "") {
+                callonServer("../../../Models/MRService.asmx/GetOnDemandReportTo", OtherDetails, "ReportToTable", HeaderCaption, "ReportToIndex", "SetReportTo");
+            }
+        }
+        else if (e.code == "ArrowDown") {
+            if ($("input[ReportToIndex=0]"))
+                $("input[ReportToIndex=0]").focus();
+        }
+    }
+
+    function SetReportTo(id, Name) {
+        var key = id;
+        $('#hdnReportToCode').val(id);
+        if (key != null && key != '') {
+            $('#ReportToModel').modal('hide');
+            ReportToTxt.SetText(Name);
+            ReportToTxt.SetFocus();
+        }
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#ddlBranch').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select Branches',
+            buttonWidth: '100%'
+        });
+    });
+</script>
+
 
 <div class="breadCumb">
     <span id="HeaderLableID">User Configuration</span>
-    <div id="ApprovalCross" onclick="BranchAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <div id="ApprovalCross" onclick="UserAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
     <div class="form_main backBox p-3 mb-3">
@@ -806,26 +1438,26 @@
             <div class=" col-sm-3">
                 <label>User Name<span style="color:red">*</span></label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @MaxLength = "80" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @MaxLength = "300" })
                 </div>
             </div>
             <div class=" col-sm-3">
                 <label>Login Id<span style="color:red">*</span></label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @MaxLength = "80" })
+                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @MaxLength = "50" })
                 </div>
             </div>
             <div class=" col-sm-3">
                 <label>Password<span style="color:red">*</span></label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @MaxLength = "80" })
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @MaxLength = "50" })
                 </div>
             </div>
 
             <div class="col-sm-3  h-branch-select">
                 <label>Branch<span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.Branch, new SelectList(Model.BranchList, "ID", "NAME", Model.BranchID), "Select", new { @id = "ddlBranch", @class = "form-control" }
-            )
+                @*@Html.DropDownListFor(m => m.Branch, new SelectList(Model.BranchList, "ID", "NAME", Model.SelectedBranchIDs), new { @id = "ddlBranch", multiple = "multiple", @class = "demo multiselect" }*@
+                @Html.DropDownList("ddlBranch", new SelectList(Model.BranchList, "ID", "NAME"), new { @multiple = "multiple", @id = "ddlBranch", @class = "demo multiselect" })
             </div>
 
             <div class="col-sm-3  h-branch-select">
@@ -841,7 +1473,7 @@
             </div>
 
             <div class="col-md-3">
-                <label>Report To</label>
+                <label>Report To<span style="color:red">*</span></label>
                 <div>
                     @Html.DevExpress().ButtonEdit(
                     settings =>
@@ -857,7 +1489,7 @@
                     }).GetHtml()
 
                     <input type="hidden" id="txtContact_hidden">
-                    <input type="hidden" id="ReportToCode" value="@Model.ReportToCode">
+                    <input type="hidden" id="hdnReportToCode" value="@Model.ReportToCode">
                 </div>
             </div>
 
@@ -867,29 +1499,25 @@
             )
             </div>
             <div class="col-sm-6">
-                <label>Address1<span style="color:red">*</span></label>
+                <label>Address</label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @MaxLength = "500" })
                 </div>
             </div>
             <div class="col-sm-3  h-branch-select">
-                <label>Country<span style="color:red">*</span></label>
-                @Html.DropDownListFor(
-                m => m.Country,
-                new SelectList(Model.CountryList, "ID", "NAME"),
-                "Select",
-                new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
+                <label>Country</label>
+                @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryList, "ID", "NAME"), "Select", new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
             )
             </div>
             <div class="col-sm-3  h-branch-select">
-                <label>State<span style="color:red">*</span></label>
+                <label>State</label>
                 <div>
                     <select id="ddlState" class="form-control" onchange="StateOnChange()"></select>
                 </div>
             </div>
 
             <div class="col-sm-3  h-branch-select">
-                <label>City / District <span style="color:red">*</span></label>
+                <label>City / District </label>
                 <div>
                     <select id="ddlCity" class="form-control" onchange="CityOnChange()"></select>
                 </div>
@@ -901,47 +1529,32 @@
                     <select id="ddlPIN" class="form-control"></select>
                 </div>
             </div>
-
-
-            <div class=" col-sm-3">
-                <label>GPS Accuracy <span style="color:red">*</span></label>
+            <div class="col-sm-3">
+                <label>Phone</label>
                 <div class="relative">
-                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control allow_decimal numbersOnly", @oninput = "limitDecimalPlaces(this, 2)" })
-                </div>
-            </div>
-            <div class=" col-sm-3">
-                <label>Shop Location Accuracy<span style="color:red">*</span></label>
-                <div class="relative">
-                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control allow_decimal numbersOnly", @oninput = "limitDecimalPlaces(this, 2)" })
-                </div>
-            </div>
-            <div class=" col-sm-3">
-                <label>Home Location Distance<span style="color:red">*</span></label>
-                <div class="relative">
-                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control allow_decimal numbersOnly", @oninput = "limitDecimalPlaces(this, 2)" })
-                </div>
-            </div>
-            <div class="col-sm-3  h-branch-select">
-                <label>Attend. from Home Location<span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.Department, new SelectList(Model.DepartmentList, "ID", "NAME", Model.DeparmentID), "Select", new { @id = "ddlDepartment", @class = "form-control" }
-            )
-            </div>
-            <div class="col-sm-3  h-branch-select">
-                <label>Party Type<span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.Department, new SelectList(Model.DepartmentList, "ID", "NAME", Model.DeparmentID), "Select", new { @id = "ddlDepartment", @class = "form-control" }
-            )
-            </div>
-            <div class=" col-sm-3">
-                <label>Device Information capture every after<span style="color:red">*</span></label>
-                <div class="relative">
-                    @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @MaxLength = "80" })
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @MaxLength = "10" })
                 </div>
             </div>
 
+            <div class="col-sm-3">
+                <label>Email</label>
+                <div class="relative">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @MaxLength = "200" })
+                </div>
+            </div>
+
+            <div class=" col-sm-3">
+                <div class="form-group">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IsActive, new { @tabindex = "3" })
+                        Check to Make Active
+                    </label>
+                </div>
+            </div>
 
 
             <div class="clear"></div>
-            <div class="mt-4">
+            <div class="mt-4 px-4">
                 @if (Convert.ToInt16(ViewBag.IsView) == 0)
                 {
                     <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
@@ -952,4 +1565,34 @@
         </div>
     </div>
 
+</div>
+
+<input type="hidden" value="@Model.user_id" id="hdnUserId" />
+
+<div class="modal fade pmsModal w70" id="ReportToModel" role="dialog">
+    @*Rev 5.0 : w-50 class add*@
+    <div class="modal-dialog w-50">
+        @*Rev end 5.0*@
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Report To Search</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control mb-3" type="text" onkeydown="ReportTokeydown(event)" id="txtReportToSearch" autofocus style="width:100%" placeholder="Search By Report To Name" />
+                <div id="ReportToTable">
+                    <table border='1' width="100%" class="dynamicPopupTbl">
+                        <tr class="HeaderStyle">
+                            <th class="hide">id</th>
+                            <th>Name</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

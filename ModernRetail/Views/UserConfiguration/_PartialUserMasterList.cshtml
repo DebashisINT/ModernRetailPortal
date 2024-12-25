@@ -6,7 +6,7 @@
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridList";
-    settings.KeyFieldName = "UID";
+    settings.KeyFieldName = "USER_ID";
     settings.CallbackRouteValues = new { Action = "PartialGridList", Controller = "UserConfiguration" };
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
@@ -26,7 +26,7 @@
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
     settings.Columns.Add(x =>
     {
-        x.FieldName = "UID";
+        x.FieldName = "USER_LOGINID";
         x.Caption = "User ID";
         x.VisibleIndex = 1;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
@@ -44,8 +44,8 @@
     });
     settings.Columns.Add(x =>
     {
-        x.FieldName = "BRANCHNAME";
-        x.Caption = "Branch";
+        x.FieldName = "DEPARTMENTNAME";
+        x.Caption = "Department";
         x.VisibleIndex = 3;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
@@ -53,8 +53,8 @@
     });
     settings.Columns.Add(x =>
     {
-        x.FieldName = "REPORTTO";
-        x.Caption = "Report To";
+        x.FieldName = "DESIGNATIONNAME";
+        x.Caption = "Designation";
         x.VisibleIndex = 4;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
@@ -62,9 +62,18 @@
     });
     settings.Columns.Add(x =>
     {
-        x.FieldName = "DEG_DESIGNATION";
-        x.Caption = "Designation";
+        x.FieldName = "REPORTTONAME";
+        x.Caption = "Report To";
         x.VisibleIndex = 5;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "GROUPNAME";
+        x.Caption = "Group";
+        x.VisibleIndex = 6;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
 
@@ -73,9 +82,9 @@
     {
         x.FieldName = "USER_INACTIVE";
         x.Caption = "Active";
-        x.VisibleIndex = 6;
+        x.VisibleIndex = 7;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(70);
 
     });
 
@@ -83,20 +92,20 @@
     settings.Columns.Add(x =>
     {
         x.Caption = "Action";
-        x.VisibleIndex = 13;
+        x.VisibleIndex = 8;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
         x.SetDataItemTemplateContent(c =>
         {
             //if (ViewBag.CanEdit)
             //{
-            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "UID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
             //}
             //    if (ViewBag.CanDelete)
             //{
-           // ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "BRANCH_ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
+           //ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
 
             //}
         });
