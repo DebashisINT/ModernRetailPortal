@@ -815,6 +815,12 @@
 <link href="/Scripts/pluggins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
 
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js"></script>
+@*<script src="/Scripts/SearchPopupDatatable.js"></script>*@
+<link href="/assests/css/SearchPopup.css" rel="stylesheet" />
+
 
 <style>
     #ddlBranch + div ul.multiselect-container {
@@ -826,7 +832,7 @@
         text-align: left;
     }
 
-    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear{
+    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
         -webkit-appearance: none;
         position: relative;
         z-index: 1;
@@ -892,7 +898,7 @@
         background: #fff;
         border-radius: 5px;
         border: 1px solid #b7b7b7;
-        margin-bottom: 12px;
+        /*margin-bottom: 12px;*/
     }
 
     #ReportToModel label {
@@ -910,10 +916,133 @@
         color: #111 !important;
     }
 
-    .multiselect.dropdown-toggle, .multiselect.dropdown-toggle:hover {
-        z-index: 1;
-        background: transparent;
+        .multiselect.dropdown-toggle, .multiselect.dropdown-toggle:hover {
+            z-index: 1;
+            background: transparent;
+        }
+
+    .dataTables_length label {
+        display: flex;
+        align-items: center;
     }
+
+    .dataTables_filter input {
+        /*display: block;*/
+        width: 60%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555;
+        vertical-align: middle;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .dataTables_length select {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        padding: 4px 8px;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        padding-top: 10px;
+    }
+
+    .crossBtnN {
+        color: #fff;
+        cursor: pointer;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        font-size: 12px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        outline: none;
+        border: none;
+    }
+
+    .dataTables_length
+    {
+        padding-top: 0;
+    }
+
+    table.dataTable thead th, table.dataTable thead td
+    {
+        padding-left: 10px !important;
+    }
+
+    .dynamicPopupTbl > tbody > tr > td, .dynamicPopupTbl > tbody > tr > td input {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .dynamicPopupTbl
+    {
+        background: #fff;
+    }
+
+        .dynamicPopupTbl > tbody > tr > td:hover {
+            background: #f6f6f6;
+        }
+
+
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+    }
+
+    .select2-container {
+        width: 100% !important;
+        z-index: 99999;
+    }
+
+    .select2-container--default .select2-selection--single {
+        height: 34px;
+        /* padding: 6px 12px; */
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    /*.select2-container {
+    z-index: 1;
+}*/
+
+    .select2-container--default .select2-selection--single {
+        background-color: transparent;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            display: none;
+        }
+
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        border-radius: 4px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 32px;
+        padding-right: 22px;
+    }
+
+    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+        z-index: 99999;
+    }
+
+    .dropdown-menu, .modal {
+        z-index: 999999;
+    }
+
+
 </style>
 
 
@@ -1055,7 +1184,8 @@
 
                         $('#hdnReportToCode').val(response.USER_REPORTTO_ID);
                         //$('#ReportToTxt').val(response.USER_REPORTTO_ID);
-                        $('#ReportToTxt').text(response.USER_REPORTTONAME);
+                        /* $('#ReportToTxt').text(response.USER_REPORTTONAME);*/
+                        ReportToTxt.SetText(response.USER_REPORTTONAME);
 
 
                         $('#Address').val(response.USER_ADDRESS);
@@ -1371,16 +1501,7 @@
 
     }
 
-    function ReportToButnClick(s, e) {
-        $('#ReportToModel').modal('show');
-    }
 
-    function ReportTo_KeyDown(s, e) {
-        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
-            $('#ReportToModel').modal('show');
-            $("#txtReportToSearch").focus();
-        }
-    }
 
 
     function ReportTokeydown(e) {
@@ -1414,6 +1535,22 @@
         }
     }
 
+    function ReportToButnClick(s, e) {
+        $('#ReportToModel').modal('show');
+        $('#ReportToModel').on('shown.bs.modal', function () {
+            $("#txtReportToSearch").focus();
+        });
+    }
+
+    function ReportTo_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+            $('#ReportToModel').modal('show');
+            $('#ReportToModel').on('shown.bs.modal', function () {
+                $("#txtReportToSearch").focus();
+            });
+        }
+    }
+
 </script>
 
 <script>
@@ -1422,6 +1559,43 @@
             includeSelectAllOption: true,
             nonSelectedText: 'Select Branches',
             buttonWidth: '100%'
+        });
+    });
+
+    $(document).ready(function () {
+        $('#ddlDepartment').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlDesignation').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlGroup').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlCountry').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlState').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlCity').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
+        $('#ddlPIN').select2({
+            placeholder: "Select",
+            allowClear: false
         });
     });
 </script>
@@ -1435,44 +1609,44 @@
     <div class="form_main backBox p-3 mb-3">
         <div class="row mb-3">
 
-            <div class=" col-sm-3">
+            <div class=" col-sm-3 mb-3">
                 <label>User Name<span style="color:red">*</span></label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @MaxLength = "300" })
                 </div>
             </div>
-            <div class=" col-sm-3">
+            <div class=" col-sm-3 mb-3 mb-3">
                 <label>Login Id<span style="color:red">*</span></label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @MaxLength = "50" })
                 </div>
             </div>
-            <div class=" col-sm-3">
+            <div class=" col-sm-3 mb-3">
                 <label>Password<span style="color:red">*</span></label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @MaxLength = "50" })
                 </div>
             </div>
 
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>Branch<span style="color:red">*</span></label>
                 @*@Html.DropDownListFor(m => m.Branch, new SelectList(Model.BranchList, "ID", "NAME", Model.SelectedBranchIDs), new { @id = "ddlBranch", multiple = "multiple", @class = "demo multiselect" }*@
                 @Html.DropDownList("ddlBranch", new SelectList(Model.BranchList, "ID", "NAME"), new { @multiple = "multiple", @id = "ddlBranch", @class = "demo multiselect" })
             </div>
 
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>Department<span style="color:red">*</span></label>
                 @Html.DropDownListFor(m => m.Department, new SelectList(Model.DepartmentList, "ID", "NAME", Model.DeparmentID), "Select", new { @id = "ddlDepartment", @class = "form-control" }
             )
             </div>
 
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>Designation<span style="color:red">*</span></label>
                 @Html.DropDownListFor(m => m.Designation, new SelectList(Model.DesignationList, "ID", "NAME", Model.DesignationID), "Select", new { @id = "ddlDesignation", @class = "form-control" }
             )
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
                 <label>Report To<span style="color:red">*</span></label>
                 <div>
                     @Html.DevExpress().ButtonEdit(
@@ -1493,57 +1667,57 @@
                 </div>
             </div>
 
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>Group<span style="color:red">*</span></label>
                 @Html.DropDownListFor(m => m.Group, new SelectList(Model.GroupList, "ID", "NAME", Model.GroupID), "Select", new { @id = "ddlGroup", @class = "form-control" }
             )
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 mb-3">
                 <label>Address</label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @MaxLength = "500" })
                 </div>
             </div>
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>Country</label>
                 @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryList, "ID", "NAME"), "Select", new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
             )
             </div>
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>State</label>
                 <div>
                     <select id="ddlState" class="form-control" onchange="StateOnChange()"></select>
                 </div>
             </div>
 
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>City / District </label>
                 <div>
                     <select id="ddlCity" class="form-control" onchange="CityOnChange()"></select>
                 </div>
             </div>
 
-            <div class="col-sm-3  h-branch-select">
+            <div class="col-sm-3 mb-3 h-branch-select">
                 <label>PIN</label>
                 <div>
                     <select id="ddlPIN" class="form-control"></select>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 mb-3">
                 <label>Phone</label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @MaxLength = "10" })
                 </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-3 mb-3">
                 <label>Email</label>
                 <div class="relative">
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @MaxLength = "200" })
                 </div>
             </div>
 
-            <div class=" col-sm-3">
+            <div class=" col-sm-3 mb-3">
                 <div class="form-group">
                     <label>
                         @Html.CheckBoxFor(m => m.IsActive, new { @tabindex = "3" })
@@ -1557,7 +1731,7 @@
             <div class="mt-4 px-4">
                 @if (Convert.ToInt16(ViewBag.IsView) == 0)
                 {
-                    <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
+                    <button type="button" class="btn btn-success save-btn mr-4" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 }
                 <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
@@ -1591,7 +1765,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
