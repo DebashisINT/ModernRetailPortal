@@ -396,6 +396,16 @@
 
         }); // end am4core.ready()
     </script>
+    <script>
+        $(document).ready(function () {
+            $(".secToggler").on("click", function () {
+                $(".droper").toggleClass("active");
+            });
+            $("#clCr").click(function () {
+                $(".droper").removeClass("active");
+            });
+        });
+    </script>
     <link href="~/assests/css/newlogin.css" rel="stylesheet" />
     @*new login design*@
     <style>
@@ -818,6 +828,95 @@
             max-width: 68%;
             margin-top: 2%;
         }
+
+
+        .creditsSec {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            z-index: 109;
+        }
+
+        .droper {
+            position: absolute;
+            bottom: 90%;
+            color: #fff;
+            background: #17158f;
+            min-width: 250px;
+            border-radius: 11px;
+            overflow: hidden;
+            display: none;
+            opacity: 0;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 0px 15px rgb(0 0 0 / 20%);
+        }
+
+            .droper.active {
+                display: block;
+                opacity: 1;
+                bottom: 120%;
+            }
+
+        .secToggler {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border: 1px solid #9ab2ef;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease-in;
+            cursor: pointer;
+            background: #fff;
+        }
+
+            .secToggler i {
+                font-size: 23px;
+                cursor: pointer;
+                display: inline-block;
+            }
+
+            .secToggler:hover {
+                background: #e7eaff;
+                border-color: #fff;
+                box-shadow: 0 0 0 3px #288fce, 0 0 0 4px rgb(255 255 255 / 20%);
+            }
+        .mnHeader {
+            padding: 7px 15px;
+            border-bottom: 1px solid #0b1322;
+            font-size: 1.6rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .scrCnter {
+            padding: 8px 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+            .scrCnter ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+                .scrCnter ul > li {
+                    padding: 7px 0 7px 7px;
+                    border-bottom: 1px solid #273958;
+                }
+
+                    .scrCnter ul > li.crhdss {
+                        background: #e2f5e7;
+                        font-weight: 500;
+                        border-bottom: 1px dashed;
+                    }
+
+        #clCr {
+            float: right;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -827,15 +926,15 @@
             <div class="flexArea">
                 <div class="contentArea">
                     @*<div class="tagLine"><h3>Designed to fulfill your</h3><h1 class="emp">Business Requirements</h1><h4>Simple, Intuitive and Easy to use</h4></div>
-                             <div class="xoptions">
-                                 <ul>
-                                     <li><img src="~/assests/images/NLogin/checked.png" /> Live Tracking</li>
-                                     <li><img src="~/assests/images/NLogin/checked.png" /> Infographic Data Presentation</li>
-                                     <li><img src="~/assests/images/NLogin/checked.png" /> 24x7 Customer Support</li>
-                                 </ul>
-                             </div>
-                             <img src="~/assests/images/NLogin/screen1.png" class="scrImage wow bounceInUp"  />
-                        <div class="chartArea"><div class="hider"></div><div id="chartdiv"></div></div>*@
+                     <div class="xoptions">
+                         <ul>
+                             <li><img src="~/assests/images/NLogin/checked.png" /> Live Tracking</li>
+                             <li><img src="~/assests/images/NLogin/checked.png" /> Infographic Data Presentation</li>
+                             <li><img src="~/assests/images/NLogin/checked.png" /> 24x7 Customer Support</li>
+                         </ul>
+                     </div>
+                     <img src="~/assests/images/NLogin/screen1.png" class="scrImage wow bounceInUp"  />
+                <div class="chartArea"><div class="hider"></div><div id="chartdiv"></div></div>*@
                     <img src="~/assests/images/NLogin/left-top-image.png" class="left-top-image" />
                 </div>
                 <div class="formArea">
@@ -872,6 +971,69 @@
                     </form>
                 </div>
             </div>
+
+            <div class="creditsSec " id="rc_app_1562">
+                <div class="secToggler" id="rc_app_15652"><img src="/assests/images/group.png" style="width:32px" /></div>
+                <div class="droper">
+                    <div class="mnHeader">Team Behind <span id="clCr"><i class="fa fa-close"></i></span></div>
+                    <div class="scrCnter" id="rc_app_156655">
+                        <ul class="tc_s5621f_fg">
+
+                            <li><span class="nameCR">Abhinav Dahiwade</span></li>
+                            <li><span class="nameCR">Abhishek Munshi</span></li>
+                            <li><span class="nameCR">Ananya Deb</span></li>
+                            <li><span class="nameCR">Ankan Das</span></li>
+                            <li><span class="nameCR">Arindam Ghosal</span></li>
+                            <li><span class="nameCR">Arunabha Saha</span></li>
+                            <li><span class="nameCR">Aritra Das</span></li>
+                            <li><span class="nameCR">Ashmita Roy Chowdhury</span></li>
+                            <li><span class="nameCR">Avijit Bonu</span></li>
+                            <li><span class="nameCR">Bapi Dutta</span></li>
+                            <li><span class="nameCR">Bhaskar Chatterjee</span></li>
+                            <li><span class="nameCR">Chinmoy Maiti</span></li>
+                            <li class="tc_sfsf_fg"><span class="nameCR">Debashis Talukder</span></li>
+                            <li><span class="nameCR">Debjyoti Dhar</span></li>
+                            <li><span class="nameCR">Deep Narayan Mahajan</span></li>
+                            <li><span class="nameCR">Goutam Kumar Das</span></li>
+                            <li><span class="nameCR">Indranil Dey</span></li>
+                            <li><span class="nameCR">Jitendra Jha</span></li>
+                            <li><span class="nameCR">Kaushik Gupta</span></li>
+                            <li><span class="nameCR">Maynak Nandi</span></li>
+                            <li><span class="nameCR">Pallab Mukherjee</span></li>
+                            <li><span class="nameCR">Pijush Kumar Bhattacharya</span></li>
+                            <li><span class="nameCR">Pratik Ghosh</span></li>
+                            <li><span class="nameCR">Puja Basak</span></li>
+                            <li class="tc_s5221f_fg"><span class="nameCR">Priti Ghosh</span></li>
+                            <li><span class="nameCR">Priyanka</span></li>
+                            <li><span class="nameCR">Rajdip Mukherjee</span></li>
+                            <li><span class="nameCR">Saheli Bhattacharya</span></li>
+                            <li><span class="nameCR">Saikat Das</span></li>
+                            <li><span class="nameCR">Sanchita Saha</span></li>
+                            <li><span class="nameCR">Sanjoy Ganguly</span></li>
+                            <li><span class="nameCR">Santanu Mukherjee</span></li>
+                            <li><span class="nameCR">Sayantani Mandal</span></li>
+                            <li><span class="nameCR">Shantanu Saha</span></li>
+                            <li><span class="nameCR">Sneha Das</span></li>
+                            <li><span class="nameCR">Sourav Goswami</span></li>
+                            <li><span class="nameCR">Subhra Mukherjee</span></li>
+                            <li><span class="nameCR">Sudip Biswas</span></li>
+                            <li><span class="nameCR">Sudip Kumar Pal</span></li>
+                            <li><span class="nameCR">Suman Bachar</span></li>
+                            <li><span class="nameCR">Suman Roy</span></li>
+                            <li><span class="nameCR">Surojit Chatterjee</span></li>
+                            <li><span class="nameCR">Susanta Kundu</span></li>
+                            <li><span class="nameCR">Suvankar Dey</span></li>
+                            <li><span class="nameCR">Swatilekha Mukherjee</span></li>
+                            <li><span class="nameCR">Swarnadeep Goswami</span></li>
+                            <li><span class="nameCR">Santanu Roy</span></li>
+                            <li><span class="nameCR">Tanmoy Ghosh</span></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </section>
         <section class="fts">
             <div class="container">
