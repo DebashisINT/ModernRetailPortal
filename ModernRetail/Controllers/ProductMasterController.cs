@@ -25,7 +25,7 @@ namespace ModernRetail.Controllers
 {
     public class ProductMasterController : Controller
     {
-        // GET: MYSHOP/ProductMaster
+        // GET: ProductMaster
         public ActionResult Index()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "ProductMaster");
@@ -40,7 +40,7 @@ namespace ModernRetail.Controllers
             ProductMasterModel Dtls = new ProductMasterModel();
 
             DataSet ds = new DataSet();
-            ProcedureExecute proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTMASTER");
             proc.AddPara("@ACTION", "GETLISTDATA");
             ds = proc.GetDataSet();
 
@@ -83,9 +83,9 @@ namespace ModernRetail.Controllers
             ViewBag.CanDelete = rights.CanDelete;
 
             DataSet ds = new DataSet();
-            ProcedureExecute proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTMASTER");
             proc.AddPara("@ACTION", "GETPRODUCTMASTERLISTDATA");
-            proc.AddPara("@USER_ID", Convert.ToString(Session["userid"]));
+            proc.AddPara("@USER_ID", Convert.ToString(Session["MRuserid"]));
             proc.AddPara("@IS_PAGELOAD", model.Ispageload);
             ds = proc.GetDataSet();
 
@@ -97,7 +97,7 @@ namespace ModernRetail.Controllers
             string connectionString = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"]);
             ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
             
-            int userid = Convert.ToInt32(Session["userid"]);
+            int userid = Convert.ToInt32(Session["MRuserid"]);
 
             var q = from d in dc.MR_ProductMasterLists
                     where d.USERID == userid
@@ -112,13 +112,13 @@ namespace ModernRetail.Controllers
             string ProductClass, string ProductStrength, string ProductUnit, string ProductBrand, string ProductStatus)
         {
             int output = 0;
-            string Userid = Convert.ToString(Session["userid"]);
+            string Userid = Convert.ToString(Session["MRuserid"]);
 
             ProcedureExecute proc;
             int rtrnvalue = 0;
             try
             {
-                using (proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER"))
+                using (proc = new ProcedureExecute("PRC_MR_PRODUCTMASTER"))
                 {
                     proc.AddVarcharPara("@PRODID", 100, id);
                     if (id == "0")
@@ -135,7 +135,7 @@ namespace ModernRetail.Controllers
                     proc.AddVarcharPara("@ProductBrand", 100, ProductBrand);
                     proc.AddVarcharPara("@ProductStatus", 100, ProductStatus);
 
-                    proc.AddVarcharPara("@USER_ID", 100, Convert.ToString(Session["userid"]));
+                    proc.AddVarcharPara("@USER_ID", 100, Convert.ToString(Session["MRuserid"]));
                     proc.AddVarcharPara("@RETURN_VALUE", 50, "", QueryParameterDirection.Output);
                     int i = proc.RunActionQuery();
                     rtrnvalue = Convert.ToInt32(proc.GetParaValue("@RETURN_VALUE"));
@@ -169,7 +169,7 @@ namespace ModernRetail.Controllers
             DataTable dt = new DataTable();
             try
             {
-                using (proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER"))
+                using (proc = new ProcedureExecute("PRC_MR_PRODUCTMASTER"))
                 {
                     proc.AddVarcharPara("@PRODID", 100, id);
                     proc.AddVarcharPara("@ACTION", 100, "EDITPRODUCT");
@@ -218,7 +218,7 @@ namespace ModernRetail.Controllers
             DataTable dt = new DataTable();
             try
             {
-                using (proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER"))
+                using (proc = new ProcedureExecute("PRC_MR_PRODUCTMASTER"))
                 {
                     proc.AddVarcharPara("@PRODID", 100, ID);
                     proc.AddVarcharPara("@ACTION", 100, "DELETEPRODUCT");
@@ -364,10 +364,10 @@ namespace ModernRetail.Controllers
                            TempData.Keep();
 
                             DataTable dtCmb = new DataTable();
-                            ProcedureExecute proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER");
+                            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTMASTER");
                             proc.AddPara("@ACTION", "IMPORTPRODUCT");
                             proc.AddPara("@IMPORT_TABLE", dtExcelData);
-                            proc.AddPara("@USER_ID", Convert.ToInt32(Session["userid"]));
+                            proc.AddPara("@USER_ID", Convert.ToInt32(Session["MRuserid"]));
                             dtCmb = proc.GetTable();
 
                         }
@@ -386,15 +386,7 @@ namespace ModernRetail.Controllers
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToPdf(GetDoctorBatchGridViewSettings(), GetProductList());
-                case 2:
-                    return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), GetProductList());
-                case 3:
-                    return GridViewExtension.ExportToXls(GetDoctorBatchGridViewSettings(), GetProductList());
-                case 4:
-                    return GridViewExtension.ExportToRtf(GetDoctorBatchGridViewSettings(), GetProductList());
-                case 5:
-                    return GridViewExtension.ExportToCsv(GetDoctorBatchGridViewSettings(), GetProductList());
+                    return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), GetProductList());                    
                 default:
                     break;
             }
@@ -503,7 +495,7 @@ namespace ModernRetail.Controllers
                 string dattoat = ToDate.Split('-')[2] + '-' + ToDate.Split('-')[1] + '-' + ToDate.Split('-')[0];
 
                 DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_FSMPRODUCTMASTER");
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTMASTER");
                 proc.AddPara("@ACTION", "GETPRODUCTIMPORTLOG");
                 proc.AddPara("@FromDate", datfrmat);
                 proc.AddPara("@ToDate", dattoat);
