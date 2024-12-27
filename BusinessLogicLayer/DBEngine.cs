@@ -719,6 +719,20 @@ namespace BusinessLogicLayer
         }
         //End of Rev Debashis Mantis-0025209
 
+        public string GeEmployeeHierarchyBranchMR(string userId)
+        {
+            string branchs = "";
+            DataTable DtSecond = GetDataTable(" MR_USER_BRANCHMAP ", " BRANCH_ID ", " USER_ID= '" + userId + "'");
+            if (DtSecond.Rows.Count != 0)
+            {
+                var SelectedValues = DtSecond.AsEnumerable().Select(s => s.Field<System.Int64>("BRANCH_ID")).ToArray();
+
+                branchs = string.Join(",", SelectedValues);
+            }
+
+            return branchs;
+        }
+
         public string AuthenticateVendorUser(string UserName, String Password)
         {
             // This null password option can help to get password option!
@@ -3034,9 +3048,7 @@ namespace BusinessLogicLayer
 
         // End of Rev 2.0
 
-        //
-
-
+        
 
         #endregion To get UserList for Lead
 
@@ -8075,6 +8087,405 @@ namespace BusinessLogicLayer
             return strEventImage;
         }
         // End of Rev 3.0
+
+
+        public string AuthenticateUserMR(string UserName, String Password)
+        {
+            HttpContext.Current.Session["ErpConnection"] = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString; //Need to remove.
+            // This null password option can help to get password option!
+            string whereClause = "user_loginId ='" + UserName + "'";
+            if (Password != null)
+            {
+                whereClause += " and cast(user_password as varbinary) =cast('" + Password + "' as varbinary)" + " and user_isactive=1  ";
+            }
+
+
+            string[,] ValidUser = GetFieldValue("MR_MASTER_USER ", @"USER_ID, USER_NAME, USER_PASSWORD, USER_GROUPID, USER_REPORTTO_ID, USER_SUPERUSER,
+                                   USER_ENTRYPROFILE, USER_LASTSEGEMENT ",
+                whereClause, 8);
+
+            if (ValidUser[0, 0] == "n")
+            {
+                if (Password != null)
+                {
+                    return ValidUser[0, 0] = "Invalid UserID or Password!";
+                }
+                else
+                    return ValidUser[0, 0] = "Invalid UserID";
+            }
+            else
+            {
+                if (Password != null)
+                {
+                    string[,] IsActive = GetFieldValue("MR_MASTER_USER", "RTRIM(LTRIM(USER_ISACTIVE))", "USER_LOGINID ='" + UserName + "' and USER_PASSWORD='" + Password + "' and USER_ISACTIVE=1", 1);
+                    if (IsActive[0, 0].ToString() == "1")
+                    {
+
+
+                        oGenericMethod = new GenericMethod();
+                        HttpContext.Current.Session["MRuserid"] = ValidUser[0, 0].ToString();
+                        HttpContext.Current.Session["MRusername"] = ValidUser[0, 1].ToString();
+                        HttpContext.Current.Session["MRuserpassword"] = ValidUser[0, 2].ToString();
+                        HttpContext.Current.Session["MRusergoup"] = ValidUser[0, 3].ToString();
+                        HttpContext.Current.Session["MREntryProfileType"] = ValidUser[0, 6].ToString();
+                        HttpContext.Current.Session["MRuserAllowAccessIP"] = ValidUser[0, 7].ToString();
+
+                        //HttpContext.Current.Session["MRuserbranchID"] = GetFieldValue("MR_USER_BRANCHMAP", "STRING_AGG(BRANCH_ID, ',')", "USER_ID ='" + ValidUser[0, 0].ToString() + "' ", 1);
+
+
+                        // ............. Code Above Commented by Sam on 07112016 due to get user its own cnt_internalid....................
+                        HttpContext.Current.Session["MRLastCompany"] = string.Empty;
+                        HttpContext.Current.Session["MRLastFinYear"] = string.Empty;
+                        HttpContext.Current.Session["MRLastSettNo"] = string.Empty;
+                        HttpContext.Current.Session["MRDataTable_Menu"] = GetDataTable("tbl_trans_menu", "mnu_id, mnu_menuName, mnu_menuLink, mun_parentId, mnu_segmentId, mnu_image", "mnu_menulink not like '%frmwip%'", null);
+                        
+                        DataTable dtLoginPortalwithHeirarchy = new DataTable();
+                        dtLoginPortalwithHeirarchy = GetDataTable("select USER_HIERARCHYWISELOGININPORTAL from MR_MASTER_USER where user_id='" + HttpContext.Current.Session["MRuserid"] + "'");
+
+                        ////////string[,] EmployeereportTo = GetFieldValue(" tbl_trans_employeeCTC ", " emp_reportTo ", " emp_cntId='" + HttpContext.Current.Session["MRusercontactID"] + "'", 1);
+
+                        ////////if (EmployeereportTo[0, 0].Trim() == "0")
+                        ////////    HttpContext.Current.Session["MRsuperuser"] = "Y";
+                        ////////else
+                        ////////    HttpContext.Current.Session["MRsuperuser"] = "";
+                        ///
+
+                        string[,] MRuserbranchID = GetFieldValue("MR_USER_BRANCHMAP", "STRING_AGG(BRANCH_ID, ',')", "USER_ID ='" + ValidUser[0, 0].ToString() + "' ", 1);
+
+                        HttpContext.Current.Session["MRuserbranchID"] = MRuserbranchID[0, 0].Trim();
+
+                        if ( ValidUser[0, 4].ToString() == "0")
+                            HttpContext.Current.Session["MRsuperuser"] = "Y";
+                        else
+                            HttpContext.Current.Session["MRsuperuser"] = "";
+
+                        
+                        if (ValidUser[0, 5].ToString().Trim() == "Y")  //_must be treated as superuser: taking top level Hierarchy!
+                        {
+                            /////HttpContext.Current.Session["MRuserchildHierarchy"] = GeEmployeeHierarchy(ValidUser[0, 15].ToString());
+                            string branch = getBranchForLogin(HttpContext.Current.Session["MRuserbranchID"].ToString(), "") + HttpContext.Current.Session["MRuserbranchID"].ToString();
+                            actual = "";
+                            HttpContext.Current.Session["MRuserbranchHierarchy"] = branch;
+                        }
+                        else
+                        {
+                            string userlist = "";
+                            ////////actual = "";
+                            ////////if (dtLoginPortalwithHeirarchy.Rows[0][0].ToString() == "True")
+                            ////////{
+                            ////////    userlist = getChildUserNotColleague(ValidUser[0, 0].ToString(), "");
+                            ////////    HttpContext.Current.Session["MRuserchildHierarchy"] = userlist;
+                            ////////}
+                            ////////else
+                            ////////{
+                            ////////    HttpContext.Current.Session["MRuserchildHierarchy"] = HttpContext.Current.Session["MRuserid"].ToString();
+                            ////////}
+                            
+                            CommonBL cbl = new CommonBL();
+                            string DefaultBranchInLogin = cbl.GetSystemSettingsResult("IsActivateEmployeeBranchHierarchy");
+                            if (DefaultBranchInLogin.ToUpper() == "1")
+                            {
+                                ////userlist = getChildUserNotColleague(ValidUser[0, 0].ToString(), "");
+
+                                actual = "";
+                                //HttpContext.Current.Session["MRuserchildHierarchy"] = userlist;
+
+                                DataSet dsbranchhrchy = new DataSet();
+                                string[] strSpParam = new string[1];
+                                strSpParam[0] = "branchid|" + GenericStoreProcedure.ParamDBType.Int + "|10|" + HttpContext.Current.Session["MRuserbranchID"].ToString() + "|" + GenericStoreProcedure.ParamType.ExParam;
+
+                                GenericStoreProcedure oGenericStoreProcedure = new GenericStoreProcedure();
+                                try
+                                {
+                                    dsbranchhrchy = oGenericStoreProcedure.Procedure_DataSet(strSpParam, "Hr_GetBranchSubTree");
+                                    HttpContext.Current.Session["MRuserbranchHierarchy"] = dsbranchhrchy.Tables[0].Rows[0][0].ToString();
+                                }
+                                catch { }
+                            }
+                            else
+                            {
+                                string branchs = GeEmployeeHierarchyBranchMR(ValidUser[0, 0].ToString());
+
+                                if (string.IsNullOrEmpty(branchs))
+                                {
+                                    branchs = HttpContext.Current.Session["MRuserbranchID"].ToString();
+                                }
+
+                                HttpContext.Current.Session["MRuserbranchHierarchy"] = branchs;
+                            }
+                            
+                        }
+                        
+                        //////////___This will get all accessebla pages for reaspective segment
+                        ////////getAccessPages();
+                        ////////string[] segmentname = proc.GetFieldValue1("tbl_master_segment", "Seg_Name", "Seg_id=" + HttpContext.Current.Session["MRuserlastsegment"], 1);
+                        ////////string[] sname = segmentname[0].Split('-');
+                        ////////if (sname.Length > 1)
+                        ////////{
+                        ////////    string[] ExchangeSegmentID = proc.GetFieldValue1("Master_ExchangeSegments MES,Master_Exchange ME", "MES.ExchangeSegment_ID", "MES.ExchangeSegment_Code='" + sname[1] + "'And MES.ExchangeSegment_ExchangeID=ME.Exchange_ID AND ME.Exchange_ShortName='" + sname[0] + "'", 1);
+                        ////////    HttpContext.Current.Session["MRExchangeSegmentID"] = ExchangeSegmentID[0].ToString();
+                        ////////}
+                        ////////if (sname[0] == "Accounts")
+                        ////////{
+                        ////////    string[] ExchangeSegmentID = proc.GetFieldValue1("Master_ExchangeSegments MES,Master_Exchange ME", "MES.ExchangeSegment_ID", "MES.ExchangeSegment_Code='ACC'And MES.ExchangeSegment_ExchangeID=ME.Exchange_ID AND ME.Exchange_ShortName='" + sname[0] + "'", 1);
+                        ////////    HttpContext.Current.Session["MRExchangeSegmentID"] = ExchangeSegmentID[0].ToString();
+                        ////////}
+                        //Subhabrata
+                        
+                        ////////if (Convert.ToString(HttpContext.Current.Session["MRuserbranchID"]) != "")
+                        ////////{
+                        ////////    DataTable dt1 = new DataTable();
+                        ////////    ProcedureExecute proc1 = new ProcedureExecute("GetSiblingsBranchIds");
+
+                        ////////    proc1.AddIntegerPara("@BranchId", Convert.ToInt32(HttpContext.Current.Session["MRuserbranchID"]));
+
+                        ////////    dt1 = proc1.GetTable();
+                        ////////    string SibLingBranch = string.Empty;
+
+                        ////////    if (dt1 != null && dt1.Rows.Count > 0)
+                        ////////    {
+                        ////////        for (int i = 0; i < dt1.Rows.Count; i++)
+                        ////////        {
+                        ////////            SibLingBranch += Convert.ToString(dt1.Rows[i]["branch_id"]) + ",";
+                        ////////        }
+                        ////////    }
+
+
+                        ////////    HttpContext.Current.Session["MRUserSiblingBranchHierarchy"] = HttpContext.Current.Session["MRuserbranchHierarchy"] + "," + SibLingBranch;
+
+                        ////////}//End
+
+                        ////////if (HttpContext.Current.Session["MRuserlastsegment"].ToString() != "")
+                        ////////{
+                        ////////    DataTable UserLastSegmentInfo = oGenericMethod.GetUserLastSegmentDetail();
+                        ////////    if (UserLastSegmentInfo.Rows.Count > 0)
+                        ////////    {
+                        ////////        //HttpContext.Current.Session["MRLastCompany"] = "COR0000002";
+                        ////////        HttpContext.Current.Session["MRusersegid"] = UserLastSegmentInfo.Rows[0][0].ToString().Trim();
+                        ////////        HttpContext.Current.Session["MRLastCompany"] = UserLastSegmentInfo.Rows[0][1].ToString();
+                        ////////        // Code Added by Sam to fetch All child Company Of Parent Company
+                        ////////        // To show Account Head belongs to Parent and Child Company
+                        ////////        // Version 1.0.0.1
+                        ////////        string parentcompany = "'" + HttpContext.Current.Session["MRLastCompany"].ToString() + "'";
+                        ////////        GetChildCompany(parentcompany);
+                        ////////        //string CompanyList = getCompanyList(parentcompany, "");
+                        ////////        //string AllCompany = "";
+                        ////////        //if (CompanyList=="")
+                        ////////        //{
+                        ////////        //    AllCompany = parentcompany;
+                        ////////        //}
+                        ////////        //else
+                        ////////        //{
+                        ////////        //    CompanyList = CompanyList.TrimEnd(',');
+                        ////////        //    AllCompany = parentcompany + "," + CompanyList;
+                        ////////        //}
+                        ////////        //HttpContext.Current.Session["CompanyHierarchy"] = AllCompany;
+
+
+                        ////////        // Version 1.0.0.1 End
+
+                        ////////        HttpContext.Current.Session["MRLastFinYear"] = UserLastSegmentInfo.Rows[0][2].ToString();
+                        ////////        HttpContext.Current.Session["MRLastSettNo"] = UserLastSegmentInfo.Rows[0][3].ToString();
+                        ////////        HttpContext.Current.Session["LedgerView"] = UserLastSegmentInfo.Rows[0][6].ToString();
+                        ////////        HttpContext.Current.Session["StartdateFundsPayindate"] = UserLastSegmentInfo.Rows[0][5].ToString();// fetch startdate and FundsPayin from Master_Settlements
+                        ////////                                                                                                           ////////////////////////Entry Lock System Session Creation/////////////////////////////
+                        ////////        string SegmentID = null;
+                        ////////        DataTable DtLockEntrySystem = null;
+                        ////////        string UserLastSegment = HttpContext.Current.Session["MRuserlastsegment"].ToString();
+                        ////////        if (UserLastSegment != "1" && UserLastSegment != "4" && UserLastSegment != "6")
+                        ////////        {
+                        ////////            if (UserLastSegment == "9" || UserLastSegment == "10")
+                        ////////            {
+                        ////////                DtLockEntrySystem = GetDataTable("tbl_master_CompanyExchange", "Exch_InternalID", "Exch_CompID='" + HttpContext.Current.Session["MRLastCompany"].ToString() + "' and Exch_TMCode='" + HttpContext.Current.Session["MRusersegid"].ToString() + "'");
+                        ////////                SegmentID = DtLockEntrySystem.Rows[0][0].ToString();
+                        ////////                DtLockEntrySystem = null;
+                        ////////            }
+                        ////////            else
+                        ////////            {
+                        ////////                SegmentID = HttpContext.Current.Session["MRusersegid"].ToString();
+                        ////////            }
+
+                        ////////            //======================================Expiry Module==========================
+                        ////////            //Set Expiry From Encrypted File
+                        ////////            if (HttpContext.Current.Session["MRuserlastsegment"] != null && HttpContext.Current.Session["MRLastCompany"] != null
+                        ////////                && HttpContext.Current.Session["MRuserlastsegment"] != "" && HttpContext.Current.Session["MRLastCompany"] != "")
+                        ////////                oGenericMethod.EncryptDecript(1, "SetExpiryDate~", System.AppDomain.CurrentDomain.BaseDirectory + "License.txt");
+                        ////////            //======================================End Expiry Module==========================
+
+                        ////////            // Variable For All "GS_LCKALL"
+                        ////////            // 1.Session CashBank -->"GS_LCKBNK",
+                        ////////            // 2.Session Demate -->"GS_LCKDEMAT",
+                        ////////            // 3.Session Trade -->"GS_LCKTRADE",
+                        ////////            // 4.Session JounalVoucher -->"GS_LCKJV",
+                        ////////            DtLockEntrySystem = GetDataTable("(Select GlobalSettings_Name," +
+                        ////////                                                    @"Case
+                        ////////                                        When GlobalSettings_Value=1 Then (DATEADD(dd, 0, DATEDIFF(dd, 0, GetDate()-GlobalSettings_LockDays)))
+                        ////////                                        Else (DATEADD(dd, 0, DATEDIFF(dd, 0, GlobalSettings_LockDate)))
+                        ////////                                        End as LockDaysOrDate
+                        ////////                                        From
+                        ////////                                        (Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKBNK'
+                        ////////                                        union
+                        ////////                                        Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKALL') as t1) as t2
+                        ////////                                    Union
+                        ////////                                    Select 'GS_LCKDEMAT' as GlobalSettings_Name,Max(LockDaysOrDate) as MaxLockDate From(
+                        ////////                                    Select GlobalSettings_Name," +
+                        ////////                                                    @"Case
+                        ////////                                        When GlobalSettings_Value=1 Then (DATEADD(dd, 0, DATEDIFF(dd, 0, GetDate()-GlobalSettings_LockDays)))
+                        ////////                                        Else (DATEADD(dd, 0, DATEDIFF(dd, 0, GlobalSettings_LockDate)))
+                        ////////                                        End as LockDaysOrDate
+                        ////////                                        From
+                        ////////                                        (Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKDEMAT'
+                        ////////                                        union
+                        ////////                                        Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKALL') as t1) as t2
+                        ////////                                    Union
+                        ////////                                    Select 'GS_LCKTRADE' as GlobalSettings_Name,Max(LockDaysOrDate) as MaxLockDate From(
+                        ////////                                    Select GlobalSettings_Name," +
+                        ////////                                                    @"Case
+                        ////////                                        When GlobalSettings_Value=1 Then (DATEADD(dd, 0, DATEDIFF(dd, 0, GetDate()-GlobalSettings_LockDays)))
+                        ////////                                        Else (DATEADD(dd, 0, DATEDIFF(dd, 0, GlobalSettings_LockDate)))
+                        ////////                                        End as LockDaysOrDate
+                        ////////                                        From
+                        ////////                                        (Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKTRADE'
+                        ////////                                        union
+                        ////////                                        Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKALL') as t1) as t2
+                        ////////                                    Union
+                        ////////                                    Select 'GS_LCKJV' as GlobalSettings_Name,Max(LockDaysOrDate) as MaxLockDate From(
+                        ////////                                    Select GlobalSettings_Name," +
+                        ////////                                                    @"Case
+                        ////////                                        When GlobalSettings_Value=1 Then (DATEADD(dd, 0, DATEDIFF(dd, 0, GetDate()-GlobalSettings_LockDays)))
+                        ////////                                        Else (DATEADD(dd, 0, DATEDIFF(dd, 0, GlobalSettings_LockDate)))
+                        ////////                                        End as LockDaysOrDate
+                        ////////                                        From
+                        ////////                                        (Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKJV'
+                        ////////                                        union
+                        ////////                                        Select GlobalSettings_SegmentID,GlobalSettings_Name,GlobalSettings_LockDays,
+                        ////////                                        GlobalSettings_LockDate,GlobalSettings_Value from  Config_GlobalSettings
+                        ////////                                        Where GlobalSettings_SegmentID=" + SegmentID + @"
+                        ////////                                        and GlobalSettings_Name='GS_LCKALL') as t1) as t2", "'GS_LCKBNK' as GlobalSettings_Name,Max(LockDaysOrDate) as MaxLockDate", null);
+
+                        ////////            if (DtLockEntrySystem.Rows.Count > 0)
+                        ////////            {
+                        ////////                DataRow row;
+                        ////////                DtLockEntrySystem.PrimaryKey = new DataColumn[] { DtLockEntrySystem.Columns["GlobalSettings_Name"] };
+                        ////////                row = DtLockEntrySystem.Rows.Find("GS_LCKBNK");
+                        ////////                if (row != null)
+                        ////////                {
+                        ////////                    if (row[1].ToString() != string.Empty)
+                        ////////                    {
+                        ////////                        if (Convert.ToDateTime(row[1].ToString()) > Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString()))
+                        ////////                            HttpContext.Current.Session["LCKBNK"] = Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString());
+                        ////////                        else
+                        ////////                            HttpContext.Current.Session["LCKBNK"] = row[1].ToString().Trim() != String.Empty ? row[1].ToString() : null; row = null;
+                        ////////                    }
+                        ////////                    else
+                        ////////                    {
+                        ////////                        HttpContext.Current.Session["LCKBNK"] = null;
+                        ////////                        row = null;
+                        ////////                    }
+                        ////////                }
+                        ////////                row = DtLockEntrySystem.Rows.Find("GS_LCKDEMAT");
+                        ////////                if (row != null)
+                        ////////                {
+                        ////////                    if (row[1].ToString() != string.Empty)
+                        ////////                    {
+                        ////////                        if (Convert.ToDateTime(row[1].ToString()) > Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString()))
+                        ////////                            HttpContext.Current.Session["LCKDEMAT"] = Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString());
+                        ////////                        else
+                        ////////                            HttpContext.Current.Session["LCKDEMAT"] = row[1].ToString().Trim() != String.Empty ? row[1].ToString() : null; row = null;
+                        ////////                    }
+                        ////////                    else
+                        ////////                    {
+                        ////////                        HttpContext.Current.Session["LCKDEMAT"] = null;
+                        ////////                        row = null;
+                        ////////                    }
+                        ////////                }
+                        ////////                row = DtLockEntrySystem.Rows.Find("GS_LCKTRADE");
+                        ////////                if (row != null)
+                        ////////                {
+                        ////////                    if (row[1].ToString() != string.Empty)
+                        ////////                    {
+                        ////////                        if (Convert.ToDateTime(row[1].ToString()) > Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString()))
+                        ////////                            HttpContext.Current.Session["LCKTRADE"] = Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString());
+                        ////////                        else
+                        ////////                            HttpContext.Current.Session["LCKTRADE"] = row[1].ToString().Trim() != String.Empty ? row[1].ToString() : null; row = null;
+                        ////////                    }
+                        ////////                    else
+                        ////////                    {
+                        ////////                        HttpContext.Current.Session["LCKTRADE"] = null;
+                        ////////                        row = null;
+                        ////////                    }
+                        ////////                }
+                        ////////                row = DtLockEntrySystem.Rows.Find("GS_LCKJV");
+                        ////////                if (row != null)
+                        ////////                {
+                        ////////                    if (row[1].ToString() != string.Empty)
+                        ////////                    {
+                        ////////                        if (Convert.ToDateTime(row[1].ToString()) > Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString()))
+                        ////////                            HttpContext.Current.Session["LCKJV"] = Convert.ToDateTime(HttpContext.Current.Session["ExpireDate"].ToString());
+                        ////////                        else
+                        ////////                            HttpContext.Current.Session["LCKJV"] = row[1].ToString().Trim() != String.Empty ? row[1].ToString() : null; row = null;
+                        ////////                    }
+                        ////////                    else
+                        ////////                    {
+                        ////////                        HttpContext.Current.Session["LCKJV"] = null;
+                        ////////                        row = null;
+                        ////////                    }
+                        ////////                }
+                        ////////            }
+                        ////////        }
+                        ////////        //End Session For CashBankEntry
+                        ////////        //////////////////////End Entry Lock System Session Creation/////////////////////////////
+                        ////////    }
+                        ////////    //}
+
+                        ////////    //string[,] segId = GetFieldValue("tbl_trans_LastSegment", "ls_lastdpcoid,ls_lastCompany,ls_lastFinYear,ls_lastSettlementNo,(select cast(Settlements_StartDateTime as varchar)+','+cast(Settlements_FundsPayin as varchar) from Master_Settlements where  Ltrim(RTRIM(settlements_Number))=ls_lastSettlementNo and ltrim(RTRIM(settlements_TypeSuffix))=ls_lastSettlementType)", "ls_lastSegment='" + HttpContext.Current.Session["MRuserlastsegment"] + "' and ls_cntId='" + HttpContext.Current.Session["MRusercontactID"] + "'", 5);
+                        ////////    //if (segId[0, 0] != "n")
+                        ////////    //{
+                        ////////    //    HttpContext.Current.Session["MRusersegid"] = segId[0, 0].ToString().Trim();
+                        ////////    //    HttpContext.Current.Session["MRLastCompany"] = segId[0, 1].ToString();
+                        ////////    //    HttpContext.Current.Session["MRLastFinYear"] = segId[0, 2].ToString();
+                        ////////    //    HttpContext.Current.Session["MRLastSettNo"] = segId[0, 3].ToString();
+                        ////////    //    HttpContext.Current.Session["StartdateFundsPayindate"] = segId[0, 4].ToString();// fetch startdate and FundsPayin from Master_Settlements
+
+                        ////////    //}
+                        ////////}
+                        
+                        //Now finding the company Hierarchy --ValidUser[0, 11].ToString();
+                       // HttpContext.Current.Session["userCompanyHierarchy"] = GetAllCompanyInHierarchy(ValidUser[0, 11].ToString());
+
+
+                        /////SetFinYearStartandEndDate();
+                    }
+                    else
+                    {
+                        return ValidUser[0, 0] = "Inactive UserID";
+                    }
+                }
+                return "Y";
+            }
+        }
+
 
         //rev Pratik
         //public DataTable GetDataTable(

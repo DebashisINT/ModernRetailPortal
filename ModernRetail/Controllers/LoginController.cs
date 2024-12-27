@@ -79,8 +79,8 @@ namespace ModernRetail.Controllers
                 string Encryptpass = epasswrd.Encrypt(omodel.password.Trim());
                 string Validuser;
 
-                Validuser = oDBEngine.AuthenticateUser(omodel.username, Encryptpass).ToString();
-                //Validuser = oDBEngine.AuthenticateUserMR(omodel.username, Encryptpass).ToString();
+                //Validuser = oDBEngine.AuthenticateUser(omodel.username, Encryptpass).ToString();
+                Validuser = oDBEngine.AuthenticateUserMR(omodel.username, Encryptpass).ToString();
                 if (Validuser == "Y")
                 {
                     HttpCookie cookie = new HttpCookie("sKeyMR");
