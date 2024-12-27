@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.5, 8.5" name="ModernRetail">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.625, 8.5" name="ModernRetail">
   <DataContextMoniker Name="/ModernRetailDataContext" />
   <nestedChildShapes>
     <classShape Id="7c38f61b-2c12-4edb-b5b4-4382a1930ddd" absoluteBounds="0.5, 0.5, 2, 3.6939111328124996">
@@ -54,6 +54,12 @@
       <DataClassMoniker Name="/ModernRetailDataContext/MR_USERLIST" />
       <nestedChildShapes>
         <elementListCompartment Id="54b69b30-6258-4854-a905-00846631b955" absoluteBounds="0.765, 5.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e326c4c2-5abb-4282-a0ea-41b368604012" absoluteBounds="11.375, 4.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_BRANDMASTERLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a353e2e8-aea2-4a08-a28c-47ae4a8ddbbe" absoluteBounds="11.39, 5.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

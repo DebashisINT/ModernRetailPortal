@@ -296,6 +296,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BranchMaster.cs" />
+    <Compile Include="Models\BrandMasterModel.cs" />
     <Compile Include="Models\CityMasterModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
@@ -1111,6 +1112,7 @@
     <Content Include="Views\ProductMaster\_PartialProductGrid.cshtml" />
     <Content Include="Views\ProductMaster\_ProductImportManualLogView.cshtml" />
     <Content Include="Views\BrandMaster\Index.cshtml" />
+    <Content Include="Views\BrandMaster\PartialBrandMasterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
