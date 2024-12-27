@@ -288,6 +288,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
+    <Compile Include="Controllers\ProductClassCategoryController.cs" />
     <Compile Include="Controllers\ProductMasterController.cs" />
     <Compile Include="Controllers\SecurityRolesController.cs" />
     <Compile Include="Controllers\StateMasterController.cs" />
@@ -311,6 +312,7 @@
       <DependentUpon>MRService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Models\ProductClassCategoryModel.cs" />
     <Compile Include="Models\ProductMasterModel.cs" />
     <Compile Include="Models\SecurityRolesModel.cs" />
     <Compile Include="Models\StateMasterModel.cs" />
@@ -1113,6 +1115,8 @@
     <Content Include="Views\ProductMaster\_ProductImportManualLogView.cshtml" />
     <Content Include="Views\BrandMaster\Index.cshtml" />
     <Content Include="Views\BrandMaster\PartialBrandMasterList.cshtml" />
+    <Content Include="Views\ProductClassCategory\Index.cshtml" />
+    <Content Include="Views\ProductClassCategory\PartialProductClassListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
