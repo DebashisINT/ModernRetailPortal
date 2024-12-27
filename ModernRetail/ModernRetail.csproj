@@ -279,6 +279,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BranchMasterController.cs" />
+    <Compile Include="Controllers\BrandMasterController.cs" />
     <Compile Include="Controllers\CityMasterController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
@@ -1109,6 +1110,7 @@
     <Content Include="Views\ProductMaster\Index.cshtml" />
     <Content Include="Views\ProductMaster\_PartialProductGrid.cshtml" />
     <Content Include="Views\ProductMaster\_ProductImportManualLogView.cshtml" />
+    <Content Include="Views\BrandMaster\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
