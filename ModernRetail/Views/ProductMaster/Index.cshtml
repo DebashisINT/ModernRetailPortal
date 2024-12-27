@@ -1484,10 +1484,16 @@
                     $("#txtProductName").val(response.ProductName);
                     $("#txtProductPrice").val(response.ProductPrice);
 
-                    $("#ddlProductClass").val(response.ProductClass);
-                    $("#ddlProductStrength").val(response.ProductStrength);
-                    $("#ddlProductUnit").val(response.ProductUnit);
-                    $("#ddlProductBrand").val(response.ProductBrand);
+                   // $("#ddlProductClass").val(response.ProductClass);
+                    $("#ddlProductClass").val(response.ProductClass).trigger('change');
+
+
+                    $("#ddlProductStrength").val(response.ProductStrength).trigger('change');
+
+                    $("#ddlProductUnit").val(response.ProductUnit).trigger('change');
+
+                    $("#ddlProductBrand").val(response.ProductBrand).trigger('change');
+
                     $("#ddlProductStatus").val(response.ProductStatus);
 
                     $("#ProductAddModal").modal('show');
@@ -1758,6 +1764,7 @@
                 }
                 else {
                     jAlert(response);
+
                 }
             },
             error: function (response) {
