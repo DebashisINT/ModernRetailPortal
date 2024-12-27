@@ -508,6 +508,30 @@
         line-height: 26px;
     }
 
+    #ProductAddModal .modal-dialog {
+        width: 98% !important;
+        margin-top: 15px;
+    }
+
+    .select2-dropdown {
+        width: 83% !important;
+        left: 30px !important;
+    }
+
+    .select2-container {
+        left: 0 !important;
+    }
+
+    .modal-footer .btn + .btn
+    {
+        margin-bottom: 10px !important;
+    }
+
+    .pmsModal .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1023px) {
@@ -588,6 +612,8 @@
     .left-top-image {
         margin-top: 4% !important;
     }
+
+    
 
 }
 /* TABLET LANDSCAPE / DESKTOP */
