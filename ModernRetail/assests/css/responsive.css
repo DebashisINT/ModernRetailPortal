@@ -1,7 +1,17 @@
 ﻿/* SMARTPHONES PORTRAIT */
-@media only screen and (min-width: 300px) {
+@media only screen and (min-width: 300px) and (max-width: 479px) {
 
+    .fts h2 {
+        font-size: 32px !important;
+    }
 
+    .fts {
+        padding: 100px 0 60px !important;
+    }
+
+    .mkHd {
+        font-size: 25px !important;
+    }
 }
 
 /* SMARTPHONES LANDSCAPE */
@@ -467,13 +477,119 @@
         font-size: 30px;
     }
 
+    .fts h2 {
+        font-size: 35px;
+        line-height: 46px;
+    }
 
+    .login-about-box {
+        margin-bottom: 20px;
+    }
+
+    .mobile-image-part {
+        min-height: 300px !important;
+        background-size: 100% !important;
+    }
+
+    .right-text-part {
+        padding: 50px 30px 50px 30px !important;
+    }
+
+    .ftr-login-part {
+        padding: 50px 20px !important;
+    }
+
+    .spaceColumn .col-sm-4 {
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+    }
+
+    .mkBoxes h5 {
+        line-height: 26px;
+    }
 
 }
 
+@media only screen and (min-width: 769px) and (max-width: 1023px) {
 
+    .container {
+        max-width: 810px !important;
+    }
+
+    .mlogos {
+        width: 132px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .formArea {
+        padding: 35px 40px !important;
+    }
+
+    .login-form-title {
+        font-size: 16px !important;
+    }
+
+    .formBox .form-group input {
+        min-height: 34px !important;
+    }
+
+    .inputIcons, .passWordView {
+        top: 32px !important;
+    }
+
+    .loginbtn {
+        padding: 7px 15px !important;
+    }
+
+    .hdn {
+        min-height: 50px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .mobile-image-part {
+        min-height: 745px !important;
+    }
+
+    .right-text-part {
+        padding: 30px 30px 30px 30px !important;
+    }
+
+    .mkHd {
+        font-size: 25px !important;
+    }
+
+    .ftr-login-part {
+        padding: 50px 20px !important;
+    }
+
+    .mkBoxes h5 {
+        line-height: 26px !important;
+    }
+
+    .fts h2 {
+        font-size: 35px !important;
+    }
+
+    .ftFooter {
+        margin-top: 10px;
+    }
+
+    .contentArea {
+        width: 60% !important;
+    }
+    .formArea {
+        width: 40% !important;
+    }
+
+    .creditsSec#rc_app_1562 {
+        display: none !important;
+    }
+
+    .left-top-image {
+        margin-top: 4% !important;
+    }
+
+}
 /* TABLET LANDSCAPE / DESKTOP */
 @media only screen and (min-width: 1024px) {
-
-
 }

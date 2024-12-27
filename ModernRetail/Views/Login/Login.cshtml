@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700;800&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="/assests/js/jquery.min.js"></script>
 
@@ -220,8 +221,8 @@
 
             .fts img {
                 width: 80px;
-                margin-bottom: 25px;
-                margin-top: 20px
+                /*margin-bottom: 25px;
+                margin-top: 20px*/
             }
 
         section h2 {
@@ -883,6 +884,7 @@
                 border-color: #fff;
                 box-shadow: 0 0 0 3px #288fce, 0 0 0 4px rgb(255 255 255 / 20%);
             }
+
         .mnHeader {
             padding: 7px 15px;
             border-bottom: 1px solid #0b1322;
@@ -917,6 +919,163 @@
             float: right;
             cursor: pointer;
         }
+
+
+        .fts {
+            padding: 50px 0 60px;
+            text-align: center;
+            background: #e7eaff;
+        }
+
+            .fts h2 {
+                font-family: "Poppins", sans-serif;
+                font-size: 38px;
+                line-height: normal;
+                font-weight: 700;
+                /*letter-spacing: -1px;*/
+                color: #111;
+                margin-bottom: 3.5rem;
+                line-height: 49px;
+            }
+
+                .fts h2 span {
+                    font-family: "Poppins", sans-serif;
+                    font-size: 25px;
+                    line-height: 45px;
+                    font-weight: 600;
+                    color: rgba(39,32,99,1);
+                    display: block;
+                    clear: both;
+                }
+
+            .fts img {
+                width: 50px;
+                /*margin-bottom: 25px;
+        margin-top: 20px*/
+            }
+
+        section h2 {
+            font-family: "Poppins", sans-serif;
+            font-size: 40px;
+            line-height: normal;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: rgba(255,91,103,1);
+            margin-bottom: 3.5rem;
+        }
+
+            section h2 span {
+                font-family: "Poppins", sans-serif;
+                font-size: 30px;
+                line-height: 45px;
+                font-weight: 600;
+                color: rgba(39,32,99,1);
+                display: block;
+                clear: both;
+            }
+
+        .hdn {
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            color: rgba(39,32,99,1);
+            font-size: 18px;
+            line-height: 25px;
+            margin-bottom: 15px;
+            letter-spacing: -.08rem;
+            padding: 0 0.5rem;
+            margin-top: 15px;
+        }
+
+        .login-about-box {
+            padding: 15px 10px 15px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 1px 1px 15px #0000001c;
+        }
+
+        .icon-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50px;
+            background: #d7e4ff;
+            margin: auto;
+            text-align: center;
+            line-height: 80px;
+        }
+
+        .mobile-image-part {
+            background: url(/assests/images/NLogin/modern-retail-mobile-img.webp) top center;
+            min-height: 612px;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .app-section {
+            padding: 60px 0;
+            max-width: 100%;
+            padding: 0 15px;
+            /*background: #08638d !important;*/
+            background-image: linear-gradient(212deg, #c45fe2 0%, #08296a 100%);
+        }
+
+        .mb-5 {
+            margin-bottom: 30px;
+        }
+
+        .right-text-part {
+            padding: 50px 120px 50px 50px;
+        }
+
+            .right-text-part h5 {
+                margin-bottom: 5px;
+            }
+
+        .mkHd {
+            font-family: "Poppins", sans-serif;
+            font-size: 32px;
+            line-height: normal;
+            font-weight: 700;
+            letter-spacing: 0;
+            /*color: rgba(255,91,103,1);*/
+            color: #fff;
+            margin-bottom: 1.5rem;
+            margin-top: 0;
+        }
+
+        .mkHs {
+            font-family: "Poppins", sans-serif;
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 3rem;
+        }
+
+        .mkBoxes h5, .mkBoxes p {
+            font-family: "Poppins", sans-serif;
+        }
+
+        .mkBoxes h5 {
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .mkBoxes p {
+            font-size: 15px;
+            color: #f2f2f2;
+        }
+
+        .ftr-login-part {
+            padding: 80px 20px
+        }
+
+        .login-form-title {
+            margin: 5px 0 10px 0;
+            font-size: 22px;
+            color: #3737bb;
+            font-weight: 600;
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -926,15 +1085,15 @@
             <div class="flexArea">
                 <div class="contentArea">
                     @*<div class="tagLine"><h3>Designed to fulfill your</h3><h1 class="emp">Business Requirements</h1><h4>Simple, Intuitive and Easy to use</h4></div>
-                     <div class="xoptions">
-                         <ul>
-                             <li><img src="~/assests/images/NLogin/checked.png" /> Live Tracking</li>
-                             <li><img src="~/assests/images/NLogin/checked.png" /> Infographic Data Presentation</li>
-                             <li><img src="~/assests/images/NLogin/checked.png" /> 24x7 Customer Support</li>
-                         </ul>
-                     </div>
-                     <img src="~/assests/images/NLogin/screen1.png" class="scrImage wow bounceInUp"  />
-                <div class="chartArea"><div class="hider"></div><div id="chartdiv"></div></div>*@
+                             <div class="xoptions">
+                                 <ul>
+                                     <li><img src="~/assests/images/NLogin/checked.png" /> Live Tracking</li>
+                                     <li><img src="~/assests/images/NLogin/checked.png" /> Infographic Data Presentation</li>
+                                     <li><img src="~/assests/images/NLogin/checked.png" /> 24x7 Customer Support</li>
+                                 </ul>
+                             </div>
+                             <img src="~/assests/images/NLogin/screen1.png" class="scrImage wow bounceInUp"  />
+                        <div class="chartArea"><div class="hider"></div><div id="chartdiv"></div></div>*@
                     <img src="~/assests/images/NLogin/left-top-image.png" class="left-top-image" />
                 </div>
                 <div class="formArea">
@@ -942,7 +1101,7 @@
                         <input id="rurl" name="rurl" runat="server" type="hidden" value="" />
                         <div><img src="/assests/images/NLogin/logo.png" class="mlogos" /></div>
                         <div class="login-part">
-                            <div style="margin: 5px 0 10px 0; font-size: 22px; color: #3737bb; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">Login to your Account</div>
+                            <div style=" "><h4 class="login-form-title">Login to your Account</h4></div>
                             <div style="margin: 5px 0 10px 0; font-size: 15px; color: red; font-weight: 600; font-family: 'Open Sans', sans-serif; text-align: center; ">@ViewBag.ValidateMessage</div>
                             <div class="formBox">
                                 <div class="form-group">
@@ -983,11 +1142,15 @@
                             <li><span class="nameCR">Abhishek Munshi</span></li>
                             <li><span class="nameCR">Ananya Deb</span></li>
                             <li><span class="nameCR">Ankan Das</span></li>
+                            <li><span class="nameCR">Anuska Sarkar</span></li>
+                            <li><span class="nameCR">Anup Mandal</span></li>
                             <li><span class="nameCR">Arindam Ghosal</span></li>
                             <li><span class="nameCR">Arunabha Saha</span></li>
+                            <li><span class="nameCR">Arijit Samui</span></li>
                             <li><span class="nameCR">Aritra Das</span></li>
                             <li><span class="nameCR">Ashmita Roy Chowdhury</span></li>
                             <li><span class="nameCR">Avijit Bonu</span></li>
+                            <li><span class="nameCR">Abhishek Rungta</span></li>
                             <li><span class="nameCR">Bapi Dutta</span></li>
                             <li><span class="nameCR">Bhaskar Chatterjee</span></li>
                             <li><span class="nameCR">Chinmoy Maiti</span></li>
@@ -999,7 +1162,8 @@
                             <li><span class="nameCR">Jitendra Jha</span></li>
                             <li><span class="nameCR">Kaushik Gupta</span></li>
                             <li><span class="nameCR">Maynak Nandi</span></li>
-                            <li><span class="nameCR">Pallab Mukherjee</span></li>
+                            <li><span class="nameCR">Maynak Nandi</span></li>
+                            <li><span class="nameCR">Misbahuddin Ansari</span></li>
                             <li><span class="nameCR">Pijush Kumar Bhattacharya</span></li>
                             <li><span class="nameCR">Pratik Ghosh</span></li>
                             <li><span class="nameCR">Puja Basak</span></li>
@@ -1011,10 +1175,12 @@
                             <li><span class="nameCR">Sanchita Saha</span></li>
                             <li><span class="nameCR">Sanjoy Ganguly</span></li>
                             <li><span class="nameCR">Santanu Mukherjee</span></li>
+                            <li><span class="nameCR">Sakshi Kapahi</span></li>
                             <li><span class="nameCR">Sayantani Mandal</span></li>
                             <li><span class="nameCR">Shantanu Saha</span></li>
                             <li><span class="nameCR">Sneha Das</span></li>
                             <li><span class="nameCR">Sourav Goswami</span></li>
+                            <li><span class="nameCR">Soumi Goswami</span></li>
                             <li><span class="nameCR">Subhra Mukherjee</span></li>
                             <li><span class="nameCR">Sudip Biswas</span></li>
                             <li><span class="nameCR">Sudip Kumar Pal</span></li>
@@ -1023,6 +1189,7 @@
                             <li><span class="nameCR">Surojit Chatterjee</span></li>
                             <li><span class="nameCR">Susanta Kundu</span></li>
                             <li><span class="nameCR">Suvankar Dey</span></li>
+                            <li><span class="nameCR">Suvendu Majumdar</span></li>
                             <li><span class="nameCR">Swatilekha Mukherjee</span></li>
                             <li><span class="nameCR">Swarnadeep Goswami</span></li>
                             <li><span class="nameCR">Santanu Roy</span></li>
@@ -1038,33 +1205,69 @@
         <section class="fts">
             <div class="container">
                 <h2 class="">
-                    Automate Processes. Manage Teams. <br>Acquire Leads. Close Sales.
-                    <span>All-in-One Platform</span>
-                </h2>
-                <div class="row">
-                    <div class="col-md-12">
+                    Increase your ROI<br />from the Organized Retail Channel
 
+                </h2>
+                <div class="row spaceColumn">
+
+                    <div class="col-sm-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s">
+                        <div class="login-about-box">
+                            <div class="icon-img"><img src="/assests/images/NLogin/fet-img-1.png" /></div>
+                            <div class="hdn">Ensure SKU Availability</div>
+
+                        </div>
                     </div>
-                    <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s">
-                        <img src="~/assests/images/NLogin/007-destination.png" />
-                        <div class="hdn">Geo-Tracking & Route  <br /> Optimization</div>
-                        <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
+                    <div class="col-sm-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="7s">
+                        <div class="login-about-box">
+                            <div class="icon-img"><img src="/assests/images/NLogin/fet-img-2.png" /></div>
+                            <div class="hdn">Track Planogram Compliance</div>
+
+                        </div>
                     </div>
-                    <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="7s">
-                        <img src="~/assests/images/NLogin/004-user-interface.png" />
-                        <div class="hdn">IMEI/OTP based  <br /> authentication</div>
-                        <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
-                    </div>
-                    <div class="col-md-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="9s">
-                        <img src="~/assests/images/NLogin/001-dashboard.png" />
-                        <div class="hdn">Intuitive Dashboard & <br /> Auto-Reporting</div>
-                        <div>Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è cons.Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa</div>
+                    <div class="col-sm-4 wow slideInLeft" data-wow-duration="2s" data-wow-delay="9s">
+                        <div class="login-about-box">
+                            <div class="icon-img"><img src="/assests/images/NLogin/fet-img-3.png" /></div>
+                            <div class="hdn">Image Recognition</div>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <div class="app-section">
+
+            <div class="row">
+                <div class="col-sm-6 mobile-image-part">
+
+                </div>
+                <div class="col-sm-6 right-text-part">
+                    <h2 class="mkHd"> Empowering Modern Retail, Anywhere, Anytime.</h2>
+
+                    <div class="row mkBoxes">
+                        <div class="col-sm-12 mb-5">
+                            <h5>Validated Store-Visits with Selfie-based Attendance</h5>
+                            <p>Make your store promoters more accountable  by authenticating every store visit with Geo-Fencing.</p>
+                        </div>
+                        <div class="col-sm-12 mb-5">
+                            <h5>Account level campaign tracking & Promotions audit</h5>
+                            <p>Flexibility on implementing customized campaigns including  tailored assortments, packaging and promotions that are easy to track and implement. </p>
+                        </div>
+                        <div class="col-sm-12 mb-5">
+                            <h5>Opening Stock, Stock Inward & Closing Stock</h5>
+                            <p>Receive stock from distributors by validating it with PO number. Record closing stock at the end of the day to avoid mistakes in data punching.</p>
+                        </div>
+                        <div class="col-sm-12 mb-5">
+                            <h5>Merchandising</h5>
+                            <p>Plan, execute and review every store activity with merchandiser day summary.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section class="container-fluid">
-            <div class="container text-center" style="padding:80px 20px">
+            <div class="container text-center ftr-login-part">
                 <h3 style="font-family: 'opcen', Montserrat, sans-serif !important;font-size:26px">Log in to Start Your Digital Journey with Breeze .</h3>
                 <div style="height:30px"></div>
                 <a href="#" class="cta" id="toLogin">
@@ -1075,7 +1278,7 @@
                     </svg>
                 </a>
                 <div></div>
-                <div class="socialArea">
+                @*<div class="socialArea">
                     <div class="effect egeon">
                         <div class="buttons">
                             <a href="#" class="fb" title="Join us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
@@ -1083,7 +1286,7 @@
                             <a href="#" class="in" title="Join us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                         </div>
                     </div>
-                </div>
+                </div>*@
 
             </div>
         </section>
