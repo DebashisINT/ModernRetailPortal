@@ -129,4 +129,18 @@
       <Column Name="USER_INACTIVE" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MR_BRANDMASTERLIST" Member="MR_BRANDMASTERLISTs">
+    <Type Name="MR_BRANDMASTERLIST">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Brand_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Brand_Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Brand_ContactNo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Brand_Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateUser" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifyUser" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
