@@ -1064,6 +1064,22 @@
         return vars;
     }
 
+    function GETCOUNTRY() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetCountry", "BranchMaster")",
+            async: false,
+            success: function (response) {
+                $('#ddlCountry').html('');
+                var html = "";
+                for (var i = 0; i < response.length; i++) {
+                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+                }
+                $('#ddlCountry').html(html);
+            }
+        });
+    }
+
     function CountryOnChange() {
         var CountryID = $('#ddlCountry option:selected').val();
      $.ajax({
@@ -1177,10 +1193,19 @@
                     }
                     else {
 
-                        $('#hdnUserId').val(response.USER_ID);
-                        $('#UserName').val(response.USER_NAME);
-                        $('#LoginId').val(response.USER_LOGINID);
-                        $('#Password').val(response.USER_PASSWORD);
+                        if (urlKeys.Mode == 'Copy') {
+                            $('#hdnUserId').val("");
+                            $('#UserName').val("");
+                            $('#LoginId').val("");
+                            $('#Password').val("");
+                        }
+                        else {
+                            $('#hdnUserId').val(response.USER_ID);
+                            $('#UserName').val(response.USER_NAME);
+                            $('#LoginId').val(response.USER_LOGINID);
+                            $('#Password').val(response.USER_PASSWORD);
+                        }
+
 
                         $('#hdnReportToCode').val(response.USER_REPORTTO_ID);
                         //$('#ReportToTxt').val(response.USER_REPORTTO_ID);
@@ -1208,9 +1233,11 @@
                         $('#ddlBranch').multiselect('refresh');
                         // Branch Load
 
-                        $('#ddlDepartment').val(response.USER_DEPTID);
-                        $('#ddlDesignation').val(response.USER_DEGID);
-                        $('#ddlGroup').val(response.USER_GROUPID);
+                        $('#ddlDepartment').val(response.USER_DEPTID).trigger('change');
+                        $('#ddlDesignation').val(response.USER_DEGID).trigger('change');
+                        $('#ddlGroup').val(response.USER_GROUPID).trigger('change');
+
+                        GETCOUNTRY();
                         $('#ddlCountry').val(response.USER_COUNTRYID);
 
 
@@ -1563,6 +1590,8 @@
     });
 
     $(document).ready(function () {
+        GETCOUNTRY();
+
         $('#ddlDepartment').select2({
             placeholder: "Select",
             allowClear: false
@@ -1680,8 +1709,9 @@
             </div>
             <div class="col-sm-3 mb-3 h-branch-select">
                 <label>Country</label>
-                @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryList, "ID", "NAME"), "Select", new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
-            )
+                @*@Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryList, "ID", "NAME"), "Select", new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" })*@
+                <select id="ddlCountry" class="form-control" onchange="CountryOnChange()"></select>
+
             </div>
             <div class="col-sm-3 mb-3 h-branch-select">
                 <label>State</label>
@@ -1729,7 +1759,7 @@
 
             <div class="clear"></div>
             <div class="mt-4 px-4">
-                @if (Convert.ToInt16(ViewBag.IsView) == 0)
+                @if (Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 4)
                 {
                     <button type="button" class="btn btn-success save-btn mr-4" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 }

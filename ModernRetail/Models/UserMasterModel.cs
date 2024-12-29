@@ -108,4 +108,21 @@ namespace ModernRetail.Models
         public bool IsActive { get; set; }
     }
 
+    public class StateList
+    {
+        public int StateID { get; set; }
+        public string StateName { get; set; }
+        public string status { get; set; }
+
+        public bool IsChecked { get; set; }
+
+    }
+    public class BranchMapList
+    {
+        public Int64 branch_id { get; set; }
+        public String branch_description { get; set; }
+        public bool IsChecked { get; set; }
+        public string status { get; set; }
+    }
+
 }
