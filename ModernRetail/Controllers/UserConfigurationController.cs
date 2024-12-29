@@ -15,6 +15,7 @@ using DataAccessLayer;
 using System.Web.Services;
 using BusinessLogicLayer;
 using System.Web.UI.WebControls;
+using DevExpress.XtraRichEdit.Import.Html;
 
 namespace ModernRetail.Controllers
 {
@@ -117,6 +118,10 @@ namespace ModernRetail.Controllers
                 ViewBag.CanExport = rights.CanExport;
                 ViewBag.CanEdit = rights.CanEdit;
                 ViewBag.CanDelete = rights.CanDelete;
+
+                CommonBL cbl = new CommonBL();
+                string DefaultBranchInLogin = cbl.GetSystemSettingsResult("IsActivateEmployeeBranchHierarchy");
+                ViewBag.ActivateEmployeeBranchHierarchy = DefaultBranchInLogin;
 
                 string Is_PageLoad = string.Empty;
                 DataTable dt = new DataTable();
@@ -422,12 +427,130 @@ namespace ModernRetail.Controllers
 
         }
 
-        //public JsonResult DeleteUser(string ID)
-        //{
-        //    int output = 0;
-        //    output = objdata.DeleteBranch(ID);
-        //    return Json(output, JsonRequestBehavior.AllowGet);
-        //}
+
+        public JsonResult GetStateList(string user_id)
+        {
+
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_USERACCOUNTDATA");
+            proc.AddPara("@ACTION", "GETSTATELIST");
+            proc.AddPara("@USERID", user_id);
+            dt = proc.GetTable();
+
+            return Json(APIHelperMethods.ToModelList<StateList>(dt));
+
+        }
+
+        [WebMethod]
+        public string GetStateListSubmit(string user_id, List<string> Statelist)
+        {
+            string StateId = "";
+            int i = 1;
+
+            if (Statelist != null && Statelist.Count > 0)
+            {
+                foreach (string item in Statelist)
+                {
+                    if (item == "0")
+                    {
+                        StateId = "0";
+                        break;
+                    }
+                    else
+                    {
+                        if (i > 1)
+                            StateId = StateId + "," + item;
+                        else
+                            StateId = item;
+                        i++;
+                    }
+                }
+
+            }
+
+
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_USERACCOUNTDATA");
+            proc.AddPara("@ACTION", "STATELISTSUBMIT");
+            proc.AddPara("@USERID", user_id);
+            proc.AddPara("@STATELIST", StateId);
+            proc.AddPara("@USER_ID", Convert.ToString(Session["MRuserid"]));
+            dt = proc.GetTable();
+
+            return "Success";
+
+        }
+
+
+        public JsonResult GetBranchList(string user_id)
+        {
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_USERACCOUNTDATA");
+            proc.AddPara("@ACTION", "GETBRANCHLIST");
+            proc.AddPara("@USERID", user_id);
+            dt = proc.GetTable();
+
+            return Json(APIHelperMethods.ToModelList<BranchMapList>(dt));
+        }
+
+        [WebMethod]
+        public string GetBranchListSubmit(string user_id, List<string> Branchlist)
+        {
+            Employee_BL objEmploye = new Employee_BL();
+            string BranchId = "";
+            int i = 1;
+
+            if (Branchlist != null && Branchlist.Count > 0)
+            {
+                foreach (string item in Branchlist)
+                {
+                    if (item == "0")
+                    {
+                        BranchId = "0";
+                        break;
+                    }
+                    else
+                    {
+                        if (i > 1)
+                            BranchId = BranchId + "," + item;
+                        else
+                            BranchId = item;
+                        i++;
+                    }
+                }
+
+            }
+
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_USERACCOUNTDATA");
+            proc.AddPara("@ACTION", "BRANCHLISTSUBMIT");
+            proc.AddPara("@USERID", user_id);
+            proc.AddPara("@BRANCHLIST", BranchId);
+            proc.AddPara("@USER_ID", Convert.ToString(Session["MRuserid"]));
+            dt = proc.GetTable();
+
+            return "Success";
+        }
+
+
+        public JsonResult DeleteUser(string user_id)
+        {
+            DataTable dt = new DataTable();
+
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_USERACCOUNTDATA");
+            proc.AddPara("@ACTION", "DELETEUSER");
+            proc.AddPara("@USERID", user_id);
+            proc.AddPara("@USER_ID", Convert.ToString(Session["MRuserid"]));
+            proc.AddVarcharPara("@ReturnValue", 50, "", QueryParameterDirection.Output);
+            dt = proc.GetTable();
+            string output = Convert.ToString(proc.GetParaValue("@ReturnValue"));
+
+            return Json(output, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

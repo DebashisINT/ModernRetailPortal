@@ -5,762 +5,989 @@
 }
 
 <style>
-        .modal-header {
-            padding: 8px;
-            background: #094e8c;
-            border-radius: 8px 8px 0 0;
+    .modal-header {
+        padding: 8px;
+        background: #094e8c;
+        border-radius: 8px 8px 0 0;
+    }
+
+    button.close {
+        color: #fff;
+        font-weight: 300;
+        opacity: .5;
+    }
+
+    .close:hover, .close:focus {
+        color: #fff;
+        opacity: 1;
+    }
+
+    .modal-content {
+        border-radius: 10px;
+    }
+
+    .modal-footer {
+        padding: 15px 10px 15px;
+        border-top: 1px solid #c0c0c0;
+    }
+
+
+    .dxgvLoadingPanel_PlasticBlue {
+        left: 42% !important;
+    }
+    /*Rev 2.0*/
+    #gridUserList {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    /*Rev end 2.0*/
+
+    /*Rev 3.0*/
+
+    #BranchGridLookup {
+        min-height: 34px;
+        border-radius: 5px;
+    }
+
+    .dxeButtonEditButton_PlasticBlue {
+        background: #094e8c !important;
+        border-radius: 4px !important;
+        padding: 0 4px !important;
+    }
+
+    .chosen-container-single .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+        border-radius: 4px;
+        height: 30px;
+        top: 1px;
+        right: 1px;
+        /*position:relative;*/
+    }
+
+        .chosen-container-single .chosen-single div b {
+            display: none;
         }
 
-        button.close {
-            color: #fff;
-            font-weight: 300;
-            opacity: .5;
-        }
-
-        .close:hover, .close:focus {
-            color: #fff;
-            opacity: 1;
-        }
-
-        .modal-content {
-            border-radius: 10px;
-        }
-
-        .modal-footer {
-            padding: 15px 10px 15px;
-            border-top: 1px solid #c0c0c0;
-        }
-
-
-        .dxgvLoadingPanel_PlasticBlue {
-            left: 42% !important;
-        }
-        /*Rev 2.0*/
-        #gridUserList {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        /*Rev end 2.0*/
-
-        /*Rev 3.0*/
-
-        #BranchGridLookup {
-            min-height: 34px;
-            border-radius: 5px;
-        }
-
-        .dxeButtonEditButton_PlasticBlue {
-            background: #094e8c !important;
-            border-radius: 4px !important;
-            padding: 0 4px !important;
-        }
-
-        .chosen-container-single .chosen-single div {
-            background: #094e8c;
-            color: #fff;
-            border-radius: 4px;
-            height: 30px;
-            top: 1px;
-            right: 1px;
-            /*position:relative;*/
-        }
-
-            .chosen-container-single .chosen-single div b {
-                display: none;
-            }
-
-            .chosen-container-single .chosen-single div::after {
-                content: '<';
-                position: absolute;
-                top: 2px;
-                right: 3px;
-                font-size: 18px;
-                transform: rotate(269deg);
-                font-weight: 500;
-            }
-
-        .chosen-container-active.chosen-with-drop .chosen-single div {
-            background: #094e8c;
-            color: #fff;
-        }
-
-            .chosen-container-active.chosen-with-drop .chosen-single div::after {
-                transform: rotate(90deg);
-                right: 5px;
-            }
-
-        .calendar-icon {
+        .chosen-container-single .chosen-single div::after {
+            content: '<';
             position: absolute;
-            bottom: 8px;
-            right: 14px;
-            z-index: 0;
-            cursor: pointer;
-        }
-
-        .date-select .form-control {
-            position: relative;
-            z-index: 1;
-            background: transparent;
-        }
-
-        #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
-            -webkit-appearance: none;
-            position: relative;
-            z-index: 1;
-            background-color: transparent;
-        }
-
-        .h-branch-select {
-            position: relative;
-        }
-
-            .h-branch-select::after {
-                content: '<';
-                position: absolute;
-                top: 8px;
-                right: -2px;
-                font-size: 18px;
-                transform: rotate(269deg);
-                font-weight: 500;
-                background: #094e8c;
-                color: #fff;
-                height: 18px;
-                display: block;
-                width: 28px;
-                /* padding: 10px 0; */
-                border-radius: 4px;
-                text-align: center;
-                line-height: 19px;
-                z-index: 0;
-            }
-
-        .multiselect.dropdown-toggle {
-            text-align: left;
-        }
-
-        .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
-            -webkit-appearance: none;
-            position: relative;
-            z-index: 1;
-            background-color: transparent;
-        }
-
-        .whclass.selectH {
-            padding-right: 30px;
-        }
-
-        #ddlShowReport:focus-visible {
-            box-shadow: none;
-            outline: none;
-            border: 1px solid #164f93;
-        }
-
-        #ddlShowReport:focus {
-            border: 1px solid #164f93;
-        }
-
-        .whclass.selectH:focus-visible {
-            outline: none;
-        }
-
-        .whclass.selectH:focus {
-            border: 1px solid #164f93;
-        }
-
-        .dxeButtonEdit_PlasticBlue {
-            border: 1px Solid #ccc;
-        }
-
-        .chosen-container-single .chosen-single {
-            border: 1px solid #ccc;
-            background: #fff;
-            box-shadow: none;
-        }
-
-        .daterangepicker td.active, .daterangepicker td.active:hover {
-            background-color: #175396;
-        }
-
-        label {
+            top: 2px;
+            right: 3px;
+            font-size: 18px;
+            transform: rotate(269deg);
             font-weight: 500;
         }
 
-        .dxgvHeader_PlasticBlue {
-            background: #164f94;
+    .chosen-container-active.chosen-with-drop .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+    }
+
+        .chosen-container-active.chosen-with-drop .chosen-single div::after {
+            transform: rotate(90deg);
+            right: 5px;
         }
 
-        .dxgvSelectedRow_PlasticBlue td.dxgv {
+    .calendar-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 14px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    .date-select .form-control {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            content: '<';
+            position: absolute;
+            top: 8px;
+            right: -2px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
             color: #fff;
-        }
-
-        .dxeCalendarHeader_PlasticBlue {
-            background: #185598;
-        }
-
-        .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
-        .dxbButton_PlasticBlue,
-        .dxeCalendar_PlasticBlue,
-        .dxeEditArea_PlasticBlue {
-            font-family: 'Poppins', sans-serif !important;
-        }
-
-        .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-            font-weight: 500;
-        }
-
-        .btnPadding .btn {
-            padding: 7px 14px !important;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
             border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
         }
 
-        .btnPadding {
-            padding-top: 24px !important;
-        }
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
 
-        .dxeButtonEdit_PlasticBlue {
-            border-radius: 5px;
-            height: 34px;
-        }
+    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
 
-        #dtFrom, #dtTo {
-            position: relative;
-            z-index: 1;
-            background: transparent;
-        }
+    .whclass.selectH {
+        padding-right: 30px;
+    }
 
-        #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
-            background: #165092;
-            vertical-align: middle;
-            font-weight: 500;
-        }
+    #ddlShowReport:focus-visible {
+        box-shadow: none;
+        outline: none;
+        border: 1px solid #164f93;
+    }
 
-        /*#refreshgrid {
+    #ddlShowReport:focus {
+        border: 1px solid #164f93;
+    }
+
+    .whclass.selectH:focus-visible {
+        outline: none;
+    }
+
+    .whclass.selectH:focus {
+        border: 1px solid #164f93;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border: 1px Solid #ccc;
+    }
+
+    .chosen-container-single .chosen-single {
+        border: 1px solid #ccc;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .daterangepicker td.active, .daterangepicker td.active:hover {
+        background-color: #175396;
+    }
+
+    label {
+        font-weight: 500;
+    }
+
+    .dxgvHeader_PlasticBlue {
+        background: #164f94;
+    }
+
+    .dxgvSelectedRow_PlasticBlue td.dxgv {
+        color: #fff;
+    }
+
+    .dxeCalendarHeader_PlasticBlue {
+        background: #185598;
+    }
+
+    .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
+    .dxbButton_PlasticBlue,
+    .dxeCalendar_PlasticBlue,
+    .dxeEditArea_PlasticBlue {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        font-weight: 500;
+    }
+
+    .btnPadding .btn {
+        padding: 7px 14px !important;
+        border-radius: 4px;
+    }
+
+    .btnPadding {
+        padding-top: 24px !important;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border-radius: 5px;
+        height: 34px;
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
+        background: #165092;
+        vertical-align: middle;
+        font-weight: 500;
+    }
+
+    /*#refreshgrid {
             background: #e5e5e5;
             padding: 0 10px;
             margin-top: 15px;
             border-radius: 8px;
         }*/
 
-        .styled-checkbox {
-            position: absolute;
-            opacity: 0;
-            z-index: 1;
+    .styled-checkbox {
+        position: absolute;
+        opacity: 0;
+        z-index: 1;
+    }
+
+        .styled-checkbox + label {
+            position: relative;
+            /*cursor: pointer;*/
+            padding: 0;
+            margin-bottom: 0 !important;
         }
 
-            .styled-checkbox + label {
-                position: relative;
-                /*cursor: pointer;*/
-                padding: 0;
-                margin-bottom: 0 !important;
-            }
-
-                .styled-checkbox + label:before {
-                    content: "";
-                    margin-right: 6px;
-                    display: inline-block;
-                    vertical-align: text-top;
-                    width: 16px;
-                    height: 16px;
-                    /*background: #d7d7d7;*/
-                    margin-top: 2px;
-                    border-radius: 2px;
-                    border: 1px solid #c5c5c5;
-                }
-
-            .styled-checkbox:hover + label:before {
-                background: #094e8c;
-            }
-
-
-            .styled-checkbox:checked + label:before {
-                background: #094e8c;
-            }
-
-            .styled-checkbox:disabled + label {
-                color: #b8b8b8;
-                cursor: auto;
-            }
-
-                .styled-checkbox:disabled + label:before {
-                    box-shadow: none;
-                    background: #ddd;
-                }
-
-            .styled-checkbox:checked + label:after {
+            .styled-checkbox + label:before {
                 content: "";
-                position: absolute;
-                left: 3px;
-                top: 9px;
-                background: white;
-                width: 2px;
-                height: 2px;
-                box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
-                transform: rotate(45deg);
+                margin-right: 6px;
+                display: inline-block;
+                vertical-align: text-top;
+                width: 16px;
+                height: 16px;
+                /*background: #d7d7d7;*/
+                margin-top: 2px;
+                border-radius: 2px;
+                border: 1px solid #c5c5c5;
             }
 
-        #dtstate {
-            padding-right: 8px;
+        .styled-checkbox:hover + label:before {
+            background: #094e8c;
         }
 
-        .pmsModal .modal-header {
-            /*background: #094e8c !important;
+
+        .styled-checkbox:checked + label:before {
+            background: #094e8c;
+        }
+
+        .styled-checkbox:disabled + label {
+            color: #b8b8b8;
+            cursor: auto;
+        }
+
+            .styled-checkbox:disabled + label:before {
+                box-shadow: none;
+                background: #ddd;
+            }
+
+        .styled-checkbox:checked + label:after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 9px;
+            background: white;
+            width: 2px;
+            height: 2px;
+            box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+            transform: rotate(45deg);
+        }
+
+    #dtstate {
+        padding-right: 8px;
+    }
+
+    .pmsModal .modal-header {
+        /*background: #094e8c !important;
         background-image: none !important;*/
-            padding: 11px 20px;
-            border: none;
-            border-radius: 15px 15px 0 0 !important;
-            /*color: #fff;*/
-            /*background: linear-gradient(to right, #1f5fbf, #11998e) !important;*/
-        }
+        padding: 11px 20px;
+        border: none;
+        border-radius: 15px 15px 0 0 !important;
+        /*color: #fff;*/
+        /*background: linear-gradient(to right, #1f5fbf, #11998e) !important;*/
+    }
 
-        .pmsModal .modal-content {
-            border: none;
-            background: linear-gradient(1deg, #cff3ff, #ffffff);
-        }
+    .pmsModal .modal-content {
+        border: none;
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
 
-        /*.pmsModal .modal-header .modal-title {
+    /*.pmsModal .modal-header .modal-title {
             font-size: 14px;
         }*/
 
-        .pmsModal .modal-header .modal-title {
-            font-size: 16px !important;
-            color: #111;
-            font-size: 24px;
+    .pmsModal .modal-header .modal-title {
+        font-size: 16px !important;
+        color: #111;
+        font-size: 24px;
+    }
+
+    .pmsModal .modal-header {
+        background: transparent !important;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d5d5d5;
+    }
+
+    .close {
+        font-size: 34px;
+        opacity: .8;
+    }
+
+    button.close {
+        color: #111 !important;
+        font-weight: 400 !important;
+        opacity: .8 !important;
+        font-size: 32px !important;
+    }
+
+    .pmsModal .close {
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-shadow: none;
+        opacity: .5;
+    }
+
+    #EmployeeTable {
+        margin-top: 10px;
+    }
+
+        #EmployeeTable table tr th {
+            padding: 5px 10px;
         }
 
-        .pmsModal .modal-header {
-            background: transparent !important;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #d5d5d5;
-        }
+    .dynamicPopupTbl {
+        font-family: 'Poppins', sans-serif !important;
+    }
 
-        .close {
-            font-size: 34px;
-            opacity: .8;
-        }
-
-        button.close {
-            color: #111 !important;
-            font-weight: 400 !important;
-            opacity: .8 !important;
-            font-size: 32px !important;
-        }
-
-        .pmsModal .close {
-            font-weight: 400;
-            font-size: 25px;
-            color: #fff;
-            text-shadow: none;
-            opacity: .5;
-        }
-
-        #EmployeeTable {
-            margin-top: 10px;
-        }
-
-            #EmployeeTable table tr th {
-                padding: 5px 10px;
-            }
-
-        .dynamicPopupTbl {
+        .dynamicPopupTbl > tbody > tr > td,
+        #EmployeeTable table tr th {
             font-family: 'Poppins', sans-serif !important;
+            font-size: 12px;
         }
 
-            .dynamicPopupTbl > tbody > tr > td,
-            #EmployeeTable table tr th {
-                font-family: 'Poppins', sans-serif !important;
-                font-size: 12px;
-            }
+    .w150 {
+        width: 160px;
+    }
 
-        .w150 {
-            width: 160px;
-        }
+    .eqpadtbl > tbody > tr > td:not(:last-child) {
+        padding-right: 20px;
+    }
 
-        .eqpadtbl > tbody > tr > td:not(:last-child) {
-            padding-right: 20px;
-        }
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
 
-        #dtFrom_B-1, #dtTo_B-1 {
-            background: transparent !important;
-            border: none;
-            width: 30px;
-            padding: 10px !important;
-        }
-
-            #dtFrom_B-1 #dtFrom_B-1Img,
-            #dtTo_B-1 #dtTo_B-1Img {
-                display: none;
-            }
-
-        #dtFrom_I, #dtTo_I {
-            background: transparent;
-        }
-
-        .for-cust-icon {
-            position: relative;
-            z-index: 1;
-        }
-
-        .pad-md-18 {
-            padding-top: 24px;
-        }
-
-        .open .dropdown-toggle.btn-default {
-            background: transparent !important;
-        }
-
-        .input-group-btn .multiselect-clear-filter {
-            height: 32px;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .btn .caret {
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
             display: none;
         }
 
-        .iminentSpan button.multiselect.dropdown-toggle {
-            height: 34px;
-        }
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
 
-        .col-lg-2 {
-            padding-left: 8px;
-            padding-right: 8px;
-        }
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+    }
 
-        select:not(.btn) {
-            -webkit-appearance: none;
-            position: relative;
-            z-index: 1;
-            background-color: transparent;
-        }
+    .pad-md-18 {
+        padding-top: 24px;
+    }
 
-        .dxgvControl_PlasticBlue a {
-            margin: 0 3px;
-        }
+    .open .dropdown-toggle.btn-default {
+        background: transparent !important;
+    }
 
-        .dxeButtonDisabled_PlasticBlue {
-            background: #ababab !important;
-        }
+    .input-group-btn .multiselect-clear-filter {
+        height: 32px;
+        border-radius: 0 4px 4px 0;
+    }
 
-        .red {
-            color: red;
-        }
+    .btn .caret {
+        display: none;
+    }
 
-        .linerHd {
-            background: #4e8fcf !important;
-        }
+    .iminentSpan button.multiselect.dropdown-toggle {
+        height: 34px;
+    }
 
-        /*Rev end 3.0*/
-        /*Rev 4.0*/
-        #popup_message {
-            padding-left: 0 !important;
-            text-align: center !important;
-        }
+    .col-lg-2 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
 
-        #popup_panel {
-            margin: 14px 0 5px;
-        }
+    select:not(.btn) {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
 
-        #popup_ok, #popup_cancel {
-            border-radius: 4px !important;
-        }
-        /*Rev end 4.0*/
-        /*Rev 5.0*/
-        #gridUserList_DXPagerTop_PSP, #gridUserList_DXPagerBottom_PSP {
-            right: 36px !important;
-            left: auto !important;
-        }
-        /*Rev end 5.0*/
+    .dxgvControl_PlasticBlue a {
+        margin: 0 3px;
+    }
+
+    .dxeButtonDisabled_PlasticBlue {
+        background: #ababab !important;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .linerHd {
+        background: #4e8fcf !important;
+    }
+
+    /*Rev end 3.0*/
+    /*Rev 4.0*/
+    #popup_message {
+        padding-left: 0 !important;
+        text-align: center !important;
+    }
+
+    #popup_panel {
+        margin: 14px 0 5px;
+    }
+
+    #popup_ok, #popup_cancel {
+        border-radius: 4px !important;
+    }
+    /*Rev end 4.0*/
+    /*Rev 5.0*/
+    #gridUserList_DXPagerTop_PSP, #gridUserList_DXPagerBottom_PSP {
+        right: 36px !important;
+        left: auto !important;
+    }
+    /*Rev end 5.0*/
 
 
-        .add-btn .btn-icon {
-            border-radius: 50px;
-            width: 21px;
-            height: 21px;
-            display: inline-block;
-            background: #fff;
-            line-height: 21px;
-            margin-right: 5px;
-        }
+    .add-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+    }
 
-        .add-btn {
-            transition: all .4s;
-        }
+    .add-btn {
+        transition: all .4s;
+    }
 
-            .add-btn:hover {
-                color: #fff;
-                background-color: #0e4f23;
-                border-color: #0e4f23;
-            }
-
-            .add-btn .btn-icon i {
-                color: #238945;
-            }
-
-        .add-btn {
-            background-color: #238945;
-            margin-right: 5px;
-        }
-
-        .btn {
-            border-radius: 8px;
-            height: 38px;
-            padding-left: 12px;
-            padding-right: 12px;
+        .add-btn:hover {
             color: #fff;
+            background-color: #0e4f23;
+            border-color: #0e4f23;
         }
 
-            .btn:active, .btn:hover, .btn:focus {
-                color: #fff !important;
-            }
-
-        .buttons-alignment {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .add-btn .btn-icon i {
+            color: #238945;
         }
 
-        .show-btn .btn-icon {
-            border-radius: 50px;
-            width: 21px;
-            height: 21px;
-            display: inline-block;
-            background: #fff;
-            line-height: 21px;
-            margin-right: 5px;
-            color: #054682;
-        }
+    .add-btn {
+        background-color: #238945;
+        margin-right: 5px;
+    }
 
-        .show-btn {
-            background: #054682;
-            transition: all .4s;
-            margin-right: 5px;
-        }
+    .btn {
+        border-radius: 8px;
+        height: 38px;
+        padding-left: 12px;
+        padding-right: 12px;
+        color: #fff;
+    }
 
-            .show-btn:hover {
-                background: #072743;
-            }
-
-        .btn-cancel {
-            background-color: #DC0505;
-            color: #fff;
-        }
-
-        .btn-export {
-            background: #e17134;
-            color: #fff;
-        }
-
-            .btn-export:hover {
-                background: #a24716 !important;
-                color: #fff;
-            }
-
-        .swal2-confirm.swal2-styled {
-            border-radius: 8px !important;
-        }
-
-        .swal2-styled {
-            border-radius: 12px !important;
-            padding: 8px 20px !important;
+        .btn:active, .btn:hover, .btn:focus {
             color: #fff !important;
-            font-size: 14px !important;
         }
 
-        .swal2-html-container {
-            margin-top: 5px !important;
+    .buttons-alignment {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .show-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+        color: #054682;
+    }
+
+    .show-btn {
+        background: #054682;
+        transition: all .4s;
+        margin-right: 5px;
+    }
+
+        .show-btn:hover {
+            background: #072743;
         }
 
-        div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
-            width: 90px !important;
-            border-radius: 8px !important;
-        }
+    .btn-cancel {
+        background-color: #DC0505;
+        color: #fff;
+    }
 
-        div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
-            background: rgb(0 0 0 / 50%) !important;
-        }
+    .btn-export {
+        background: #e17134;
+        color: #fff;
+    }
 
-        div:where(.swal2-container).swal2-center > .swal2-popup {
-            background: linear-gradient(1deg, #cff3ff, #ffffff);
-        }
-
-
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip {
-            visibility: hidden;
-            /*width: 140px;*/
-            background-color: #0d8f24;
+        .btn-export:hover {
+            background: #a24716 !important;
             color: #fff;
-            text-align: center;
-            border-radius: 10px;
-            padding: 8px 10px;
+        }
+
+    .swal2-confirm.swal2-styled {
+        border-radius: 8px !important;
+    }
+
+    .swal2-styled {
+        border-radius: 12px !important;
+        padding: 8px 20px !important;
+        color: #fff !important;
+        font-size: 14px !important;
+    }
+
+    .swal2-html-container {
+        margin-top: 5px !important;
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
+        width: 90px !important;
+        border-radius: 8px !important;
+    }
+
+    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+        background: rgb(0 0 0 / 50%) !important;
+    }
+
+    div:where(.swal2-container).swal2-center > .swal2-popup {
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
+
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
             position: absolute;
-            z-index: 99;
-            bottom: 130%;
-            left: 42%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
         }
 
-            .tooltip::after {
-                content: '';
-                position: absolute;
-                top: 100%;
-                left: 50%;
-                margin-left: -10px;
-                border-width: 10px;
-                border-style: solid;
-                border-color: #0d8f24 transparent transparent transparent;
-            }
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
 
-        .tooltip-container:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        overflow: visible;
+    }
+
+    #btnSave .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        #btnSave .btn-icon img {
+            color: #238945;
+            width: 14px;
         }
 
-        .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-            overflow: visible;
+    .cancel-catg, #btnSave {
+        transition: all .3s ease-in-out;
+    }
+
+        .cancel-catg .btn-icon img {
+            color: #DC0505;
+            width: 16px;
         }
 
-        #btnSave .btn-icon, .cancel-catg .btn-icon {
-            border-radius: 50px;
-            width: 21px;
-            height: 21px;
-            display: inline-block;
-            background: #fff;
-            line-height: 20px;
-            margin-right: 5px;
+        .cancel-catg:hover {
+            transform: scale(1.1);
         }
 
-            #btnSave .btn-icon img {
-                color: #238945;
-                width: 14px;
-            }
-
-        .cancel-catg, #btnSave {
-            transition: all .3s ease-in-out;
+        #btnSave:hover {
+            transform: scale(1.1);
         }
 
-            .cancel-catg .btn-icon img {
-                color: #DC0505;
-                width: 16px;
-            }
+    .modal-footer .btn + .btn {
+        margin-bottom: 0;
+        margin-left: 5px;
+    }
 
-            .cancel-catg:hover {
-                transform: scale(1.1);
-            }
+    .cancel-catg {
+        margin-right: 5px;
+    }
 
-            #btnSave:hover {
-                transform: scale(1.1);
-            }
+    .close:hover, .close:focus {
+        color: #111 !important;
+    }
 
-        .modal-footer .btn + .btn {
-            margin-bottom: 0;
-            margin-left: 5px;
+    /*Rev Pallab: grid modification*/
+
+
+
+    .rowActive {
+        background-color: #ebf4ff !important;
+        color: #000 !important;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: none; /* Initially hidden */
+    }
+
+    .flex-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dxgvLoadingPanel_PlasticBlue {
+        display: none !important;
+    }
+
+    .flex-loader img {
+        width: 120px;
+    }
+
+    .flex-loader h4 {
+        font-size: 22px;
+        color: #000000;
+    }
+
+    .btn-export {
+        background: #d0d0d0;
+    }
+
+        .btn-export .btn-icon img {
+            width: 30px;
+            height: 30px;
         }
 
-        .cancel-catg {
-            margin-right: 5px;
-        }
 
-        .close:hover, .close:focus {
-            color: #111 !important;
-        }
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+    }
 
-        /*Rev Pallab: grid modification*/
+    .select2-container {
+        width: 100% !important;
+        z-index: 99999;
+    }
 
+    .select2-container--default .select2-selection--single {
+        height: 34px;
+        /* padding: 6px 12px; */
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
 
-
-        .rowActive {
-            background-color: #ebf4ff !important;
-            color: #000 !important;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            z-index: 9999;
-            display: none; /* Initially hidden */
-        }
-
-        .flex-loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-        }
-
-        .dxgvLoadingPanel_PlasticBlue {
-            display: none !important;
-        }
-
-        .flex-loader img {
-            width: 120px;
-        }
-
-        .flex-loader h4 {
-            font-size: 22px;
-            color: #000000;
-        }
-
-        .btn-export {
-            background: #d0d0d0;
-        }
-
-            .btn-export .btn-icon img {
-                width: 30px;
-                height: 30px;
-            }
-
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-        }
-
-        .select2-container {
-            width: 100% !important;
-            z-index: 99999;
-        }
-
-        .select2-container--default .select2-selection--single {
-            height: 34px;
-            /* padding: 6px 12px; */
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        /*.select2-container {
+    /*.select2-container {
         z-index: 1;
     }*/
 
-        .select2-container--default .select2-selection--single {
-            background-color: transparent;
+    .select2-container--default .select2-selection--single {
+        background-color: transparent;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            display: none;
         }
 
-            .select2-container--default .select2-selection--single .select2-selection__arrow {
-                display: none;
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        border-radius: 4px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 32px;
+        padding-right: 22px;
+    }
+    /*Rev End Pallab: grid modification*/
+
+    #myInputBranchMap {
+        background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+        background-position: 10px 12px; /* Position the search icon */
+        background-repeat: no-repeat; /* Do not repeat the icon image */
+        width: 100%; /* Full-width */
+        font-size: 16px; /* Increase font-size */
+        padding: 12px 20px 12px 40px; /* Add some padding */
+        border: 1px solid #ddd; /* Add a grey border */
+        margin-bottom: 12px; /* Add some space below the input */
+    }
+
+    #divModalBodyBranchMap {
+        /* Remove default list styling */
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+        #divModalBodyBranchMap li {
+            padding: 5px 10px;
+        }
+
+            #divModalBodyBranchMap li a {
+                margin-top: -1px; /* Prevent double borders */
+                padding: 0 12px; /* Add some padding */
+                text-decoration: none; /* Remove default text underline */
+                font-size: 14px; /* Increase the font-size */
+                color: black; /* Add a black text color */
+                display: inline-block; /* Make it into a block element to fill the whole list */
+                cursor: pointer;
             }
 
-        .select2-container--default .select2-search--dropdown .select2-search__field {
-            border-radius: 4px;
+    .tblView > tbody > tr > td {
+        padding-right: 5px;
+        padding-bottom: 10px
+    }
+
+        .tblView > tbody > tr > td > label {
+            display: block
         }
 
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 32px;
-            padding-right: 22px;
+    .branch-list-modal .modal-header {
+        background: #074270;
+        padding: 10px 15px;
+    }
+
+        .branch-list-modal .modal-header h4 {
+            color: #fff;
+            line-height: 1;
+            font-size: 16px;
         }
-        /*Rev End Pallab: grid modification*/
+
+        .branch-list-modal .modal-header button span {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 300;
+            line-height: 21px;
+        }
+
+    .branch-list-modal .modal-content {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 1px 1px 15px #11111145;
+    }
+
+    .branch-list-modal .modal-header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .branch-list-modal .modal-body .input-group {
+        width: 100%;
+    }
+
+    .branch-list-modal .modal-body .input-group-text {
+        background-color: transparent;
+        border: none;
+        color: #a5a5a5;
+    }
+
+    .branch-list-modal .modal-body .input-group-prepend {
+        position: absolute;
+        z-index: 1;
+        min-height: 33px;
+        line-height: 33px;
+        width: 30px;
+        text-align: center;
+    }
+
+    .branch-list-modal .modal-body .form-control {
+        padding-left: 40px;
+        background: transparent !important;
+        border-radius: 5px !important;
+        border-color: #eaeaea;
+        transition: all .4s;
+        color: #111;
+    }
+
+        .branch-list-modal .modal-body .form-control:focus {
+            box-shadow: none;
+            border-color: #0a4f85;
+        }
+
+    .custom-checkbox-single {
+        display: block;
+        position: relative;
+        padding-left: 34px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        line-height: 22px;
+        font-weight: 500;
+    }
+
+        /* Hide the browser's default checkbox */
+        .custom-checkbox-single input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 21px;
+        width: 21px;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid #6a6a6a;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .custom-checkbox-single:hover input ~ .checkmark {
+        background-color: #1541a4;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .custom-checkbox-single input:checked ~ .checkmark {
+        background-color: #1541a4;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .custom-checkbox-single input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .custom-checkbox-single .checkmark:after {
+        left: 6px;
+        top: 1px;
+        width: 7px;
+        height: 12px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    /*Rev 3.0*/
+    .fullMulti .multiselect-native-select, .fullMulti .multiselect-native-select .btn-group {
+        width: 100%;
+    }
+
+        .fullMulti .multiselect-native-select .multiselect {
+            width: 100%;
+            text-align: left;
+            border-radius: 4px !important;
+        }
+
+            .fullMulti .multiselect-native-select .multiselect .caret {
+                float: right;
+                margin: 9px 5px;
+            }
+
+    .hideScndTd > table > tbody > tr > td:last-child {
+        display: none;
+    }
+
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
+
+    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .dynamicPopupTbl {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+        .dynamicPopupTbl > tbody > tr > td,
+        #EmployeeTable table tr th {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 12px;
+        }
+
+    /*Rev 10.0*/
+    #EmployeefromsuperTable table tr th {
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 12px;
+    }
+
+    #EmployeetosupervisorTable table tr th {
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 12px;
+    }
 </style>
 <script>
     var Is_PageLoad = "0";
@@ -812,7 +1039,7 @@
         window.location.href = url;
     }
 
-      function EditClick(ID) {
+     function EditClick(ID) {
          $("#hdnID").val(ID);
          if (parseInt(ID) > 0) {
                  $.ajax({
@@ -835,6 +1062,190 @@
 
     }
 
+    function OnCopyInfoClick(ID) {
+         $("#hdnID").val(ID);
+         if (parseInt(ID) > 0) {
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("SetMapDataByID", "UserConfiguration")",
+                     data: { ID: ID, IsView: 0 },
+                     success: function (response) {
+                         if (response != null && response == true) {
+                             var url = '/UserConfiguration/Index?key=' + ID+'&Mode=Copy';
+                             window.location.href = url;
+                         }
+                         else {
+                             jAlert('Please try again later.');
+                             return false;
+                         }
+                     }
+                 });
+         }
+
+
+    }
+
+    function StateBind(user_id) {
+        $("#hdnID").val(user_id);
+        var str
+        str = { user_id: user_id }
+        var html = "";
+        // alert();
+        $.ajax({
+            type: "POST",
+            //url: "UserConfiguration/GetStateList",
+            url: "@Url.Action("GetStateList", "UserConfiguration")",
+            data: JSON.stringify(str),
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (responseFromServer) {
+                if (responseFromServer.length == 0) {
+                    jAlert('You must create a user, and map this employee. After mapping, you can map the State. So, these employees will appear on Dashboard and in reports for the selected state.');
+
+                }
+                else if (responseFromServer[0].status != 'Success') {
+
+                    jAlert('You must create a user, and map this employee. After mapping, you can map the State. So, these employees will appear on Dashboard and in reports for the selected state.');
+
+                }
+                else {
+
+                    for (i = 0; i < responseFromServer.length; i++) {
+
+                        if (responseFromServer[i].StateID == "0") {
+
+                            if (responseFromServer[i].IsChecked == true) {
+
+                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + "  class='statecheckall' onclick=CheckAll(" + responseFromServer[i].StateID + ") value=" + responseFromServer[i].StateID + " checked  /><a href='#'><label id='lblstatename' class='lblstate' for=" + responseFromServer[i].StateID + " >" + responseFromServer[i].StateName + "</label></a></li>";
+
+                            }
+                            else {
+                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + "  class='statecheckall' onclick=CheckAll(" + responseFromServer[i].StateID + ")  value=" + responseFromServer[i].StateID + "   /><a href='#'><label id='lblstatename' class='lblstate'  for=" + responseFromServer[i].StateID + ">" + responseFromServer[i].StateName + "</label></a></li>";
+
+
+                            }
+                        }
+                        else {
+
+                            if (responseFromServer[i].IsChecked == true) {
+
+                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + "  class='statecheck' onclick=CheckParticular($(this).is(':checked')) value=" + responseFromServer[i].StateID + " checked  /><a href='#'><label id='lblstatename' class='lblstate' for=" + responseFromServer[i].StateID + " >" + responseFromServer[i].StateName + "</label></a></li>";
+
+                            }
+                            else {
+                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + " class='statecheck'  onclick=CheckParticular($(this).is(':checked')) value=" + responseFromServer[i].StateID + "   /><a href='#'><label id='lblstatename' class='lblstate' for=" + responseFromServer[i].StateID + ">" + responseFromServer[i].StateName + "</label></a></li>";
+
+                            }
+                        }
+                    }
+                    $("#divModalBody").html(html);
+                    $("#myModal").modal('show');
+                }
+
+            }
+        });
+
+    }
+
+    var statelist = []
+    function STATEPUSHPOP() {
+        var user_id = $("#hdnID").val();
+        // debugger;
+        //$('input:checkbox.statecheck').each(function () {
+
+        //    var ischecked = $(this).is(':checked');
+        //    if (ischecked == true) {
+        //        alert(ischecked);
+        //    }
+        //});
+
+        let a = [];
+
+        $(".statecheckall:checked").each(function () {
+            a.push(this.value);
+        });
+
+        $(".statecheck:checked").each(function () {
+            a.push(this.value);
+        });
+        var str1
+        //  alert(a);
+
+        str1 = { user_id: user_id, Statelist: a }
+        $.ajax({
+            type: "POST",
+            //url: "UserConfiguration/GetStateListSubmit",
+            url: "@Url.Action("GetStateListSubmit", "UserConfiguration")",
+            data: JSON.stringify(str1),
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (responseFromServer) {
+                // alert(responseFromServer.d)
+                $("#myModal").modal('hide');
+                jAlert('State assigned successfully');
+            }
+        });
+    }
+
+    function fn_BranchMap(user_id) {
+        $("#hdnID").val(user_id);
+        var str
+        str = { user_id: user_id }
+        var html = "";
+        // alert();
+        $.ajax({
+            type: "POST",
+            //url: "UserConfiguration/GetBranchList",
+            url: "@Url.Action("GetBranchList", "UserConfiguration")",
+            data: JSON.stringify(str),
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (responseFromServer) {
+                for (i = 0; i < responseFromServer.length; i++) {
+                    if (responseFromServer[i].IsChecked == true) {
+                        html += "<label class='custom-checkbox-single'>" + responseFromServer[i].branch_description + "<input type='checkbox' id=" + responseFromServer[i].branch_id + "  class='BranchMapcheck' onclick=CheckParticular($(this).is(':checked')) value=" + responseFromServer[i].branch_id + " checked  > <span class='checkmark'></span></label>";
+                    }
+                    else {
+                        html += "<label class='custom-checkbox-single'>" + responseFromServer[i].branch_description + "<input type='checkbox' id=" + responseFromServer[i].branch_id + "  class='BranchMapcheck' onclick=CheckParticular($(this).is(':checked')) value=" + responseFromServer[i].branch_id + "  > <span class='checkmark'></span></label>";
+                    }
+                }
+                $("#divModalBodyBranchMap").html(html);
+                $("#myModalBranchMap").modal('show');
+            }
+        });
+    }
+
+    var Branchlist = []
+    function BranchPushPop() {
+        var user_id = $("#hdnID").val();
+        let a = [];
+
+        $(".BranchMapcheckall:checked").each(function () {
+            a.push(this.value);
+        });
+
+        $(".BranchMapcheck:checked").each(function () {
+            a.push(this.value);
+        });
+        var str1
+        //  alert(a);
+
+        str1 = { user_id: user_id, Branchlist: a }
+        $.ajax({
+            type: "POST",
+            //url: "UserConfiguration/GetBranchListSubmit",
+            url: "@Url.Action("GetBranchListSubmit", "UserConfiguration")",
+            data: JSON.stringify(str1),
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (responseFromServer) {
+                // alert(responseFromServer)
+                $("#myModalBranchMap").modal('hide');
+                jAlert('Branch assigned successfully');
+            }
+        });
+    }
+
      function DeleteClick(ID) {
         $("#hdnID").val(ID);
 
@@ -855,7 +1266,7 @@
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("DeleteUser", "UserConfiguration")',
-                    data: { ID: ID },
+                    data: { user_id: ID },
                     success: function (response) {
                         if (parseInt(response) > 0) {
                             // SweetAlert success message with custom icon
@@ -866,13 +1277,32 @@
                                 /*imageWidth: 50, */
                                 icon: 'success' // You can also keep the built-in icon type
                             }).then(() => {
-                                location.reload();
+                                Is_PageLoad = "1";
+                                gridList.Refresh();
+                            });
+                        } else if (parseInt(response) == -1) {
+                            // SweetAlert error message with custom icon
+                            Swal.fire({
+                                title: 'Sorry!',
+                                text: 'Admin User. Cannot delete.',
+                                imageUrl: '/path/to/your/error-icon.png',
+                                imageWidth: 50,
+                                icon: 'error' // You can also keep the built-in icon type
                             });
                         } else if (parseInt(response) == -10) {
                             // SweetAlert error message with custom icon
                             Swal.fire({
                                 title: 'Sorry!',
                                 text: 'User already mapped with another module. Cannot delete.',
+                                imageUrl: '/path/to/your/error-icon.png',
+                                imageWidth: 50,
+                                icon: 'error' // You can also keep the built-in icon type
+                            });
+                        } else {
+                            // SweetAlert error message with custom icon
+                            Swal.fire({
+                                title: 'Sorry!',
+                                text: 'Error in delete.',
                                 imageUrl: '/path/to/your/error-icon.png',
                                 imageWidth: 50,
                                 icon: 'error' // You can also keep the built-in icon type
@@ -894,7 +1324,7 @@
     }
     /*Rev End Pallab: grid modification*/
 
-    
+
 
 </script>
 <div class="breadCumb">
@@ -928,10 +1358,10 @@
                     @*}
                         @if (ViewBag.CanExport)
                         {*@
-                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
-                    <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
-                    <div class="tooltip">Export to XLSX</div>
-                </button>
+                    <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                        <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                        <div class="tooltip">Export to XLSX</div>
+                    </button>
 
                     @*}*@
                 </div>
@@ -951,3 +1381,60 @@
 </div>
 <input type="hidden" id="hdnID" />
 
+<div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
+    <div class="modal-dialog" style="width: 450px;">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">State List</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for States.">
+
+                    <ul id="divModalBody" class="listStyle">
+                        <%--
+                        <input type="checkbox" id="idstate" class="statecheck" />
+                        <label id="lblstatename" class="lblstate"></label>--%>
+                    </ul>
+                </div>
+                <input type="button" id="btnsatesubmit" title="SUBMIT" value="SUBMIT" class="btn btn-primary" onclick="STATEPUSHPOP()" />
+                <input type="hidden" id="hdnstatelist" class="btn btn-primary" />
+                <input type="hidden" id="hdnEMPID" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModalBranchMap" class="modal fade branch-list-modal" data-backdrop="static" role="dialog">
+    <div class="modal-dialog" style="width: 520px;">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ClearData();"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Branch List</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></span>
+                        </div>
+                        <input type="text" id="myInputBranchMap" onkeyup="myFunctionBranchMap()" class="form-control" placeholder="Search for Branch" aria-describedby="addon-wrapping">
+                    </div>
+
+                    <div id="divModalBodyBranchMap" class="listStyle">
+                    </div>
+                </div>
+                <input type="button" id="btnBranchMapsubmit" title="SUBMIT" value="SUBMIT" class="btn btn-primary" onclick="BranchPushPop()" />
+                
+            </div>
+            
+        </div>
+
+    </div>
+</div>
