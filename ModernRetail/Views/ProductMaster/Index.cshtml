@@ -1454,10 +1454,10 @@
         $("#txtProductName").val('');
         $("#txtProductPrice").val('0');
 
-        $("#ddlProductClass").val('0');
-        $("#ddlProductStrength").val('0');
-        $("#ddlProductUnit").val('0');
-        $("#ddlProductBrand").val('0');
+        $("#ddlProductClass").val('0').trigger('change');;
+        $("#ddlProductStrength").val('0').trigger('change');;
+        $("#ddlProductUnit").val('0').trigger('change');;
+        $("#ddlProductBrand").val('0').trigger('change');;
         $("#ddlProductStatus").val('1');
 
         $("#ProductAddModal").modal('show');
@@ -1607,16 +1607,28 @@
                 },
                 success: function (response) {
                     if (parseInt(response) > 0) {
-                       if (confirm("Product saved successfully.")) {
+                        if (confirm("Product saved successfully.")) {
                             $("#ProductAddModal").modal('hide');
                             //gridList.Refresh();
                             location.reload();
                         }
                     }
-                    else if (parseInt(response) == -1)
-                        jAlert('Product code already exists.')
-                    else if (parseInt(response) == -10)
-                        jAlert('Please try after sometime.')
+                    else if (parseInt(response) == -1) {
+                        // jAlert('Product code already exists.')
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Product code already exists.'
+                        });
+                    }
+                    else if (parseInt(response) == -10) {
+                    //jAlert('Please try after sometime.')
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Please try after sometime.'
+                        });
+                    }
                 }
             });
         }
@@ -1637,7 +1649,12 @@
                             }
                         }
                         else if (parseInt(response) == -1) {
-                           jAlert('Transaction exists. Cannot delete.')
+                        /*   jAlert('Transaction exists. Cannot delete.')*/
+                           Swal.fire({
+                               icon: 'warning',
+                               title: 'Warning',
+                               text: 'Transaction exists. Cannot delete.'
+                           });
                         }
                     }
                 });
@@ -1659,7 +1676,13 @@
         var isprocess = false;
         var filename = $("#fileprod").val();
         if ($('#fileprod').get(0).files.length === 0) {
-            jAlert("No files selected.");
+            //jAlert("No files selected.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'No files selected.'
+            });
+
             return false;
         }
         else {
@@ -1672,7 +1695,12 @@
                 default:
                     // Cancel the form submission
                     if (!isprocess) {
-                        jAlert('Only excel file require.');
+                       // jAlert('Only excel file require.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Only excel file require.'
+                        });
                         return false;
                     }
             }
@@ -1699,26 +1727,19 @@
                 data: fileData,
                 success: function (result) {
                     jAlert(result, 'Alert', function () {
-                        $("#fileprod").val('');
-                        //$("#myImportProductModal").toggle();
-                        $("#myImportProductModal").modal('hide');
-                        //GridShow();
-                        //$.ajax({
-                         //   type: "POST",
-                         //   url: "@Url.Action("GetPartyImportLog", "ProductMaster")",
-                         //   success: function (response) {
-                         //       if (response) {
-                         //           pcModalTemplateImportLogMode.Show();
-                         //           gridTemplateImportLogList.Refresh();
-                        //            gridTemplateImportLogList.Refresh();
-                        //        }
-                        //    }
-                        //});
+                        $("#fileprod").val('');                       
+                        $("#myImportProductModal").modal('hide');                        
                     });
 
                 },
                 error: function (err) {
-                    jAlert(err.statusText);
+                   // jAlert(err.statusText);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: err.statusText
+                    });
+
                 }
             });
         }
@@ -1759,7 +1780,12 @@
                     });
                 }
                 else {
-                    jAlert(response);
+                    //jAlert(response);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: response
+                    });
 
                 }
             },
