@@ -754,7 +754,7 @@
         });*@
 
         $('#ddlAppIds').on('click', function () {
-            var selectedValue = "1"; // XLSX export value          
+            var selectedValue = "1"; // XLSX export value
             var url = '@Url.Action("ExporBrandList", "BrandMaster", new { type = "_type_" })';
             window.location.href = url.replace("_type_", selectedValue);
         });
@@ -798,7 +798,7 @@
             data: {
                 name: $("#txtBrandName").val().trim(),
                 id: id,
-                ContactNo: $("#txtContactNo").val().trim(), 
+                ContactNo: $("#txtContactNo").val().trim(),
                 Email: $("#txtEmail").val().trim()
 
 
@@ -932,90 +932,91 @@
         <div class="row">
             <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
                 <div class="add-show-btns">
-                    @*@if (ViewBag.CanAdd)
-                        {*@
-                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddBrand();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand
-                    </button>
-                    @*}
-                        @if (ViewBag.CanView)
-                        {*@
-                    <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-                    @*}
-                        @if (ViewBag.CanExport)
-                        {*@
-                    <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
-                        <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
-                        <div class="tooltip">Export to XLSX</div>
-                    </button>
+                    @if (ViewBag.CanAdd)
+                    {
+                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddBrand();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand
+                        </button>
+                    }
+                    @if (ViewBag.CanView)
+                    {
+                        <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+                    }
+                    @if (ViewBag.CanExport)
+                    {
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                            <div class="tooltip">Export to XLSX</div>
+                        </button>
 
-                    @*}*@
+                    }
+                    </div>
+
                 </div>
 
             </div>
-
-        </div>
-        <div class="clearfix"></div>
-        <div class="scrooler">
-            <div id="refreshgrid">
-                @{
-                    Html.RenderAction("PartialGridList", "BrandMaster", new { Is_PageLoad = "0" });
-                }
+            <div class="clearfix"></div>
+            <div class="scrooler">
+                <div id="refreshgrid">
+                    @{
+                        Html.RenderAction("PartialGridList", "BrandMaster", new { Is_PageLoad = "0" });
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div id="BrandModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
-    <div class="modal-dialog" style="width: 500px;">
+    <div id="BrandModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+        <div class="modal-dialog" style="width: 500px;">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add/Modify Brand</h4>
-            </div>
-            <div class="modal-body">
-                <div id="divModalBody">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div><label>Brand Name <span class="red">*</span></label></div>
-                            <div>
-                                <input type="text" id="txtBrandName" maxlength="200" class="form-control" />
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add/Modify Brand</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divModalBody">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div><label>Brand Name <span class="red">*</span></label></div>
+                                <div>
+                                    <input type="text" id="txtBrandName" maxlength="200" class="form-control" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div><label>Contact No.</label></div>
-                            <div>
-                                <input type="number" id="txtContactNo" maxlength="10" numbersOnly class="form-control" />
-                            </div></div>
-                        <div class="col-md-12">
-                            <div><label>Email</label></div>
-                            <div>
-                                <input type="text" id="txtEmail" maxlength="100" class="form-control" />
+                            <div class="col-md-12">
+                                <div><label>Contact No.</label></div>
+                                <div>
+                                    <input type="number" id="txtContactNo" maxlength="10" numbersOnly class="form-control" />
+                                </div>
                             </div>
-                        </div>
+                            <div class="col-md-12">
+                                <div><label>Email</label></div>
+                                <div>
+                                    <input type="text" id="txtEmail" maxlength="100" class="form-control" />
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div>
+                <div class="modal-footer">
+                    <div>
 
-                    @*@if (ViewBag.CanAdd)
-                        {*@
-                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveBrandMaster()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
-                    @*}*@
-                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                        @if (ViewBag.CanAdd)
+                            {
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveBrandMaster()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
+                        }
+                        <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
+                    </div>
 
                 </div>
-
             </div>
-        </div>
 
+        </div>
+        <input type="hidden" id="hdnID" />
     </div>
-    <input type="hidden" id="hdnID" />
-</div>
 
 
 

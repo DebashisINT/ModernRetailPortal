@@ -20,7 +20,6 @@ namespace ModernRetail.Controllers
         public ActionResult Index()
         {
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "BrandMaster");
-
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
