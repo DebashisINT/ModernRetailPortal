@@ -532,6 +532,41 @@
         overflow-y: auto;
     }
 
+
+
+    .dxgvTable {
+        width: auto !important;
+        min-width: 100%;
+    }
+
+    .dxgvHeader {
+        white-space: normal !important;
+    }
+
+    /* Improve touch targets on mobile */
+    .pad {
+        padding: 5px !important;
+        margin: 0 5px !important;
+    }
+
+    /* Adjust tooltip position for mobile */
+    .tooltip-container .tooltip {
+        width: auto;
+        min-width: 60px;
+    }
+
+    .no-data-text p {
+        padding: 10px 50px !important;
+    }
+
+    .no-data-text {
+        height: 75vh !important;
+    }
+
+    .dashboardHighlightWrap, .content-wraper {
+        min-height: 75vh !important;
+    }
+
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1023px) {

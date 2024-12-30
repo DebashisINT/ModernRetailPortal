@@ -468,6 +468,19 @@
             align-items: center;
         }
 
+        ul.submenu-fl {
+            display: none; /* Hide all submenus by default */
+        }
+
+            ul.submenu-fl.stage2, ul.submenu-fl.stage3 {
+                display: none; /* Specifically hide stage 2 and stage 3 submenus */
+            }
+
+        li.open > ul {
+            display: block !important; /* Show submenus when the parent has 'open' class */
+        }
+
+
         @@media only screen and (max-width: 767px) {
             .flex-dr {
                 display: flex;
@@ -576,6 +589,37 @@
                 }
             }
         }
+
+
+
+        $(document).ready(function () {
+            // Toggle submenus on click
+            $('.sideNavigation ul li a').click(function (e) {
+                e.preventDefault(); // Prevent default link behavior
+
+                var $currentLi = $(this).parent('li'); // Get the current `li`
+                var $submenu = $(this).next('ul'); // Get the next submenu (if any)
+
+                // Check if the clicked item has a submenu
+                if ($submenu.length) {
+                    // Close any open submenus within the same level
+                    $currentLi.siblings('li').removeClass('open').find('ul').slideUp();
+
+                    if ($currentLi.hasClass('open')) {
+                        // If already open, close the submenu
+                        $submenu.slideUp();
+                        $currentLi.removeClass('open');
+                    } else {
+                        // Otherwise, open the submenu
+                        $submenu.slideDown();
+                        $currentLi.addClass('open');
+                    }
+                }
+            });
+        });
+
+
+
     </script>
 
 </head>
