@@ -31,6 +31,13 @@ namespace ModernRetail.Controllers
 
         public ActionResult BranchMasterList()
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/BranchMasterList", "BranchMaster");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
             objdata.branch_ID =0;
             TempData["branch_ID"] = null;
            
@@ -39,6 +46,14 @@ namespace ModernRetail.Controllers
         }
         public ActionResult Index()
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/BranchMasterList", "BranchMaster");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
+
             if (TempData["branch_ID"] != null)
             {
                 objdata.branch_ID = Convert.ToInt64(TempData["branch_ID"]);
