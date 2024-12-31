@@ -1616,11 +1616,18 @@
                 },
                 success: function (response) {
                     if (parseInt(response) > 0) {
-                        if (confirm("Product saved successfully.")) {
-                            $("#ProductAddModal").modal('hide');
-                            //gridList.Refresh();
-                            location.reload();
-                        }
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Product saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#ProductAddModal").modal('hide');
+                                //gridList.Refresh();
+                                location.reload();
+                            }
+                        });
                     }
                     else if (parseInt(response) == -1) {
                         // jAlert('Product code already exists.')
@@ -2007,15 +2014,34 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <div><label>Item Name <span class="red">*</span></label></div>
+                            <div>
+                                @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @id = "txtProductName" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label>Item Class/Category <span class="red">*</span></label>
                             <div class="h-branch-select">
                                 @Html.DropDownListFor(m => m.ProductClass, new SelectList(Model.ProductClassList, "ProductClassId", "ProductClassName", Model.ProductClassId), new { @id = "ddlProductClass", @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <label>Item Brand <span class="red">*</span></label>
+                            <div class="h-branch-select">
+                                @Html.DropDownListFor(m => m.ProductBrand, new SelectList(Model.ProductBrandList, "ProductBrandId", "ProductBrandName", Model.ProductBrandId), new { @id = "ddlProductBrand", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label>Item Strength <span class="red">*</span></label>
                             <div class="h-branch-select">
                                 @Html.DropDownListFor(m => m.ProductStrength, new SelectList(Model.ProductStrengthList, "ProductStrengthId", "ProductStrengthName", Model.ProductStrengthId), new { @id = "ddlProductStrength", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Item Price <span class="red">*</span></label>
+                            <div>
+                                @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control allow_decimal numbersOnly", @id = "txtProductPrice" })
+
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -2026,32 +2052,6 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label>Item Unit <span class="red">*</span></label>
-                            <div class="h-branch-select">
-                                @Html.DropDownListFor(m => m.ProductUnit, new SelectList(Model.ProductUnitList, "ProductUnitId", "ProductUnitName", Model.ProductUnitId), new { @id = "ddlProductUnit", @class = "form-control" })
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <div><label>Item Name <span class="red">*</span></label></div>
-                            <div>
-                                @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @id = "txtProductName" })
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label>Item Brand <span class="red">*</span></label>
-                            <div class="h-branch-select">
-                                @Html.DropDownListFor(m => m.ProductBrand, new SelectList(Model.ProductBrandList, "ProductBrandId", "ProductBrandName", Model.ProductBrandId), new { @id = "ddlProductBrand", @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label>Item Price <span class="red">*</span></label>
-                            <div>
-                                @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control allow_decimal numbersOnly", @id = "txtProductPrice" })
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <label>Item Status <span class="red">*</span></label>
                             <div class="h-branch-select">
                                 @*@Html.DropDownListFor(m => m.ProductStatus, new SelectList(Model.ProductStatusList, "ProductStatusId", "ProductStatusName", Model.ProductStatusId), new { @id = "ddlProductStatus", @class = "form-control" })*@
@@ -2061,6 +2061,17 @@
                                     new { @id = "ddlProductStatus", @class = "form-control" })
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <label>Item Unit <span class="red">*</span></label>
+                            <div class="h-branch-select">
+                                @Html.DropDownListFor(m => m.ProductUnit, new SelectList(Model.ProductUnitList, "ProductUnitId", "ProductUnitName", Model.ProductUnitId), new { @id = "ddlProductUnit", @class = "form-control" })
+                            </div>
+                        </div>
+
+
+
+
+
                         <div class="clear"></div>
                     </div>
                 </div>
