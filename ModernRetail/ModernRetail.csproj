@@ -289,6 +289,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
+    <Compile Include="Controllers\MeasurementController.cs" />
     <Compile Include="Controllers\ProductClassCategoryController.cs" />
     <Compile Include="Controllers\ProductMasterController.cs" />
     <Compile Include="Controllers\SecurityRolesController.cs" />
@@ -307,6 +308,7 @@
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\DesignationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MeasurementModel.cs" />
     <Compile Include="Models\ModernRetail.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1127,6 +1129,8 @@
     <Content Include="Views\WarehouseMaster\WarehouseIndex.cshtml" />
     <Content Include="Views\WarehouseMaster\_PartialWareHouseGrid.cshtml" />
     <Content Include="Views\WarehouseMaster\_ShopPartial.cshtml" />
+    <Content Include="Views\Measurement\Index.cshtml" />
+    <Content Include="Views\Measurement\PartialMeasurementListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

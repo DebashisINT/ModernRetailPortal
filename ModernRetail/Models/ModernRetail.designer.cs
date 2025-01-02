@@ -159,6 +159,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_WAREHOUSE_LIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_MEASUREMENTS_LIST> MR_MEASUREMENTS_LISTs
+		{
+			get
+			{
+				return this.GetTable<MR_MEASUREMENTS_LIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -2973,6 +2981,177 @@ namespace ModernRetail.Models
 				if ((this._cou_country != value))
 				{
 					this._cou_country = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_MEASUREMENTS_LIST")]
+	public partial class MR_MEASUREMENTS_LIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _Size_ID;
+		
+		private string _Size_Name;
+		
+		private string _Size_Description;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private string _CreateUser;
+		
+		private System.Nullable<System.DateTime> _ModifyDate;
+		
+		private string _ModifyUser;
+		
+		public MR_MEASUREMENTS_LIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size_ID", DbType="Int")]
+		public System.Nullable<int> Size_ID
+		{
+			get
+			{
+				return this._Size_ID;
+			}
+			set
+			{
+				if ((this._Size_ID != value))
+				{
+					this._Size_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size_Name", DbType="VarChar(30)")]
+		public string Size_Name
+		{
+			get
+			{
+				return this._Size_Name;
+			}
+			set
+			{
+				if ((this._Size_Name != value))
+				{
+					this._Size_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size_Description", DbType="VarChar(150)")]
+		public string Size_Description
+		{
+			get
+			{
+				return this._Size_Description;
+			}
+			set
+			{
+				if ((this._Size_Description != value))
+				{
+					this._Size_Description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(200)")]
+		public string CreateUser
+		{
+			get
+			{
+				return this._CreateUser;
+			}
+			set
+			{
+				if ((this._CreateUser != value))
+				{
+					this._CreateUser = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ModifyDate
+		{
+			get
+			{
+				return this._ModifyDate;
+			}
+			set
+			{
+				if ((this._ModifyDate != value))
+				{
+					this._ModifyDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(200)")]
+		public string ModifyUser
+		{
+			get
+			{
+				return this._ModifyUser;
+			}
+			set
+			{
+				if ((this._ModifyUser != value))
+				{
+					this._ModifyUser = value;
 				}
 			}
 		}
