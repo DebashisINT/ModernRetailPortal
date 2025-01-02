@@ -1,0 +1,1031 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Measurements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .modal-header {
+        padding: 8px;
+        background: #094e8c;
+        border-radius: 8px 8px 0 0;
+    }
+
+    button.close {
+        color: #fff;
+        font-weight: 300;
+        opacity: .5;
+    }
+
+    .close:hover, .close:focus {
+        color: #fff;
+        opacity: 1;
+    }
+
+    .modal-content {
+        border-radius: 10px;
+    }
+
+    .modal-footer {
+        padding: 15px 10px 15px;
+        border-top: 1px solid #c0c0c0;
+    }
+
+
+    .dxgvLoadingPanel_PlasticBlue {
+        left: 42% !important;
+    }
+    /*Rev 2.0*/
+    #gridUserList {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    /*Rev end 2.0*/
+
+    /*Rev 3.0*/
+
+    #BranchGridLookup {
+        min-height: 34px;
+        border-radius: 5px;
+    }
+
+    .dxeButtonEditButton_PlasticBlue {
+        background: #094e8c !important;
+        border-radius: 4px !important;
+        padding: 0 4px !important;
+    }
+
+    .chosen-container-single .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+        border-radius: 4px;
+        height: 30px;
+        top: 1px;
+        right: 1px;
+        /*position:relative;*/
+    }
+
+        .chosen-container-single .chosen-single div b {
+            display: none;
+        }
+
+        .chosen-container-single .chosen-single div::after {
+            content: '<';
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+        }
+
+    .chosen-container-active.chosen-with-drop .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+    }
+
+        .chosen-container-active.chosen-with-drop .chosen-single div::after {
+            transform: rotate(90deg);
+            right: 5px;
+        }
+
+    .calendar-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 14px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    .date-select .form-control {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            content: '<';
+            position: absolute;
+            top: 8px;
+            right: -2px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
+        }
+
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
+
+    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .whclass.selectH {
+        padding-right: 30px;
+    }
+
+    #ddlShowReport:focus-visible {
+        box-shadow: none;
+        outline: none;
+        border: 1px solid #164f93;
+    }
+
+    #ddlShowReport:focus {
+        border: 1px solid #164f93;
+    }
+
+    .whclass.selectH:focus-visible {
+        outline: none;
+    }
+
+    .whclass.selectH:focus {
+        border: 1px solid #164f93;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border: 1px Solid #ccc;
+    }
+
+    .chosen-container-single .chosen-single {
+        border: 1px solid #ccc;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .daterangepicker td.active, .daterangepicker td.active:hover {
+        background-color: #175396;
+    }
+
+    label {
+        font-weight: 500;
+    }
+
+    .dxgvHeader_PlasticBlue {
+        background: #164f94;
+    }
+
+    .dxgvSelectedRow_PlasticBlue td.dxgv {
+        color: #fff;
+    }
+
+    .dxeCalendarHeader_PlasticBlue {
+        background: #185598;
+    }
+
+    .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
+    .dxbButton_PlasticBlue,
+    .dxeCalendar_PlasticBlue,
+    .dxeEditArea_PlasticBlue {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        font-weight: 500;
+    }
+
+    .btnPadding .btn {
+        padding: 7px 14px !important;
+        border-radius: 4px;
+    }
+
+    .btnPadding {
+        padding-top: 24px !important;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border-radius: 5px;
+        height: 34px;
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
+        background: #165092;
+        vertical-align: middle;
+        font-weight: 500;
+    }
+
+    /*#refreshgrid {
+        background: #e5e5e5;
+        padding: 0 10px;
+        margin-top: 15px;
+        border-radius: 8px;
+    }*/
+
+    .styled-checkbox {
+        position: absolute;
+        opacity: 0;
+        z-index: 1;
+    }
+
+        .styled-checkbox + label {
+            position: relative;
+            /*cursor: pointer;*/
+            padding: 0;
+            margin-bottom: 0 !important;
+        }
+
+            .styled-checkbox + label:before {
+                content: "";
+                margin-right: 6px;
+                display: inline-block;
+                vertical-align: text-top;
+                width: 16px;
+                height: 16px;
+                /*background: #d7d7d7;*/
+                margin-top: 2px;
+                border-radius: 2px;
+                border: 1px solid #c5c5c5;
+            }
+
+        .styled-checkbox:hover + label:before {
+            background: #094e8c;
+        }
+
+
+        .styled-checkbox:checked + label:before {
+            background: #094e8c;
+        }
+
+        .styled-checkbox:disabled + label {
+            color: #b8b8b8;
+            cursor: auto;
+        }
+
+            .styled-checkbox:disabled + label:before {
+                box-shadow: none;
+                background: #ddd;
+            }
+
+        .styled-checkbox:checked + label:after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 9px;
+            background: white;
+            width: 2px;
+            height: 2px;
+            box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+            transform: rotate(45deg);
+        }
+
+    #dtstate {
+        padding-right: 8px;
+    }
+
+    .pmsModal .modal-header {
+        /*background: #094e8c !important;
+    background-image: none !important;*/
+        padding: 11px 20px;
+        border: none;
+        border-radius: 15px 15px 0 0 !important;
+        /*color: #fff;*/
+        /*background: linear-gradient(to right, #1f5fbf, #11998e) !important;*/
+    }
+
+    .pmsModal .modal-content {
+        border: none;
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
+
+    /*.pmsModal .modal-header .modal-title {
+        font-size: 14px;
+    }*/
+
+    .pmsModal .modal-header .modal-title {
+        font-size: 16px !important;
+        color: #111;
+        font-size: 24px;
+    }
+
+    .pmsModal .modal-header {
+        background: transparent !important;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #d5d5d5;
+    }
+
+    .close {
+        font-size: 34px;
+        opacity: .8;
+    }
+
+    button.close {
+        color: #111 !important;
+        font-weight: 400 !important;
+        opacity: .8 !important;
+        font-size: 32px !important;
+    }
+
+    .pmsModal .close {
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-shadow: none;
+        opacity: .5;
+    }
+
+    #EmployeeTable {
+        margin-top: 10px;
+    }
+
+        #EmployeeTable table tr th {
+            padding: 5px 10px;
+        }
+
+    .dynamicPopupTbl {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+        .dynamicPopupTbl > tbody > tr > td,
+        #EmployeeTable table tr th {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 12px;
+        }
+
+    .w150 {
+        width: 160px;
+    }
+
+    .eqpadtbl > tbody > tr > td:not(:last-child) {
+        padding-right: 20px;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+    }
+
+    .pad-md-18 {
+        padding-top: 24px;
+    }
+
+    .open .dropdown-toggle.btn-default {
+        background: transparent !important;
+    }
+
+    .input-group-btn .multiselect-clear-filter {
+        height: 32px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .btn .caret {
+        display: none;
+    }
+
+    .iminentSpan button.multiselect.dropdown-toggle {
+        height: 34px;
+    }
+
+    .col-lg-2 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    select:not(.btn) {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .dxgvControl_PlasticBlue a {
+        margin: 0 3px;
+    }
+
+    .dxeButtonDisabled_PlasticBlue {
+        background: #ababab !important;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .linerHd {
+        background: #4e8fcf !important;
+    }
+
+    /*Rev end 3.0*/
+    /*Rev 4.0*/
+    #popup_message {
+        padding-left: 0 !important;
+        text-align: center !important;
+    }
+
+    #popup_panel {
+        margin: 14px 0 5px;
+    }
+
+    #popup_ok, #popup_cancel {
+        border-radius: 4px !important;
+    }
+    /*Rev end 4.0*/
+    /*Rev 5.0*/
+    #gridUserList_DXPagerTop_PSP, #gridUserList_DXPagerBottom_PSP {
+        right: 36px !important;
+        left: auto !important;
+    }
+    /*Rev end 5.0*/
+
+
+    .add-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+    }
+
+    .add-btn {
+        transition: all .4s;
+    }
+
+        .add-btn:hover {
+            color: #fff;
+            background-color: #0e4f23;
+            border-color: #0e4f23;
+        }
+
+        .add-btn .btn-icon i {
+            color: #238945;
+        }
+
+    .add-btn {
+        background-color: #238945;
+        margin-right: 5px;
+    }
+
+    .btn {
+        border-radius: 8px;
+        height: 38px;
+        padding-left: 12px;
+        padding-right: 12px;
+        color: #fff;
+    }
+
+        .btn:active, .btn:hover, .btn:focus {
+            color: #fff !important;
+        }
+
+    .buttons-alignment {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .show-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+        color: #054682;
+    }
+
+    .show-btn {
+        background: #054682;
+        transition: all .4s;
+        margin-right: 5px;
+    }
+
+        .show-btn:hover {
+            background: #072743;
+        }
+
+    .btn-cancel {
+        background-color: #DC0505;
+        color: #fff;
+    }
+
+    .btn-export {
+        background: #e17134;
+        color: #fff;
+    }
+
+        .btn-export:hover {
+            background: #a24716 !important;
+            color: #fff;
+        }
+
+    .swal2-confirm.swal2-styled {
+        border-radius: 8px !important;
+    }
+
+    .swal2-styled {
+        border-radius: 12px !important;
+        padding: 8px 20px !important;
+        color: #fff !important;
+        font-size: 14px !important;
+    }
+
+    .swal2-html-container {
+        margin-top: 5px !important;
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
+        width: 90px !important;
+        border-radius: 8px !important;
+    }
+
+    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+        background: rgb(0 0 0 / 50%) !important;
+    }
+
+    div:where(.swal2-container).swal2-center > .swal2-popup {
+        background: linear-gradient(1deg, #cff3ff, #ffffff);
+    }
+
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        overflow: visible;
+    }
+
+    #btnSave .btn-icon, .cancel-catg .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        #btnSave .btn-icon img {
+            color: #238945;
+            width: 14px;
+        }
+
+    .cancel-catg, #btnSave {
+        transition: all .3s ease-in-out;
+    }
+
+        .cancel-catg .btn-icon img {
+            color: #DC0505;
+            width: 16px;
+        }
+
+        .cancel-catg:hover {
+            transform: scale(1.1);
+        }
+
+        #btnSave:hover {
+            transform: scale(1.1);
+        }
+
+    .modal-footer .btn + .btn {
+        margin-bottom: 0;
+        margin-left: 5px;
+    }
+
+    .cancel-catg {
+        margin-right: 5px;
+    }
+
+    .close:hover, .close:focus {
+        color: #111 !important;
+    }
+
+
+    /*Rev Pallab: grid modification*/
+
+
+
+    .rowActive {
+        background-color: #ebf4ff !important;
+        color: #000 !important;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: none; /* Initially hidden */
+    }
+
+    .flex-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dxgvLoadingPanel_PlasticBlue {
+        display: none !important;
+    }
+
+    .flex-loader img {
+        width: 120px;
+    }
+
+    .flex-loader h4 {
+        font-size: 22px;
+        color: #000000;
+    }
+
+    .btn-export {
+        background: #d0d0d0;
+    }
+
+        .btn-export .btn-icon img {
+            width: 30px;
+            height: 30px;
+        }
+    /*Rev End Pallab: grid modification*/
+</style>
+<script>
+    var Is_PageLoad = "0";
+
+    $(function () {
+
+        $('.numbersOnly').keyup(function () {
+            if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            }
+        });
+
+
+        $('body').on('click', '#btnshow', function () {
+            Is_PageLoad = "1";
+            gridList.Refresh();
+        });
+
+        @*$('#ddlAppIds').on('change', function () {
+            if ($("#ddlAppIds option:selected").index() > 0) {
+                var selectedValue = $(this).val();
+                var desg = $("#drpdesignation").val();
+                var usrtype = $("#ddlusertypes").val();
+                $('#ddlAppIds').prop("selectedIndex", 0);
+                var url = '@Url.Action("ExporCategoryList", "Measurement", new { type = "_type_" })'
+                window.location.href = url.replace("_type_", selectedValue);
+
+            }
+        });*@
+
+        $('#ddlAppIds').on('click', function () {
+            var selectedValue = "1"; // XLSX export value
+            var url = '@Url.Action("ExportMeasurement", "Measurement", new { type = "_type_" })';
+            window.location.href = url.replace("_type_", selectedValue);
+        });
+    });
+
+    function OnStartCallback(s, e) {
+        e.customArgs["Is_PageLoad"] = Is_PageLoad;
+        /*Rev Pallab: grid modification*/
+        document.getElementById("loading-overlay").style.display = "block";
+        /*Rev End Pallab: grid modification*/
+    }
+    /*Rev Pallab: grid modification*/
+    function OnEndCallback() {
+
+        document.getElementById("loading-overlay").style.display = "none";
+
+    }
+    /*Rev End Pallab: grid modification*/
+    function AddBrand() {
+        $("#hdnID").val('0');
+        $("#txtMeasurement").val('');
+        $("#MeasurementModal").modal('show')
+    }
+
+
+    function SaveMeasurement() {
+    var id = $("#hdnID").val();
+    if ($("#txtMeasurement").val().trim() == "") {
+        // SweetAlert for empty category name
+        Swal.fire({
+            icon: 'warning',
+            title: 'Warning',
+            text: 'Enter Measurement to proceed.'
+        });
+        return false;
+    }
+    else if ($("#txtDescription").val().trim() == "") {
+            // SweetAlert for empty category name
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Description to proceed.'
+            });
+            return false;
+        }
+
+
+    else {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveMeasurement", "Measurement")',
+            data: {
+                Measurement: $("#txtMeasurement").val().trim(),
+                id: id,               
+                Description: $("#txtDescription").val().trim()
+
+
+            },
+            success: function (response) {
+                if (parseInt(response) > 0) {
+                    // SweetAlert success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Measurement saved successfully.'
+                    }).then(() => {
+                        $("#MeasurementModal").modal('hide');
+                        location.reload();
+                    });
+                } else if (parseInt(response) == -1) {
+                    // SweetAlert duplicate category name warning
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sorry!',
+                        text: 'Duplicate Measurement name cannot be entered. Please enter a unique Measurement name.'
+                    });
+                }
+            }
+        });
+    }
+}
+
+
+     function EditClick(ID) {
+         $("#hdnID").val(ID);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EditMeasurement", "Measurement")",
+                data: { id: ID },
+                success: function (response) {
+                    if (response.code == "") {
+                        jAlert('No data found');
+                    }
+                    else {
+                        $("#txtMeasurement").val(response.Size_Name);
+                        $("#txtDescription").val(response.Size_Description);                        
+                        $("#MeasurementModal").modal('show');
+                    }
+                }
+            });
+        }
+
+     function DeleteClick(ID) {
+        $("#hdnID").val(ID);
+
+        // SweetAlert confirmation with custom icon
+    Swal.fire({
+        title: 'Are you sure you want to delete?',
+        text: "This action cannot be undone!",
+        imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+        imageWidth: 40, // Adjust the width as needed
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete", "Measurement")',
+                data: { ID: ID },
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        // SweetAlert success message with custom icon
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'The record has been deleted successfully.',
+                            /*imageUrl: '/path/to/your/success-icon.png', */
+                            /*imageWidth: 50, */
+                            icon: 'success' // You can also keep the built-in icon type
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else if (parseInt(response) == -1) {
+                        // SweetAlert error message with custom icon
+                        Swal.fire({
+                            title: 'Sorry!',
+                            text: 'Measurement already mapped with another module. Cannot delete.',
+                            imageUrl: '/path/to/your/error-icon.png',
+                            imageWidth: 50,
+                            icon: 'error' // You can also keep the built-in icon type
+                        });
+                    }
+                }
+            });
+        }
+    });
+    }
+
+    $(document).ready(function () {
+        $('#MeasurementModal').on('shown.bs.modal', function () {
+            $('#txtMeasurement').focus();
+        });
+    });
+
+
+    /*Rev Pallab: grid modification*/
+    function gridRowclick(s, e) {
+        $('#gridList').find('tr').removeClass('rowActive');
+
+
+        $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+
+    }
+    /*Rev End Pallab: grid modification*/
+</script>
+<div class="breadCumb">
+    <span>Measurements</span>
+</div>
+
+@*Rev Pallab: grid modification*@
+<div class="overlay" id="loading-overlay">
+    <div class="flex-loader">
+        <img src="/assests/images/new-loader.gif" />
+        <h4>Data is loading, Please Wait</h4>
+    </div>
+
+</div>
+@*Rev End Pallab: grid modification*@
+
+<div class="container">
+    <div class="form_main backBox p-3">
+        <div class="row">
+            <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
+                <div class="add-show-btns">
+                    @if (ViewBag.CanAdd)
+                    {
+                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddBrand();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Measurements
+                        </button>
+                    }
+                    @if (ViewBag.CanView)
+                    {
+                        <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+                    }
+                    @if (ViewBag.CanExport)
+                    {
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                            <div class="tooltip">Export to XLSX</div>
+                        </button>
+
+                    }
+                </div>
+
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="scrooler">
+            <div id="refreshgrid">
+                @{
+                    Html.RenderAction("PartialGridList", "Measurement", new { Is_PageLoad = "0" });
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div id="MeasurementModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+    <div class="modal-dialog" style="width: 500px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add/Modify Measurement</h4>
+            </div>
+            <div class="modal-body">
+                <div id="divModalBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div><label>Measurement<span class="red">*</span></label></div>
+                            <div>
+                                <input type="text" id="txtMeasurement" maxlength="30" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div><label>Description<span class="red">*</span></label></div>
+                            <div>
+                                <input type="text" id="txtDescription" maxlength="150" class="form-control" />
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div>
+
+                    @if (ViewBag.CanAdd)
+                    {
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="SaveMeasurement()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
+                    }
+                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="hdnID" />
+</div>
+
+
+
+
+
+

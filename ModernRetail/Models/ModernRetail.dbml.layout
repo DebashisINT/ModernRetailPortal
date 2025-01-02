@@ -80,5 +80,11 @@
         <elementListCompartment Id="1261d3d3-221c-400d-ac41-8686e97a9379" absoluteBounds="3.14, 4.21, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="b85b62b9-2aff-4d46-af01-3ff092b1695e" absoluteBounds="5.75, 0.625, 2, 2.5401025390625">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_MEASUREMENTS_LIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ba93e9b6-65c9-441d-97fc-cb5d18a5b4be" absoluteBounds="5.765, 1.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
