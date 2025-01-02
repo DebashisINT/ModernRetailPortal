@@ -151,6 +151,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_CURRENTSTOCK_LISTING>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_WAREHOUSE_LIST> MR_WAREHOUSE_LISTs
+		{
+			get
+			{
+				return this.GetTable<MR_WAREHOUSE_LIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -2614,6 +2622,357 @@ namespace ModernRetail.Models
 				if ((this._MODIFIED_DATE != value))
 				{
 					this._MODIFIED_DATE = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_WAREHOUSE_LIST")]
+	public partial class MR_WAREHOUSE_LIST
+	{
+		
+		private System.Nullable<int> _SEQ;
+		
+		private System.Nullable<long> _USERID;
+		
+		private System.Nullable<long> _WAREHOUSE_ID;
+		
+		private string _WAREHOUSE_NAME;
+		
+		private string _ADDRESS1;
+		
+		private string _ADDRESS2;
+		
+		private string _ADDRESS3;
+		
+		private string _PIN;
+		
+		private string _CONTACT_NAME;
+		
+		private string _CONTACT_PHONE;
+		
+		private string _STORE_NAME;
+		
+		private string _ISDEFAULT;
+		
+		private System.Nullable<System.DateTime> _CREATE_ON;
+		
+		private System.Nullable<System.DateTime> _UPDATE_ON;
+		
+		private string _CREATED_BY;
+		
+		private string _UPDATED_BY;
+		
+		private string _city_name;
+		
+		private string _state;
+		
+		private string _cou_country;
+		
+		public MR_WAREHOUSE_LIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="BigInt")]
+		public System.Nullable<long> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WAREHOUSE_ID", DbType="BigInt")]
+		public System.Nullable<long> WAREHOUSE_ID
+		{
+			get
+			{
+				return this._WAREHOUSE_ID;
+			}
+			set
+			{
+				if ((this._WAREHOUSE_ID != value))
+				{
+					this._WAREHOUSE_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WAREHOUSE_NAME", DbType="NVarChar(300)")]
+		public string WAREHOUSE_NAME
+		{
+			get
+			{
+				return this._WAREHOUSE_NAME;
+			}
+			set
+			{
+				if ((this._WAREHOUSE_NAME != value))
+				{
+					this._WAREHOUSE_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ADDRESS1", DbType="NVarChar(500)")]
+		public string ADDRESS1
+		{
+			get
+			{
+				return this._ADDRESS1;
+			}
+			set
+			{
+				if ((this._ADDRESS1 != value))
+				{
+					this._ADDRESS1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ADDRESS2", DbType="NVarChar(500)")]
+		public string ADDRESS2
+		{
+			get
+			{
+				return this._ADDRESS2;
+			}
+			set
+			{
+				if ((this._ADDRESS2 != value))
+				{
+					this._ADDRESS2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ADDRESS3", DbType="NVarChar(500)")]
+		public string ADDRESS3
+		{
+			get
+			{
+				return this._ADDRESS3;
+			}
+			set
+			{
+				if ((this._ADDRESS3 != value))
+				{
+					this._ADDRESS3 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PIN", DbType="NVarChar(10)")]
+		public string PIN
+		{
+			get
+			{
+				return this._PIN;
+			}
+			set
+			{
+				if ((this._PIN != value))
+				{
+					this._PIN = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTACT_NAME", DbType="NVarChar(300)")]
+		public string CONTACT_NAME
+		{
+			get
+			{
+				return this._CONTACT_NAME;
+			}
+			set
+			{
+				if ((this._CONTACT_NAME != value))
+				{
+					this._CONTACT_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CONTACT_PHONE", DbType="NVarChar(15)")]
+		public string CONTACT_PHONE
+		{
+			get
+			{
+				return this._CONTACT_PHONE;
+			}
+			set
+			{
+				if ((this._CONTACT_PHONE != value))
+				{
+					this._CONTACT_PHONE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_NAME", DbType="NVarChar(200)")]
+		public string STORE_NAME
+		{
+			get
+			{
+				return this._STORE_NAME;
+			}
+			set
+			{
+				if ((this._STORE_NAME != value))
+				{
+					this._STORE_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ISDEFAULT", DbType="NVarChar(10)")]
+		public string ISDEFAULT
+		{
+			get
+			{
+				return this._ISDEFAULT;
+			}
+			set
+			{
+				if ((this._ISDEFAULT != value))
+				{
+					this._ISDEFAULT = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATE_ON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATE_ON
+		{
+			get
+			{
+				return this._CREATE_ON;
+			}
+			set
+			{
+				if ((this._CREATE_ON != value))
+				{
+					this._CREATE_ON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATE_ON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UPDATE_ON
+		{
+			get
+			{
+				return this._UPDATE_ON;
+			}
+			set
+			{
+				if ((this._UPDATE_ON != value))
+				{
+					this._UPDATE_ON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_BY", DbType="NVarChar(300)")]
+		public string CREATED_BY
+		{
+			get
+			{
+				return this._CREATED_BY;
+			}
+			set
+			{
+				if ((this._CREATED_BY != value))
+				{
+					this._CREATED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATED_BY", DbType="NVarChar(300)")]
+		public string UPDATED_BY
+		{
+			get
+			{
+				return this._UPDATED_BY;
+			}
+			set
+			{
+				if ((this._UPDATED_BY != value))
+				{
+					this._UPDATED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_city_name", DbType="NVarChar(300)")]
+		public string city_name
+		{
+			get
+			{
+				return this._city_name;
+			}
+			set
+			{
+				if ((this._city_name != value))
+				{
+					this._city_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_state", DbType="NVarChar(300)")]
+		public string state
+		{
+			get
+			{
+				return this._state;
+			}
+			set
+			{
+				if ((this._state != value))
+				{
+					this._state = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cou_country", DbType="NVarChar(300)")]
+		public string cou_country
+		{
+			get
+			{
+				return this._cou_country;
+			}
+			set
+			{
+				if ((this._cou_country != value))
+				{
+					this._cou_country = value;
 				}
 			}
 		}
