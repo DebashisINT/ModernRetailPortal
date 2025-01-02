@@ -33,7 +33,7 @@ namespace BusinessLogicLayer.SalesmanTrack
         public DataTable Masterdatainsert(String action, String WareHouseID, string warehouseName, string address1, String address2, String address3, String country, String State, String City, String Pin, String contactPerson, String ContactPhone, String Distributor, String defaultvalue, String userID)
         {
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_MasterWarehouseChanges");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_MASTERWAREHOUSE");
             proc.AddPara("@ACTION", action);
             proc.AddPara("@WAREHOUSE_NAME", warehouseName);
             proc.AddPara("@ADDRESS1", address1);
@@ -56,7 +56,7 @@ namespace BusinessLogicLayer.SalesmanTrack
         public DataTable MasterdataList(String action, String userID)
         {
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_MasterWarehouseChanges");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_MASTERWAREHOUSE");
             proc.AddPara("@ACTION", action);
             proc.AddPara("@USER_ID", userID);
             dt = proc.GetTable();
@@ -66,7 +66,7 @@ namespace BusinessLogicLayer.SalesmanTrack
         public DataTable MasterdataView(String action, String WAREHOUSE_ID)
         {
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("PRC_MasterWarehouseChanges");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_MASTERWAREHOUSE");
             proc.AddPara("@ACTION", action);
             proc.AddPara("@WAREHOUSE_ID", WAREHOUSE_ID);
             dt = proc.GetTable();

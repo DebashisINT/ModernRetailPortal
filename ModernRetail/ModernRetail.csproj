@@ -295,6 +295,7 @@
     <Compile Include="Controllers\StateMasterController.cs" />
     <Compile Include="Controllers\StoreMasterController.cs" />
     <Compile Include="Controllers\UserConfigurationController.cs" />
+    <Compile Include="Controllers\WarehouseMasterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -320,6 +321,7 @@
     <Compile Include="Models\SecurityRolesModel.cs" />
     <Compile Include="Models\StateMasterModel.cs" />
     <Compile Include="Models\UserMasterModel.cs" />
+    <Compile Include="Models\WarehouseMasterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1122,6 +1124,9 @@
     <Content Include="Views\ProductClassCategory\PartialProductClassListing.cshtml" />
     <Content Include="Views\CurrentStockRegister\Index.cshtml" />
     <Content Include="Views\StoreMaster\Index.cshtml" />
+    <Content Include="Views\WarehouseMaster\WarehouseIndex.cshtml" />
+    <Content Include="Views\WarehouseMaster\_PartialWareHouseGrid.cshtml" />
+    <Content Include="Views\WarehouseMaster\_ShopPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1191,7 +1196,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50377</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44398/</IISUrl>
+          <IISUrl>http://localhost:44399/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
