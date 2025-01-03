@@ -469,15 +469,12 @@
         }
 
         ul.submenu-fl {
-            display: none; /* Hide all submenus by default */
+            display: none; /* Submenus hidden by default */
+            transition: all 0.3s ease; /* Smooth transitions */
         }
 
-            ul.submenu-fl.stage2, ul.submenu-fl.stage3 {
-                display: none; /* Specifically hide stage 2 and stage 3 submenus */
-            }
-
         li.open > ul {
-            display: block !important; /* Show submenus when the parent has 'open' class */
+            display: block !important; /* Show submenu when parent li has 'open' class */
         }
 
 
@@ -494,6 +491,10 @@
 
             .middleWraper {
                 justify-content: end;
+            }
+
+            .sideNavigation > ul > li.open > a {
+                background: #5b4ce3; /* Same as hover color */
             }
         }
     </style>
@@ -593,30 +594,77 @@
 
 
         $(document).ready(function () {
-            // Toggle submenus on click
+            // Detect mobile devices (adjust if needed)
+            function isMobile() {
+                return window.innerWidth <= 768; // Define breakpoint for mobile
+            }
+
+            // Handle first-stage menu behavior
+            $('.sideNavigation > ul > li > a').click(function (e) {
+                if (isMobile()) {
+                    e.preventDefault(); // Prevent navigation for mobile
+
+                    var $currentLi = $(this).parent('li'); // Current li
+                    var $submenu = $currentLi.find('> ul'); // Immediate submenu
+
+                    if ($submenu.length) {
+                        if ($currentLi.hasClass('open')) {
+                            // Close current submenu
+                            $submenu.slideUp();
+                            $currentLi.removeClass('open');
+                        } else {
+                            // Close other submenus on the same level
+                            $currentLi.siblings('li').removeClass('open').find('ul').slideUp();
+
+                            // Open current submenu
+                            $submenu.slideDown();
+                            $currentLi.addClass('open');
+                        }
+                    }
+                }
+            });
+
+            // Handle last-stage submenu behavior
             $('.sideNavigation ul li a').click(function (e) {
-                e.preventDefault(); // Prevent default link behavior
+                var $submenu = $(this).next('ul');
 
-                var $currentLi = $(this).parent('li'); // Get the current `li`
-                var $submenu = $(this).next('ul'); // Get the next submenu (if any)
+                // If no submenu, proceed with navigation
+                if (!$submenu.length) return;
 
-                // Check if the clicked item has a submenu
-                if ($submenu.length) {
-                    // Close any open submenus within the same level
-                    $currentLi.siblings('li').removeClass('open').find('ul').slideUp();
-
+                if (!isMobile()) {
+                    // For desktop: Default behavior (open/close toggle without affecting siblings)
+                    e.preventDefault();
+                    var $currentLi = $(this).parent('li');
                     if ($currentLi.hasClass('open')) {
-                        // If already open, close the submenu
                         $submenu.slideUp();
                         $currentLi.removeClass('open');
                     } else {
-                        // Otherwise, open the submenu
                         $submenu.slideDown();
                         $currentLi.addClass('open');
                     }
                 }
             });
+
+            // Handle clicking outside to close
+            $(document).click(function (e) {
+                var $target = $(e.target);
+
+                // Close menus only if click is outside the navigation
+                if (!$target.closest('.sideNavigation').length) {
+                    if (isMobile()) {
+                        $('.sideNavigation ul > li').removeClass('open').find('ul').slideUp();
+                    }
+                }
+            });
+
+            // Ensure normal links without submenus navigate properly
+            $('.sideNavigation ul li a').not(':has(+ ul)').click(function () {
+                window.location.href = $(this).attr('href');
+            });
         });
+
+
+
 
 
 
