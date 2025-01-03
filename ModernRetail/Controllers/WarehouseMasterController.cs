@@ -198,7 +198,7 @@ namespace ModernRetail.Controllers
                 warehouse.ContactName = dt.Rows[0]["CONTACT_NAME"].ToString();
                 warehouse.ContactPhone = dt.Rows[0]["CONTACT_PHONE"].ToString();
                 warehouse.isDefault = dt.Rows[0]["ISDEFAULT"].ToString();
-                warehouse.Distributer = dt.Rows[0]["DISTRIBUTER_CODE"].ToString();
+                //warehouse.Distributer = dt.Rows[0]["DISTRIBUTER_CODE"].ToString();
             }
             return Json(warehouse, JsonRequestBehavior.AllowGet);
         }
@@ -254,22 +254,22 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(column =>
             {
-                column.Caption = "Address 1";
+                column.Caption = "Address";
                 column.FieldName = "ADDRESS1";
 
             });
-            settings.Columns.Add(column =>
-            {
-                column.Caption = "Address 2";
-                column.FieldName = "ADDRESS2";
+            //settings.Columns.Add(column =>
+            //{
+            //    column.Caption = "Address 2";
+            //    column.FieldName = "ADDRESS2";
 
-            });
-            settings.Columns.Add(column =>
-            {
-                column.Caption = "Address 3";
-                column.FieldName = "ADDRESS3";
+            //});
+            //settings.Columns.Add(column =>
+            //{
+            //    column.Caption = "Address 3";
+            //    column.FieldName = "ADDRESS3";
 
-            });
+            //});
 
             settings.Columns.Add(column =>
             {
@@ -314,11 +314,11 @@ namespace ModernRetail.Controllers
                 column.FieldName = "STORE_NAME";
             });
 
-            settings.Columns.Add(column =>
-            {
-                column.Caption = "Is Default";
-                column.FieldName = "ISDEFAULT";
-            });
+            //settings.Columns.Add(column =>
+            //{
+            //    column.Caption = "Is Default";
+            //    column.FieldName = "ISDEFAULT";
+            //});
 
             settings.Columns.Add(column =>
             {
@@ -425,6 +425,27 @@ namespace ModernRetail.Controllers
                 List<Getmasterstock> modelshop = new List<Getmasterstock>();
                 DataTable dtshop = objwar.GetShopListByparam(StateId, "ShopbyState", "4");
                 modelshop = APIHelperMethods.ToModelList<Getmasterstock>(dtshop);
+
+                List<GETSTORE> productdata = new List<GETSTORE>();
+                GETSTORE dataobj = new GETSTORE();
+                // DataSet output = new DataSet();
+                DataTable output = objwar.MasterdataView("WAREHOUSEDETAILS", model.WarehouseID);
+                //output = obj.EditQuestion(QUESTIONS_ID);
+                if (output != null && output.Rows.Count > 0)
+                {                   
+                        
+                        foreach (DataRow row in output.Rows)
+                        {
+                            dataobj = new GETSTORE();
+                            dataobj.ID = Convert.ToString(row["STORE_ID"]);
+                            productdata.Add(dataobj);
+
+                        }
+                        ViewBag.STORE_IDS = productdata;
+                   
+
+                }
+               
                 return PartialView("_ShopPartial", modelshop);
             }
             catch

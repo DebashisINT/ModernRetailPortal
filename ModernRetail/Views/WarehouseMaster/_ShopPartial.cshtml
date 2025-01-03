@@ -27,7 +27,7 @@
         settings.Columns.Add(column =>
         {
             column.FieldName = "Name";
-            column.Caption = "Shop Name";
+            column.Caption = "Store Name";
             column.Width = System.Web.UI.WebControls.Unit.Percentage(85);
         });
 
@@ -48,11 +48,25 @@
         settings.DataBound = (sender, e) =>
         {
             var gridLookup = (MVCxGridLookup)sender;
-            gridLookup.GridView.Width = 310;
-
-            //gridLookup.GridView.Settings.wi
+            gridLookup.GridView.Width = 310;            
         };
 
+        //settings.PreRender = (s, e) =>
+        //{
+        //    if (ViewBag.STORE_IDS != null)
+        //    {
+
+        //        foreach (var item in ViewBag.STORE_IDS)
+        //        {
+        //            MVCxGridLookup l = s as MVCxGridLookup;
+        //            l.GridView.Selection.SelectRowByKey(item.ID);
+
+        //        }
+        //    }
+
+        //};
+
+       
     }).BindList(Model).GetHtml()
 
 
