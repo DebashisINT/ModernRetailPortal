@@ -848,67 +848,125 @@
         var falgs = true;
         if ($('#txtWarehouse').val() == "") {
             //jAlert("Enter Warehouse Name.");
-            jAlert("Enter Warehouse Name.", "alert", function () {
-                $('#txtWarehouse').focus();
+            //jAlert("Enter Warehouse Name.", "alert", function () {
+            //    $('#txtWarehouse').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Warehouse Name.'
             });
-
 
 
             falgs = false;
         }
         else if ($('#txtAddress1').val() == "") {
             //jAlert("Enter Address.");
-            jAlert("Enter Address.", "alert", function () {
-                $('#txtAddress1').focus();
+            //jAlert("Enter Address.", "alert", function () {
+            //    $('#txtAddress1').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Address.'
             });
+
+
+
             falgs = false;
         }
         else if ($('#ddlCountry').val() == "" || $('#ddlCountry').val() == "0") {
             //jAlert("Select Country.");
-            jAlert("Select Country.", "alert", function () {
-                $('#ddlCountry').focus();
+            //jAlert("Select Country.", "alert", function () {
+            //    $('#ddlCountry').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Country.'
             });
+
             falgs = false;
         }
         else if ($('#ddlState').val() == "" || $('#ddlState').val() == "0") {
             //jAlert("Select State.");
-            jAlert("Select State.", "alert", function () {
-                $('#ddlState').focus();
+            //jAlert("Select State.", "alert", function () {
+            //    $('#ddlState').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select State.'
             });
             falgs = false;
         }
         else if ($('#ddlCityDistrict').val() == "" || $('#ddlCityDistrict').val() == "0") {
             //jAlert("Select City/District.");
-            jAlert("Select City/District.", "alert", function () {
-                $('#ddlCityDistrict').focus();
+            //jAlert("Select City/District.", "alert", function () {
+            //    $('#ddlCityDistrict').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select City/District.'
             });
             falgs = false;
         }
         else if ($('#txtPin').val() == "") {
             //jAlert("Enter Pin.");
-            jAlert("Enter Pin.", "alert", function () {
-                $('#txtPin').focus();
+            //jAlert("Enter Pin.", "alert", function () {
+            //    $('#txtPin').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Pin.'
             });
+
+
             falgs = false;
         }
         else if ($('#txtContactName').val() == "") {
             //jAlert("Enter Contact Person Name.");
-            jAlert("Enter Contact Person Name.", "alert", function () {
-                $('#txtContactName').focus();
+            //jAlert("Enter Contact Person Name.", "alert", function () {
+            //    $('#txtContactName').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Contact Person Name.'
             });
+
+
+
+
             falgs = false;
         }
         else if ($('#txtContactPhone').val() == "") {
             //jAlert("Enter Contact Person Phone.");
-            jAlert("Enter Contact Person Phone.", "alert", function () {
-                $('#txtContactPhone').focus();
+            //jAlert("Enter Contact Person Phone.", "alert", function () {
+            //    $('#txtContactPhone').focus();
+            //});
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Enter Contact Person Phone.'
             });
+
+
+
             falgs = false;
         }
-        else if (ShopId=="") {
-            jAlert("Select distributor.", "alert", function () {
-
+        else if (ShopId == "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select distributor.'
             });
+
+            //jAlert("Select distributor.", "alert", function () {
+
+            //});
             falgs = false;
         }
 

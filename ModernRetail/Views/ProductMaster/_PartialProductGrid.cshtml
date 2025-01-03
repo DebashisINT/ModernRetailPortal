@@ -1,7 +1,4 @@
-﻿@*====================================================== Revision History ==========================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@* Written by Sanchita for  v2.0.46  on 13/03/2024     New Product Module shall be implemented for ITC Refer: 27289 *@
-@*====================================================== Revision History ==========================================================*@
+﻿
 
 @Html.DevExpress().GridView(settings =>
 {
@@ -22,7 +19,7 @@
     settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "30", "40", "50" };
     settings.SettingsPager.PageSizeItemSettings.Visible = true;
     settings.SettingsPager.PageSize = 10;
-    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
     settings.Settings.ShowFilterRowMenu = true;
     //Rev Pallab: grid modification
     settings.ClientSideEvents.EndCallback = "OnEndCallback";

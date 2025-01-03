@@ -178,6 +178,19 @@
       <Column Name="MODIFIED_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MR_MEASUREMENTS_LIST" Member="MR_MEASUREMENTS_LISTs">
+    <Type Name="MR_MEASUREMENTS_LIST">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Size_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Size_Name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Size_Description" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateUser" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifyUser" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.MR_WAREHOUSE_LIST" Member="MR_WAREHOUSE_LISTs">
     <Type Name="MR_WAREHOUSE_LIST">
       <Column Name="SEQ" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -190,7 +203,7 @@
       <Column Name="PIN" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="CONTACT_NAME" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
       <Column Name="CONTACT_PHONE" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="STORE_NAME" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="STORE_NAME" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ISDEFAULT" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="CREATE_ON" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UPDATE_ON" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -199,19 +212,6 @@
       <Column Name="city_name" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
       <Column Name="state" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
       <Column Name="cou_country" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.MR_MEASUREMENTS_LIST" Member="MR_MEASUREMENTS_LISTs">
-    <Type Name="MR_MEASUREMENTS_LIST">
-      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="Size_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Size_Name" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
-      <Column Name="Size_Description" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
-      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreateUser" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ModifyUser" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -55,29 +55,29 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "ADDRESS1";
-        x.Caption = "Address 1";
+        x.Caption = "Address";
         x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
     });
 
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ADDRESS2";
-        x.Caption = "Address 2";
-        x.VisibleIndex = 3;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-    });
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "ADDRESS2";
+    //    x.Caption = "Address 2";
+    //    x.VisibleIndex = 3;
+    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+    //    //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+    //});
 
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ADDRESS3";
-        x.Caption = "Address 3";
-        x.VisibleIndex = 4;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-    });
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "ADDRESS3";
+    //    x.Caption = "Address 3";
+    //    x.VisibleIndex = 4;
+    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+    //    //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+    //});
 
     settings.Columns.Add(x =>
     {
@@ -140,15 +140,16 @@
     {
         x.FieldName = "STORE_NAME";
         x.Caption = "Distributor";
+        x.Width = 300;
         x.VisibleIndex = 11;
     });
 
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ISDEFAULT";
-        x.Caption = "Is Default";
-        x.VisibleIndex = 12;
-    });
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "ISDEFAULT";
+    //    x.Caption = "Is Default";
+    //    x.VisibleIndex = 12;
+    //});
 
     settings.Columns.Add(x =>
     {
@@ -205,7 +206,10 @@
 
         x.SetDataItemTemplateContent(c =>
         {
-            //ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"WarehouseDeleet('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\">Delete</a>");
+            //if (ViewBag.CanEdit)
+            //{
+            //ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+            // }
             ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"WarehouseDeleet('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src=\"../../../assests/images/Delete.png\" /></a>");
         });
     });

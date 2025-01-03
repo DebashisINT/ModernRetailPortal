@@ -31,6 +31,7 @@ namespace ModernRetail.Models
 
     public class EmployeeListModel
     {
+        public String WarehouseID { get; set; }
         public List<string> StateId { get; set; }
         public List<string> desgid { get; set; }
         public List<string> shopId { get; set; }
@@ -86,5 +87,11 @@ namespace ModernRetail.Models
         public String ReportTo { get; set; }
         public String State { get; set; }
         public String Address { get; set; }
+    }
+
+    public class GETSTORE
+    {       
+        public string ID { get; set; }
+        public string NAME { get; set; }
     }
 }
