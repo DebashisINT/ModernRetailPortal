@@ -1001,7 +1001,15 @@
                 traditional: true,
                 success: function (data) {
                     if (data == "Ware house added successfully.") {
-                        jAlert(data);
+                        //jAlert(data);
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: data
+                        });
+
+
                         Clear();
                         gridWareHouseList.Refresh();
                         gridWareHouseList.Refresh();
@@ -1155,10 +1163,15 @@
         $('#ddlDistributer').val(0).change();
         $('#ddlCityDistrict').val(0).change();
         document.getElementById("chkDefault").checked = false;
+        ShopId = [];
+        $('#ShopGridLookup_I').val("");
     }
 
     function WarehouseDeleet(obj) {
-        jConfirm('Confirm Delete?', 'Alert', function (r) {
+
+        $("#WareHouse_ID").val(obj);
+
+        @*jConfirm('Confirm Delete?', 'Alert', function (r) {
             if (r) {
                 $("#WareHouse_ID").val(obj);
                 $.ajax({
@@ -1180,6 +1193,51 @@
             }
             else {
                 // alert("false");
+            }
+        });*@
+
+
+            Swal.fire({
+            title: 'Are you sure you want to delete?',
+            text: "This action cannot be undone!",
+            imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+            imageWidth: 40, // Adjust the width as needed
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("WareHouseDelete", "WarehouseMaster")',
+                    data: { WareHouse_ID: obj },
+                    success: function (response) {
+                       /* if (parseInt(response) > 0) {*/
+                        if (response == "Deleted Successfully.") { 
+                            // SweetAlert success message with custom icon
+                            Swal.fire({
+                                title: 'Deleted!',
+                                text: 'The record has been deleted successfully.',
+                                /*imageUrl: '/path/to/your/success-icon.png', */
+                                /*imageWidth: 50, */
+                                icon: 'success' // You can also keep the built-in icon type
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else if (parseInt(response) == -1) {
+                            // SweetAlert error message with custom icon
+                            Swal.fire({
+                                title: 'Sorry!',
+                                text: 'Warehouse  already mapped with another module. Cannot delete.',
+                                imageUrl: '/path/to/your/error-icon.png',
+                                imageWidth: 50,
+                                icon: 'error' // You can also keep the built-in icon type
+                            });
+                        }
+                    }
+                });
             }
         });
     }
