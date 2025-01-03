@@ -27,7 +27,7 @@ namespace ModernRetail.Models
             DataTable dt = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("MR_FetchReportTo");
             proc.AddPara("@action", "GETONDEMANDREPORTTO");
-            proc.AddPara("@userid", Convert.ToString(Session["userid"]));
+            proc.AddPara("@userid", Convert.ToString(Session["MRuserid"]));
             proc.AddPara("@reqName", SearchKey);
             dt = proc.GetTable();
 
@@ -40,5 +40,40 @@ namespace ModernRetail.Models
             }
             return listEmployee;
         }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetUserList(string SearchKey)
+        {
+            List<UsersModel> listUser = new List<UsersModel>();
+            if (HttpContext.Current.Session["MRuserid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+
+                ProcedureExecute proc = new ProcedureExecute("PRC_UserNameSearch");
+                proc.AddPara("@USER_ID", Convert.ToInt32(Session["MRuserid"]));
+                proc.AddPara("@SearchKey", SearchKey);
+                DataTable Shop = proc.GetTable();
+                listUser = (from DataRow dr in Shop.Rows
+                            select new UsersModel()
+                            {
+                                USER_NAME = dr["user_name"].ToString(),
+                                USER_LOGINID = dr["user_loginId"].ToString(),
+                                USER_ID = Convert.ToString(dr["user_id"]),
+                            }).ToList();
+            }
+
+            return listUser;
+        }
+
+        public class UsersModel
+        {
+            public string USER_ID { get; set; }
+            public string USER_NAME { get; set; }
+            public string USER_LOGINID { get; set; }
+        }
+
     }
 }

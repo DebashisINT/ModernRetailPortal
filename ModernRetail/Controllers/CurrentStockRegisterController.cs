@@ -204,7 +204,7 @@ namespace ModernRetail.Controllers
                             ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
                             proc.AddPara("@ACTION", "IMPORTCURRENTSTOCK");
                             proc.AddPara("@IMPORT_TABLE", dtExcelData);
-                            proc.AddPara("@User_Id", Convert.ToInt32(Session["userid"]));
+                            proc.AddPara("@User_Id", Convert.ToInt32(Session["MRuserid"]));
                             dtCmb = proc.GetTable();
 
                         }
@@ -235,7 +235,7 @@ namespace ModernRetail.Controllers
                         ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
                         proc.AddPara("@Action", "SHOWIMPORTLOG");
                         proc.AddPara("@IMPORT_TABLE", (DataTable)TempData["CurrentStockImportLog"]);
-                        proc.AddPara("@User_Id", Convert.ToInt32(Session["userid"]));
+                        proc.AddPara("@User_Id", Convert.ToInt32(Session["MRuserid"]));
                         dt = proc.GetTable();
                     }
 
@@ -334,7 +334,7 @@ namespace ModernRetail.Controllers
 
 
 
-                string user_id = Convert.ToString(Session["userid"]);
+                string user_id = Convert.ToString(Session["MRuserid"]);
 
                 string action = string.Empty;
                 DataTable formula_dtls = new DataTable();
@@ -363,9 +363,9 @@ namespace ModernRetail.Controllers
         public IEnumerable GetCurrentStockDetails(string Is_PageLoad)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-            string Userid = Convert.ToString(Session["userid"]);
+            string Userid = Convert.ToString(Session["MRuserid"]);
 
-            ////////DataTable dtColmn = GetPageRetention(Session["userid"].ToString(), "CRM Contact");
+            ////////DataTable dtColmn = GetPageRetention(Session["MRuserid"].ToString(), "CRM Contact");
             ////////if (dtColmn != null && dtColmn.Rows.Count > 0)
             ////////{
             ////////    ViewBag.RetentionColumn = dtColmn;//.Rows[0]["ColumnName"].ToString()  DataTable na class pathao ok wait
@@ -406,10 +406,10 @@ namespace ModernRetail.Controllers
                 }
 
 
-                string user_id = Convert.ToString(Session["userid"]);
+                string user_id = Convert.ToString(Session["MRuserid"]);
 
                 string rtrnvalue = "";
-                string Userid = Convert.ToString(Session["userid"]);
+                string Userid = Convert.ToString(Session["MRuserid"]);
                 ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
                 proc.AddPara("@ACTION", data.Action);
                 proc.AddPara("@STOCKID", data.StockId);

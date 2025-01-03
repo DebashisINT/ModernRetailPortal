@@ -32,6 +32,13 @@ namespace ModernRetail.Controllers
 
         public ActionResult UserMasterList()
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UserMasterList", "UserConfiguration");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
             objdata.user_id = 0;
             TempData["user_id"] = null;
 
