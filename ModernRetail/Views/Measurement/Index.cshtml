@@ -774,9 +774,10 @@
 
     }
     /*Rev End Pallab: grid modification*/
-    function AddBrand() {
+    function AddMeasurement() {
         $("#hdnID").val('0');
         $("#txtMeasurement").val('');
+        $("#txtDescription").val('');        
         $("#MeasurementModal").modal('show')
     }
 
@@ -945,7 +946,7 @@
                 <div class="add-show-btns">
                     @if (ViewBag.CanAdd)
                     {
-                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddBrand();">
+                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddMeasurement();">
                             <span class="btn-icon"><i class="fa fa-plus"></i></span> Measurements
                         </button>
                     }
