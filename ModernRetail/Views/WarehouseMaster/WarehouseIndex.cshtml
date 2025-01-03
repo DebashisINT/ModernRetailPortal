@@ -126,14 +126,14 @@
 
     .h-branch-select {
         position: relative;
-        background: #fff;
+        /*background: #fff;*/
     }
 
         .h-branch-select::after {
             content: '<';
             position: absolute;
-            top: 8px;
-            right: -2px;
+            top: 33px;
+            right: 13px;
             font-size: 18px;
             transform: rotate(269deg);
             font-weight: 500;
@@ -750,8 +750,26 @@
         padding-right: 22px;
     }
     /*Rev End Pallab: grid modification*/
+
+    .crossBtnN {
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .dashboardHighlightWrap {
+        overflow: visible !important;
+    }
+
+    #ShopGridLookup_DDD_PW-1 {
+        top: 58px !important;
+    }
 </style>
 <script>
+    function WarehouseAdd() {
+        Cancel()
+    }
+
+
     $(document).ready(function () {
         $('#txtWarehouse').focus();
         $("#divPage").addClass("hidden");
@@ -1159,44 +1177,45 @@
         <span>
             Warehouse Master
         </span>
+        <div id="ApprovalCross" onclick="WarehouseAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
     </div>
 
     <div class="container">
         <div class="backBox mt-5 p-3 ">
             <div class="form-group">
                 <div class="row mb-3">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label>Name <span style="color:red">*</span></label>
                         @*<input type="text" class="form-control" />*@
                         @Html.TextBoxFor(m => m.WarehouseName, new { @class = "form-control", @id = "txtWarehouse" })
                     </div>
-                </div>
+                @*</div>
 
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label>Address 1 <span style="color:red">*</span></label>
+                <div class="row mb-3">*@
+                    <div class="col-md-6">
+                        <label>Address <span style="color:red">*</span></label>
                         @*<input type="text" class="form-control" />*@
                         @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @id = "txtAddress1" })
                     </div>
-                    <div class="col-md-4">
+                    @*<div class="col-md-4">
                         <label>Address 2 </label>
-                        @*<input type="text" class="form-control" />*@
+                        
                         @Html.TextBoxFor(m => m.Address2, new { @class = "form-control", @id = "txtAddress2" })
                     </div>
                     <div class="col-md-4">
                         <label>Address 3 </label>
-                        @*<input type="text" class="form-control" />*@
+                        
                         @Html.TextBoxFor(m => m.Address3, new { @class = "form-control", @id = "txtAddress3" })
-                    </div>
+                    </div>*@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-md-2 h-branch-select">
+                    <div class="col-md-3 h-branch-select">
                         <label>Country <span style="color:red">*</span></label>
                         @*<input type="text" class="form-control" />*@
                         @Html.DropDownList("ddlCountry", new SelectList(Model.Country_List, "cou_id", "cou_country"), new { @name = "from", @class = "full form-control", @Onchange = "CoutryChange()" })
                     </div>
-                    <div class="col-md-2 h-branch-select">
+                    <div class="col-md-3 h-branch-select">
                         <label>State <span style="color:red">*</span></label>
                         <div id="divState">
                             @*<input type="text" class="form-control" />*@
@@ -1204,14 +1223,14 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2  h-branch-select">
+                    <div class="col-md-3  h-branch-select">
                         <label>City/District <span style="color:red">*</span></label>
                         <div id="divCity">
                             @*<input type="text" class="form-control" />*@
                             @Html.DropDownList("ddlCityDistrict", new SelectList(Model.CityDistrict_List, "city_id", "city_name"), new { @name = "from", @class = "full form-control" })
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label>Pin <span style="color:red">*</span></label>
                         @*<input type="text" class="form-control" />*@
                         @Html.TextBoxFor(m => m.Pin, new { @class = "form-control", @id = "txtPin" })
@@ -1219,18 +1238,18 @@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label>Contact Person Name <span style="color:red">*</span></label>
                         @*<input type="text" class="form-control" />*@
                         @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control", @id = "txtContactName" })
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label>Contact Person Phone <span style="color:red">*</span></label>
                         @*<input type="text" class="form-control" />*@
                         @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", @id = "txtContactPhone" })
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label>Distributor <span style="color:red">*</span></label>
                         @Html.Action("GetShopList", "WarehouseMaster")
                     </div>
@@ -1240,8 +1259,8 @@
                     </div>
                 </div>
                 <div class="row mx-1">
-                    <label>&nbsp;</label>
-                    <button type="button" id="btnSave" class="btn btn-success save-btn" onclick="SaveWareHouse()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span>Save and Exit</button>
+                    @*<label>&nbsp;</label>*@
+                    <button type="button" id="btnSave" class="btn btn-success save-btn mr-3" onclick="SaveWareHouse()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span>Save and Exit</button>
                     <button type="button" class="btn btn-cancel cancel-catg" onclick="Cancel()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
                 </div>
@@ -1265,7 +1284,7 @@
         <div class="backBox mt-5 p-3 ">
             <div class="form-group mb-4">
                 @*<button id="btnNew" class="btn btn-success mr-2 mb-3" onclick="NewWareHouse()">Add New</button>*@
-                <button type="button" id="btnNew" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="NewWareHouse();">
+                <button type="button" id="btnNew" class="btn add-btn mb-3" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="NewWareHouse();">
                     <span class="btn-icon"><i class="fa fa-plus"></i></span> Add New
                 </button>
 
@@ -1279,7 +1298,7 @@
 
                     </select>*@
 
-                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container mb-3">
                     <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
                     <div class="tooltip">Export to XLSX</div>
                 </button>
