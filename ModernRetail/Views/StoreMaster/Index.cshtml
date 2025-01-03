@@ -1,7 +1,1337 @@
 ﻿
+@using System.Web.UI.WebControls
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+
+@using ModernRetail.Models;
+@model ModernRetail.Models.StoreMasterModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "PartyList";
 }
+<link href="~/assests/css/custom/PMSStyles.css" rel="stylesheet" />
+<script src="~/Scripts/SearchPopup.js"></script>
+@*<link href="~/assests/css/custom/SearchPopup.css" rel="stylesheet" />*@
+<link href="~/assests/css/custom/SearchPopup.css" rel="stylesheet" />
+<script src="~/assests/pluggins/choosen/choosen.min.js"></script>
+<script src="~/Scripts/SearchMultiPopup.js"></script>
 
-<h2>Index</h2>
+<link href="~/Scripts/pluggins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
 
+<script>
+    var Is_PageLoad = "Ispageload";
+
+    function CountryChange() {
+        $.ajax({
+            type: "post",
+            url: "@Url.Action("GetState", "StoreMaster")",
+            data: { Country: $('#ddlCountry').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var status = "<select id='ddlState' onchange = 'StateChange();' class = 'form-control'>";
+                // status = status + '<option value="0">--Select--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    status = status + '<option value=' + data[i].StateID + '>' + data[i].StateName + '</option>';
+                }
+                status = status + '</select>';
+                $('#statediv').html(status);
+                $("#ddlState").val(0);
+            }
+        });
+
+        var City = "<select id='ddlCity' onchange = 'CityChange();' class = 'form-control'>";
+        City = City + '<option value="0">Select</option>';
+        City = City + '</select>';
+        $('#Citydiv').html(City);
+
+        //var Area = "<select id='ddlArea' class = 'form-control'>";
+        //Area = Area + '<option value="0">Select</option>';
+        //Area = Area + '</select>';
+        //$('#Areadiv').html(Area);
+
+    }
+
+    function StateChange() {
+        var storetype = $("#ddlstoretypesr").val();
+        var stateid = $("#ddlState").val();
+        if (stateid != "0") {
+
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("GetCity", "StoreMaster")",
+                data: { State: $('#ddlState').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var status = "<select id='ddlCity' onchange = 'CityChange();' class = 'form-control'>";
+                    for (var i = 0; i < data.length; i++) {
+                        status = status + '<option value=' + data[i].CityID + '>' + data[i].CityName + '</option>';
+                    }
+                    status = status + '</select>';
+                    $('#Citydiv').html(status);
+                    $("#ddlCity").val(0);
+                }
+            });
+
+            //var Area = "<select id='ddlArea' class = 'form-control'>";
+            //Area = Area + '<option value="0">Select</option>';
+            //Area = Area + '</select>';
+            //$('#Areadiv').html(Area);
+
+        }
+    }
+
+    
+
+    $(document).ready(function () {
+        $('#UserSearchModel').on('shown.bs.modal', function () {
+            $('#txtUserSearch').focus();
+        })
+        $('#OldUserSearchModel').on('shown.bs.modal', function () {
+            $('#txtOldUserSearch').focus();
+        })
+    });
+
+    function Userkeydown(e) {
+        var OtherDetails = {}
+        if ($.trim($("#txtUserSearch").val()) == "" || $.trim($("#txtUserSearch").val()) == null) {
+            return false;
+        }
+        OtherDetails.SearchKey = $("#txtUserSearch").val();
+
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+            var HeaderCaption = [];
+            HeaderCaption.push("User Name");
+            HeaderCaption.push("User Login Id");
+            
+
+            if ($("#txtUserSearch").val() != "") {
+                callonServer("../../../Models/MRService.asmx/GetUserList", OtherDetails, "UserTable", HeaderCaption, "UserIndex", "SetUser");
+            }
+        }
+        else if (e.code == "ArrowDown") {
+            if ($("input[UserIndex=0]"))
+                $("input[UserIndex=0]").focus();
+        }
+    }
+
+    function SetUser(id, Name) {
+        var key = id;
+        $('#hdnUserID').val(id)
+        if (key != null && key != '') {
+            $('#UserSearchModel').modal('hide');
+            UserTxt.SetText(Name);
+            UserTxt.SetFocus();
+        }
+    }
+
+    function UserButnClick(s, e) {
+        $('#UserSearchModel').modal('show');
+    }
+
+    function User_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+            $('#UserSearchModel').modal('show');
+            $("#txtUserSearch").focus();
+        }
+    }
+
+    function OldUserkeydown(e) {
+        var OtherDetails = {}
+        if ($.trim($("#txtOldUserSearch").val()) == "" || $.trim($("#txtOldUserSearch").val()) == null) {
+            return false;
+        }
+        OtherDetails.SearchKey = $("#txtOldUserSearch").val();
+
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+            var HeaderCaption = [];
+            HeaderCaption.push("User Name");
+            HeaderCaption.push("User Login Id");
+
+            if ($("#txtOldUserSearch").val() != "") {
+                callonServer("../../../Models/MRService.asmx/GetUserList", OtherDetails, "OldUserTable", HeaderCaption, "OldUserIndex", "SetOldUser");
+            }
+        }
+        else if (e.code == "ArrowDown") {
+            if ($("input[UserIndex=0]"))
+                $("input[UserIndex=0]").focus();
+            else if ($("input[OldUserIndex=0]"))
+                $("input[OldUserIndex=0]").focus();
+        }
+    }
+
+    function SetOldUser(id, Name) {
+        var key = id;
+        $('#hdnOldUserID').val(id)
+        if (key != null && key != '') {
+            $('#OldUserSearchModel').modal('hide');
+            OldUserTxt.SetText(Name);
+            OldUserTxt.SetFocus();
+        }
+    }
+
+    function OldUserButnClick(s, e) {
+        $('#OldUserSearchModel').modal('show');
+    }
+
+    function OldUser_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+            $('#OldUserSearchModel').modal('show');
+            $("#txtOldUserSearch").focus();
+        }
+    }
+
+    function ClearData() {
+        $("#hdnstoreMode").val('Add');
+        $("#hdnStoreCode").val('');
+        $("#myModalLabel").val("Add Store");
+        $("#ddlCountry").val('0');
+        $("#ddlState").val('0');
+        $("#ddlCity").val('0');
+        $("#ddlStoreType").val('0');
+        $("#ddlStatus").val('0');
+
+        $("#txtStoreName").val('');
+        $("#txtAddress").val('');
+        $("#txtPinCode").val('');
+        $("#txtArea").val('');
+        $("#txtLocationLat").val('');
+        $("#txtLocationLang").val('');
+        $("#txtRemarks").val('');
+        $("#txtContactName").val('');
+        $("#txtContactNo").val('');
+        $("#txtAlternateContact").val('');
+        $("#txtWhatsappNumber").val('');
+        $("#txtEmail").val('');
+
+        $('#hdnUserID').val('0')
+        UserTxt.SetText('');
+        $('#hdnOldUserID').val('0')
+        OldUserTxt.SetText('');
+
+        $("#uploadFile").val('');
+
+    }
+
+    function AddStore(values) {
+        if ($("#ddlCountry").val() == "0") {
+            jAlert("Please select Country.", "Alert", function () {
+                setTimeout(function () {
+                    $("#ddlCountry").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        if ($("#ddlState").val() == "0") {
+            jAlert("Please select State.", "Alert", function () {
+                setTimeout(function () {
+                    $("#ddlState").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        if ($("#ddlCity").val() == "0" || $("#ddlCity").val() == "") {
+            jAlert("Please select District.", "Alert", function () {
+                setTimeout(function () {
+                    $("#ddlCity").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        if ($("#txtStoreName").val() == "" || $("#txtStoreName").val() == null || $("#txtStoreName").val() == undefined) {
+            jAlert("Please enter Store Name.", "Alert", function () {
+                setTimeout(function () {
+                    $("#txtStoreName").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        if ($("#txtAddress").val() == "" || $("#txtAddress").val() == null || $("#txtAddress").val() == undefined) {
+            jAlert("Please enter Address.", "Alert", function () {
+                setTimeout(function () {
+                    $("#txtAddress").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        if ($("#txtPinCode").val() == "" || $("#txtPinCode").val() == null || $("#txtPinCode").val() == undefined) {
+            jAlert("Please enter Pin Code.", "Alert", function () {
+                setTimeout(function () {
+                    $("#txtPinCode").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        if ($("#ddlStatus").val() == "0") {
+            jAlert("Please select Status.", "Alert", function () {
+                setTimeout(function () {
+                    $("#ddlStatus").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        if ($("#ddlStoreType").val() == "0") {
+            jAlert("Please select Store Type.", "Alert", function () {
+                setTimeout(function () {
+                    $("#ddlStoreType").focus();
+                    return
+                }, 200);
+            });
+            return
+        }
+
+        var mail = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if ($("#txtEmail").val() != "") {
+            if (!mail.test($("#txtEmail").val().trim())) {
+                jAlert("Please Enter Valid Email.", "Alert", function () {
+                    setTimeout(function () {
+                        $("#txtEmail").focus();
+                        return
+                    }, 200);
+                });
+                return
+            }
+        }
+
+        if (window.FormData !== undefined) {
+            var fileUpload = $("#uploadFile").get(0);
+            var files = fileUpload.files;
+            var fileData = new FormData();
+
+            for (var i = 0; i < files.length; i++) {
+                fileData.append('shop_image', files[i]);
+            }
+
+            var shop_idd = "";
+            if ($("#hdnShopMode").val() != 'Edit') {
+                if (fileUpload.files.length > 0) {
+                    shop_idd = $("#hdnUserID").val() + '_' + middle;
+                }
+            }
+            else {
+                shop_idd = $("#hdnShopCode").val();
+            }
+
+            if (fileUpload.files.length > 0) {
+
+                var isprocess = false;
+                var extension = $("#uploadFile").val().replace(/^.*\./, '');
+                switch (extension.toLowerCase()) {
+                    case 'jpg':
+                        isprocess = true;
+                    case 'jpeg':
+                        isprocess = true;
+                    case 'png':
+                        isprocess = true;
+                    case 'gif':
+                        isprocess = true;
+                    default:
+                        // Cancel the form submission
+                        if (!isprocess) {
+                            jAlert('Invalid file.');
+                            return false;
+                            return
+                        }
+                }
+                if ($("#uploadFile").get(0).files[0].size / 1024 / 1024 > 1) {
+                    jAlert('File size upto 1 MB.');
+                    return false;
+                    return
+                }
+            }
+
+            var data = {
+                store_id = s2.store_id,
+                store_name = s2.store_name,
+                store_address = s2.store_address,
+                store_pincode = s2.store_pincode,
+                store_lat = s2.store_lat,
+                store_long = s2.store_long,
+                store_contact_name = s2.store_contact_name,
+                store_contact_number = s2.store_contact_number,
+                store_alternet_contact_number=s2.store_alternet_contact_number,
+                store_whatsapp_number = s2.store_whatsapp_number,
+                store_email = s2.store_email,
+                store_type=s2.store_type,
+                store_size_area = s2.store_size_area,
+                store_state_id = s2.store_state_id,
+                remarks = s2.remarks,
+                create_date_time = s2.create_date_time
+
+            }
+
+
+
+
+
+
+        }
+        else {
+
+
+        }
+
+    }
+
+</script>
+
+<style>
+    .pmsModal .modal-header {
+        background: #298ecc !important;
+        background-image: none !important;
+        padding: 11px 20px;
+        border: none;
+        border-radius: 20px 20px 0 0;
+        color: #fff;
+    }
+
+    .pmsModal .modal-content {
+        border: none;
+    }
+
+    .pmsModal .modal-header .modal-title {
+        font-size: 14px;
+    }
+
+    .pmsModal.w70 .modal-dialog {
+        /*Rev 3.0*/
+        /*width: 70%;*/
+        width: 76%;
+        /*Rev end 3.0*/
+    }
+
+    #myModal label {
+        font-weight: 500;
+        margin-top: 5px;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .sample {
+        font-size: 12px;
+        color: #d48a28;
+    }
+
+    .buttonphoto {
+        padding: 11px 12px;
+        display: inline-block;
+        background: #dee3f7;
+        margin-top: 11px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        .buttonphoto:hover {
+            background: #415ed2;
+            color: #fff;
+        }
+
+    .infoQ {
+        color: #4b98b8;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    #PanModel {
+        z-index: 9999;
+    }
+
+    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+        height: 30px;
+        padding: 3px 12px;
+    }
+
+    .modalScroll .modal-body {
+        max-height: 75vh !important;
+        overflow-y: auto;
+    }
+
+    .pmsModal .close {
+        font-weight: 400;
+        font-size: 25px;
+    }
+
+    .new-popup-width .modal-dialog {
+        width: 90% !important;
+    }
+
+    #myImportModal .modal-body {
+        border-radius: 0 0 20px 20px;
+    }
+    /*rev 1.0*/
+    .btn {
+        margin-bottom: 15px;
+    }
+    /*rev end 1.0*/
+
+    /*Rev 3.0*/
+    .dxeButtonEdit_PlasticBlue {
+        min-height: 30px;
+        border-radius: 4px;
+        border: 1px solid #cdcdcd;
+    }
+
+    .dxeButtonEditButton_PlasticBlue {
+        background: #094e8c !important;
+        border-radius: 4px !important;
+        padding: 0 4px !important;
+    }
+
+    #myModal label {
+        margin-top: 8px;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .General-part {
+        padding-bottom: 20px;
+        background: #fff4eb;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #9b0909;*/
+        border-bottom: 1px solid #9b090991;
+    }
+
+    .store-info {
+        padding-bottom: 20px;
+        background: #ebfff0;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #33974c;*/
+        border-bottom: 1px solid #33974c91;
+    }
+
+    .contact-info {
+        padding-bottom: 20px;
+        background: #f8ebff;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #7e3ea1;*/
+        border-bottom: 1px solid #7e3ea191;
+    }
+
+    .account-info {
+        padding-bottom: 20px;
+        background: #fffff0;
+        padding-top: 12px;
+        padding-left: 4px;
+        /* border-left: 5px solid #2d84b3; */
+        border-bottom: 1px solid #c3b66391;
+    }
+
+    .other-info {
+        padding-bottom: 20px;
+        background: #fff3f3;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #9eb329;*/
+        border-bottom: 1px solid #ef2a2a91;
+    }
+
+    .Loan-info {
+        padding-bottom: 20px;
+        background: #1c76770d;
+        padding-top: 12px;
+        padding-left: 4px;
+        /* border-left: 5px solid #9eb329; */
+        border-bottom: 1px solid #1c7677b5;
+    }
+
+    .pmsModal .modal-body {
+        /*Rev 5.0*/
+        /*padding-top: 0;*/
+        padding-top: 10px;
+        /*Rev end 5.0*/
+        padding-right: 15px;
+        padding-left: 15px;
+        /*Rev 5.0*/
+        /*padding-bottom: 0;*/
+        padding-bottom: 10px;
+        /*Rev end 5.0*/
+    }
+
+    .General-part h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #8c0909;
+        padding-left: 8px;
+    }
+
+    .store-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #33974c;
+        padding-left: 8px;
+    }
+
+    .contact-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #7e3ea1;
+        padding-left: 8px;
+    }
+
+    .account-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #bfaa15;
+        padding-left: 8px;
+    }
+
+    .other-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #e54949;
+        padding-left: 8px;
+    }
+
+    .Loan-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #1c7677;
+        padding-left: 8px;
+    }
+
+    .col-md-3, .col-md-6, .col-md-4 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+        padding: 3px 5px;
+    }
+
+    .red {
+        font-size: 12px;
+    }
+
+
+    /*Rev end 3.0*/
+
+    /*Rev 5.0*/
+    #EmployeeTable table tr th,
+    #PPModel table tr th,
+    .dynamicPopupTbl > tbody > tr > td input {
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .w-50 {
+        width: 50% !important
+    }
+
+    #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
+        left: 20px !important;
+    }
+
+    #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
+        margin-top: 15px;
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    .calendar-icon {
+        position: absolute;
+        bottom: 7px;
+        right: 12px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+        width: 160px;
+    }
+
+    .pmsModal .modal-content {
+        overflow: hidden;
+    }
+
+    /*Rev 4.0*/
+    .multiselect-container.dropdown-menu {
+        right: 0 !important;
+        left: auto;
+        min-width: 340px;
+    }
+
+    .iminentSpan .multiselect-container.dropdown-menu {
+        right: auto !important;
+        left: 0;
+        min-width: 340px;
+    }
+
+    .multiselect-container > li > a {
+        padding: 5px 0;
+    }
+
+        .multiselect-container > li > a input[type="checkbox"] {
+            transform: translateY(3px);
+        }
+
+    .multiselect-container > li.active > a {
+        background: transparent !important;
+        color: #333;
+    }
+
+        .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
+            background: #f3f3f3 !important;
+            color: #333 !important;
+            padding: 5px 0;
+        }
+
+    .multiselect-item.multiselect-filter {
+        padding-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .multiselect-item.multiselect-filter .form-control.multiselect-search {
+            height: 32px;
+        }
+
+        .multiselect-item.multiselect-filter .input-group-addon {
+            background: #41a8f1;
+            color: #fff;
+            border-color: #41a8f1;
+        }
+
+    .input-group-btn .multiselect-clear-filter {
+        background: #f98181;
+        color: #fffefe;
+        /* box-shadow: none; */
+        text-shadow: none;
+        border-color: #f96a6a;
+        padding: 5px 10px 4px 10px;
+    }
+
+    .multiselect.dropdown-toggle {
+        background: #fff;
+        border-radius: 0;
+    }
+
+    .iminentSpan > span {
+        display: block;
+    }
+
+    .btn-excel {
+        float: right;
+        margin-right: 38px;
+        margin-top: -4px;
+    }
+
+    .gridbinded {
+        position: absolute;
+        right: 15px;
+        top: 11px;
+    }
+
+    #cmbState + .btn-group > button {
+        border-radius: 4px;
+        height: 34px;
+    }
+
+    span.multiselect-native-select button {
+        border: 1px solid #c9c9c9 !important;
+        border-radius: 5px !important;
+    }
+
+    .pmsModal.w30 .modal-dialog {
+        max-width: 45%;
+    }
+
+    .mTop35 {
+        margin-top: 35px !important;
+    }
+
+    .multiselect-container {
+        position: static !important;
+    }
+
+    .iminentSpan .multiselect-container.dropdown-menu {
+        height: 300px;
+        overflow: auto;
+    }
+
+    .btn.multiselect-clear-filter {
+        margin-bottom: 0;
+        border-radius: 0 4px 4px 0 !important;
+        height: 32px;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            content: '<';
+            position: absolute;
+            top: 43px;
+            right: 13px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
+        }
+
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
+
+    .multiselect.dropdown-toggle, #ddlShowReport {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .open .dropdown-toggle.btn-default {
+        background: transparent !important;
+    }
+
+    .btn .caret {
+        display: none;
+    }
+
+    /*End of Rev 4.0*/
+
+    /*Rev end 5.0*/
+
+    /*Rev 8.0*/
+    #txtEmployeeSearch {
+        margin-bottom: 10px;
+    }
+
+    .btn-default {
+        background-color: #e0e0e0;
+    }
+    /*Rev end 8.0*/
+
+    .dxgvControl_PlasticBlue a {
+        margin: 0 3px;
+    }
+
+    .mTop5, .lblmTop8 {
+        margin-top: 10px !important;
+    }
+
+    #txtDOB_DDD_PWC-1 #txtDOB_DDD_C_FNP_PW-1 {
+        left: 65px !important;
+    }
+
+    #txtAnniversary_DDD_PWC-1 #txtAnniversary_DDD_C_FNP_PW-1 {
+        left: -55px !important;
+    }
+
+    .btn-mass-dlt-imp-log {
+        background: #874a03;
+        color: #fff;
+        transition: all .3s;
+    }
+
+        .btn-mass-dlt-imp-log:hover {
+            background: #bf6905;
+            color: #fff;
+        }
+
+    .btn-info {
+        background-color: #0698c4 !important;
+        transition: all .3s;
+    }
+
+        .btn-info:hover {
+            background-color: #21b9e7 !important;
+        }
+
+    .btn-danger {
+        background-color: #dd1d17 !important;
+        transition: all .3s;
+    }
+
+        .btn-danger:hover {
+            background-color: #f9413b !important;
+        }
+
+    .btn-success {
+        background-color: #1ba749 !important;
+        transition: all .3s;
+    }
+
+        .btn-success:hover {
+            background-color: #27d560 !important;
+        }
+
+    .btn-primary {
+        background-color: #033868 !important;
+    }
+
+        .btn-primary:hover {
+            background-color: #01519a !important;
+        }
+
+    .dxpcLite_PlasticBlue .dxpc-content, .dxdpLite_PlasticBlue .dxpc-content {
+        padding: 7px 10px 10px !important;
+    }
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        overflow: visible;
+    }
+
+    .party-list-buttons .btn {
+        border-radius: 50px;
+        margin-right: 8px;
+        transition: .3s;
+    }
+
+        .party-list-buttons .btn:hover {
+            transform: scale(1.1);
+        }
+
+    .plr-5 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .btn-warning {
+        background-color: #db8711;
+    }
+</style>
+
+<div class="breadCumb">
+    <span>Store Master</span>
+</div>
+
+@*<div class="overlay" id="loading-overlay">
+        <div class="flex-loader">
+            <img src="/assests/images/new-loader.gif" />
+            <h4>Data is loading, Please Wait</h4>
+        </div>
+
+    </div>*@
+
+<div class="container ">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="backBox mt-5 px-4">
+                <div class="row">
+                    <div class="col-md-12 party-list-buttons" style="padding-top: 15px;margin-bottom: 10px;">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Store
+                        </button>
+
+                    </div>
+                    <div class="clear"></div>
+                    <div class="col-md-2 for-cust-icon plr-5">
+                        <span>From Date</span>
+                        <div>
+                            @Html.DevExpress().DateEditFor(x => x.Fromdate,
+                        deSettings =>
+                        {
+                            deSettings.Name = "dtFrom";
+                            deSettings.Date = DateTime.Now;
+                            deSettings.Properties.UseMaskBehavior = true;
+                            deSettings.Properties.EditFormat = EditFormat.Custom;
+                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                        }).GetHtml()
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 for-cust-icon plr-5">
+                        <span>To Date</span>
+                        <div>
+                            @Html.DevExpress().DateEditFor(x => x.Todate,
+                        deSettings =>
+                        {
+                            deSettings.Name = "dtTo";
+                            deSettings.Date = DateTime.Now;
+                            deSettings.Properties.UseMaskBehavior = true;
+                            deSettings.Properties.EditFormat = EditFormat.Custom;
+                            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                            deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                        }).GetHtml()
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 plr-5" style="padding-top: 13px;">
+                        <span></span>
+                        <div>
+                            <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
+                            <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                                <option value="0">Export to</option>
+                                <option value="2">XLSX</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="scrooler">
+
+                    <div id="refreshgrid">
+                        @*@{
+                                Html.RenderAction("PartialStoreMasterGridList", "StoreMaster", new { Fromdate = Model.Fromdate, Todate = Model.Todate, Is_PageLoad = "Ispageload" });
+                            }*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade pmsModal w70 font-pp modalScroll" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ClearData();"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Store Add</h4>
+            </div>
+            <input type="hidden" id="hdnStoreCode" value="" />
+            <div class="modal-body inputShrink">
+                <div class="row">
+
+                    <div class="General-part">
+                        <h3 class="add-party-popup-section-title col-md-12">General</h3>
+                        <div class="col-md-3">
+                            <label>Country <span class="red">*</span></label>
+                            <div>
+                                @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryListstore, "cou_id", "cou_country", Model.CountryID), new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryChange();" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>State <span class="red">*</span></label>
+                            <div id="statediv">
+                                @Html.DropDownListFor(m => m.State, new SelectList(Model.StateListstore, "StateID", "StateName", Model.StateID), new { @id = "ddlState", @class = "form-control", @onchange = "StateChange();" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>District <span class="red">*</span></label>
+                            <div id="Citydiv">
+                                <select class="form-control">
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+
+
+                        <div class="store-info">
+                            <h3 class="add-party-popup-section-title col-md-12">Store Info</h3>
+
+                            <div class="col-md-3">
+                                <label>Store Name <span class="red">*</span></label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Store_Name, new { @class = "form-control", @id = "txtStoreName" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Address <span class="red">*</span></label>
+                                <div>
+                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Pin Code <span class="red">*</span></label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Pin_Code, new { @class = "form-control numbersOnly", @id = "txtPinCode", @MaxLength = "10" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Status <span class="red">*</span></label>
+                                <div>
+                                    <select class="form-control" id="ddlStatus">
+                                        <option value="Select">Select</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Store Type <span class="red">*</span></label>
+                                <div>
+                                    @Html.DropDownListFor(m => m.StoreType, new SelectList(Model.StoreTypeList, "storetype_id", "storetype_name", Model.StoreTypeId), new { @id = "ddlStoreType", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Area</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @id = "txtArea" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Location Lat </label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.location_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLat" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Location Long</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.location_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLang" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Remarks</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Assign to User <span class="red">*</span></label>
+                                <div>
+                                    @Html.DevExpress().ButtonEdit(
+                                    settings =>
+                                    {
+                                        settings.Name = "UserTxt";
+                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                        settings.Text = Model.AssignedTo;
+                                        settings.ReadOnly = true;
+                                        settings.Properties.Buttons.Add("...");
+                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+
+                                    }).GetHtml()
+
+                                    <input type="hidden" id="hdnUserID" value="@Model.NewUserid">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Old Assigned User</label>
+                                <div>
+                                    @Html.DevExpress().ButtonEdit(
+                                    settings =>
+                                    {
+                                        settings.Name = "OldUserTxt";
+                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                        settings.Text = Model.AssignedTo;
+                                        settings.ReadOnly = true;
+                                        settings.Properties.Buttons.Add("...");
+                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OldUserButnClick(s,e);}";
+                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){OldUser_KeyDown(s,e);}";
+
+                                    }).GetHtml()
+
+                                    <input type="hidden" id="hdnOldUserID" value="@Model.OldUserid">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Add Photo</label>
+                                <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+                                <span class="red">
+                                    Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+                                </span>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <div class="contact-info">
+                            <h3 class="add-party-popup-section-title col-md-12">Contact Info</h3>
+
+                            <div class="col-md-3">
+                                <label>Contact Name</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.contact_name, new { @class = "form-control", @id = "txtContactName" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Contact No.</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.contact_no, new { @class = "form-control numbersOnly", @id = "txtContactNo", @MaxLength = "10" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Alternate Contact </label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Alternate_Contact, new { @class = "form-control numbersOnly", @id = "txtAlternateContact", @MaxLength = "10" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Whatsapp Number </label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Whatsapp_Number, new { @class = "form-control numbersOnly", @id = "txtWhatsappNumber", @MaxLength = "10" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Email </label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
+                                </div>
+                            </div>
+
+
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="Addstore('Exit');">Save & Exit</button>
+                    <button type="button" class="btn btn-primary" onclick="Addstore('New');">Save & New</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ClearData();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hdnstoreMode" />
+
+<!--User List-->
+<div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
+    <div class="modal-dialog w-50">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">User Search</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-3" onkeydown="Userkeydown(event)" id="txtUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                <div id="UserTable">
+                    <table border='1' width="100%" class="dynamicPopupTbl">
+                        <tr class="HeaderStyle">
+                            <th class="hide">id</th>
+                            <th>User Name</th>
+                            <th>User Login Id</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--User List-->
+
+<!--Old User List-->
+<div class="modal fade pmsModal w70" id="OldUserSearchModel" role="dialog">
+    <div class="modal-dialog w-50">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Old User Search</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-3" onkeydown="OldUserkeydown(event)" id="txtOldUserSearch" autofocus style="width:100%" placeholder="Search By User Name or User Login Id or Employee Id" />
+                <div id="OldUserTable">
+                    <table border='1' width="100%" class="dynamicPopupTbl">
+                        <tr class="HeaderStyle">
+                            <th class="hide">id</th>
+                            <th>User Name</th>
+                            <th>User Login Id</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Old User List-->
