@@ -1222,7 +1222,7 @@
         color: #000 !important;
     }
 
-    .overlay {
+    /*.overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -1230,8 +1230,8 @@
         height: 100%;
         background: rgba(255, 255, 255, 0.8);
         z-index: 9999;
-        display: none; /* Initially hidden */
-    }
+        display: none;*/ /* Initially hidden */
+    /*}*/
 
     .flex-loader {
         display: flex;
@@ -1315,9 +1315,25 @@
         /*color: #054682;*/
     }
 
+    #moreOptions .btn .btn-icon {
+        border-radius: 50px;
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        background: #fff;
+        line-height: 23px;
+        margin-right: 5px;
+        /*color: #054682;*/
+        text-align: center;
+    }
+
         .btn.btnwidth .btn-icon img {
             width: 16px;
         }
+
+    #moreOptions .btn .btn-icon img {
+        width: 16px;
+    }
 
     .btn-info {
         background-color: #129eaa;
@@ -1379,6 +1395,89 @@
     .dxpcLite_PlasticBlue .dxpc-mainDiv, .dxpcLite_PlasticBlue.dxpc-mainDiv, .dxdpLite_PlasticBlue .dxpc-mainDiv, .dxdpLite_PlasticBlue.dxpc-mainDiv {
         border-radius: 14px;
     }
+
+
+    .dropdown-menu {
+        display: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        /*padding: 10px;*/
+        border-radius: 10px;
+        z-index: 1000;
+    }
+
+        .dropdown-menu button.btn {
+            width: 100%;
+            border-radius: 0;
+            color: #111;
+            background: transparent;
+            text-align: left;
+            transition: all .3s;
+            border-bottom: 1px solid #dadada;
+        }
+
+            .dropdown-menu button.btn:last-child
+            {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+
+            .dropdown-menu button.btn:hover {
+                color: #fff !important;
+                background: #7933d0;
+            }
+
+            .dropdown-menu button.btn:focus {
+                color: #fff !important;
+                background: #7933d0;
+            }
+
+            #moreOptions button .btn-icon {
+                margin-right: 5px;
+            }
+
+    .dropdown-menu.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .more-btn {
+        position: relative;
+    }
+
+    .more-option-buttons {
+        background: #893823;
+    }
+
+    .btn-icon img
+    {
+        width: 22px;
+    }
+
+    @@media only screen and (max-width: 768px)
+    {
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+
+/*        .flex-loader {
+             width: 25% !important; 
+            height: 100vh !important;
+        }*/
+
+        .dropdown-menu button.btn {
+            margin-bottom: 0;
+            padding: 8px 8px;
+            height: auto;
+        }
+    }
+
 </style>
 
 <script>
@@ -1892,6 +1991,24 @@
         });
     });
 
+
+
+    function toggleDropdown() {
+        const dropdown = $('#moreOptions');
+        if (dropdown.hasClass('show')) {
+            dropdown.removeClass('show').css('display', 'none');
+        } else {
+            dropdown.addClass('show').css('display', 'block');
+        }
+    }
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('#btnMore, #moreOptions').length) {
+            $('#moreOptions').removeClass('show').css('display', 'none');
+        }
+    });
+
+
 </script>
 
 <div class="breadCumb">
@@ -1910,8 +2027,8 @@
 
 <div class="container">
     <div class="form_main backBox p-3">
-        <div class="pull-left tblspace smblock d-flex mt-2 mb-4 ">
-            @*<tr>*@
+        @*<div class="pull-left tblspace smblock d-flex mt-2 mb-4 ">
+
             @if (ViewBag.CanAdd)
             {
                 <div class="mr-3" style="">
@@ -1952,9 +2069,54 @@
 
                 </div>
             }
-            @*</tr>
-                <tr></tr>*@
+
+        </div>*@
+
+        <div class="pull-left tblspace smblock d-flex mt-2 mb-4">
+            @if (ViewBag.CanAdd)
+            {
+                <div class="mr-3">
+                    <button type="button" id="btnAdd" class="btn add-btn" onclick="AddNew()">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span>Add New
+                    </button>
+                </div>
+            }
+            @if (ViewBag.CanView)
+            {
+                <div class="mr-3">
+                    <button type="button" id="btnShowData" class="btn show-btn" onclick="ShowData()">
+                        <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span>Show Data
+                    </button>
+                </div>
+            }
+            <div class="mr-3 more-btn">
+                <button type="button" id="btnMore" class="btn more-option-buttons" onclick="toggleDropdown()">
+                    <span class="btn-icon"><img src="../../../assests/images/more-btns.svg"></span>
+                </button>
+                <div id="moreOptions" class="dropdown-menu">
+                    @if (ViewBag.CanExport)
+                    {
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm">
+                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span> Export to XLSX
+                        </button>
+                    }
+                    @if (ViewBag.CanAdd)
+                    {
+                        <button type="button" id="btnDownloadFormat" class="btn" onclick="DownloadFormat()">
+                            <span class="btn-icon"><img src="../../../assests/images/download-format.svg"></span> Download Format
+                        </button>
+                        <button type="button" id="btnImport" class="btn" onclick="ImportProductPopOpen()">
+                            <span class="btn-icon"><img src="../../../assests/images/file-import.svg"></span> Import(Add/Update)
+                        </button>
+                        <button type="button" id="btnShowImportLog" class="btn" onclick="ImportLogPopOpen()">
+                            <span class="btn-icon"><img src="../../../assests/images/log-files.svg"></span> View Log
+                        </button>
+                    }
+                </div>
+            </div>
         </div>
+
+
         <br />
         <div class="scrooler">
             <div id="refreshgrid">
