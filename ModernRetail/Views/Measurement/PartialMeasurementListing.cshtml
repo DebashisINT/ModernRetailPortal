@@ -34,7 +34,7 @@
         x.Caption = "Measurement";
         x.VisibleIndex = 1;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(130);
 
     });
 
@@ -44,7 +44,7 @@
         x.Caption = "Description";
         x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
 
     });
 
@@ -54,7 +54,7 @@
         x.Caption = "Created By";
         x.VisibleIndex = 3;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
     });
     settings.Columns.Add(x =>
     {
@@ -75,7 +75,7 @@
         x.Caption = "Updated By";
         x.VisibleIndex = 5;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
     });
 
     settings.Columns.Add(x =>
@@ -99,7 +99,8 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
         x.SetDataItemTemplateContent(c =>
         {
             if (ViewBag.CanEdit)

@@ -256,7 +256,7 @@
     }
 
     .multiselect-container.dropdown-menu {
-        left: 0;
+        left: 0 !important;
     }
 
     #griddetailsHeadedtext {
@@ -523,7 +523,7 @@
 
     .select2-dropdown {
         /*width: 83% !important;*/
-        left: 33px !important;
+        left: 30px !important;
     }
 
     .select2-container {
@@ -573,6 +573,12 @@
 
     .dashboardHighlightWrap, .content-wraper {
         min-height: 75vh !important;
+        position: relative;
+    }
+
+    .modal-dialog
+    {
+        width: 100% !important;
     }
 
     .content-wraper {
@@ -587,6 +593,8 @@
     .dxeButtonEdit_PlasticBlue {
         width: 60% !important;
     }
+
+    
 
 }
 

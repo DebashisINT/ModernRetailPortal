@@ -768,7 +768,7 @@
         background-repeat: no-repeat; /* Do not repeat the icon image */
         width: 100%; /* Full-width */
         font-size: 16px; /* Increase font-size */
-        padding: 12px 20px 12px 40px; /* Add some padding */
+        padding: 12px 20px 12px 10px; /* Add some padding */
         border: 1px solid #ddd; /* Add a grey border */
         margin-bottom: 12px; /* Add some space below the input */
     }
@@ -816,9 +816,9 @@
         }
 
         .branch-list-modal .modal-header button span {
-            color: #fff;
+            color: #111;
             font-size: 28px;
-            font-weight: 300;
+            font-weight: 400;
             line-height: 21px;
         }
 
@@ -854,7 +854,7 @@
 
     .branch-list-modal .modal-body .form-control {
         padding-left: 40px;
-        background: transparent !important;
+        background: #ffffff !important;
         border-radius: 5px !important;
         border-color: #eaeaea;
         transition: all .4s;
@@ -988,6 +988,29 @@
         font-family: 'Poppins', sans-serif !important;
         font-size: 12px;
     }
+
+    #divModalBody {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 10px;
+    }
+
+    .modal-header .close {
+        margin-top: -6px;
+    }
+
+    #myModalBranchMap .modal-body {
+        position: relative;
+        padding: 5px 20px 10px;
+    }
+    
+
+    @@media only screen and (max-width: 768px) {
+        #ddlAppIds .tooltip {
+            display: none;
+        }
+
+    }
 </style>
 <script>
     var Is_PageLoad = "0";
@@ -1093,57 +1116,52 @@
         // alert();
         $.ajax({
             type: "POST",
-            //url: "UserConfiguration/GetStateList",
             url: "@Url.Action("GetStateList", "UserConfiguration")",
             data: JSON.stringify(str),
             contentType: "application/json; charset=utf-8",
             datatype: "json",
             success: function (responseFromServer) {
                 if (responseFromServer.length == 0) {
-                    jAlert('You must create a user, and map this employee. After mapping, you can map the State. So, these employees will appear on Dashboard and in reports for the selected state.');
-
-                }
-                else if (responseFromServer[0].status != 'Success') {
-
-                    jAlert('You must create a user, and map this employee. After mapping, you can map the State. So, these employees will appear on Dashboard and in reports for the selected state.');
-
-                }
-                else {
-
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'No States Found',
+                        text: 'You must create a user, and map this employee. After mapping, you can map the State. So, these employees will appear on Dashboard and in reports for the selected state.',
+                        confirmButtonText: 'OK'
+                    });
+                } else if (responseFromServer[0].status != 'Success') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'You must create a user, and map this employee. After mapping, you can map the State. So, these employees will appear on Dashboard and in reports for the selected state.',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    let html = ""; // Initialize HTML variable
                     for (i = 0; i < responseFromServer.length; i++) {
+                        const isChecked = responseFromServer[i].IsChecked ? "checked" : "";
 
                         if (responseFromServer[i].StateID == "0") {
-
-                            if (responseFromServer[i].IsChecked == true) {
-
-                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + "  class='statecheckall' onclick=CheckAll(" + responseFromServer[i].StateID + ") value=" + responseFromServer[i].StateID + " checked  /><a href='#'><label id='lblstatename' class='lblstate' for=" + responseFromServer[i].StateID + " >" + responseFromServer[i].StateName + "</label></a></li>";
-
-                            }
-                            else {
-                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + "  class='statecheckall' onclick=CheckAll(" + responseFromServer[i].StateID + ")  value=" + responseFromServer[i].StateID + "   /><a href='#'><label id='lblstatename' class='lblstate'  for=" + responseFromServer[i].StateID + ">" + responseFromServer[i].StateName + "</label></a></li>";
-
-
-                            }
-                        }
-                        else {
-
-                            if (responseFromServer[i].IsChecked == true) {
-
-                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + "  class='statecheck' onclick=CheckParticular($(this).is(':checked')) value=" + responseFromServer[i].StateID + " checked  /><a href='#'><label id='lblstatename' class='lblstate' for=" + responseFromServer[i].StateID + " >" + responseFromServer[i].StateName + "</label></a></li>";
-
-                            }
-                            else {
-                                html += "<li><input type='checkbox' id=" + responseFromServer[i].StateID + " class='statecheck'  onclick=CheckParticular($(this).is(':checked')) value=" + responseFromServer[i].StateID + "   /><a href='#'><label id='lblstatename' class='lblstate' for=" + responseFromServer[i].StateID + ">" + responseFromServer[i].StateName + "</label></a></li>";
-
-                            }
+                            html += `
+                                <label class='custom-checkbox-single'>
+                                    ${responseFromServer[i].StateName}
+                                    <input type='checkbox' id='${responseFromServer[i].StateID}' class='statecheckall' onclick='CheckAll(${responseFromServer[i].StateID})' value='${responseFromServer[i].StateID}' ${isChecked}>
+                                    <span class='checkmark'></span>
+                                </label>`;
+                        } else {
+                            html += `
+                                <label class='custom-checkbox-single'>
+                                    ${responseFromServer[i].StateName}
+                                    <input type='checkbox' id='${responseFromServer[i].StateID}' class='statecheck' onclick='CheckParticular($(this).is(":checked"))' value='${responseFromServer[i].StateID}' ${isChecked}>
+                                    <span class='checkmark'></span>
+                                </label>`;
                         }
                     }
                     $("#divModalBody").html(html);
                     $("#myModal").modal('show');
                 }
-
             }
         });
+
 
     }
 
@@ -1324,6 +1342,49 @@
     }
     /*Rev End Pallab: grid modification*/
 
+    function myFunction() {
+        // Get the search input value
+        const filter = document.getElementById("myInput").value.toLowerCase();
+
+        // Get the list of all checkbox labels inside #divModalBody
+        const items = document.querySelectorAll("#divModalBody .custom-checkbox-single");
+
+        // Loop through all items in the list
+        items.forEach(item => {
+            // Get the text content of the label
+            const text = item.textContent || item.innerText;
+
+            // Show or hide the item based on whether it matches the filter
+            if (text.toLowerCase().includes(filter)) {
+                item.style.display = ""; // Show
+            } else {
+                item.style.display = "none"; // Hide
+            }
+        });
+    }
+
+
+    function myFunctionBranchMap() {
+        // Get the search input value
+        const filter = document.getElementById("myInputBranchMap").value.toLowerCase();
+
+        // Get the list of all checkbox labels inside #divModalBodyBranchMap
+        const items = document.querySelectorAll("#divModalBodyBranchMap .custom-checkbox-single");
+
+        // Loop through all items in the list
+        items.forEach(item => {
+            // Get the text content of the label
+            const text = item.textContent || item.innerText;
+
+            // Show or hide the item based on whether it matches the filter
+            if (text.toLowerCase().includes(filter)) {
+                item.style.display = ""; // Show
+            } else {
+                item.style.display = "none"; // Hide
+            }
+        });
+    }
+
 
 
 </script>
@@ -1380,7 +1441,7 @@
 </div>
 <input type="hidden" id="hdnID" />
 
-<div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
+<div id="myModal" class="modal fade pmsModal" data-backdrop="static" role="dialog">
     <div class="modal-dialog" style="width: 450px;">
 
         <div class="modal-content">
@@ -1391,12 +1452,12 @@
             <div class="modal-body">
                 <div>
 
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for States.">
+                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for States.">
 
                     <ul id="divModalBody" class="listStyle">
-                        <%--
-                        <input type="checkbox" id="idstate" class="statecheck" />
-                        <label id="lblstatename" class="lblstate"></label>--%>
+                        
+                        @*<input type="checkbox" id="idstate" class="statecheck" />
+                        <label id="lblstatename" class="lblstate"></label>*@
                     </ul>
                 </div>
                 <input type="button" id="btnsatesubmit" title="SUBMIT" value="SUBMIT" class="btn btn-primary" onclick="STATEPUSHPOP()" />
@@ -1408,7 +1469,7 @@
     </div>
 </div>
 
-<div id="myModalBranchMap" class="modal fade branch-list-modal" data-backdrop="static" role="dialog">
+<div id="myModalBranchMap" class="modal fade branch-list-modal pmsModal" data-backdrop="static" role="dialog">
     <div class="modal-dialog" style="width: 520px;">
 
         <div class="modal-content">
@@ -1420,9 +1481,9 @@
                 <div>
 
                     <div class="input-group flex-nowrap">
-                        <div class="input-group-prepend">
+                        @*<div class="input-group-prepend">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></span>
-                        </div>
+                        </div>*@
                         <input type="text" id="myInputBranchMap" onkeyup="myFunctionBranchMap()" class="form-control" placeholder="Search for Branch" aria-describedby="addon-wrapping">
                     </div>
 

@@ -111,7 +111,7 @@
 
             if (ViewBag.CanAdd)
             {
-                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OnCopyInfoClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/copy2.png' style='margin-right:3px' /><div class=\"tooltip\">Copy</div></a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OnCopyInfoClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/copy-new.png' style='margin-right:3px' /><div class=\"tooltip\">Copy</div></a>");
 
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"StateBind('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/state-mapping.png' style='margin-right:3px' /><div class=\"tooltip\">State Mapping</div></a>");
             }

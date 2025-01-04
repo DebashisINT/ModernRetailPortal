@@ -33,7 +33,8 @@
         x.Caption = "Short Name";
         x.VisibleIndex = 1;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
 
     });
     settings.Columns.Add(x =>
@@ -42,7 +43,8 @@
         x.Caption = "Name";
         x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
 
     });
 
@@ -52,7 +54,8 @@
         x.Caption = "Description";
         x.VisibleIndex = 3;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
 
     });
 
@@ -62,7 +65,8 @@
         x.Caption = "Created By";
         x.VisibleIndex = 4;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
     });
     settings.Columns.Add(x =>
     {
@@ -70,7 +74,8 @@
         x.Caption = "Created On";
         x.VisibleIndex = 5;
         x.Width = 120;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -83,7 +88,8 @@
         x.Caption = "Updated By";
         x.VisibleIndex = 6;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
     });
 
     settings.Columns.Add(x =>
@@ -92,7 +98,8 @@
         x.Caption = "Updated On";
         x.VisibleIndex = 7;
         x.Width = 120;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -107,7 +114,8 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(180);
         x.SetDataItemTemplateContent(c =>
         {
             if (ViewBag.CanEdit)

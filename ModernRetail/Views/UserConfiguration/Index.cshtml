@@ -842,7 +842,7 @@
     .multiselect-container.dropdown-menu {
         right: 0 !important;
         left: auto;
-        min-width: 340px;
+        min-width: 275px;
     }
 
     .iminentSpan .multiselect-container.dropdown-menu {
@@ -1042,6 +1042,35 @@
         z-index: 999999;
     }
 
+    .multiselect.dropdown-toggle {
+        width: 100% !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btn-group {
+        width: 100%;
+    }
+
+    @@media only screen and (max-width: 768px) {
+
+
+        #ddlAppIds .tooltip {
+            display: none;
+        }
+
+        #ReportToTxt
+        {
+            width: 100% !important;
+        }
+
+        #btnReportToSearch {
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            border-radius: 0 7px 7px 0;
+        }
+    }
 
 </style>
 
@@ -1531,26 +1560,92 @@
 
 
 
+    //function ReportTokeydown(e) {
+    //    var OtherDetails = {}
+    //    if ($.trim($("#txtReportToSearch").val()) == "" || $.trim($("#txtReportToSearch").val()) == null) {
+    //        return false;
+    //    }
+    //    OtherDetails.SearchKey = $("#txtReportToSearch").val();
+
+    //    if (e.code == "Enter" || e.code == "NumpadEnter") {
+    //        var HeaderCaption = [];
+    //        HeaderCaption.push("Name");
+
+    //        if ($("#txtReportToSearch").val() != "") {
+    //            callonServer("../../../Models/MRService.asmx/GetOnDemandReportTo", OtherDetails, "ReportToTable", HeaderCaption, "ReportToIndex", "SetReportTo");
+    //        }
+    //    }
+    //    else if (e.code == "ArrowDown") {
+    //        if ($("input[ReportToIndex=0]"))
+    //            $("input[ReportToIndex=0]").focus();
+    //    }
+    //}
+
+
+    // Update UI based on viewport width
+    function adjustUIForDevice() {
+        const searchInput = document.getElementById("txtReportToSearch");
+        const searchButton = document.getElementById("btnReportToSearch");
+
+        if (window.innerWidth <= 768) { // Adjust breakpoint as needed
+            // Mobile view: show the button and disable onkeydown
+            searchButton.style.display = "inline-block";
+            searchInput.removeAttribute("onkeydown");
+        } else {
+            // Desktop view: hide the button and enable onkeydown
+            searchButton.style.display = "none";
+            searchInput.setAttribute("onkeydown", "ReportTokeydown(event)");
+        }
+    }
+
+    // Desktop Functionality
     function ReportTokeydown(e) {
-        var OtherDetails = {}
-        if ($.trim($("#txtReportToSearch").val()) == "" || $.trim($("#txtReportToSearch").val()) == null) {
+        var OtherDetails = {};
+        var searchValue = $.trim($("#txtReportToSearch").val());
+
+        if (searchValue === "") {
             return false;
         }
-        OtherDetails.SearchKey = $("#txtReportToSearch").val();
 
-        if (e.code == "Enter" || e.code == "NumpadEnter") {
+        OtherDetails.SearchKey = searchValue;
+
+        if (e.code === "Enter" || e.code === "NumpadEnter") {
             var HeaderCaption = [];
             HeaderCaption.push("Name");
 
-            if ($("#txtReportToSearch").val() != "") {
-                callonServer("../../../Models/MRService.asmx/GetOnDemandReportTo", OtherDetails, "ReportToTable", HeaderCaption, "ReportToIndex", "SetReportTo");
+            callonServer("../../../Models/MRService.asmx/GetOnDemandReportTo", OtherDetails, "ReportToTable", HeaderCaption, "ReportToIndex", "SetReportTo");
+        } else if (e.code === "ArrowDown") {
+            if ($("input[ReportToIndex=0]").length > 0) {
+                $("input[ReportToIndex=0]").focus();
             }
         }
-        else if (e.code == "ArrowDown") {
-            if ($("input[ReportToIndex=0]"))
-                $("input[ReportToIndex=0]").focus();
-        }
     }
+
+    // Mobile Functionality
+    function handleMobileSearch() {
+        var OtherDetails = {};
+        var searchValue = $.trim($("#txtReportToSearch").val());
+
+        if (searchValue === "") {
+            alert("Please enter a search keyword.");
+            return false;
+        }
+
+        OtherDetails.SearchKey = searchValue;
+
+        var HeaderCaption = [];
+        HeaderCaption.push("Name");
+
+        callonServer("../../../Models/MRService.asmx/GetOnDemandReportTo", OtherDetails, "ReportToTable", HeaderCaption, "ReportToIndex", "SetReportTo");
+    }
+
+    // Adjust UI on page load and window resize
+    document.addEventListener("DOMContentLoaded", adjustUIForDevice);
+    window.addEventListener("resize", adjustUIForDevice);
+
+
+
+
 
     function SetReportTo(id, Name) {
         var key = id;
@@ -1758,7 +1853,7 @@
 
 
             <div class="clear"></div>
-            <div class="mt-4 px-4">
+            <div class=" px-4">
                 @if (Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 4)
                 {
                     <button type="button" class="btn btn-success save-btn mr-4" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
@@ -1784,7 +1879,23 @@
                 <h4 class="modal-title">Report To Search</h4>
             </div>
             <div class="modal-body">
-                <input class="form-control mb-3" type="text" onkeydown="ReportTokeydown(event)" id="txtReportToSearch" autofocus style="width:100%" placeholder="Search By Report To Name" />
+                @*<input class="form-control mb-3" type="text" onkeydown="ReportTokeydown(event)" id="txtReportToSearch" autofocus style="width:100%" placeholder="Search By Report To Name" />*@
+                <div class="input-group mb-3" style="width: 100%;">
+                    <input class="form-control"
+                           type="text"
+                           onkeydown="ReportTokeydown(event)"
+                           id="txtReportToSearch"
+                           autofocus
+                           placeholder="Search By Report To Name"
+                           style="width: 100%;" />
+                    <button class="btn btn-primary"
+                            id="btnReportToSearch"
+                            style="display: none;"
+                            onclick="handleMobileSearch()">
+                        Search
+                    </button>
+                </div>
+
                 <div id="ReportToTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
