@@ -135,7 +135,7 @@
             top: 33px;
             right: 13px;
             font-size: 18px;
-            transform: rotate(269deg);
+            transform: rotate(270deg);
             font-weight: 500;
             background: #094e8c;
             color: #fff;
@@ -577,6 +577,13 @@
         border-radius: 8px !important;
     }
 
+    .swal2-styled {
+        border-radius: 12px !important;
+        padding: 8px 20px !important;
+        color: #fff !important;
+        font-size: 14px !important;
+    }
+
     .tooltip-container {
         position: relative;
         display: inline-block;
@@ -762,6 +769,36 @@
 
     #ShopGridLookup_DDD_PW-1 {
         top: 58px !important;
+    }
+
+    @@media only screen and (max-width: 768px) {
+
+
+        #ddlAppIds .tooltip {
+            display: none;
+        }
+
+        #ShopGridLookup {
+            width: 100% !important;
+        }
+        #ShopGridLookup_DDD_PW-1 {
+            top: auto !important;
+            bottom: 35px;
+        }
+
+        .col-md-3, .col-md-6 {
+            margin-bottom: 10px;
+        }
+
+        .mb-3
+        {
+            margin-bottom: 0 !important;
+        }
+
+        .btn.mb-3 {
+            margin-bottom: 15px !important;
+        }
+        
     }
 </style>
 <script>
