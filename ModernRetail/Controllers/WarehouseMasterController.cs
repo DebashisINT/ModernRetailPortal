@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.SalesmanTrack;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
+using DevExpress.XtraExport;
 using ModernRetail.Models;
 using SalesmanTrack;
 using System;
@@ -17,10 +18,23 @@ namespace ModernRetail.Controllers
 {
     public class WarehouseMasterController : Controller
     {
+        //WarehouseMaster
+        WarehouseMasterModel objdata = null;
+        public WarehouseMasterController()
+        {
+            objdata = new WarehouseMasterModel();
+        }
         UserList lstuser = new UserList();
         MasterWarehouseBL objwar = new MasterWarehouseBL();
         public ActionResult WarehouseIndex()
         {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/WarehouseMaster", "WarehouseIndex");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
             WarehouseMasterModel model = new WarehouseMasterModel();
             List<Country_List> country = new List<Country_List>();
             List<States_List> state = new List<States_List>();
@@ -55,7 +69,71 @@ namespace ModernRetail.Controllers
             model.CityDistrict_List = city;
             model.Country_List = country;
             model.Distributer_List = shop;
+
+
+            TempData["WareHouse_ID"] = null;
+            TempData.Keep();
+
             return View(model);
+        }
+
+        public ActionResult WHAdd()
+        {
+            WarehouseMasterModel model = new WarehouseMasterModel();
+
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/WarehouseMaster", "WarehouseIndex");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
+
+
+            if (TempData["Warehouse_ID"] != null)
+            {
+                model.WarehouseID = Convert.ToString(TempData["Warehouse_ID"]);
+                TempData.Keep();
+
+            }
+
+            
+            List<Country_List> country = new List<Country_List>();
+            List<States_List> state = new List<States_List>();
+            List<CityDistrictList> city = new List<CityDistrictList>();
+            List<DistributerList> shop = new List<DistributerList>();
+
+            DataSet ds = objwar.GetMasterDropdownListAll();
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    country.Add(new Country_List
+                    {
+                        cou_id = Convert.ToString(item["cou_id"]),
+                        cou_country = Convert.ToString(item["cou_country"])
+                    });
+                }
+            }
+
+            if (ds != null && ds.Tables[1].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[1].Rows)
+                {
+                    shop.Add(new DistributerList
+                    {
+                        Shop_Code = Convert.ToString(item["STORE_ID"]),
+                        Shop_Name = Convert.ToString(item["STORE_NAME"])
+                    });
+                }
+            }
+            model.State_List = state;
+            model.CityDistrict_List = city;
+            model.Country_List = country;
+            model.Distributer_List = shop;
+
+            return View("~/Views/WarehouseMaster/WHAdd.cshtml", model);
+            
         }
 
         [HttpPost]
@@ -97,27 +175,27 @@ namespace ModernRetail.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddWarehouseMaster(String action, String WareHouse_ID, string warehouseName, string address1, String address2, String address3, String country, String State, String City, String Pin, String contactPerson, String ContactPhone, List<String> Distributor, String defaultvalue)
+        public ActionResult AddWarehouseMaster(String action, String WareHouse_ID, string warehouseName, string address1, String address2, String address3, String country, String State, String City, String Pin, String contactPerson, String ContactPhone, String Distributor, String defaultvalue)
         {
             if (WareHouse_ID == "")
             {
                 WareHouse_ID = null;
             }
-            String DistributorList="";
+            String DistributorList= Distributor;
 
             string StateId = "";
-            int i = 1;
-            if (Distributor != null && Distributor.Count > 0)
-            {
-                foreach (string item in Distributor)
-                {
-                    if (i > 1)
-                        DistributorList = DistributorList + "," + item;
-                    else
-                        DistributorList = item;
-                    i++;
-                }
-            }
+            //int i = 1;
+            //if (Distributor != null && Distributor.Count > 0)
+            //{
+            //    foreach (string item in Distributor)
+            //    {
+            //        if (i > 1)
+            //            DistributorList = DistributorList + "," + item;
+            //        else
+            //            DistributorList = item;
+            //        i++;
+            //    }
+            //}
 
             String msg = "";
             DataTable dt = objwar.Masterdatainsert(action, WareHouse_ID, warehouseName, address1, address2, address3, country, State, City, Pin, contactPerson, ContactPhone, DistributorList, defaultvalue, Session["MRuserid"].ToString());
@@ -150,7 +228,7 @@ namespace ModernRetail.Controllers
 
         public PartialViewResult WarehouseMasterGrid(String Is_PageLoad)
         {
-            Is_PageLoad = "";
+            //Is_PageLoad = "";
             DataTable dt = objwar.MasterdataList("LIST", Session["MRuserid"].ToString());
             return PartialView("_PartialWareHouseGrid", GetWareHouse(Is_PageLoad));
         }
@@ -198,7 +276,7 @@ namespace ModernRetail.Controllers
                 warehouse.ContactName = dt.Rows[0]["CONTACT_NAME"].ToString();
                 warehouse.ContactPhone = dt.Rows[0]["CONTACT_PHONE"].ToString();
                 warehouse.isDefault = dt.Rows[0]["ISDEFAULT"].ToString();
-                //warehouse.Distributer = dt.Rows[0]["DISTRIBUTER_CODE"].ToString();
+                warehouse.Distributer = dt.Rows[0]["STORE_ID"].ToString();
             }
             return Json(warehouse, JsonRequestBehavior.AllowGet);
         }
@@ -405,23 +483,23 @@ namespace ModernRetail.Controllers
         //    return PartialView(Shop_list);
         //}
 
-        public ActionResult GetShopList(EmployeeListModel model)
+        public ActionResult GetShopList(string WarehouseID,string StateId)
         {
             try
             {
-                string StateId = "";
+                //string StateId = "";
                 int i = 1;
-                if (model.StateId != null && model.StateId.Count > 0)
-                {
-                    foreach (string item in model.StateId)
-                    {
-                        if (i > 1)
-                            StateId = StateId + "," + item;
-                        else
-                            StateId = item;
-                        i++;
-                    }
-                }
+                //if (model.StateId != null && model.StateId.Count > 0)
+                //{
+                //    foreach (string item in model.StateId)
+                //    {
+                //        if (i > 1)
+                //            StateId = StateId + "," + item;
+                //        else
+                //            StateId = item;
+                //        i++;
+                //    }
+                //}
                 List<Getmasterstock> modelshop = new List<Getmasterstock>();
                 DataTable dtshop = objwar.GetShopListByparam(StateId, "ShopbyState", "4");
                 modelshop = APIHelperMethods.ToModelList<Getmasterstock>(dtshop);
@@ -429,7 +507,7 @@ namespace ModernRetail.Controllers
                 List<GETSTORE> productdata = new List<GETSTORE>();
                 GETSTORE dataobj = new GETSTORE();
                 // DataSet output = new DataSet();
-                DataTable output = objwar.MasterdataView("WAREHOUSEDETAILS", model.WarehouseID);
+                DataTable output = objwar.MasterdataView("WAREHOUSEDETAILS", WarehouseID);
                 //output = obj.EditQuestion(QUESTIONS_ID);
                 if (output != null && output.Rows.Count > 0)
                 {                   
@@ -452,6 +530,21 @@ namespace ModernRetail.Controllers
             {
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
+        }
+
+
+        public JsonResult SetMapDataByID(Int64 ID = 0, Int16 IsView = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                TempData["WareHouse_ID"] = ID;
+                TempData["IsView"] = IsView;
+                TempData.Keep();
+                Success = true;
+            }
+            catch { }
+            return Json(Success, JsonRequestBehavior.AllowGet);
         }
     }
 }
