@@ -51,22 +51,21 @@
             gridLookup.GridView.Width = 310;            
         };
 
-        //settings.PreRender = (s, e) =>
-        //{
-        //    if (ViewBag.STORE_IDS != null)
-        //    {
+        settings.PreRender = (s, e) =>
+        {
+            if (ViewBag.STORE_IDS != null)
+            {
+                foreach (var item in ViewBag.STORE_IDS)
+                {
+                    MVCxGridLookup l = s as MVCxGridLookup;
+                    l.GridView.Selection.SelectRowByKey(item.ID);
 
-        //        foreach (var item in ViewBag.STORE_IDS)
-        //        {
-        //            MVCxGridLookup l = s as MVCxGridLookup;
-        //            l.GridView.Selection.SelectRowByKey(item.ID);
+                }
+            }
 
-        //        }
-        //    }
+        };
 
-        //};
 
-       
     }).BindList(Model).GetHtml()
 
 

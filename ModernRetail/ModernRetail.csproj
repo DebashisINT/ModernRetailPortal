@@ -1132,6 +1132,7 @@
     <Content Include="Views\WarehouseMaster\_ShopPartial.cshtml" />
     <Content Include="Views\Measurement\Index.cshtml" />
     <Content Include="Views\Measurement\PartialMeasurementListing.cshtml" />
+    <Content Include="Views\WarehouseMaster\WHAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

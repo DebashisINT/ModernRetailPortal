@@ -10,7 +10,7 @@
 
     settings.CallbackRouteValues = new { Action = "WarehouseMasterGrid", Controller = "WarehouseMaster" };
     settings.ClientSideEvents.BeginCallback = "OnStartCallback";
-
+    settings.ClientSideEvents.EndCallback = "OnEndCallback";
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
     settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
@@ -29,16 +29,7 @@
     settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
     settings.Settings.ShowFilterRowMenu = true;
 
-    //settings.Columns.Add(x =>
-    //{
-    //    x.Caption = "Permission";
-    //    x.VisibleIndex = 1;
 
-    //    x.SetDataItemTemplateContent(c =>
-    //    {
-    //        ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"WarehousePermission('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\">Permission</a>");
-    //    });
-    //});
 
     settings.Columns.Add(x =>
     {
@@ -58,26 +49,11 @@
         x.Caption = "Address";
         x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = 200;
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
     });
 
-    //settings.Columns.Add(x =>
-    //{
-    //    x.FieldName = "ADDRESS2";
-    //    x.Caption = "Address 2";
-    //    x.VisibleIndex = 3;
-    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
-    //    //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-    //});
 
-    //settings.Columns.Add(x =>
-    //{
-    //    x.FieldName = "ADDRESS3";
-    //    x.Caption = "Address 3";
-    //    x.VisibleIndex = 4;
-    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
-    //    //x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
-    //});
 
     settings.Columns.Add(x =>
     {
@@ -85,7 +61,7 @@
         x.Caption = "Country";
         x.VisibleIndex = 5;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+        x.Width = 100;
     });
 
     settings.Columns.Add(x =>
@@ -144,12 +120,7 @@
         x.VisibleIndex = 11;
     });
 
-    //settings.Columns.Add(x =>
-    //{
-    //    x.FieldName = "ISDEFAULT";
-    //    x.Caption = "Is Default";
-    //    x.VisibleIndex = 12;
-    //});
+
 
     settings.Columns.Add(x =>
     {
@@ -186,16 +157,6 @@
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy hh:mm:ss";
     });
 
-    //settings.Columns.Add(x =>
-    //{
-    //    x.Caption = "Modify";
-    //    x.VisibleIndex = 17;
-
-    //    x.SetDataItemTemplateContent(c =>
-    //    {
-    //        ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\">Modify</a>");
-    //    });
-    //});
 
     settings.Columns.Add(x =>
     {
@@ -208,12 +169,12 @@
         {
             //if (ViewBag.CanEdit)
             //{
-            //ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
             // }
             ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"WarehouseDeleet('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src=\"../../../assests/images/Delete.png\" /></a>");
         });
     });
 
-
+    settings.ClientSideEvents.RowClick = "gridRowclick";
 
 }).Bind(Model).GetHtml()
