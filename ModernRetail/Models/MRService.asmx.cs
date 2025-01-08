@@ -133,5 +133,21 @@ namespace ModernRetail.Models
             public string USER_LOGINID { get; set; }
         }
 
+        public class EmployeeModel
+        {
+            public string id { get; set; }
+            public string Employee_Name { get; set; }
+            public string Employee_Code { get; set; }
+        }
+
+        public class ProductModel
+        {
+            public string id { get; set; }
+            public string Na { get; set; }
+            public string Des { get; set; }
+            // public string MinSalePrice { get; set; }
+        }
+
+
     }
 }

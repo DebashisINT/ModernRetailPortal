@@ -85,13 +85,7 @@ namespace ModernRetail.Models
         }
     }
 
-    public class EmployeeModel
-    {
-        public string id { get; set; }
-        public string Employee_Name { get; set; }
-        public string Employee_Code { get; set; }
-    }
-
+   
     public class DESIGNATIONLIST
     {
         public Int64 ID { get; set; }
@@ -99,12 +93,6 @@ namespace ModernRetail.Models
 
     }
 
-    public class ProductModel
-    {
-        public string id { get; set; }
-        public string Na { get; set; }
-        public string Des { get; set; }
-        // public string MinSalePrice { get; set; }
-    }
+    
 
 }
