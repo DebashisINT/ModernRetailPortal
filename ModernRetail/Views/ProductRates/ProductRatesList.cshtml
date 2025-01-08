@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "BRANCH";
+    ViewBag.Title = "Product Rate";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -761,7 +761,7 @@
             var selectedValue = "1"; // XLSX export value
             var desg = $("#drpdesignation").val();
             var usrtype = $("#ddlusertypes").val();
-            var url = '@Url.Action("ExporBranchList", "ProductRates", new { type = "_type_" })';
+            var url = '@Url.Action("ExportList", "ProductRates", new { type = "_type_" })';
             window.location.href = url.replace("_type_", selectedValue);
         });
     });
@@ -846,7 +846,7 @@
                         // SweetAlert error message with custom icon
                         Swal.fire({
                             title: 'Sorry!',
-                            text: 'Branch already mapped with another module. Cannot delete.',
+                            text: 'Product Rate already mapped with another module. Cannot delete.',
                             imageUrl: '/path/to/your/error-icon.png',
                             imageWidth: 50,
                             icon: 'error' // You can also keep the built-in icon type
@@ -886,24 +886,24 @@
         <div class="row">
             <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
                 <div class="add-show-btns">
-                    @if (ViewBag.CanAdd)
-                    {
+                    @*@if (ViewBag.CanAdd)
+                    {*@
                         <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddProductRates();">
                             <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Rate
                         </button>
-                    }
+                    @*}
                     @if (ViewBag.CanView)
-                    {
+                    {*@
                         <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-                    }
+                    @*}
                     @if (ViewBag.CanExport)
-                    {
+                    {*@
                         <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
                             <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
                             <div class="tooltip">Export to XLSX</div>
                         </button>
 
-                    }
+                    @*}*@
                 </div>
 
             </div>

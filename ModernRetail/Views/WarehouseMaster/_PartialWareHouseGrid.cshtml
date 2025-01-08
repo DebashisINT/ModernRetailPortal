@@ -1,9 +1,4 @@
-﻿@*====================================================== Revision History ==========================================================*@
-@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
-@*1.0                13-02-2023        2.0.39           Pallab              25656: Master module design modification *@
-@*2.0                13-06-2023        2.0.41           Pallab              26334: Warehouse Master List module "Delete" icon add in action column *@
-@*====================================================== Revision History ==========================================================*@
-
+﻿
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridWareHouseList";
@@ -167,11 +162,14 @@
 
         x.SetDataItemTemplateContent(c =>
         {
-            //if (ViewBag.CanEdit)
-            //{
-            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
-            // }
-            ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"WarehouseDeleet('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src=\"../../../assests/images/Delete.png\" /></a>");
+            if (ViewBag.CanEdit)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+            }
+            if (ViewBag.CanDelete)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container'  onclick=\"WarehouseDelete('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src=\"../../../assests/images/Delete.png\" /><div class=\"tooltip\">Delete</div></a>");
+            }
         });
     });
 

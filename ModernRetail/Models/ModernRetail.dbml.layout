@@ -68,10 +68,10 @@
         <elementListCompartment Id="aa43d2a7-3be6-4b32-8c6f-03211b088856" absoluteBounds="13.89, 1.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a133d7da-f1b9-4e62-b1f4-d0b64e54a789" isExpanded="false" absoluteBounds="3.25, 2.75, 2, 0.45">
+    <classShape Id="a133d7da-f1b9-4e62-b1f4-d0b64e54a789" isExpanded="false" absoluteBounds="3, 2.75, 2, 0.45">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_CURRENTSTOCK_LISTING" />
       <nestedChildShapes>
-        <elementListCompartment Id="347685d6-53ac-4aeb-9246-b75dde3027c1" absoluteBounds="3.265, 3.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="347685d6-53ac-4aeb-9246-b75dde3027c1" absoluteBounds="3.015, 3.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="b85b62b9-2aff-4d46-af01-3ff092b1695e" absoluteBounds="5.75, 0.625, 2, 2.5401025390625">
@@ -80,10 +80,16 @@
         <elementListCompartment Id="ba93e9b6-65c9-441d-97fc-cb5d18a5b4be" absoluteBounds="5.765, 1.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="19b555ec-01a0-4ca1-95db-221b2bb4feda" absoluteBounds="3.5, 3.625, 2, 4.4631168619791666">
+    <classShape Id="19b555ec-01a0-4ca1-95db-221b2bb4feda" absoluteBounds="3.125, 3.5, 2, 4.4631168619791666">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_WAREHOUSE_LIST" />
       <nestedChildShapes>
-        <elementListCompartment Id="6b73dc05-d5ce-4158-8e68-05e16cdda18c" absoluteBounds="3.515, 4.085, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6b73dc05-d5ce-4158-8e68-05e16cdda18c" absoluteBounds="3.14, 3.96, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="55942413-20a1-40bb-b65f-3f350fc58449" absoluteBounds="5.875, 3.5, 2, 4.4631168619791666">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_PRODUCTRATESDETAILSLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6491af4b-ed97-443f-867f-36937b6fafd9" absoluteBounds="5.89, 3.96, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

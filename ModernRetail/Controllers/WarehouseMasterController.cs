@@ -28,7 +28,7 @@ namespace ModernRetail.Controllers
         MasterWarehouseBL objwar = new MasterWarehouseBL();
         public ActionResult WarehouseIndex()
         {
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/WarehouseMaster", "WarehouseIndex");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/WarehouseIndex", "WarehouseMaster");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -81,7 +81,7 @@ namespace ModernRetail.Controllers
         {
             WarehouseMasterModel model = new WarehouseMasterModel();
 
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/WarehouseMaster", "WarehouseIndex");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/WarehouseIndex", "WarehouseMaster");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -228,7 +228,13 @@ namespace ModernRetail.Controllers
 
         public PartialViewResult WarehouseMasterGrid(String Is_PageLoad)
         {
-            //Is_PageLoad = "";
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/WarehouseIndex", "WarehouseMaster");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
             DataTable dt = objwar.MasterdataList("LIST", Session["MRuserid"].ToString());
             return PartialView("_PartialWareHouseGrid", GetWareHouse(Is_PageLoad));
         }

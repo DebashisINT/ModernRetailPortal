@@ -39,7 +39,7 @@ namespace ModernRetail.Controllers
             ViewBag.CanDelete = rights.CanDelete;
 
             objdata.branch_ID = 0;
-            TempData["branch_ID"] = null;
+            TempData["ID"] = null;
 
             TempData.Keep();
             return View();
@@ -54,31 +54,31 @@ namespace ModernRetail.Controllers
             ViewBag.CanDelete = rights.CanDelete;
 
 
-            if (TempData["branch_ID"] != null)
+            if (TempData["ID"] != null)
             {
-                objdata.branch_ID = Convert.ToInt64(TempData["branch_ID"]);
+                objdata.ID = Convert.ToInt64(TempData["ID"]);
                 TempData.Keep();
             }
 
-            if (TempData["IsView"] != null)
-            {
-                ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
-                TempData["IsView"] = null;
-                if (ViewBag.IsView == 0)
-                {
-                    ViewBag.PageTitle = "Modify Branch";
-                }           
-                else
-                {
-                    ViewBag.PageTitle = "Add Branch";
-                }
+            //if (TempData["IsView"] != null)
+            //{
+            //    ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
+            //    TempData["IsView"] = null;
+            //    if (ViewBag.IsView == 0)
+            //    {
+            //        ViewBag.PageTitle = "Modify Branch";
+            //    }           
+            //    else
+            //    {
+            //        ViewBag.PageTitle = "Add Branch";
+            //    }
 
-            }
-            else
-            {
-                ViewBag.IsView = 0;
-                ViewBag.PageTitle = "Add Question";
-            }            
+            //}
+            //else
+            //{
+            //    ViewBag.IsView = 0;
+            //    ViewBag.PageTitle = "Add Question";
+            //}            
             return View("~/Views/ProductRates/Index.cshtml", objdata);          
         }
 
@@ -87,7 +87,7 @@ namespace ModernRetail.Controllers
             Boolean Success = false;
             try
             {
-                TempData["branch_ID"] = ID;
+                TempData["ID"] = ID;
                 TempData["IsView"] = IsView;
                 TempData.Keep();
                 Success = true;
@@ -105,98 +105,10 @@ namespace ModernRetail.Controllers
             return dt;
         }
 
-        public JsonResult GetState(string CountryID)
-        {
-
-            DataTable DT = new DataTable();
-            if (CountryID != "")
-            {
-                DT = GetStateData(CountryID);
-            }
-
-            return Json(APIHelperMethods.ToModelList<BranchList>(DT));
-
-        }
-        public DataTable GetStateData(string CountryID)
-        {
-            DataTable dt = new DataTable();
-
-            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
-            proc.AddPara("@ACTION", "GETSTATE");
-            proc.AddBigIntegerPara("@countryId", Convert.ToInt64(CountryID));
-            dt = proc.GetTable();
-            return dt;
-        }
-
-        public JsonResult GETCITY(string StateID)
-        {
-
-            DataTable DT = new DataTable();
-            if (StateID != "")
-            {
-                DT = GETCITYDATA(StateID);
-            }
-
-            return Json(APIHelperMethods.ToModelList<BranchList>(DT));
-
-        }
-        public DataTable GETCITYDATA(string StateID)
-        {
-            DataTable dt = new DataTable();
-
-            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
-            proc.AddPara("@ACTION", "GETCITY");
-            proc.AddBigIntegerPara("@state_id", Convert.ToInt64(StateID));
-            dt = proc.GetTable();
-            return dt;
-        }
-
-
-        public JsonResult GETPINZIP(string CityID)
-        {
-
-            DataTable DT = new DataTable();
-            if (CityID != "")
-            {
-                DT = GETPINZIPDATA(CityID);
-            }
-
-            return Json(APIHelperMethods.ToModelList<BranchList>(DT));
-
-        }
-        public DataTable GETPINZIPDATA(string CityID)
-        {
-            DataTable dt = new DataTable();
-
-            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
-            proc.AddPara("@ACTION", "GETPINZIP");
-            proc.AddBigIntegerPara("@city_id", Convert.ToInt64(CityID));
-            dt = proc.GetTable();
-            return dt;
-        }
-
-        public string CheckUniqueShortName(string ShortName, string branch_ID)
-        {
-            string ShortNameFount = "0";
-
-            DataTable dt = new DataTable();
-
-            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
-            proc.AddPara("@ACTION", "CHECKUNIQUESHORTNAME");
-            proc.AddPara("@branch_code", ShortName);
-            proc.AddPara("@BRANCH_ID", branch_ID);
-            proc.AddVarcharPara("@ReturnValue", 50, "", QueryParameterDirection.Output);
-            dt = proc.GetTable();
-            string output = Convert.ToString(proc.GetParaValue("@ReturnValue"));
-
-            ShortNameFount = output;
-
-            return ShortNameFount;
-
-        }
+        
 
         [WebMethod]
-        public JsonResult SaveBranch(BranchMaster Details)
+        public JsonResult SaveProductRates(ProductRateModel Details)
         {
             String Message = "";
             Boolean Success = false;
@@ -204,17 +116,16 @@ namespace ModernRetail.Controllers
 
 
 
-            if (Convert.ToInt64(Details.branch_ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
+            if (Convert.ToInt64(Details.ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
             {
-                dt = objdata.BranchEntryInsertUpdate("UPDATEBRANCH", Convert.ToInt64(Details.branch_ID), Details.ShortName, Convert.ToInt64(Details.ParentBranch), Details.BranchName, Details.Address1,
-                    Convert.ToInt64(Details.Country), Convert.ToInt64(Details.State), Convert.ToInt64(Details.City), Convert.ToInt64(Details.PIN)
-                       , Convert.ToInt64(Session["MRuserid"]));
+                dt = objdata.ProductRateEntryInsertUpdate("UPDATEPRODUCTRATE", Convert.ToInt64(Details.ID),Convert.ToInt64(Details.branch_ID), Convert.ToInt32(Details.Designation), Convert.ToInt64(Details.Employee), Convert.ToInt64(Details.Product),
+                    Convert.ToString(Details.SpecialPrice), Convert.ToInt64(Session["MRuserid"]));
+
             }
             else
             {
-                dt = objdata.BranchEntryInsertUpdate("INSERTBRANCH", Convert.ToInt64(Details.branch_ID), Details.ShortName, Convert.ToInt64(Details.ParentBranch), Details.BranchName, Details.Address1,
-                    Convert.ToInt64(Details.Country), Convert.ToInt64(Details.State), Convert.ToInt64(Details.City), Convert.ToInt64(Details.PIN)
-                       , Convert.ToInt64(Session["MRuserid"]));
+                dt = objdata.ProductRateEntryInsertUpdate("INSERTPRODUCTRATE", Convert.ToInt64(Details.ID), Convert.ToInt64(Details.branch_ID), Convert.ToInt32(Details.Designation), Convert.ToInt64(Details.Employee), Convert.ToInt64(Details.Product),
+                    Convert.ToString(Details.SpecialPrice), Convert.ToInt64(Session["MRuserid"]));
 
             }
 
@@ -225,20 +136,20 @@ namespace ModernRetail.Controllers
                 {
                     Success = Convert.ToBoolean(row["Success"]);
                     DetailsID = Convert.ToInt64(row["DetailsID"]);
-                    BranchName = Convert.ToString(Details.BranchName);
+                   // BranchName = Convert.ToString(Details.BranchName);
                 }
             }
 
-            String retuenMsg = Success + "~" + DetailsID + "~" + Details.BranchName + "~" + Message;
+            String retuenMsg = Success + "~" + DetailsID + "~" + "~" + Message;
             return Json(retuenMsg);
 
         }
 
-        public ActionResult PartialGridList(BranchMaster model)
+        public ActionResult PartialGridList(ProductRateModel model)
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/BranchMasterList", "BranchMaster");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/ProductRatesList", "ProductRates");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
@@ -266,7 +177,7 @@ namespace ModernRetail.Controllers
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
                 sqlcon.Close();
-                return PartialView("_PartialBranchMasterList", GetBranchDetailsList(Is_PageLoad));
+                return PartialView("PartialProductRatesList", GetDetailsList(Is_PageLoad));
 
             }
             catch
@@ -274,14 +185,14 @@ namespace ModernRetail.Controllers
                 return RedirectToAction("Logout", "Login", new { Area = "" });
             }
         }
-        public IEnumerable GetBranchDetailsList(string Is_PageLoad)
+        public IEnumerable GetDetailsList(string Is_PageLoad)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
             string Userid = Convert.ToString(Session["MRuserid"]);
             if (Is_PageLoad != "Ispageload")
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
-                var q = from d in dc.MR_BRANCHDETAILSLISTs
+                var q = from d in dc.MR_PRODUCTRATESDETAILSLISTs
                         where d.USERID == Convert.ToInt32(Userid)
                         orderby d.SEQ ascending
                         select d;
@@ -290,7 +201,7 @@ namespace ModernRetail.Controllers
             else
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
-                var q = from d in dc.MR_BRANCHDETAILSLISTs
+                var q = from d in dc.MR_PRODUCTRATESDETAILSLISTs
                         where d.SEQ == 0
                         select d;
                 return q;
@@ -298,20 +209,12 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporBranchList(int type)
+        public ActionResult ExportList(int type)
         {
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetBranchDetailsList(""));
-                //case 2:
-                //    return GridViewExtension.ExportToPdf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));              
                 default:
                     break;
             }
@@ -320,94 +223,64 @@ namespace ModernRetail.Controllers
 
         private GridViewSettings GetGridViewSettings()
         {
-
-
             var settings = new GridViewSettings();
             settings.Name = "PartialGridList";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
-            settings.SettingsExport.FileName = "Branch";
+            settings.SettingsExport.FileName = "ProductRate";
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_CODE";
-                x.Caption = "Short Name";
+                x.FieldName = "BRANCH";
+                x.Caption = "Branch";
                 x.VisibleIndex = 1;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
 
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "PARENTBRANCH";
-                x.Caption = "Parent Branch";
+                x.FieldName = "EMP_NAME";
+                x.Caption = "Employee";
                 x.VisibleIndex = 2;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCHNAME";
-                x.Caption = "Branch Name";
+                x.FieldName = "PRODUCT_CODE";
+                x.Caption = "Item Code";
                 x.VisibleIndex = 3;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_ADDRESS1";
-                x.Caption = "Address";
+                x.FieldName = "PRODUCT_NAME";
+                x.Caption = "Item Name";
                 x.VisibleIndex = 4;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
 
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH_COUNTRY";
-                x.Caption = "Country";
+                x.FieldName = "STORE_RATE";
+                x.Caption = "Special Price";
                 x.VisibleIndex = 5;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-
-            });
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "BRANCH_STATE";
-                x.Caption = "State";
-                x.VisibleIndex = 6;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
 
             });
 
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "BRANCH_CITY";
-                x.Caption = "City / District";
-                x.VisibleIndex = 7;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "BRANCH_PIN";
-                x.Caption = "PIN";
-                x.VisibleIndex = 8;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-
-            });
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CreateUser";
                 x.Caption = "Created By";
                 x.VisibleIndex = 9;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
             });
             settings.Columns.Add(x =>
             {
@@ -415,7 +288,7 @@ namespace ModernRetail.Controllers
                 x.Caption = "Created On";
                 x.VisibleIndex = 10;
                 x.Width = 120;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -428,7 +301,7 @@ namespace ModernRetail.Controllers
                 x.Caption = "Updated By";
                 x.VisibleIndex = 11;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
             });
 
             settings.Columns.Add(x =>
@@ -437,12 +310,14 @@ namespace ModernRetail.Controllers
                 x.Caption = "Updated On";
                 x.VisibleIndex = 12;
                 x.Width = 120;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
 
             });
+
+
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
             settings.SettingsExport.LeftMargin = 20;
             settings.SettingsExport.RightMargin = 20;
@@ -453,10 +328,10 @@ namespace ModernRetail.Controllers
         }
 
 
-        public JsonResult EditBranch(string id)
+        public JsonResult EditProductRate(string id)
         {
             DataSet output = new DataSet();
-            output = objdata.EditBranch(id);
+            output = objdata.EditProductRate(id);
 
             if (output.Tables[0].Rows.Count > 0)
             {
