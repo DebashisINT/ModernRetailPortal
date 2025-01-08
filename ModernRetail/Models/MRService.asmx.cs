@@ -68,6 +68,64 @@ namespace ModernRetail.Models
             return listUser;
         }
 
+
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetEmployee(string SearchKey, string DesignationId)
+        {
+            List<EmployeeModel> listEmployee = new List<EmployeeModel>();
+            if (HttpContext.Current.Session["MRuserid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
+                proc.AddVarcharPara("@Action", 4000, "GetEmployee");
+                proc.AddPara("@Designation", Convert.ToInt32(DesignationId));
+                proc.AddPara("@SearchKey", SearchKey);
+                dt = proc.GetTable();
+
+                listEmployee = (from DataRow dr in dt.Rows
+                                select new EmployeeModel()
+                                {
+                                    id = Convert.ToString(dr["USER_ID"]),
+                                    Employee_Code = Convert.ToString(dr["USER_LOGINID"]),
+                                    Employee_Name = Convert.ToString(dr["Employee_Name"])
+                                }).ToList();
+            }
+
+            return listEmployee;
+        }
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetProduct(string SearchKey)
+        {
+            List<ProductModel> listCust = new List<ProductModel>();
+            if (HttpContext.Current.Session["MRuserid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                DataTable dt = new DataTable();
+                BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
+
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
+                proc.AddVarcharPara("@Action", 4000, "GetProduct");
+                proc.AddPara("@SearchKey", SearchKey);
+                dt = proc.GetTable();
+
+                //DataTable cust = oDBEngine.GetDataTable("select top 10  SPRODUCTSID,Products_Name ,Products_Description ,sProduct_MinSalePrice  from v_Product_SaleRateLock where Products_Name like '%" + SearchKey + "%'  or Products_Description  like '%" + SearchKey + "%' order by Products_Name,Products_Description");
+
+                listCust = (from DataRow dr in dt.Rows
+                            select new ProductModel()
+                            {
+                                id = dr["SPRODUCTSID"].ToString(),
+                                Na = dr["Products_Name"].ToString(),
+                                Des = Convert.ToString(dr["Products_Description"])
+                            }).ToList();
+            }
+
+            return listCust;
+        }
+
         public class UsersModel
         {
             public string USER_ID { get; set; }

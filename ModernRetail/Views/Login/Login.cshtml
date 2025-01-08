@@ -284,8 +284,8 @@
             }
         )
         wow.init();
-        
-        
+
+
     </script>
     <script>
         $(document).ready(function () {
@@ -1012,8 +1012,9 @@
                                 <input type="submit" value="Sign in" class="btn btn-block loginbtn" />
 
                                 <div class="ftFooter">
-                                    © Copyright 2024 Breeze <span id="lblVersion">@ViewBag.ApplicationVersion</span>
-                                    @*[BreezeERP Version <span id="lblVersion">2.0.29]</span>*@
+                                    © Copyright <span id="yearCP"></span> Breeze <span id="lblVersion">@ViewBag.ApplicationVersion</span>
+                                    @*© Copyright 2024 Breeze <span id="lblVersion">@ViewBag.ApplicationVersion</span>*@
+
                                 </div>
                             </div>
                         </div>
@@ -1169,14 +1170,14 @@
                 </a>
                 <div></div>
                 @*<div class="socialArea">
-                    <div class="effect egeon">
-                        <div class="buttons">
-                            <a href="#" class="fb" title="Join us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#" class="g-plus" title="Join us on Google+"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                            <a href="#" class="in" title="Join us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <div class="effect egeon">
+                            <div class="buttons">
+                                <a href="#" class="fb" title="Join us on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#" class="g-plus" title="Join us on Google+"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                <a href="#" class="in" title="Join us on Linked In"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
 
             </div>
         </section>
@@ -1247,5 +1248,12 @@
         cursor: pointer;
     }
 </style>
+<script type="text/javascript" src="/assests/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assests/js/main.js?v1.0"></script>
+<script type="text/javascript">
+    const d = new Date();
+    let year = d.getFullYear();
+    document.getElementById("yearCP").innerHTML = year;
+</script>
 
 

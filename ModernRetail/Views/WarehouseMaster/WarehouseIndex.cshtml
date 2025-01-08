@@ -792,12 +792,12 @@
         document.getElementById("loading-overlay").style.display = "block";
     }
 
-    function NewWareHouse() {        
+    function NewWareHouse() {
         var url = '/WarehouseMaster/WHAdd?key=Add';
         window.location.href = url;
     }
-    
-    function OpenWarehouseEdit(ID) {      
+
+    function OpenWarehouseEdit(ID) {
         $("#WareHouse_ID").val(ID);
         if (parseInt(ID) > 0) {
                 $.ajax({
@@ -816,14 +816,11 @@
                     }
                 });
         }
-    }   
+    }
 
-    function WarehouseDeleet(obj) {
+    function WarehouseDelete(obj) {
 
-        $("#WareHouse_ID").val(obj);
-
-        
-
+            $("#WareHouse_ID").val(obj);
             Swal.fire({
             title: 'Are you sure you want to delete?',
             text: "This action cannot be undone!",
@@ -867,7 +864,7 @@
                 });
             }
         });
-    }    
+    }
 
 
     function gridRowclick(s, e) {
@@ -901,17 +898,23 @@
     <div class="container">
         <div class="backBox mt-5 p-3 ">
             <div class="form-group mb-4">
-                <button type="button" id="btnNew" class="btn add-btn mb-3" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="NewWareHouse();">
-                    <span class="btn-icon"><i class="fa fa-plus"></i></span> Add New
-                </button>
-                @*@if (ViewBag.CanView)
-                    {*@
-                <button type="button" id="btnshow" class="btn show-btn mb-3" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-                @*}*@
-                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container mb-3">
-                    <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
-                    <div class="tooltip">Export to XLSX</div>
-                </button>
+                @if (ViewBag.CanView)
+                {
+                    <button type="button" id="btnNew" class="btn add-btn mb-3" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="NewWareHouse();">
+                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Add New
+                    </button>
+                }
+                @if (ViewBag.CanView)
+                {
+                    <button type="button" id="btnshow" class="btn show-btn mb-3" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+                }
+                @if (ViewBag.CanExport)
+                {
+                    <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container mb-3">
+                        <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                        <div class="tooltip">Export to XLSX</div>
+                    </button>
+                }
 
                 <div class="overflow-x-auto">
                     @{

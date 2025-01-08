@@ -765,7 +765,22 @@
 </style>
 <script>
     var ShopId = [];
-    var Shop_Id ="";
+    var Shop_Id = "";
+    function GETCOUNTRY() {
+    $.ajax({
+        type: "POST",
+        url: "@Url.Action("GetCountry", "BranchMaster")",
+        async: false,
+        success: function (response) {
+            $('#ddlCountry').html('');
+            var html = "";
+            for (var i = 0; i < response.length; i++) {
+                html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+            }
+            $('#ddlCountry').html(html);
+        }
+    });
+}
     function WarehouseClose() {
         window.location.href = '/WarehouseMaster/WarehouseIndex';
     }
@@ -806,7 +821,10 @@
                 return false;
             }
         });
-
+        var ID = $('#hdnAdd').val();
+        if (ID == 0) {
+            GETCOUNTRY();
+        }
 
 
         $('#ddlCountry').select2({
@@ -822,7 +840,7 @@
             placeholder: "Select",
             allowClear: false
         });
-        
+
 
     });
     var urlKeys = getUrlVars();
@@ -853,32 +871,35 @@
                       var str = "";
 
                       if (status != null) {
+                          GETCOUNTRY();
                           CoutryChangePopulate(status.State, status.Country);
+                         
                           $("#WareHouse_ID").val(status.WarehouseID);
                           $("#hdnAdd").val(status.WarehouseID);
                           $('#txtWarehouse').val(status.WarehouseName);
                           $('#txtAddress1').val(status.Address1);
                           $('#txtAddress2').val(status.Address2);
                           $('#txtAddress3').val(status.Address3);
-                          $('#ddlCountry').val(status.Country).trigger('change');
+                          $('#ddlCountry').val(status.Country);
                           $('#txtPin').val(status.Pin);
                           $('#txtContactName').val(status.ContactName);
                           $('#txtContactPhone').val(status.ContactPhone);
-                         
-                          Shop_Id = status.Distributer;
-                        
 
-                          setTimeout(function () {
-                              $('#ddlState').val(status.State).change();
-                            
-                              setTimeout(function () {
-                                  $('#ddlCityDistrict').val(status.CityDistrict).change();
-                              }, 600);
-                          }, 600);
+                          Shop_Id = status.Distributer;
                           StateChagePopulate(status.CityDistrict, status.State);
 
-                          
+                          //setTimeout(function () {
+                          //   // $('#ddlState').val(status.State).change();     
+                          //    StateChagePopulate(status.CityDistrict, status.State);
+                          //    //setTimeout(function () {
+                          //    //    $('#ddlCityDistrict').val(status.CityDistrict).change();
+                          //    //}, 100);
+
+                          //}, 100);
                          
+
+
+
                       }
 
                   },
@@ -891,7 +912,7 @@
          }
      }
 
-    
+
 
 
     function CoutryChange() {
@@ -1095,7 +1116,7 @@
                 traditional: true,
                 success: function (data) {
                     if (data == "Ware house added successfully.") {
-                        
+
                         Swal.fire({
                             title: 'Success!',
                             /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
@@ -1118,7 +1139,7 @@
                       //  Clear();
                         //gridWareHouseList.Refresh();
                         //gridWareHouseList.Refresh();
-                       
+
                     }
                     else if (data == "Ware house updated successfully.") {
                         //jAlert(data);
@@ -1144,7 +1165,7 @@
                        // Clear();
                         //gridWareHouseList.Refresh();
                         //gridWareHouseList.Refresh();
-                      
+
                     }
                     else {
                         jAlert(data);
@@ -1158,7 +1179,7 @@
         e.customArgs["Is_PageLoad"] = "";
     }
 
-    
+
 
     function CoutryChangePopulate(Value, Country) {
         $.ajax({
@@ -1168,7 +1189,7 @@
             datatype: "json",
             async: false,
             success: function (data) {
-                
+
                 var status = '';
                // var status = "<select id='ddlState' onchange=StateChage() class = 'full form-control'>";
                 status = status + '<option value="0">select</option>';
@@ -1203,10 +1224,10 @@
 
         });
         $("#ddlCityDistrict").val(value);
-        
+
     }
 
-    
+
 
     function Clear() {
         $("#WareHouse_ID").val("");
@@ -1257,7 +1278,7 @@
             e.customArgs["WarehouseID"] = urlKeys.key;
     }
 
-    
+
     function ShopSelectionChanged(s, e) {
         ShopGridLookup.gridView.GetSelectedFieldValues("ID", GetShopSelectedFieldValuesCallback);
     }
@@ -1281,12 +1302,8 @@
 
 
 <script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
-
-
 <link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
-
 <input type="hidden" id="hdnAdd" />
-
 <div id="divPage" >
     <div class="breadCumb">
         <span>
@@ -1311,10 +1328,10 @@
 
                 <div class="row mb-3">
                     <div class="col-md-3 h-branch-select">
-                        <label>Country <span style="color:red">*</span></label>                       
-                        @Html.DropDownList("ddlCountry", new SelectList(Model.Country_List, "cou_id", "cou_country"), new { @name = "from", @class = "full form-control", @Onchange = "CoutryChange()" })
-                    
-                    
+                        <label>Country <span style="color:red">*</span></label>
+                        @*@Html.DropDownList("ddlCountry", new SelectList(Model.Country_List, "cou_id", "cou_country"), new { @name = "from", @class = "full form-control", @Onchange = "CoutryChange()" })*@
+                        <select id="ddlCountry" class="form-control" onchange="CoutryChange()"></select>
+
                     </div>
                     <div class="col-md-3 h-branch-select">
                         <label>State <span style="color:red">*</span></label>
@@ -1350,7 +1367,7 @@
                     <div class="col-md-3">
                         <label>Contact Person Phone <span style="color:red">*</span></label>
                         @*<input type="text" class="form-control" />*@
-                        @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", @id = "txtContactPhone" })
+                        @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", @id = "txtContactPhone" ,@MaxLength = "10" })
                     </div>
                     <div class="col-md-3">
                         <label>Distributor <span style="color:red">*</span></label>
@@ -1363,8 +1380,10 @@
                     </div>
                 </div>
                 <div class="row mx-1">
-                    @*<label>&nbsp;</label>*@
-                    <button type="button" id="btnSave" class="btn btn-success save-btn mr-3" onclick="SaveWareHouse()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span>Save and Exit</button>
+                    @if (ViewBag.CanAdd)
+                    {
+                        <button type="button" id="btnSave" class="btn btn-success save-btn mr-3" onclick="SaveWareHouse()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span>Save and Exit</button>
+                    }
                     <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
                 </div>

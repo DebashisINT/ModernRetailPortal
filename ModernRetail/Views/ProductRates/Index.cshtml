@@ -14,7 +14,7 @@
 <script src="~/Scripts/SearchPopupDatatable.js"></script>
 <link href="~/assests/css/SearchPopup.css" rel="stylesheet" />
 <script src="~/Scripts/SearchPopup.js"></script>
-<script src="~/Scripts/SearchMultiPopup.js"></script>
+@*<script src="~/Scripts/SearchMultiPopup.js"></script>*@
 <style>
     #grid .dxgvHSDC > div, #grid .dxgvCSD {
         width: 100% !important;
@@ -849,25 +849,12 @@
             allowClear: false
         });
 
-        //$('#ddlDesignation').select2({
-        //    placeholder: "Select",
-        //    allowClear: false
-        //});
-
-        $('#ddlState').select2({
+        $('#ddlDesignation').select2({
             placeholder: "Select",
             allowClear: false
         });
 
-        $('#ddlCity').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-
-        $('#ddlPIN').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
+        
     });
 
     function GETDESIGNATION() {
@@ -928,7 +915,7 @@
         if (ID != 0) {
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("EditBranch", "ProductRates")",
+                url: "@Url.Action("EditProductRate", "ProductRates")",
                 data: { id: ID },
                 success: function (response) {
                     if (response.code == "") {
@@ -1077,181 +1064,133 @@
     $("#hdnAdd").val("0");
     savemode = mode;
     hasmsg = 0;
-    var ShortName = $('#ShortName').val();
-    var ParentBranch = $('#ddlBranch option:selected').val();
-    var BranchName = $('#BranchName').val();
-    var Address1 = $('#Address1').val();
-    var Country = $('#ddlDesignation option:selected').val();
-    var State = $('#ddlState option:selected').val();
-    var City = $('#ddlCity option:selected').val();
-    var PIN = $('#ddlPIN option:selected').val();
+   
+    var Branch = $('#ddlBranch option:selected').val();   
+    var Designation = $('#ddlDesignation option:selected').val();
+    var Employee = $('#txtEmployee_hidden').val();
+    var Product = $('#HiddenProductID').val();  
+    var SpecialPrice = $("#txtSpecialPrice").val();
+   
+    if ($('#ddlBranch option:selected').val() == null || $('#ddlBranch option:selected').val() == "0" || $('#ddlBranch option:selected').val() == "Select" || $('#ddlBranch option:selected').val() == "undefined") {
 
-    var ShortName = $("#ShortName").val();
-    var branch_ID = $('#hdnDetailsID').val();
+        // SweetAlert for empty category description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Select  Branch to proceed.'
+        });
+        return false;
+        }
+    else if ($('#ddlDesignation option:selected').val() == null || $('#ddlDesignation option:selected').val() == "0" || $('#ddlDesignation option:selected').val() == "Select" || $('#ddlDesignation option:selected').val() == "undefined") {
 
-        $.ajax({
+    // SweetAlert for empty category description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Select Designation to proceed.'
+        });
+        return false;
+    }
+    else if (Employee.trim() == "") {
+        // SweetAlert for empty category description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Enter Employee to proceed.'
+        });
+        return false;
+    }
+
+    else if (Product == null || Product.trim() == "" ) {
+        // SweetAlert for empty category description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Enter Product to proceed.'
+        });
+        return false;
+    }
+    else if (SpecialPrice == null || SpecialPrice.trim() == "" ) {
+        // SweetAlert for empty category description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Enter Special Price to proceed.'
+        });
+        return false;
+    }                       
+
+    var hdnDetailsID = $('#hdnDetailsID').val();
+
+    var data = {
+        ID: hdnDetailsID,
+        branch_ID: Branch,
+        Designation: Designation,
+        Employee: Employee,
+        Product: Product,
+        SpecialPrice: SpecialPrice
+    }
+
+            $.ajax({
             type: "POST",
-            url: "@Url.Action("CheckUniqueShortName", "ProductRates")",
-            data: { ShortName: ShortName, branch_ID: branch_ID },
-            async: false,
+            url: "@Url.Action("SaveProductRates", "ProductRates")",
+            data: JSON.stringify({ Details: data }), // Fixed JSON formatting
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
             success: function (response) {
-                if(response=="1"){
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Sorry!',
-                        text: 'Please Enter Unique Short Name to proceed'
-                    });
-                    return false;
-                }
-                else{
-                        if ($("#ShortName").val().trim() == "") {
-                            // SweetAlert for empty category name
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Enter Short Name to proceed'
-                            });
-                            return false;
-                        }
-                        //else if (ParentBranch.trim() == "Select" || TargetLevel.trim() == "") {
-                        else if ($('#ddlBranch option:selected').val() == null || $('#ddlBranch option:selected').val() == "" || $('#ddlBranch option:selected').val() == "Select" || $('#ddlBranch option:selected').val() == "undefined") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Select Parent Branch to proceed.'
-                            });
-                            return false;
-                         }
-                        else if (BranchName.trim() == "") {
-                        // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Enter Branch Name to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (Address1.trim() == "") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Enter Address to proceed.'
-                            });
-                            return false;
-                        }
-
-                        else if (Country == null || Country.trim() == "" || Country.trim() =="Select") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select country to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (State == null || State.trim() == "" || State.trim() == "Select" || State.trim() == "0") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select state to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (City == null || City.trim() == "" || City.trim() == "Select" || City.trim() == "0") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select city to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (PIN == null || PIN.trim() == "" || PIN.trim() == "Select" || PIN.trim() == "0") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select pin to proceed.'
-                            });
-                            return false;
-                        }
-
-                    var hdnDetailsID = $('#hdnDetailsID').val();
-
-                    var data = {
-                        branch_ID:hdnDetailsID,
-                        ShortName: ShortName   ,
-                        ParentBranch: ParentBranch,
-                        BranchName: BranchName,
-                        Address1: Address1,
-                        Country: Country,
-                        State: State,
-                        City: City,
-                        PIN: PIN
-                    }
-
-                    $.ajax({
-                        type: "POST",
-                        url: "@Url.Action("SaveBranch", "ProductRates")",
-                        data: JSON.stringify({ Details: data }), // Fixed JSON formatting
-                        async: true,
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (response) {
-                            if (response != null) {
-                                var Sucess = response.split('~')[0];
-                                var DetailsID = response.split('~')[1];
-                                var TargetNo = response.split('~')[2];
-                                var Message = response.split('~')[3];
-
-                                $('#hdnDetailsID').val(DetailsID);
-
-                                if (DetailsID > 0 && TargetNo != "") {
-                                    ProductionID = 0;
-                                    DetailsID = 0;
-
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
-                                        html: 'Branch: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
-                                        icon: 'success',
-                                        confirmButtonText: 'OK'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            if (savemode === "Exit") {
-                                                setTimeout(function () {
-                                                    var url = '/ProductRates/BranchMasterList';
-                                                    window.location.href = url;
-                                                }, 500);
-                                            }
-                                        }
-                                    });
-
-                                } else {
-                                    DetailsID = 0;
-                                    savemode = "";
-
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Please try again later.',
-                                        icon: 'error',
-                                        confirmButtonText: 'OK'
-                                    });
-
-                                    return false;
+                if (response != null) {
+                    var Sucess = response.split('~')[0];
+                    var DetailsID = response.split('~')[1];                  
+                    var Message = response.split('~')[2];
+                    $('#hdnDetailsID').val(DetailsID);
+                    if (DetailsID > 0) {
+                        ProductionID = 0;
+                        DetailsID = 0;
+                        Swal.fire({
+                            title: 'Success!',                         
+                            html: 'Product Rates saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                if (savemode === "Exit") {
+                                    setTimeout(function () {
+                                        var url = '/ProductRates/ProductRatesList';
+                                        window.location.href = url;
+                                    }, 500);
                                 }
-                                Message = "";
                             }
-                        }
-                    });
+                        });
+                    }
+                    else if (DetailsID ==-1){
+                        DetailsID = 0;
+                        savemode = "";
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Product Rate already exist. Please enter a unique Product rate.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                        return false;
+                    }
+                    else {
+                        DetailsID = 0;
+                        savemode = "";
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Please try again later.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+
+                        return false;
+                    }
+                    Message = "";
                 }
             }
-        })
-
-
+        });              
     }
 
     function CancelAdd() {
@@ -1268,14 +1207,13 @@
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/ProductRates/BranchMasterList';
+                    window.location.href = '/ProductRates/ProductRatesList';
 
                 }
             });
         }
-
         else {
-            window.location.href = '/ProductRates/BranchMasterList';
+            window.location.href = '/ProductRates/ProductRatesList';
         }
 
     }
@@ -1354,7 +1292,7 @@
                 HeaderCaption.push("Product Name");
 
                 if ($("#txtAddProdSearch").val() != '') {
-                    callonServer("/OMS/Management/Activities/SpecialPriceUpload.aspx/GetProduct", OtherDetails, "AddProductTable", HeaderCaption, "AddProdIndex", "SetProduct");
+                    callonServer("../../../Models/MRService.asmx/GetProduct", OtherDetails, "AddProductTable", HeaderCaption, "AddProdIndex", "SetProduct");
                 }
             }
             else if (e.code == "ArrowDown") {
@@ -1369,10 +1307,10 @@
             }
         }
         function SetProdNametxt(id, name) {
-            ctxtProductNameAdd.SetText(name);
-            //var varproductid = id.split("||@||")[0];
-            //var minsaleprice = id.split("||@||")[1];
-            document.getElementById('HiddenProductID').value = varproductid;
+            txtProductNameAdd.SetText(name);
+           // ctxtProductNameAdd.SetText(name);
+            $("#HiddenProductID").val(id);
+           // document.getElementById('').value = varproductid;
 
         }
 </script>
@@ -1425,7 +1363,12 @@
 
                 }).GetHtml()
             </div>
-            SPECIAL PRICE
+            <div class="col-sm-3  mb-3">
+                <label>Special Price<span style="color:red">*</span></label>             
+                @Html.TextBoxFor(m => m.SpecialPrice, new { @class = "form-control allow_decimal numbersOnly", @id = "txtSpecialPrice", type = "text" })
+                @Html.ValidationMessageFor(m => m.SpecialPrice, "", new { @class = "text-danger" })
+            </div>
+            
 
 
 
@@ -1446,9 +1389,9 @@
 <input type="hidden" value="" id="hdnTARGETLEVELID" />
 <input type="hidden" value="" id="hdnINTERNALID" />
 <input type="hidden" value="" id="hdnLevelGuiIDS" />
-<input type="hidden" value="@Model.branch_ID" id="hdnDetailsID" />
+<input type="hidden" value="@Model.ID" id="hdnDetailsID" />
 <input type="hidden" value="" id="txtEmployee_hidden" />
-
+<input type="hidden" value="" id="HiddenProductID" />
 
 <div class="modal fade pmsModal w80 " id="EmployeeModel" role="dialog">
     <div class="modal-dialog">
@@ -1473,7 +1416,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="btnSaveEmployee" class="btnOkformultiselection btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
-                <button type="button" id="btnCloseEmployee" class="btn btn-default" data-dismiss="modal">Close</button>
+               
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
             </div>
         </div>
 
@@ -1504,9 +1448,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <%--<button type="button" id="btnAddSaveProduct" class="btnOkformultiselection btn btn-success" data-dismiss="modal" onclick="OKPopup('ProductSource')">OK</button>--%>
+                <button type="button" id="btnAddSaveProduct" class="btnOkformultiselection btn btn-success" data-dismiss="modal" onclick="OKPopup('ProductSource')">OK</button>
 
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
             </div>
         </div>
 
