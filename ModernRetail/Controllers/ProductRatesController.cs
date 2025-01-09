@@ -15,6 +15,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 using UtilityLayer;
+using System.Data.OleDb;
+using System.IO;
 
 namespace ModernRetail.Controllers
 {
@@ -397,6 +399,206 @@ namespace ModernRetail.Controllers
             return dt;
         }
 
-       
+        public ActionResult DownloadFormat()
+        {
+            string FileName = "ProductRatesList.xlsx";
+            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            response.ClearContent();
+            response.Clear();
+            response.ContentType = "image/jpeg";
+            response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ";");
+            response.TransmitFile(Server.MapPath("~/Commonfolder/ProductRatesList.xlsx"));
+            response.Flush();
+            response.End();
+
+            return null;
+        }       
+
+        public ActionResult ImportExcel()
+        {
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+                        String extension = Path.GetExtension(fname);
+                        fname = DateTime.Now.Ticks.ToString() + extension;
+                        fname = Path.Combine(Server.MapPath("~/Temporary/"), fname);
+                        file.SaveAs(fname);
+                        Import_To_Grid(fname, extension, file);
+                    }
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
+
+        public Int32 Import_To_Grid(string FilePath, string Extension, HttpPostedFileBase file)
+        {
+            Boolean Success = false;
+            Int32 HasLog = 0;
+
+            if (file.FileName.Trim() != "")
+            {
+                if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
+                {
+                    DataTable dt = new DataTable();
+                    string conString = string.Empty;
+                    conString = ConfigurationManager.AppSettings["ExcelConString"];
+                    conString = string.Format(conString, FilePath);
+                    using (OleDbConnection excel_con = new OleDbConnection(conString))
+                    {
+                        excel_con.Open();
+                        string sheet1 = "Sheet1"; //ī;
+
+                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+                        {
+                            oda.Fill(dt);
+                        }
+                        excel_con.Close();
+                    }
+
+                    // }
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                       
+                        DataTable dtExcelData = new DataTable();
+                        dtExcelData.Columns.Add("BRANCH", typeof(string));
+                        dtExcelData.Columns.Add("ITEM CODE", typeof(string));
+                        dtExcelData.Columns.Add("ITEM NAME", typeof(string));
+                        dtExcelData.Columns.Add("SPECIAL PRICE", typeof(string));
+                        dtExcelData.Columns.Add("USER LOGIN ID", typeof(string));
+                      
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (Convert.ToString(row["ITEM CODE"]) != "" && Convert.ToString(row["ITEM NAME"]) != "")
+                            {
+
+                                if (Convert.ToString(row["SPECIAL PRICE"]) == "")
+                                    row["SPECIAL PRICE"] = "0.00";
+
+                                
+
+                                dtExcelData.Rows.Add(Convert.ToString(row["BRANCH"]), Convert.ToString(row["ITEM CODE"]),
+                                                Convert.ToString(row["ITEM NAME"]),
+                                                Convert.ToString(row["SPECIAL PRICE"]), Convert.ToString(row["USER LOGIN ID"])
+                                               );
+                            }
+
+                        }
+
+                        try
+                        {
+                            TempData["ProductRateImportLog"] = dtExcelData;
+                            TempData.Keep();
+
+                            DataTable dtCmb = new DataTable();
+                            ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
+                            proc.AddPara("@ACTION", "IMPORTPRODUCTRATE");
+                            proc.AddPara("@IMPORT_TABLE", dtExcelData);
+                            proc.AddPara("@USER_ID", Convert.ToInt32(Session["MRuserid"]));
+                            dtCmb = proc.GetTable();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                }
+            }
+            return HasLog;
+        }
+        [HttpPost]
+        public JsonResult ProductImportLog(string Fromdt, String ToDate)
+        {
+            string output_msg = string.Empty;
+            try
+            {
+                string datfrmat = Fromdt.Split('-')[2] + '-' + Fromdt.Split('-')[1] + '-' + Fromdt.Split('-')[0];
+                string dattoat = ToDate.Split('-')[2] + '-' + ToDate.Split('-')[1] + '-' + ToDate.Split('-')[0];
+
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
+                proc.AddPara("@ACTION", "GETPRODUCTIMPORTLOG");
+                proc.AddPara("@FromDate", datfrmat);
+                proc.AddPara("@ToDate", dattoat);
+                dt = proc.GetTable();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    TempData["ProductRateImportLog"] = dt;
+                    TempData.Keep();
+                    output_msg = "True";
+                }
+                else
+                {
+                    output_msg = "Log not found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ImportLog()
+        {
+            List<ProductRateImportLog> list = new List<ProductRateImportLog>();
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = (DataTable)TempData["ProductRateImportLog"];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    ProductRateImportLog data = null;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        data = new ProductRateImportLog();
+                        data.BRANCH = Convert.ToString(row["BRANCH"]);
+                        data.ItemCode = Convert.ToString(row["ItemCode"]);
+                        data.ItemName = Convert.ToString(row["ItemName"]);                    
+                       
+                        data.SPECIALPRICE = Convert.ToDecimal(row["SPECIALPRICE"]);
+                        data.USERLOGINID = Convert.ToString(row["USERLOGINID"]);                      
+                        data.ImportStatus = Convert.ToString(row["ImportStatus"]);
+                        data.ImportMsg = Convert.ToString(row["ImportMsg"]);
+                        data.ImportDate = Convert.ToDateTime(row["ImportDate"]);
+                        data.UpdatedBy = Convert.ToString(row["UpdatedBy"]);
+
+                        list.Add(data);
+                    }
+                    TempData["ProductRateImportLog"] = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            TempData.Keep();
+            return PartialView(list);
+        }
+
     }
 }

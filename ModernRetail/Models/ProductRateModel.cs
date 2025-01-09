@@ -92,7 +92,24 @@ namespace ModernRetail.Models
         public String NAME { get; set; }
 
     }
+    public class ProductRateImportLog
+    {
+        public string BRANCH { get; set; }
+        public string ItemCode { get; set; }
+        public string ItemName { get; set; }     
+       
+        public decimal SPECIALPRICE { get; set; }
+       
+        public string USERLOGINID { get; set; }
+       
 
-    
+        public string ImportStatus { get; set; }
+        public string ImportMsg { get; set; }
+
+        public DateTime ImportDate { get; set; }
+        public string UpdatedBy { get; set; }
+
+    }
+
 
 }

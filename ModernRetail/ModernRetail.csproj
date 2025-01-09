@@ -1138,6 +1138,8 @@
     <Content Include="Views\ProductRates\Index.cshtml" />
     <Content Include="Views\ProductRates\PartialProductRatesList.cshtml" />
     <Content Include="Views\ProductRates\ProductRatesList.cshtml" />
+    <Content Include="Views\ProductRates\_ProductImportManualLogView.cshtml" />
+    <Content Include="Views\ProductRates\ImportLog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
