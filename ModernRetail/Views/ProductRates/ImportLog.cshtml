@@ -3,14 +3,13 @@
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridProductImportLog";
-    settings.CallbackRouteValues = new { Action = "ImportLog", Controller = "ProductMaster" };
+    settings.CallbackRouteValues = new { Action = "ImportLog", Controller = "ProductRates" };
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Height = System.Web.UI.WebControls.Unit.Pixel(480);
     settings.Settings.VerticalScrollableHeight = 230;
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
     settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
     settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
-    ///settings.ClientSideEvents.BeginCallback = "OnStartLogGridCallback";
     settings.SettingsSearchPanel.Visible = true;
     settings.Settings.ShowFilterRow = false;
     settings.Settings.ShowGroupPanel = false;
@@ -22,15 +21,23 @@
     settings.SettingsPager.PageSizeItemSettings.Visible = true;
     settings.SettingsPager.PageSize = 10;
 
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "BRANCH";
+        x.Caption = "Branch";
+        x.VisibleIndex = 1;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+
+    });
+
 
     settings.Columns.Add(x =>
     {
         x.FieldName = "ItemCode";
         x.Caption = "Item Code";
-        x.VisibleIndex = 1;
-        // x.Width = 200;
+        x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
-
         x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
 
     });
@@ -39,15 +46,6 @@
     {
         x.FieldName = "ItemName";
         x.Caption = "Item Name";
-        x.VisibleIndex = 2;
-        //x.Width = 120;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
-    });
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ItemClass";
-        x.Caption = "Item Class/Category";
         x.VisibleIndex = 3;
         //x.Width = 120;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
@@ -55,60 +53,24 @@
     });
     settings.Columns.Add(x =>
     {
-        x.FieldName = "ItemBrand";
-        x.Caption = "Item Brand";
+        x.FieldName = "SPECIALPRICE";
+        x.Caption = "Spcial Price";
+        x.VisibleIndex = 3;
+        //x.Width = 120;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "USERLOGINID";
+        x.Caption = "User Log IN";
         x.VisibleIndex = 4;
         //x.Width = 120;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
     });
 
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ItemStrangth";
-        x.Caption = "Item Strength";
-        x.VisibleIndex = 5;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-    });
-
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ItemPrice";
-        x.Caption = "Item Price";
-        x.VisibleIndex = 6;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-        x.PropertiesEdit.DisplayFormatString = "0.00";
-    });
-
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ItemMRP";
-        x.Caption = "Item MRP";
-        x.VisibleIndex = 7;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-        x.PropertiesEdit.DisplayFormatString = "0.00";
-    });
-
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ItemStatus";
-        x.Caption = "Item Status";
-        x.VisibleIndex = 8;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-    });
-
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "ItemUnit";
-        x.Caption = "Item Unit";
-        x.VisibleIndex = 9;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-    });
+   
 
     settings.Columns.Add(x =>
     {

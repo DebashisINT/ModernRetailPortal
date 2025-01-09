@@ -1,6 +1,7 @@
 ﻿
 
-
+@using ModernRetail.Models;
+@model ModernRetail.Models.ProductRateImportLog
 @{
     ViewBag.Title = "Product Rate";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -735,6 +736,87 @@
         }
     }
 </style>
+<style>
+    .dropdown-menu {
+        display: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        /*padding: 10px;*/
+        border-radius: 10px;
+        z-index: 1000;
+    }
+
+        .dropdown-menu button.btn {
+            width: 100%;
+            border-radius: 0;
+            color: #111;
+            background: transparent;
+            text-align: left;
+            transition: all .3s;
+            border-bottom: 1px solid #dadada;
+        }
+
+            .dropdown-menu button.btn:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+
+            .dropdown-menu button.btn:hover {
+                color: #fff !important;
+                background: #7933d0;
+            }
+
+            .dropdown-menu button.btn:focus {
+                color: #fff !important;
+                background: #7933d0;
+            }
+
+    #moreOptions button .btn-icon {
+        margin-right: 5px;
+    }
+
+    .dropdown-menu.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .more-btn {
+        position: relative;
+    }
+
+    .more-option-buttons {
+        background: #893823;
+    }
+    .btn-icon img {
+        width: 22px;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+
+            /*        .flex-loader {
+             width: 25% !important; 
+            height: 100vh !important;
+        }*/
+
+            .dropdown-menu button.btn {
+                margin-bottom: 0;
+                padding: 8px 8px;
+                height: auto;
+            }
+
+        #btnMore .tooltip {
+            display: none;
+        }
+    }
+</style>
 <script>
     var Is_PageLoad = "0";
 
@@ -745,17 +827,7 @@
             gridList.Refresh();
         });
 
-        @*$('#ddlAppIds').on('change', function () {
-            if ($("#ddlAppIds option:selected").index() > 0) {
-                var selectedValue = $(this).val();
-                var desg = $("#drpdesignation").val();
-                var usrtype = $("#ddlusertypes").val();
-                $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporCategoryList", "LMSCategory", new { type = "_type_" })'
-                window.location.href = url.replace("_type_", selectedValue);
-
-            }
-        });*@
+        
 
         $('#ddlAppIds').on('click', function () {
             var selectedValue = "1"; // XLSX export value
@@ -868,6 +940,159 @@
     }
     /*Rev End Pallab: grid modification*/
 </script>
+<script>
+     function DownloadFormat() {
+    var url = '@Url.Action("DownloadFormat", "ProductRates")'
+    window.location.href = url;
+    }
+
+    function ImportProductPopOpen() {
+    $("#myImportProductModal").modal('show');
+}
+
+function ChekEmpSettingsUpload() {
+    todate = null;
+    fromdate = null;
+    var isprocess = false;
+    var filename = $("#fileprod").val();
+    if ($('#fileprod').get(0).files.length === 0) {
+        //jAlert("No files selected.");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Warning',
+            text: 'No files selected.'
+        });
+
+        return false;
+    }
+    else {
+        var extension = filename.replace(/^.*\./, '');
+        switch (extension.toLowerCase()) {
+            case 'xls':
+                isprocess = true;
+            case 'xlsx':
+                isprocess = true;
+            default:
+                // Cancel the form submission
+                if (!isprocess) {
+                   // jAlert('Only excel file require.');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Only excel file require.'
+                    });
+                    return false;
+                }
+        }
+    }
+
+    if (isprocess == true) {
+        var fileUpload = $("#fileprod").get(0);
+        var files = fileUpload.files;
+
+        // Create FormData object
+        var fileData = new FormData();
+
+        // Looping over all files and add it to FormData object
+        for (var i = 0; i < files.length; i++) {
+            fileData.append(files[i].name, files[i]);
+        }
+
+
+        $.ajax({
+            url: "@Url.Action("ImportExcel", "ProductRates")",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: fileData,
+            success: function (result) {
+                jAlert(result, 'Alert', function () {
+                    $("#fileprod").val('');
+                    $("#myImportProductModal").modal('hide');
+                });
+
+            },
+            error: function (err) {
+               // jAlert(err.statusText);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: err.statusText
+                });
+
+            }
+        });
+    }
+}
+
+function ImportLogPopOpen() {
+    var d = new Date();
+
+    dtLogFrom.SetValue(d);
+    dtLogTo.SetValue(d);
+
+    pcModalImportViewMode.Show();
+}
+
+function ProductImportUserLog() {
+    var url = '/ProductRates/ProductImportLog/';
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: JSON.stringify({ 'Fromdt': dtLogFrom.GetText(), 'ToDate': dtLogTo.GetText() }),
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            if (response == "True") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ImportLog", "ProductRates")",
+                    success: function (response) {
+                        if (response) {
+                            //$("#ReAssignedModal_AreaRouteBeat").modal('hide');
+                            pcModalTemplateImportLog.Show();
+                            gridProductImportLog.Refresh();
+                            gridProductImportLog.Refresh();
+                        }
+                    }
+                });
+            }
+            else {
+                //jAlert(response);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: response
+                });
+
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+}
+
+</script>
+<script>
+
+    function toggleDropdown() {
+        const dropdown = $('#moreOptions');
+        if (dropdown.hasClass('show')) {
+            dropdown.removeClass('show').css('display', 'none');
+        } else {
+            dropdown.addClass('show').css('display', 'block');
+        }
+    }
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('#btnMore, #moreOptions').length) {
+            $('#moreOptions').removeClass('show').css('display', 'none');
+        }
+    });
+</script>
 <div class="breadCumb">
     <span>Product Rate</span>
 </div>
@@ -896,14 +1121,40 @@
                     {
                         <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
                     }
-                    @if (ViewBag.CanExport)
-                    {
-                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
-                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
-                            <div class="tooltip">Export to XLSX</div>
-                        </button>
+                    @*@if (ViewBag.CanExport)
+                        {
+                            <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                                <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                                <div class="tooltip">Export to XLSX</div>
+                            </button>
 
-                    }
+                        }*@
+                    <div class="mr-3 more-btn">
+                        <button type="button" id="btnMore" class="btn more-option-buttons tooltip-container" onclick="toggleDropdown()">
+                            <span class="btn-icon"><img src="../../../assests/images/more-btns.svg"></span>
+                            <div class="tooltip">More Options</div>
+                        </button>
+                        <div id="moreOptions" class="dropdown-menu">
+                            @if (ViewBag.CanExport)
+                            {
+                                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm">
+                                    <span class="btn-icon"><img src="/assests/images/excel.png" /></span> Export to XLSX
+                                </button>
+                            }
+                            @if (ViewBag.CanAdd)
+                            {
+                                <button type="button" id="btnDownloadFormat" class="btn" onclick="DownloadFormat()">
+                                    <span class="btn-icon"><img src="../../../assests/images/download-format.svg"></span> Download Format
+                                </button>
+                                <button type="button" id="btnImport" class="btn" onclick="ImportProductPopOpen()">
+                                    <span class="btn-icon"><img src="../../../assests/images/file-import.svg"></span> Import(Add/Update)
+                                </button>
+                                <button type="button" id="btnShowImportLog" class="btn" onclick="ImportLogPopOpen()">
+                                    <span class="btn-icon"><img src="../../../assests/images/log-files.svg"></span> View Log
+                                </button>
+                            }
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -921,6 +1172,74 @@
 </div>
 <input type="hidden" id="hdnID" />
 
+@Html.DevExpress().PopupControl(
+           settings =>
+           {
+               settings.Name = "pcModalImportViewMode";
+               settings.Width = 300;
+               settings.AllowDragging = true;
+               settings.CloseAction = CloseAction.CloseButton;
+               settings.CloseOnEscape = true;
+               settings.PopupAnimationType = AnimationType.None;
+               settings.HeaderText = "Bulk Update Party Log";
+               settings.Modal = true;
+               settings.AutoUpdatePosition = true;
+               settings.Top = 50;
+               settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+               settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+               settings.SetContent(() =>
+               {
+                   Html.RenderPartial("_ProductImportManualLogView");
+               });
+           }).GetHtml()
 
+@Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalTemplateImportLog";
+            settings.Width = 1000; 
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Product Import Log";
+            settings.Modal = true;
+            settings.AutoUpdatePosition = true;
+            settings.Top = 50;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+            settings.SetContent(() =>
+            {
+                Html.RenderPartial("ImportLog", new List<ProductRateImportLog>());
+            });
+        }).GetHtml()
+
+<div id="myImportProductModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Import Excel Template For Products</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
+                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
