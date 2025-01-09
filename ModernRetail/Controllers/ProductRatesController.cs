@@ -38,7 +38,7 @@ namespace ModernRetail.Controllers
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
 
-            objdata.branch_ID = 0;
+            objdata.ID = 0;
             TempData["ID"] = null;
 
             TempData.Keep();
@@ -337,14 +337,14 @@ namespace ModernRetail.Controllers
             {
                 return Json(new
                 {
-                    ShortName = Convert.ToString(output.Tables[0].Rows[0]["branch_code"]),
-                    ParentBranch = Convert.ToString(output.Tables[0].Rows[0]["branch_parentId"]),
-                    BranchName = Convert.ToString(output.Tables[0].Rows[0]["branch_description"]),
-                    Address1 = Convert.ToString(output.Tables[0].Rows[0]["branch_address"]),
-                    Country = Convert.ToString(output.Tables[0].Rows[0]["branch_country"]),
-                    State = Convert.ToString(output.Tables[0].Rows[0]["branch_state"]),
-                    City = Convert.ToString(output.Tables[0].Rows[0]["branch_city"]),
-                    PIN = Convert.ToString(output.Tables[0].Rows[0]["branch_pin"]),
+                    PRODUCT_ID = Convert.ToString(output.Tables[0].Rows[0]["PRODUCT_ID"]),
+                    sProducts_Name = Convert.ToString(output.Tables[0].Rows[0]["sProducts_Name"]),
+                    BRANCH_ID = Convert.ToString(output.Tables[0].Rows[0]["BRANCH_ID"]),
+                    DESIGID = Convert.ToString(output.Tables[0].Rows[0]["DESIGID"]),
+                    USER_ID = Convert.ToString(output.Tables[0].Rows[0]["USER_ID"]),
+                    USER_NAME = Convert.ToString(output.Tables[0].Rows[0]["USER_NAME"]),
+                    STORE_RATE = Convert.ToString(output.Tables[0].Rows[0]["STORE_RATE"]),
+                
 
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -377,7 +377,7 @@ namespace ModernRetail.Controllers
 
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
             proc.AddPara("@ACTION", "GETBRANCH");
-            proc.AddBigIntegerPara("@BRANCH_ID", Convert.ToInt64(branch_ID));
+           // proc.AddBigIntegerPara("@BRANCH_ID", Convert.ToInt64(branch_ID));
             dt = proc.GetTable();
             return dt;
         }

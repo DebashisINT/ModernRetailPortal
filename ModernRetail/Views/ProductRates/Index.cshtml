@@ -923,141 +923,19 @@
                     }
                     else {
                         GETBRANCH();
-                       // GETCOUNTRY();
-                        $("#ShortName").val(response.ShortName);
-                        $("#ddlBranch").val(response.ParentBranch);
-                        // $("#ddlBranch").val(response.ParentBranch).trigger('change');
-                        $("#BranchName").val(response.BranchName);
-                        $("#Address1").val(response.Address1);
-                        $("#ddlDesignation").val(response.Country);
-                        // $("#ddlDesignation").val(response.Country).trigger('change');
-                        EditCountryOnChange(response.State);
-                        EditStateOnChange(response.City);
-                        EditCityOnChange(response.PIN);
+                        GETDESIGNATION();
+                            $("#ddlBranch").val(response.BRANCH_ID);
+                            $("#ddlDesignation").val(response.DESIGID);
+                            txtEmployee.SetText(response.USER_NAME);
+                            txtProductNameAdd.SetText(response.sProducts_Name);
+                            $("#txtEmployee_hidden").val(response.USER_ID);
+                            $("#HiddenProductID").val(response.PRODUCT_ID);
+                            $("#txtSpecialPrice").val(response.STORE_RATE);
                     }
                 }
             });
         }
-    }
-
-
-
-    function EditCountryOnChange(State) {
-    var CountryID = $('#ddlDesignation option:selected').val();
-         $.ajax({
-             type: "POST",
-             url: "@Url.Action("GetState", "ProductRates")",
-             data: { CountryID: CountryID },
-             async: false,
-             success: function (response) {
-                 $('#ddlState').html('');
-                 var html = "";
-                 for (var i = 0; i < response.length; i++) {
-                     html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-                 }
-                 $('#ddlState').html(html);
-                 $('#ddlState').val(State);
-
-
-             }
-         });
-    }
-
-    function EditStateOnChange(City) {
-    var StateID = $('#ddlState option:selected').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("GETCITY", "ProductRates")",
-            data: { StateID: StateID },
-            async: false,
-            success: function (response) {
-                $('#ddlCity').html('');
-                var html = "";
-                for (var i = 0; i < response.length; i++) {
-                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-                }
-                $('#ddlCity').html(html);
-                $('#ddlCity').val(City);
-            }
-        });
-}
-    function EditCityOnChange(PIN) {
-    var CityID = $('#ddlCity option:selected').val();
-    $.ajax({
-        type: "POST",
-        url: "@Url.Action("GETPINZIP", "ProductRates")",
-        data: { CityID: CityID },
-        async: false,
-        success: function (response) {
-            $('#ddlPIN').html('');
-            var html = "";
-            for (var i = 0; i < response.length; i++) {
-                html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-            }
-            $('#ddlPIN').html(html);
-
-            $('#ddlPIN').val(PIN);
-        }
-    });
-}
-
-    function CountryOnChange() {
-        var CountryID = $('#ddlDesignation option:selected').val();
-     $.ajax({
-         type: "POST",
-         url: "@Url.Action("GetState", "ProductRates")",
-         data: { CountryID: CountryID },
-         success: function (response) {
-             $('#ddlState').html('');
-             var html = "";
-             for (var i = 0; i < response.length; i++) {
-                 html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-             }
-             $('#ddlState').html(html);
-
-
-         }
-     });
-    }
-
-    function StateOnChange() {
-        var StateID = $('#ddlState option:selected').val();
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("GETCITY", "ProductRates")",
-                data: { StateID: StateID },
-                success: function (response) {
-                    $('#ddlCity').html('');
-                    var html = "";
-                    for (var i = 0; i < response.length; i++) {
-                        html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-                    }
-                    $('#ddlCity').html(html);
-                }
-            });
-    }
-    function CityOnChange() {
-        var CityID = $('#ddlCity option:selected').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("GETPINZIP", "ProductRates")",
-            data: { CityID: CityID },
-            success: function (response) {
-                $('#ddlPIN').html('');
-                var html = "";
-                for (var i = 0; i < response.length; i++) {
-                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-                }
-                $('#ddlPIN').html(html);
-            }
-        });
-    }
+    }  
 
     function EntrySave(mode) {
 
@@ -1253,7 +1131,6 @@
                 $("input[EmployeeIndex=0]").focus();
         }
     }
-
     function SetEmployee(Id, Name) {
         var key = Id;
         if (key != null && key != '') {
@@ -1262,8 +1139,6 @@
             $('#EmployeeModel').modal('hide');
         }
     }
-
-
 </script>
 <script>
         function AddProductButnClick(s, e) {
@@ -1374,9 +1249,9 @@
 
             <div class="clear"></div>
             <div class="mt-4 px-4">
-                @if (Convert.ToInt16(ViewBag.IsView) == 0)
+                @if (ViewBag.CanAdd)
                 {
-                    <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
+                <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 }
                 <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
