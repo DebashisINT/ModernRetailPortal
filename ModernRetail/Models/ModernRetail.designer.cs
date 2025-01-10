@@ -175,6 +175,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_PRODUCTRATESDETAILSLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_PINZIPMASTERLIST> MR_PINZIPMASTERLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_PINZIPMASTERLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -3511,6 +3519,213 @@ namespace ModernRetail.Models
 				if ((this._ModifyUser != value))
 				{
 					this._ModifyUser = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_PINZIPMASTERLIST")]
+	public partial class MR_PINZIPMASTERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _pin_id;
+		
+		private string _pin_code;
+		
+		private string _CITYNAME;
+		
+		private string _COUNTRYNAME;
+		
+		private string _STATENAME;
+		
+		private System.Nullable<System.DateTime> _CREATEDATE;
+		
+		private string _CREATEUSER;
+		
+		private System.Nullable<System.DateTime> _MODIFYDATE;
+		
+		private string _MODIFYUSER;
+		
+		public MR_PINZIPMASTERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pin_id", DbType="Int")]
+		public System.Nullable<int> pin_id
+		{
+			get
+			{
+				return this._pin_id;
+			}
+			set
+			{
+				if ((this._pin_id != value))
+				{
+					this._pin_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pin_code", DbType="VarChar(10)")]
+		public string pin_code
+		{
+			get
+			{
+				return this._pin_code;
+			}
+			set
+			{
+				if ((this._pin_code != value))
+				{
+					this._pin_code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CITYNAME", DbType="NVarChar(250)")]
+		public string CITYNAME
+		{
+			get
+			{
+				return this._CITYNAME;
+			}
+			set
+			{
+				if ((this._CITYNAME != value))
+				{
+					this._CITYNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_COUNTRYNAME", DbType="NVarChar(250)")]
+		public string COUNTRYNAME
+		{
+			get
+			{
+				return this._COUNTRYNAME;
+			}
+			set
+			{
+				if ((this._COUNTRYNAME != value))
+				{
+					this._COUNTRYNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATENAME", DbType="NVarChar(250)")]
+		public string STATENAME
+		{
+			get
+			{
+				return this._STATENAME;
+			}
+			set
+			{
+				if ((this._STATENAME != value))
+				{
+					this._STATENAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATEDATE
+		{
+			get
+			{
+				return this._CREATEDATE;
+			}
+			set
+			{
+				if ((this._CREATEDATE != value))
+				{
+					this._CREATEDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEUSER", DbType="NVarChar(100)")]
+		public string CREATEUSER
+		{
+			get
+			{
+				return this._CREATEUSER;
+			}
+			set
+			{
+				if ((this._CREATEUSER != value))
+				{
+					this._CREATEUSER = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFYDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> MODIFYDATE
+		{
+			get
+			{
+				return this._MODIFYDATE;
+			}
+			set
+			{
+				if ((this._MODIFYDATE != value))
+				{
+					this._MODIFYDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFYUSER", DbType="NVarChar(100)")]
+		public string MODIFYUSER
+		{
+			get
+			{
+				return this._MODIFYUSER;
+			}
+			set
+			{
+				if ((this._MODIFYUSER != value))
+				{
+					this._MODIFYUSER = value;
 				}
 			}
 		}

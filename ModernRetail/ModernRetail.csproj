@@ -194,6 +194,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BreezeFSMGIT_VS22\ERP.UI\bin\DevExpress.XtraReports.v15.1.Web.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -268,6 +272,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -290,6 +295,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
     <Compile Include="Controllers\MeasurementController.cs" />
+    <Compile Include="Controllers\PinZipMasterController.cs" />
     <Compile Include="Controllers\ProductClassCategoryController.cs" />
     <Compile Include="Controllers\ProductMasterController.cs" />
     <Compile Include="Controllers\ProductRatesController.cs" />
@@ -319,6 +325,7 @@
       <DependentUpon>MRService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Models\PinZipMasterModel.cs" />
     <Compile Include="Models\ProductClassCategoryModel.cs" />
     <Compile Include="Models\ProductMasterModel.cs" />
     <Compile Include="Models\ProductRateModel.cs" />
@@ -1140,6 +1147,8 @@
     <Content Include="Views\ProductRates\ProductRatesList.cshtml" />
     <Content Include="Views\ProductRates\_ProductImportManualLogView.cshtml" />
     <Content Include="Views\ProductRates\ImportLog.cshtml" />
+    <Content Include="Views\PinZipMaster\Index.cshtml" />
+    <Content Include="Views\PinZipMaster\PartialPinzipMasterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

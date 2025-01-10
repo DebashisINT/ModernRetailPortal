@@ -1,0 +1,138 @@
+﻿@*====================================================== Revision History ==========================================================*@
+@*Rev Number         DATE              VERSION          DEVELOPER           CHANGES*@
+
+@*====================================================== Revision History ==========================================================*@
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "gridList";
+    settings.KeyFieldName = "pin_id";
+    settings.CallbackRouteValues = new { Action = "PartialGridList", Controller = "PinZipMaster" };
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+    settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
+    settings.SettingsSearchPanel.Visible = true;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsContextMenu.EnableColumnMenu = DefaultBoolean.True;
+    settings.Settings.ShowFooter = true;
+    settings.SettingsContextMenu.EnableFooterMenu = DefaultBoolean.True;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "30", "40", "50" };
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSize = 10;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.Bottom;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.ClientSideEvents.BeginCallback = "OnStartCallback";
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.EndCallback = "OnEndCallback";
+    //Rev End Pallab: grid modification
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "pin_code";
+        x.Caption = "Pin/Zip Code";
+        x.VisibleIndex = 1;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "CITYNAME";
+        x.Caption = "City/District";
+        x.VisibleIndex = 2;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(160);
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "STATENAME";
+        x.Caption = "State";
+        x.VisibleIndex = 3;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;        
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        
+    });    
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "CREATEUSER";
+        x.Caption = "Created By";
+        x.VisibleIndex = 6;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(180);
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "CREATEDATE";
+        x.Caption = "Created On";
+        x.VisibleIndex = 7;
+        x.Width = 120;      
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(130);
+        x.ColumnType = MVCxGridViewColumnType.DateEdit;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "MODIFYUSER";
+        x.Caption = "Updated By";
+        x.VisibleIndex = 8;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(180);
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "MODIFYDATE";
+        x.Caption = "Updated On";
+        x.VisibleIndex = 9;
+        x.Width = 120;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(130);
+        x.ColumnType = MVCxGridViewColumnType.DateEdit;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+
+    });
+
+
+    settings.Columns.Add(x =>
+    {
+        x.Caption = "Action";
+        x.VisibleIndex = 10;
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(140);
+        x.SetDataItemTemplateContent(c =>
+        {
+            if (ViewBag.CanEdit)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pin_id")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+            }
+            if (ViewBag.CanDelete)
+            {
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "pin_id")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
+
+            }
+        });
+
+    });
+
+    //Rev Pallab: grid modification
+    settings.ClientSideEvents.RowClick = "gridRowclick";
+    //Rev End Pallab: grid modification
+
+}).Bind(Model).GetHtml()
+
+
+
+
+
+
+
+
+
+
+
