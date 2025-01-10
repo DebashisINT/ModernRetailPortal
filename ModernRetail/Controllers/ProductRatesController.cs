@@ -2,7 +2,7 @@
 using DataAccessLayer;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
-using DevExpress.XtraExport;
+//using DevExpress.XtraExport;
 using ModernRetail.Models;
 using System;
 using System.Collections;
@@ -17,7 +17,9 @@ using System.Web.Services;
 using UtilityLayer;
 using System.Data.OleDb;
 using System.IO;
-
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Text.RegularExpressions;
 namespace ModernRetail.Controllers
 {
     public class ProductRatesController : Controller
@@ -464,20 +466,81 @@ namespace ModernRetail.Controllers
                 if (Extension.ToUpper() == ".XLS" || Extension.ToUpper() == ".XLSX")
                 {
                     DataTable dt = new DataTable();
-                    string conString = string.Empty;
-                    conString = ConfigurationManager.AppSettings["ExcelConString"];
-                    conString = string.Format(conString, FilePath);
-                    using (OleDbConnection excel_con = new OleDbConnection(conString))
-                    {
-                        excel_con.Open();
-                        string sheet1 = "Sheet1"; //ī;
+                    //string conString = string.Empty;
+                    //conString = ConfigurationManager.AppSettings["ExcelConString"];
+                    //conString = string.Format(conString, FilePath);
 
-                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+
+
+                    //using (OleDbConnection excel_con = new OleDbConnection(conString))
+                    //{
+                    //    excel_con.Open();
+                    //    string sheet1 = "Sheet1"; //ī;
+
+                    //    using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT * FROM [" + sheet1 + "]", excel_con))
+                    //    {
+                    //        oda.Fill(dt);
+                    //    }
+                    //    excel_con.Close();
+                    //}
+
+                    using (SpreadsheetDocument doc = SpreadsheetDocument.Open(FilePath, false))
+                    {
+                        Sheet sheet = doc.WorkbookPart.Workbook.Sheets.GetFirstChild<Sheet>();
+                        Worksheet worksheet = (doc.WorkbookPart.GetPartById(sheet.Id.Value) as WorksheetPart).Worksheet;
+                        IEnumerable<Row> rows = worksheet.GetFirstChild<SheetData>().Descendants<Row>().DefaultIfEmpty();
+
+                        foreach (Row row in rows)
                         {
-                            oda.Fill(dt);
+                            if (row.RowIndex.Value == 1)
+                            {
+                                foreach (Cell cell in row.Descendants<Cell>())
+                                {
+                                    if (cell.CellValue != null)
+                                    {
+                                        dt.Columns.Add(GetValue(doc, cell));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                DataRow tempRow = dt.NewRow();
+                                int columnIndex = 0;
+                                foreach (Cell cell in row.Descendants<Cell>())
+                                {
+                                    // Gets the column index of the cell with data
+
+                                    int cellColumnIndex = (int)GetColumnIndexFromName(GetColumnName(cell.CellReference));
+                                    cellColumnIndex--; //zero based index
+                                    if (columnIndex < cellColumnIndex)
+                                    {
+                                        do
+                                        {
+                                            tempRow[columnIndex] = ""; //Insert blank data here;
+                                            columnIndex++;
+                                        }
+                                        while (columnIndex < cellColumnIndex);
+                                    }
+                                    try
+                                    {
+                                        tempRow[columnIndex] = GetValue(doc, cell);
+
+                                    }
+                                    catch
+                                    {
+                                        tempRow[columnIndex] = "";
+                                    }
+
+                                    columnIndex++;
+                                }
+                                dt.Rows.Add(tempRow);
+                            }
                         }
-                        excel_con.Close();
                     }
+
+
+
+
 
                     // }
                     if (dt != null && dt.Rows.Count > 0)
@@ -598,6 +661,38 @@ namespace ModernRetail.Controllers
             }
             TempData.Keep();
             return PartialView(list);
+        }
+
+        public static string GetColumnName(string cellReference)
+        {
+            // Create a regular expression to match the column name portion of the cell name.
+            Regex regex = new Regex("[A-Za-z]+");
+            Match match = regex.Match(cellReference);
+            return match.Value;
+        }
+
+        private string GetValue(SpreadsheetDocument doc, Cell cell)
+        {
+            string value = cell.CellValue.InnerText;
+            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+            {
+                return doc.WorkbookPart.SharedStringTablePart.SharedStringTable.ChildElements.GetItem(int.Parse(value)).InnerText;
+            }
+            return value;
+        }
+
+        public static int? GetColumnIndexFromName(string columnName)
+        {
+            //return columnIndex;
+            string name = columnName;
+            int number = 0;
+            int pow = 1;
+            for (int i = name.Length - 1; i >= 0; i--)
+            {
+                number += (name[i] - 'A' + 1) * pow;
+                pow *= 26;
+            }
+            return number;
         }
 
     }
