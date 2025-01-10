@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: Modern Retail Info Details.Row: 3,4,6,7,11
+//Purpose: Modern Retail Info Details.Row: 3,4,6,7,11,14
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -12,6 +12,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ModernRetailAPI.Models;
+using BusinessLogicLayer;
+using System.Web;
 
 namespace ModernRetailAPI.Controllers
 {
@@ -92,6 +94,7 @@ namespace ModernRetailAPI.Controllers
                         omodel2.Add(new StoreSavelists()
                         {
                             store_id = s2.store_id,
+                            branch_id = s2.branch_id,
                             store_name = s2.store_name,
                             store_address = s2.store_address,
                             store_pincode = s2.store_pincode,
@@ -227,6 +230,7 @@ namespace ModernRetailAPI.Controllers
                         omodel2.Add(new StoreEditlists()
                         {
                             store_id = s2.store_id,
+                            branch_id = s2.branch_id,
                             store_name = s2.store_name,
                             store_address = s2.store_address,
                             store_pincode = s2.store_pincode,
@@ -483,6 +487,61 @@ namespace ModernRetailAPI.Controllers
                         omodel.message = "Successfully Get List.";
                         Uview = APIHelperMethods.ToModelList<ProdUomlistOutput>(ds.Tables[0]);
                         omodel.uom_list = Uview;
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No Data Found.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage UserBranchLists(UserBranchListInput model)
+        {
+            UserBranchListOutput omodel = new UserBranchListOutput();
+            List<UserBranlistOutput> UBview = new List<UserBranlistOutput>();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    DataSet ds = new DataSet();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "USERBRANCHLIST");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    //sqlcmd.Parameters.AddWithValue("@BRANCHHIERARCHY", Convert.ToString(HttpContext.Current.Session["MRuserbranchHierarchy"]));
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(ds);
+                    sqlcon.Close();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Successfully Get List.";
+                        UBview = APIHelperMethods.ToModelList<UserBranlistOutput>(ds.Tables[0]);
+                        omodel.branch_list = UBview;
                     }
                     else
                     {
