@@ -33,6 +33,7 @@ namespace ModernRetailAPI.Models
     public class StoreSavelists
     {
         public string store_id { get; set; }
+        public long branch_id { get; set; }
         public string store_name { get; set; }
         public string store_address { get; set; }
         public string store_pincode { get; set; }
@@ -83,6 +84,7 @@ namespace ModernRetailAPI.Models
     public class StoreFetchlists
     {
         public string store_id { get; set; }
+        public long branch_id { get; set; }
         public string store_name { get; set; }
         public string store_address { get; set; }
         public string store_pincode { get; set; }
@@ -108,6 +110,7 @@ namespace ModernRetailAPI.Models
     public class StoreEditlists
     {
         public string store_id { get; set; }
+        public long branch_id { get; set; }
         public string store_name { get; set; }
         public string store_address { get; set; }
         public string store_pincode { get; set; }
@@ -205,5 +208,20 @@ namespace ModernRetailAPI.Models
         public long product_id { get; set; }
         public long uom_id { get; set; }
         public string uom_name { get; set; }
+    }
+    public class UserBranchListInput
+    {
+        public long user_id { get; set; }
+    }
+    public class UserBranchListOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public List<UserBranlistOutput> branch_list { get; set; }
+    }
+    public class UserBranlistOutput
+    {
+        public long branch_id { get; set; }
+        public string branch_name { get; set; }
     }
 }

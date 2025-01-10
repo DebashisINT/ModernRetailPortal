@@ -117,3 +117,11 @@ D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\obj\Debug\ModernRetailAPI.csproj.
 D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\obj\Debug\ModernRe.E0E97B7D.Up2Date
 D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\obj\Debug\ModernRetailAPI.dll
 D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\obj\Debug\ModernRetailAPI.pdb
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\BusinessLogicLayer.dll
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\DataAccessLayer.dll
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\EntityLayer.dll
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\Aspose.Pdf.Kit.dll
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\Ionic.Zip.dll
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\BusinessLogicLayer.pdb
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\DataAccessLayer.pdb
+D:\PROJECTS\ModernRetailPortal\ModernRetailAPI\bin\EntityLayer.pdb
