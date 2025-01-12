@@ -18,10 +18,730 @@
 <link href="~/Scripts/pluggins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
 
+<style>
+        .pmsModal .modal-header {
+            background: #298ecc !important;
+            background-image: none !important;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 20px 20px 0 0;
+            color: #fff;
+        }
+
+        .pmsModal .modal-content {
+            border: none;
+        }
+
+        .pmsModal .modal-header .modal-title {
+            font-size: 14px;
+        }
+
+        .pmsModal.w70 .modal-dialog {
+            /*Rev 3.0*/
+            /*width: 70%;*/
+            width: 76%;
+            /*Rev end 3.0*/
+        }
+
+        #myModal label {
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .sample {
+            font-size: 12px;
+            color: #d48a28;
+        }
+
+        .buttonphoto {
+            padding: 11px 12px;
+            display: inline-block;
+            background: #dee3f7;
+            margin-top: 11px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            .buttonphoto:hover {
+                background: #415ed2;
+                color: #fff;
+            }
+
+        .infoQ {
+            color: #4b98b8;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        #PanModel {
+            z-index: 9999;
+        }
+
+        .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+            height: 30px;
+            padding: 3px 12px;
+        }
+
+        .modalScroll .modal-body {
+            max-height: 75vh !important;
+            overflow-y: auto;
+        }
+
+        .pmsModal .close {
+            font-weight: 400;
+            font-size: 25px;
+        }
+
+        .new-popup-width .modal-dialog {
+            width: 90% !important;
+        }
+
+        #myImportModal .modal-body {
+            border-radius: 0 0 20px 20px;
+        }
+        /*rev 1.0*/
+        .btn {
+            margin-bottom: 15px;
+        }
+        /*rev end 1.0*/
+
+        /*Rev 3.0*/
+        .dxeButtonEdit_PlasticBlue {
+            min-height: 30px;
+            border-radius: 4px;
+            border: 1px solid #cdcdcd;
+        }
+
+        .dxeButtonEditButton_PlasticBlue {
+            background: #094e8c !important;
+            border-radius: 4px !important;
+            padding: 0 4px !important;
+        }
+
+        #myModal label {
+            margin-top: 8px;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .General-part {
+            padding-bottom: 20px;
+            background: #fff4eb;
+            padding-top: 12px;
+            padding-left: 4px;
+            /*border-left: 5px solid #9b0909;*/
+            border-bottom: 1px solid #9b090991;
+        }
+
+        .store-info {
+            padding-bottom: 20px;
+            background: #ebfff0;
+            padding-top: 12px;
+            padding-left: 4px;
+            /*border-left: 5px solid #33974c;*/
+            border-bottom: 1px solid #33974c91;
+        }
+
+        .contact-info {
+            padding-bottom: 20px;
+            background: #f8ebff;
+            padding-top: 12px;
+            padding-left: 4px;
+            /*border-left: 5px solid #7e3ea1;*/
+            border-bottom: 1px solid #7e3ea191;
+        }
+
+        .account-info {
+            padding-bottom: 20px;
+            background: #fffff0;
+            padding-top: 12px;
+            padding-left: 4px;
+            /* border-left: 5px solid #2d84b3; */
+            border-bottom: 1px solid #c3b66391;
+        }
+
+        .other-info {
+            padding-bottom: 20px;
+            background: #fff3f3;
+            padding-top: 12px;
+            padding-left: 4px;
+            /*border-left: 5px solid #9eb329;*/
+            border-bottom: 1px solid #ef2a2a91;
+        }
+
+        .Loan-info {
+            padding-bottom: 20px;
+            background: #1c76770d;
+            padding-top: 12px;
+            padding-left: 4px;
+            /* border-left: 5px solid #9eb329; */
+            border-bottom: 1px solid #1c7677b5;
+        }
+
+        .pmsModal .modal-body {
+            /*Rev 5.0*/
+            /*padding-top: 0;*/
+            padding-top: 10px;
+            /*Rev end 5.0*/
+            padding-right: 15px;
+            padding-left: 15px;
+            /*Rev 5.0*/
+            /*padding-bottom: 0;*/
+            padding-bottom: 10px;
+            /*Rev end 5.0*/
+        }
+
+        .General-part h3 {
+            font-size: 16px;
+            margin: 0;
+            color: #8c0909;
+            padding-left: 8px;
+        }
+
+        .store-info h3 {
+            font-size: 16px;
+            margin: 0;
+            color: #33974c;
+            padding-left: 8px;
+        }
+
+        .contact-info h3 {
+            font-size: 16px;
+            margin: 0;
+            color: #7e3ea1;
+            padding-left: 8px;
+        }
+
+        .account-info h3 {
+            font-size: 16px;
+            margin: 0;
+            color: #bfaa15;
+            padding-left: 8px;
+        }
+
+        .other-info h3 {
+            font-size: 16px;
+            margin: 0;
+            color: #e54949;
+            padding-left: 8px;
+        }
+
+        .Loan-info h3 {
+            font-size: 16px;
+            margin: 0;
+            color: #1c7677;
+            padding-left: 8px;
+        }
+
+        .col-md-3, .col-md-6, .col-md-4 {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+            padding: 3px 5px;
+        }
+
+        .red {
+            font-size: 12px;
+        }
+
+
+        /*Rev end 3.0*/
+
+        /*Rev 5.0*/
+        #EmployeeTable table tr th,
+        #PPModel table tr th,
+        .dynamicPopupTbl > tbody > tr > td input {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 12px;
+            padding: 5px;
+        }
+
+        .w-50 {
+            width: 50% !important
+        }
+
+        #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
+            left: 20px !important;
+        }
+
+        #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
+            margin-top: 15px;
+        }
+
+        #dtFrom, #dtTo {
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        .calendar-icon {
+            position: absolute;
+            bottom: 7px;
+            right: 12px;
+            z-index: 0;
+            cursor: pointer;
+        }
+
+        #dtFrom_B-1, #dtTo_B-1 {
+            background: transparent !important;
+            border: none;
+            width: 30px;
+            padding: 10px !important;
+        }
+
+            #dtFrom_B-1 #dtFrom_B-1Img,
+            #dtTo_B-1 #dtTo_B-1Img {
+                display: none;
+            }
+
+        #dtFrom_I, #dtTo_I {
+            background: transparent;
+        }
+
+        .for-cust-icon {
+            position: relative;
+            z-index: 1;
+            width: 160px;
+        }
+
+        .pmsModal .modal-content {
+            overflow: hidden;
+        }
+
+        /*Rev 4.0*/
+        .multiselect-container.dropdown-menu {
+            right: 0 !important;
+            left: auto;
+            min-width: 340px;
+        }
+
+        .iminentSpan .multiselect-container.dropdown-menu {
+            right: auto !important;
+            left: 0;
+            min-width: 340px;
+        }
+
+        .multiselect-container > li > a {
+            padding: 5px 0;
+        }
+
+            .multiselect-container > li > a input[type="checkbox"] {
+                transform: translateY(3px);
+            }
+
+        .multiselect-container > li.active > a {
+            background: transparent !important;
+            color: #333;
+        }
+
+            .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
+                background: #f3f3f3 !important;
+                color: #333 !important;
+                padding: 5px 0;
+            }
+
+        .multiselect-item.multiselect-filter {
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .multiselect-item.multiselect-filter .form-control.multiselect-search {
+                height: 32px;
+            }
+
+            .multiselect-item.multiselect-filter .input-group-addon {
+                background: #41a8f1;
+                color: #fff;
+                border-color: #41a8f1;
+            }
+
+        .input-group-btn .multiselect-clear-filter {
+            background: #f98181;
+            color: #fffefe;
+            /* box-shadow: none; */
+            text-shadow: none;
+            border-color: #f96a6a;
+            padding: 5px 10px 4px 10px;
+        }
+
+        .multiselect.dropdown-toggle {
+            background: #fff;
+            border-radius: 0;
+        }
+
+        .iminentSpan > span {
+            display: block;
+        }
+
+        .btn-excel {
+            float: right;
+            margin-right: 38px;
+            margin-top: -4px;
+        }
+
+        .gridbinded {
+            position: absolute;
+            right: 15px;
+            top: 11px;
+        }
+
+        #cmbState + .btn-group > button {
+            border-radius: 4px;
+            height: 34px;
+        }
+
+        span.multiselect-native-select button {
+            border: 1px solid #c9c9c9 !important;
+            border-radius: 5px !important;
+        }
+
+        .pmsModal.w30 .modal-dialog {
+            max-width: 45%;
+        }
+
+        .mTop35 {
+            margin-top: 35px !important;
+        }
+
+        .multiselect-container {
+            position: static !important;
+        }
+
+        .iminentSpan .multiselect-container.dropdown-menu {
+            height: 300px;
+            overflow: auto;
+        }
+
+        .btn.multiselect-clear-filter {
+            margin-bottom: 0;
+            border-radius: 0 4px 4px 0 !important;
+            height: 32px;
+        }
+
+        .h-branch-select {
+            position: relative;
+        }
+
+            .h-branch-select::after {
+                content: '<';
+                position: absolute;
+                top: 43px;
+                right: 13px;
+                font-size: 18px;
+                transform: rotate(269deg);
+                font-weight: 500;
+                background: #094e8c;
+                color: #fff;
+                height: 18px;
+                display: block;
+                width: 28px;
+                /* padding: 10px 0; */
+                border-radius: 4px;
+                text-align: center;
+                line-height: 19px;
+                z-index: 0;
+            }
+
+        .multiselect.dropdown-toggle {
+            text-align: left;
+        }
+
+        .multiselect.dropdown-toggle, #ddlShowReport {
+            -webkit-appearance: none;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        .open .dropdown-toggle.btn-default {
+            background: transparent !important;
+        }
+
+        .btn .caret {
+            display: none;
+        }
+
+        /*End of Rev 4.0*/
+
+        /*Rev end 5.0*/
+
+        /*Rev 8.0*/
+        #txtEmployeeSearch {
+            margin-bottom: 10px;
+        }
+
+        .btn-default {
+            background-color: #e0e0e0;
+        }
+        /*Rev end 8.0*/
+
+        .dxgvControl_PlasticBlue a {
+            margin: 0 3px;
+        }
+
+        .mTop5, .lblmTop8 {
+            margin-top: 10px !important;
+        }
+
+        #txtDOB_DDD_PWC-1 #txtDOB_DDD_C_FNP_PW-1 {
+            left: 65px !important;
+        }
+
+        #txtAnniversary_DDD_PWC-1 #txtAnniversary_DDD_C_FNP_PW-1 {
+            left: -55px !important;
+        }
+
+        .btn-mass-dlt-imp-log {
+            background: #874a03;
+            color: #fff;
+            transition: all .3s;
+        }
+
+            .btn-mass-dlt-imp-log:hover {
+                background: #bf6905;
+                color: #fff;
+            }
+
+        .btn-info {
+            background-color: #0698c4 !important;
+            transition: all .3s;
+        }
+
+            .btn-info:hover {
+                background-color: #21b9e7 !important;
+            }
+
+        .btn-danger {
+            background-color: #dd1d17 !important;
+            transition: all .3s;
+        }
+
+            .btn-danger:hover {
+                background-color: #f9413b !important;
+            }
+
+        .btn-success {
+            background-color: #1ba749 !important;
+            transition: all .3s;
+        }
+
+            .btn-success:hover {
+                background-color: #27d560 !important;
+            }
+
+        .btn-primary {
+            background-color: #033868 !important;
+        }
+
+            .btn-primary:hover {
+                background-color: #01519a !important;
+            }
+
+        .dxpcLite_PlasticBlue .dxpc-content, .dxdpLite_PlasticBlue .dxpc-content {
+            padding: 7px 10px 10px !important;
+        }
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            /*width: 140px;*/
+            background-color: #0d8f24;
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 8px 10px;
+            position: absolute;
+            z-index: 99;
+            bottom: 130%;
+            left: 42%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+            .tooltip::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -10px;
+                border-width: 10px;
+                border-style: solid;
+                border-color: #0d8f24 transparent transparent transparent;
+            }
+
+        .tooltip-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+            overflow: visible;
+        }
+
+        .party-list-buttons .btn {
+            border-radius: 50px;
+            margin-right: 8px;
+            transition: .3s;
+        }
+
+            .party-list-buttons .btn:hover {
+                transform: scale(1.1);
+            }
+
+        .plr-5 {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .btn-warning {
+            background-color: #db8711;
+        }
+
+        .select2-container {
+            width: 100% !important;
+            z-index: 99999;
+        }
+
+        .select2-container--default .select2-selection--single {
+            height: 34px;
+            /* padding: 6px 12px; */
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        /*.select2-container {
+        z-index: 1;
+    }*/
+
+        .select2-container--default .select2-selection--single {
+            background-color: transparent;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                display: none;
+            }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            border-radius: 4px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 32px;
+            padding-right: 22px;
+        }
+
+        div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+            z-index: 99999;
+        }
+        /*
+        .dropdown-menu, .modal {
+            z-index: 999999;
+        }*/
+
+        .multiselect.dropdown-toggle {
+            width: 100% !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn-group {
+            width: 100%;
+        }
+</style>
+
+
 <script>
     var Is_PageLoad = "Ispageload";
 
-    function CountryChange() {
+    $(function () {
+        var d = new Date();
+
+        dtFrom.SetValue(d);
+        dtTo.SetValue(d);
+
+        $('body').on('click', '#btnshow', function () {
+
+            //GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeId").val());
+
+            //var IS_ReAssignedDate = "0";
+            //if ($('#chkIsAssignDate').is(":checked")) {
+            //    IS_ReAssignedDate = "1";
+            //}
+
+            datefrm = dtFrom.GetText();
+            var newdatefrom = datefrm.split("-").reverse().join("-");
+
+            var startdate = new Date(Date.parse(newdatefrom));
+            //  alert(startdate);
+
+            dateto = dtTo.GetText();
+            var newdateTo = dateto.split("-").reverse().join("-");
+
+            var endDate = new Date(Date.parse(newdateTo));
+
+            if (endDate < startdate) {
+
+                jAlert('From date should be before/equal To date');
+            }
+            else {
+
+                Is_PageLoad = "1";
+
+                gridStoreDetails.Refresh();
+                gridStoreDetails.Refresh();
+
+            }
+        });
+    });
+
+    function OnStartCallback(s, e) {
+        e.customArgs["Is_PageLoad"] = Is_PageLoad;
+        e.customArgs["Fromdate"] = dtFrom.GetText();;
+        e.customArgs["Todate"] = dtTo.GetText();
+
+        //document.getElementById("loading-overlay").style.display = "block";
+    }
+    function OnEndCallback() {
+        //document.getElementById("loading-overlay").style.display = "none";
+    }
+
+    function gridRowclick(s, e) {
+        $('#gridStoreDetails').find('tr').removeClass('rowActive');
+        $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+    }
+
+    function PINChange(){
+        $.ajax({
+            type: "post",
+            url: "@Url.Action("GetCountryStateCity", "StoreMaster")",
+            data: { PIN: $('#ddlPIN').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                if (data.length > 0) {
+                    $("#txtCountry").val(data[0].CountryName);
+                    $("#txtState").val(data[0].StateName);
+                    $("#txtCity").val(data[0].CityName);
+                    $("#hdnStateId").val(data[0].StateId);
+                }
+                
+            }
+        });
+    }
+
+    @*function CountryChange() {
         $.ajax({
             type: "post",
             url: "@Url.Action("GetState", "StoreMaster")",
@@ -81,9 +801,8 @@
             //$('#Areadiv').html(Area);
 
         }
-    }
+    }*@
 
-    
 
     $(document).ready(function () {
         $('#UserSearchModel').on('shown.bs.modal', function () {
@@ -92,6 +811,12 @@
         $('#OldUserSearchModel').on('shown.bs.modal', function () {
             $('#txtOldUserSearch').focus();
         })
+
+        $('#ddlPIN').select2({
+            placeholder: "Select",
+            allowClear: false
+        });
+
     });
 
     function Userkeydown(e) {
@@ -105,7 +830,7 @@
             var HeaderCaption = [];
             HeaderCaption.push("User Name");
             HeaderCaption.push("User Login Id");
-            
+
 
             if ($("#txtUserSearch").val() != "") {
                 callonServer("../../../Models/MRService.asmx/GetUserList", OtherDetails, "UserTable", HeaderCaption, "UserIndex", "SetUser");
@@ -187,15 +912,19 @@
         $("#hdnstoreMode").val('Add');
         $("#hdnStoreCode").val('');
         $("#myModalLabel").val("Add Store");
-        $("#ddlCountry").val('0');
-        $("#ddlState").val('0');
-        $("#ddlCity").val('0');
-        $("#ddlStoreType").val('0');
-        $("#ddlStatus").val('0');
+        $("#ddlPIN").val(0).trigger('change');
+        $("#ddlBranch").val(0).trigger('change');
+        $("#ddlStoreType").val(0).trigger('change');
+        $("#ddlStatus").val(1).trigger('change');
+
+        $("#txtCountry").val('');
+        $("#txtState").val('');
+        $("#txtCity").val('');
+        $("#hdnStateId").val(0);
 
         $("#txtStoreName").val('');
         $("#txtAddress").val('');
-        $("#txtPinCode").val('');
+        //$("#txtPinCode").val('');
         $("#txtArea").val('');
         $("#txtLocationLat").val('');
         $("#txtLocationLang").val('');
@@ -216,30 +945,51 @@
     }
 
     function AddStore(values) {
-        if ($("#ddlCountry").val() == "0") {
-            jAlert("Please select Country.", "Alert", function () {
+        
+        //if ($("#ddlCountry").val() == "0") {
+        //    jAlert("Please select Country.", "Alert", function () {
+        //        setTimeout(function () {
+        //            $("#ddlCountry").focus();
+        //            return
+        //        }, 200);
+        //    });
+        //    return
+       // }
+
+        //if ($("#ddlState").val() == "0") {
+        //    jAlert("Please select State.", "Alert", function () {
+        //        setTimeout(function () {
+        //            $("#ddlState").focus();
+        //            return
+        //        }, 200);
+        //    });
+        //    return
+        //}
+
+        //if ($("#ddlCity").val() == "0" || $("#ddlCity").val() == "") {
+        //    jAlert("Please select District.", "Alert", function () {
+        //        setTimeout(function () {
+        //            $("#ddlCity").focus();
+        //            return
+        //        }, 200);
+        //    });
+        //    return
+        //}
+
+        if ($("#ddlPIN").val() == "0" || $("#ddlPIN").val() == "") {
+            jAlert("Please select PIN.", "Alert", function () {
                 setTimeout(function () {
-                    $("#ddlCountry").focus();
+                    $("#ddlPIN").focus();
                     return
                 }, 200);
             });
             return
         }
 
-        if ($("#ddlState").val() == "0") {
-            jAlert("Please select State.", "Alert", function () {
+        if ($("#ddlBranch").val() == "0" || $("#ddlBranch").val() == "") {
+            jAlert("Please select Branch.", "Alert", function () {
                 setTimeout(function () {
-                    $("#ddlState").focus();
-                    return
-                }, 200);
-            });
-            return
-        }
-
-        if ($("#ddlCity").val() == "0" || $("#ddlCity").val() == "") {
-            jAlert("Please select District.", "Alert", function () {
-                setTimeout(function () {
-                    $("#ddlCity").focus();
+                    $("#ddlBranch").focus();
                     return
                 }, 200);
             });
@@ -266,17 +1016,17 @@
             return
         }
 
-        if ($("#txtPinCode").val() == "" || $("#txtPinCode").val() == null || $("#txtPinCode").val() == undefined) {
-            jAlert("Please enter Pin Code.", "Alert", function () {
-                setTimeout(function () {
-                    $("#txtPinCode").focus();
-                    return
-                }, 200);
-            });
-            return
-        }
+        //if ($("#txtPinCode").val() == "" || $("#txtPinCode").val() == null || $("#txtPinCode").val() == undefined) {
+        //    jAlert("Please enter Pin Code.", "Alert", function () {
+        //        setTimeout(function () {
+        //            $("#txtPinCode").focus();
+        //            return
+        //        }, 200);
+        //    });
+        //    return
+        //}
 
-        if ($("#ddlStatus").val() == "0") {
+        if ($("#ddlStatus").val() == "Select") {
             jAlert("Please select Status.", "Alert", function () {
                 setTimeout(function () {
                     $("#ddlStatus").focus();
@@ -309,7 +1059,8 @@
             }
         }
 
-        if (window.FormData !== undefined) {
+        if (window.FormData !== undefined)
+        {
             var fileUpload = $("#uploadFile").get(0);
             var files = fileUpload.files;
             var fileData = new FormData();
@@ -318,21 +1069,15 @@
                 fileData.append('shop_image', files[i]);
             }
 
-            var shop_idd = "";
-            if ($("#hdnShopMode").val() != 'Edit') {
-                if (fileUpload.files.length > 0) {
-                    shop_idd = $("#hdnUserID").val() + '_' + middle;
-                }
-            }
-            else {
-                shop_idd = $("#hdnShopCode").val();
-            }
 
-            if (fileUpload.files.length > 0) {
+
+            if (fileUpload.files.length > 0)
+            {
 
                 var isprocess = false;
                 var extension = $("#uploadFile").val().replace(/^.*\./, '');
-                switch (extension.toLowerCase()) {
+                switch (extension.toLowerCase())
+                {
                     case 'jpg':
                         isprocess = true;
                     case 'jpeg':
@@ -343,7 +1088,8 @@
                         isprocess = true;
                     default:
                         // Cancel the form submission
-                        if (!isprocess) {
+                        if (!isprocess)
+                        {
                             jAlert('Invalid file.');
                             return false;
                             return
@@ -356,643 +1102,264 @@
                 }
             }
 
-            var data = {
-                store_id = s2.store_id,
-                store_name = s2.store_name,
-                store_address = s2.store_address,
-                store_pincode = s2.store_pincode,
-                store_lat = s2.store_lat,
-                store_long = s2.store_long,
-                store_contact_name = s2.store_contact_name,
-                store_contact_number = s2.store_contact_number,
-                store_alternet_contact_number=s2.store_alternet_contact_number,
-                store_whatsapp_number = s2.store_whatsapp_number,
-                store_email = s2.store_email,
-                store_type=s2.store_type,
-                store_size_area = s2.store_size_area,
-                store_state_id = s2.store_state_id,
-                remarks = s2.remarks,
-                create_date_time = s2.create_date_time
+            var data =
+            {
+                store_id: $("#hdnStoreCode").val(),
+                store_name: $("#txtStoreName").val(),
+                store_address: $("#txtAddress").val(),
+                store_pincode: $("#ddlPIN option:selected").text(),
+                store_branch: $('#ddlBranch option:selected').val(),
+                store_status: $("#ddlStatus").val(),
+                store_lat: $("#txtLocationLat").val(),
+                store_long: $("#txtLocationLang").val(),
+                store_contact_name: $("#txtContactName").val(),
+                store_contact_number: $("#txtContactNo").val(),
+                store_alternet_contact_number: $("#txtAlternateContact").val(),
+                store_whatsapp_number: $("#txtWhatsappNumber").val(),
+                store_email: $("#txtEmail").val(),
+                store_type: $("#ddlStoreType").val(),
+                store_size_area: $("#txtArea").val(),
+                store_state_id: $("#hdnStateId").val(),
+                remarks: $("#txtRemarks").val(),
+                create_date_time: "",
+                created_userid: $('#hdnUserID').val(),
+                created_userid_old: $('#hdnOldUserID').val()
 
             }
 
+            //if ($("#hdnStoreMode").val() == 'Edit') {
+            //    add_url = "@Url.Action("EditStore", "StoreMaster")";
+            //}
+            //else {
+            //    add_url = "@Url.Action("AddStore", "StoreMaster")";
+            //}
+
+            add_url = "@Url.Action("AddStore", "StoreMaster")";
+
+            var model = new FormData();
+            var i = 0;//selected file index
+            model.append("shop_image", files[0]);
+            model.append("data", JSON.stringify(data));
+
+            $.ajax({
+               // and other parameter is set here
+               url: add_url,
+                     async: false,
+                     data: { data: data },
+                     type: 'POST',
+                  }).always(function (result1){
+                  if (result1 == '1' || result1 == '2')
+                  {
+
+                    // IF STORE IMAGE IS GIVEN
+                    if (fileUpload.files.length > 0)
+                    {
+                         add_photo_url = "@Url.Action("AddStoreImage", "StoreMaster")";
+
+                         var model = new FormData();
+                         var i = 0;//selected file index
+                         model.append("store_image", files[0]);
+                         //model.append("store_id", data);
 
 
+                         $.ajax({
+                         // and other parameter is set here
+                         url: add_photo_url,
+                                 type: "POST",
+                                 data: model,
+                                 dataType: "json",
+                                 cache: false,
+                                 contentType: false,
+                                 processData: false
+                             }).always(function (result) {
+                                 if (result == 'OK')
+                                 {
+                                     if (result1 == '1') {
+                                         jAlert("Store added successfully.");
+                                     }
+                                     else {
+                                         jAlert("Store updated successfully.");
+                                     }
+                                 
+
+                                     ClearData();
+
+                                     if (values == "Exit") {
+                                        $('#myModal').modal('hide');
+                                 }
+                                 gridStoreDetails.Refresh();
+                                 gridStoreDetails.Refresh();
+                             }
+                         });
+                     }
+                     else
+                     {
+                        if (result1 == '1') {
+                            jAlert("Store added successfully.");
+                        }
+                        else {
+                            jAlert("Store updated successfully.");
+                        }
+
+                         ClearData();
+                         if (values == "Exit") {
+                                $('#myModal').modal('hide');
+                         }
+                        gridStoreDetails.Refresh();
+                        gridStoreDetails.Refresh();
+
+                     }
 
 
+                    }
+                    else
+                    {
+                      if (result1 == '1') {
+                          jAlert("Error in Store added.");
+                      }
+                      else {
+                          jAlert("Error in update.");
+                      }
+                    }
+
+               });
 
         }
-        else {
+        else
+        {
 
-
+             jAlert("Please try again later!");
         }
 
     }
+
+    function DeleteClick(ID) {
+        $("#hdnStoreCode").val(ID);
+
+
+        // SweetAlert confirmation with custom icon
+        Swal.fire({
+            title: 'Are you sure you want to delete?',
+            text: "This action cannot be undone!",
+            imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+            imageWidth: 40, // Adjust the width as needed
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteStore", "StoreMaster")',
+                    data: { store_id: ID },
+                    success: function (response) {
+                        if (parseInt(response) > 0) {
+                            // SweetAlert success message with custom icon
+                            Swal.fire({
+                                title: 'Deleted!',
+                                text: 'The record has been deleted successfully.',
+                                /*imageUrl: '/path/to/your/success-icon.png', */
+                                /*imageWidth: 50, */
+                                icon: 'success' // You can also keep the built-in icon type
+                            }).then(() => {
+                                Is_PageLoad = "1";
+                                gridStoreDetails.Refresh();
+                            });
+                        } else if (parseInt(response) == -10) {
+                            // SweetAlert error message with custom icon
+                            Swal.fire({
+                                title: 'Sorry!',
+                                text: 'Store already mapped with another module. Cannot delete.',
+                                imageUrl: '/path/to/your/error-icon.png',
+                                imageWidth: 50,
+                                icon: 'error' // You can also keep the built-in icon type
+                            });
+                        } else {
+                            // SweetAlert error message with custom icon
+                            Swal.fire({
+                                title: 'Sorry!',
+                                text: 'Error in delete.',
+                                imageUrl: '/path/to/your/error-icon.png',
+                                imageWidth: 50,
+                                icon: 'error' // You can also keep the built-in icon type
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+   function EditClick(ID)
+   {
+       ClearData();
+       $("#hdnStoreCode").val(ID);
+       $("#hdnstoreMode").val('Edit');
+
+       $.ajax({
+           type: "POST",
+           url: "@Url.Action("EditStore", "StoreMaster")",
+           data: { store_id: ID },
+           success: function (response) {
+               if (response.code == "") {
+                   jAlert('No data found');
+               }
+               else
+               {
+                   $("#myModalLabel").val("Edit Store");
+
+                   $("#txtStoreName").val(response.store_name);
+                   $("#txtAddress").val(response.store_address);
+
+                   $("#ddlPIN").val(response.store_pincode).trigger('change');
+                   $("#txtCountry").val(response.CountryName);
+                   $("#txtState").val(response.StateName);
+                   $("#txtCity").val(response.CityName);
+
+                   $("#txtLocationLat").val(response.store_lat);
+                   $("#txtLocationLang").val(response.store_long);
+                   $("#txtContactName").val(response.store_contact_name);
+                   $("#txtContactNo").val(response.store_contact_number);
+                   $("#txtAlternateContact").val(response.store_alternet_contact_number);
+                   $("#txtWhatsappNumber").val(response.store_whatsapp_number);
+                   $("#txtEmail").val(response.store_email);
+                   $("#ddlStoreType").val(response.store_type).trigger('change');
+                   $("#txtArea").val(response.store_size_area);
+                   $("#hdnStateId").val(response.store_state_id);
+                   $("#txtRemarks").val(response.remarks);
+                   $("#ddlBranch").val(response.store_branch).trigger('change');
+                   $("#ddlStatus").val(response.store_status).trigger('change');
+
+                   
+                   $('#hdnUserID').val(response.created_userid)
+                   UserTxt.SetText(response.created_username);
+                   $('#hdnOldUserID').val(response.created_userid_old)
+                   OldUserTxt.SetText(response.created_useridname_old);
+
+                   //$("#uploadFile").val(response.store_pic_url);
+
+                   $("#myModal").modal('show');
+               }
+           }
+       });
+   }
 
 </script>
 
-<style>
-    .pmsModal .modal-header {
-        background: #298ecc !important;
-        background-image: none !important;
-        padding: 11px 20px;
-        border: none;
-        border-radius: 20px 20px 0 0;
-        color: #fff;
-    }
-
-    .pmsModal .modal-content {
-        border: none;
-    }
-
-    .pmsModal .modal-header .modal-title {
-        font-size: 14px;
-    }
-
-    .pmsModal.w70 .modal-dialog {
-        /*Rev 3.0*/
-        /*width: 70%;*/
-        width: 76%;
-        /*Rev end 3.0*/
-    }
-
-    #myModal label {
-        font-weight: 500;
-        margin-top: 5px;
-    }
-
-    .red {
-        color: red;
-    }
-
-    .sample {
-        font-size: 12px;
-        color: #d48a28;
-    }
-
-    .buttonphoto {
-        padding: 11px 12px;
-        display: inline-block;
-        background: #dee3f7;
-        margin-top: 11px;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-        .buttonphoto:hover {
-            background: #415ed2;
-            color: #fff;
-        }
-
-    .infoQ {
-        color: #4b98b8;
-        margin-left: 5px;
-        cursor: pointer;
-    }
-
-    #PanModel {
-        z-index: 9999;
-    }
-
-    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
-        height: 30px;
-        padding: 3px 12px;
-    }
-
-    .modalScroll .modal-body {
-        max-height: 75vh !important;
-        overflow-y: auto;
-    }
-
-    .pmsModal .close {
-        font-weight: 400;
-        font-size: 25px;
-    }
-
-    .new-popup-width .modal-dialog {
-        width: 90% !important;
-    }
-
-    #myImportModal .modal-body {
-        border-radius: 0 0 20px 20px;
-    }
-    /*rev 1.0*/
-    .btn {
-        margin-bottom: 15px;
-    }
-    /*rev end 1.0*/
-
-    /*Rev 3.0*/
-    .dxeButtonEdit_PlasticBlue {
-        min-height: 30px;
-        border-radius: 4px;
-        border: 1px solid #cdcdcd;
-    }
-
-    .dxeButtonEditButton_PlasticBlue {
-        background: #094e8c !important;
-        border-radius: 4px !important;
-        padding: 0 4px !important;
-    }
-
-    #myModal label {
-        margin-top: 8px;
-        font-size: 13px;
-        margin-bottom: 2px;
-    }
-
-    .General-part {
-        padding-bottom: 20px;
-        background: #fff4eb;
-        padding-top: 12px;
-        padding-left: 4px;
-        /*border-left: 5px solid #9b0909;*/
-        border-bottom: 1px solid #9b090991;
-    }
-
-    .store-info {
-        padding-bottom: 20px;
-        background: #ebfff0;
-        padding-top: 12px;
-        padding-left: 4px;
-        /*border-left: 5px solid #33974c;*/
-        border-bottom: 1px solid #33974c91;
-    }
-
-    .contact-info {
-        padding-bottom: 20px;
-        background: #f8ebff;
-        padding-top: 12px;
-        padding-left: 4px;
-        /*border-left: 5px solid #7e3ea1;*/
-        border-bottom: 1px solid #7e3ea191;
-    }
-
-    .account-info {
-        padding-bottom: 20px;
-        background: #fffff0;
-        padding-top: 12px;
-        padding-left: 4px;
-        /* border-left: 5px solid #2d84b3; */
-        border-bottom: 1px solid #c3b66391;
-    }
-
-    .other-info {
-        padding-bottom: 20px;
-        background: #fff3f3;
-        padding-top: 12px;
-        padding-left: 4px;
-        /*border-left: 5px solid #9eb329;*/
-        border-bottom: 1px solid #ef2a2a91;
-    }
-
-    .Loan-info {
-        padding-bottom: 20px;
-        background: #1c76770d;
-        padding-top: 12px;
-        padding-left: 4px;
-        /* border-left: 5px solid #9eb329; */
-        border-bottom: 1px solid #1c7677b5;
-    }
-
-    .pmsModal .modal-body {
-        /*Rev 5.0*/
-        /*padding-top: 0;*/
-        padding-top: 10px;
-        /*Rev end 5.0*/
-        padding-right: 15px;
-        padding-left: 15px;
-        /*Rev 5.0*/
-        /*padding-bottom: 0;*/
-        padding-bottom: 10px;
-        /*Rev end 5.0*/
-    }
-
-    .General-part h3 {
-        font-size: 16px;
-        margin: 0;
-        color: #8c0909;
-        padding-left: 8px;
-    }
-
-    .store-info h3 {
-        font-size: 16px;
-        margin: 0;
-        color: #33974c;
-        padding-left: 8px;
-    }
-
-    .contact-info h3 {
-        font-size: 16px;
-        margin: 0;
-        color: #7e3ea1;
-        padding-left: 8px;
-    }
-
-    .account-info h3 {
-        font-size: 16px;
-        margin: 0;
-        color: #bfaa15;
-        padding-left: 8px;
-    }
-
-    .other-info h3 {
-        font-size: 16px;
-        margin: 0;
-        color: #e54949;
-        padding-left: 8px;
-    }
-
-    .Loan-info h3 {
-        font-size: 16px;
-        margin: 0;
-        color: #1c7677;
-        padding-left: 8px;
-    }
-
-    .col-md-3, .col-md-6, .col-md-4 {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
-        padding: 3px 5px;
-    }
-
-    .red {
-        font-size: 12px;
-    }
-
-
-    /*Rev end 3.0*/
-
-    /*Rev 5.0*/
-    #EmployeeTable table tr th,
-    #PPModel table tr th,
-    .dynamicPopupTbl > tbody > tr > td input {
-        font-family: 'Poppins', sans-serif !important;
-        font-size: 12px;
-        padding: 5px;
-    }
-
-    .w-50 {
-        width: 50% !important
-    }
-
-    #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
-        left: 20px !important;
-    }
-
-    #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
-        margin-top: 15px;
-    }
-
-    #dtFrom, #dtTo {
-        position: relative;
-        z-index: 1;
-        background: transparent;
-    }
-
-    .calendar-icon {
-        position: absolute;
-        bottom: 7px;
-        right: 12px;
-        z-index: 0;
-        cursor: pointer;
-    }
-
-    #dtFrom_B-1, #dtTo_B-1 {
-        background: transparent !important;
-        border: none;
-        width: 30px;
-        padding: 10px !important;
-    }
-
-        #dtFrom_B-1 #dtFrom_B-1Img,
-        #dtTo_B-1 #dtTo_B-1Img {
-            display: none;
-        }
-
-    #dtFrom_I, #dtTo_I {
-        background: transparent;
-    }
-
-    .for-cust-icon {
-        position: relative;
-        z-index: 1;
-        width: 160px;
-    }
-
-    .pmsModal .modal-content {
-        overflow: hidden;
-    }
-
-    /*Rev 4.0*/
-    .multiselect-container.dropdown-menu {
-        right: 0 !important;
-        left: auto;
-        min-width: 340px;
-    }
-
-    .iminentSpan .multiselect-container.dropdown-menu {
-        right: auto !important;
-        left: 0;
-        min-width: 340px;
-    }
-
-    .multiselect-container > li > a {
-        padding: 5px 0;
-    }
-
-        .multiselect-container > li > a input[type="checkbox"] {
-            transform: translateY(3px);
-        }
-
-    .multiselect-container > li.active > a {
-        background: transparent !important;
-        color: #333;
-    }
-
-        .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
-            background: #f3f3f3 !important;
-            color: #333 !important;
-            padding: 5px 0;
-        }
-
-    .multiselect-item.multiselect-filter {
-        padding-bottom: 6px;
-        border-bottom: 1px solid #ccc;
-    }
-
-        .multiselect-item.multiselect-filter .form-control.multiselect-search {
-            height: 32px;
-        }
-
-        .multiselect-item.multiselect-filter .input-group-addon {
-            background: #41a8f1;
-            color: #fff;
-            border-color: #41a8f1;
-        }
-
-    .input-group-btn .multiselect-clear-filter {
-        background: #f98181;
-        color: #fffefe;
-        /* box-shadow: none; */
-        text-shadow: none;
-        border-color: #f96a6a;
-        padding: 5px 10px 4px 10px;
-    }
-
-    .multiselect.dropdown-toggle {
-        background: #fff;
-        border-radius: 0;
-    }
-
-    .iminentSpan > span {
-        display: block;
-    }
-
-    .btn-excel {
-        float: right;
-        margin-right: 38px;
-        margin-top: -4px;
-    }
-
-    .gridbinded {
-        position: absolute;
-        right: 15px;
-        top: 11px;
-    }
-
-    #cmbState + .btn-group > button {
-        border-radius: 4px;
-        height: 34px;
-    }
-
-    span.multiselect-native-select button {
-        border: 1px solid #c9c9c9 !important;
-        border-radius: 5px !important;
-    }
-
-    .pmsModal.w30 .modal-dialog {
-        max-width: 45%;
-    }
-
-    .mTop35 {
-        margin-top: 35px !important;
-    }
-
-    .multiselect-container {
-        position: static !important;
-    }
-
-    .iminentSpan .multiselect-container.dropdown-menu {
-        height: 300px;
-        overflow: auto;
-    }
-
-    .btn.multiselect-clear-filter {
-        margin-bottom: 0;
-        border-radius: 0 4px 4px 0 !important;
-        height: 32px;
-    }
-
-    .h-branch-select {
-        position: relative;
-    }
-
-        .h-branch-select::after {
-            content: '<';
-            position: absolute;
-            top: 43px;
-            right: 13px;
-            font-size: 18px;
-            transform: rotate(269deg);
-            font-weight: 500;
-            background: #094e8c;
-            color: #fff;
-            height: 18px;
-            display: block;
-            width: 28px;
-            /* padding: 10px 0; */
-            border-radius: 4px;
-            text-align: center;
-            line-height: 19px;
-            z-index: 0;
-        }
-
-    .multiselect.dropdown-toggle {
-        text-align: left;
-    }
-
-    .multiselect.dropdown-toggle, #ddlShowReport {
-        -webkit-appearance: none;
-        position: relative;
-        z-index: 1;
-        background-color: transparent;
-    }
-
-    .open .dropdown-toggle.btn-default {
-        background: transparent !important;
-    }
-
-    .btn .caret {
-        display: none;
-    }
-
-    /*End of Rev 4.0*/
-
-    /*Rev end 5.0*/
-
-    /*Rev 8.0*/
-    #txtEmployeeSearch {
-        margin-bottom: 10px;
-    }
-
-    .btn-default {
-        background-color: #e0e0e0;
-    }
-    /*Rev end 8.0*/
-
-    .dxgvControl_PlasticBlue a {
-        margin: 0 3px;
-    }
-
-    .mTop5, .lblmTop8 {
-        margin-top: 10px !important;
-    }
-
-    #txtDOB_DDD_PWC-1 #txtDOB_DDD_C_FNP_PW-1 {
-        left: 65px !important;
-    }
-
-    #txtAnniversary_DDD_PWC-1 #txtAnniversary_DDD_C_FNP_PW-1 {
-        left: -55px !important;
-    }
-
-    .btn-mass-dlt-imp-log {
-        background: #874a03;
-        color: #fff;
-        transition: all .3s;
-    }
-
-        .btn-mass-dlt-imp-log:hover {
-            background: #bf6905;
-            color: #fff;
-        }
-
-    .btn-info {
-        background-color: #0698c4 !important;
-        transition: all .3s;
-    }
-
-        .btn-info:hover {
-            background-color: #21b9e7 !important;
-        }
-
-    .btn-danger {
-        background-color: #dd1d17 !important;
-        transition: all .3s;
-    }
-
-        .btn-danger:hover {
-            background-color: #f9413b !important;
-        }
-
-    .btn-success {
-        background-color: #1ba749 !important;
-        transition: all .3s;
-    }
-
-        .btn-success:hover {
-            background-color: #27d560 !important;
-        }
-
-    .btn-primary {
-        background-color: #033868 !important;
-    }
-
-        .btn-primary:hover {
-            background-color: #01519a !important;
-        }
-
-    .dxpcLite_PlasticBlue .dxpc-content, .dxdpLite_PlasticBlue .dxpc-content {
-        padding: 7px 10px 10px !important;
-    }
-
-    .tooltip-container {
-        position: relative;
-        display: inline-block;
-    }
-
-    .tooltip {
-        visibility: hidden;
-        /*width: 140px;*/
-        background-color: #0d8f24;
-        color: #fff;
-        text-align: center;
-        border-radius: 10px;
-        padding: 8px 10px;
-        position: absolute;
-        z-index: 99;
-        bottom: 130%;
-        left: 42%;
-        transform: translateX(-50%);
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-
-        .tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -10px;
-            border-width: 10px;
-            border-style: solid;
-            border-color: #0d8f24 transparent transparent transparent;
-        }
-
-    .tooltip-container:hover .tooltip {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        overflow: visible;
-    }
-
-    .party-list-buttons .btn {
-        border-radius: 50px;
-        margin-right: 8px;
-        transition: .3s;
-    }
-
-        .party-list-buttons .btn:hover {
-            transform: scale(1.1);
-        }
-
-    .plr-5 {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    .btn-warning {
-        background-color: #db8711;
-    }
-</style>
 
 <div class="breadCumb">
     <span>Store Master</span>
 </div>
 
 @*<div class="overlay" id="loading-overlay">
-        <div class="flex-loader">
-            <img src="/assests/images/new-loader.gif" />
-            <h4>Data is loading, Please Wait</h4>
-        </div>
+    <div class="flex-loader">
+        <img src="/assests/images/new-loader.gif" />
+        <h4>Data is loading, Please Wait</h4>
+    </div>
 
-    </div>*@
+</div>*@
 
 <div class="container ">
     <div class="row">
@@ -1060,9 +1427,9 @@
                 <div class="scrooler">
 
                     <div id="refreshgrid">
-                        @*@{
-                                Html.RenderAction("PartialStoreMasterGridList", "StoreMaster", new { Fromdate = Model.Fromdate, Todate = Model.Todate, Is_PageLoad = "Ispageload" });
-                            }*@
+                        @{
+                            Html.RenderAction("PartialStoreMasterGridList", "StoreMaster", new { Fromdate = Model.Fromdate, Todate = Model.Todate, Is_PageLoad = "Ispageload" });
+                        }
                     </div>
                 </div>
             </div>
@@ -1083,7 +1450,44 @@
 
                     <div class="General-part">
                         <h3 class="add-party-popup-section-title col-md-12">General</h3>
+
+                        <div class="col-md-3 h-branch-select">
+                            <label>PIN <span class="red">*</span></label>
+                            <div>
+                                @Html.DropDownListFor(m => m.Pin, new SelectList(Model.PinList, "pin_id", "pin_code", Model.PinID), new { @id = "ddlPIN", @class = "form-control", @onchange = "PINChange();" })
+                            </div>
+                        </div>
+
                         <div class="col-md-3">
+                            <label>Country <span class="red">*</span></label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @id = "txtCountry", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>State <span class="red">*</span></label>
+                            <div>
+                                @Html.TextBoxFor(m => m.State, new { @class = "form-control", @id = "txtState", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>City <span class="red">*</span></label>
+                            <div>
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control", @id = "txtCity", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mb-3 h-branch-select">
+                            <label>Branch<span style="color:red">*</span></label>
+                            @Html.DropDownListFor(m => m.Branch, new SelectList(Model.BranchList, "ID", "NAME", Model.BranchID), new { @id = "ddlBranch", @class = "form-control" }
+                        )
+                        </div>
+
+                       
+
+                        @*<div class="col-md-3">
                             <label>Country <span class="red">*</span></label>
                             <div>
                                 @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryListstore, "cou_id", "cou_country", Model.CountryID), new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryChange();" })
@@ -1098,178 +1502,182 @@
                         <div class="col-md-3">
                             <label>District <span class="red">*</span></label>
                             <div id="Citydiv">
-                                <select class="form-control">
+                                <select class="form-control" onchange="CityChange()">
                                     <option>Select</option>
                                 </select>
                             </div>
                         </div>
 
+                        <div class="col-sm-3 mb-3 h-branch-select">
+                            <label>PIN</label>
+                            <div id="Citydiv">
+                                <select id="ddlPIN" class="form-control">
+
+                                </select>
+                            </div>
+                        </div>*@
+
                         <div class="clear"></div>
-
-
-                        <div class="store-info">
-                            <h3 class="add-party-popup-section-title col-md-12">Store Info</h3>
-
-                            <div class="col-md-3">
-                                <label>Store Name <span class="red">*</span></label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.Store_Name, new { @class = "form-control", @id = "txtStoreName" })
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Address <span class="red">*</span></label>
-                                <div>
-                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Pin Code <span class="red">*</span></label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.Pin_Code, new { @class = "form-control numbersOnly", @id = "txtPinCode", @MaxLength = "10" })
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Status <span class="red">*</span></label>
-                                <div>
-                                    <select class="form-control" id="ddlStatus">
-                                        <option value="Select">Select</option>
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Store Type <span class="red">*</span></label>
-                                <div>
-                                    @Html.DropDownListFor(m => m.StoreType, new SelectList(Model.StoreTypeList, "storetype_id", "storetype_name", Model.StoreTypeId), new { @id = "ddlStoreType", @class = "form-control" })
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Area</label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @id = "txtArea" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Location Lat </label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.location_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLat" })
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Location Long</label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.location_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLang" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Remarks</label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Assign to User <span class="red">*</span></label>
-                                <div>
-                                    @Html.DevExpress().ButtonEdit(
-                                    settings =>
-                                    {
-                                        settings.Name = "UserTxt";
-                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                        settings.Text = Model.AssignedTo;
-                                        settings.ReadOnly = true;
-                                        settings.Properties.Buttons.Add("...");
-                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
-                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
-
-                                    }).GetHtml()
-
-                                    <input type="hidden" id="hdnUserID" value="@Model.NewUserid">
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Old Assigned User</label>
-                                <div>
-                                    @Html.DevExpress().ButtonEdit(
-                                    settings =>
-                                    {
-                                        settings.Name = "OldUserTxt";
-                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                        settings.Text = Model.AssignedTo;
-                                        settings.ReadOnly = true;
-                                        settings.Properties.Buttons.Add("...");
-                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OldUserButnClick(s,e);}";
-                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){OldUser_KeyDown(s,e);}";
-
-                                    }).GetHtml()
-
-                                    <input type="hidden" id="hdnOldUserID" value="@Model.OldUserid">
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Add Photo</label>
-                                <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
-                                <span class="red">
-                                    Accepts .jpg, .jpeg, .png, .gif upto 1 MB
-                                </span>
-                            </div>
-
-                            <div class="clear"></div>
-                        </div>
-
-
-                        <div class="contact-info">
-                            <h3 class="add-party-popup-section-title col-md-12">Contact Info</h3>
-
-                            <div class="col-md-3">
-                                <label>Contact Name</label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.contact_name, new { @class = "form-control", @id = "txtContactName" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Contact No.</label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.contact_no, new { @class = "form-control numbersOnly", @id = "txtContactNo", @MaxLength = "10" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Alternate Contact </label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.Alternate_Contact, new { @class = "form-control numbersOnly", @id = "txtAlternateContact", @MaxLength = "10" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Whatsapp Number </label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.Whatsapp_Number, new { @class = "form-control numbersOnly", @id = "txtWhatsappNumber", @MaxLength = "10" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label>Email </label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
-                                </div>
-                            </div>
-
-
-                            <div class="clear"></div>
-                        </div>
-
                     </div>
+
+                    <div class="store-info">
+                        <h3 class="add-party-popup-section-title col-md-12">Store Info</h3>
+
+                        <div class="col-md-3">
+                            <label>Store Name <span class="red">*</span></label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Store_Name, new { @class = "form-control", @id = "txtStoreName" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Address <span class="red">*</span></label>
+                            <div>
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Status <span class="red">*</span></label>
+                            <div>
+                                <select class="form-control" id="ddlStatus">
+                                    <option value="Select">Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Store Type <span class="red">*</span></label>
+                            <div>
+                                @Html.DropDownListFor(m => m.StoreType, new SelectList(Model.StoreTypeList, "storetype_id", "storetype_name", Model.StoreTypeId), new { @id = "ddlStoreType", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Area</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @id = "txtArea" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Location Lat </label>
+                            <div>
+                                @Html.TextBoxFor(m => m.location_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLat" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Location Long</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.location_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLang" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Remarks</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Assign to User <span class="red">*</span></label>
+                            <div>
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "UserTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){UserButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){User_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                <input type="hidden" id="hdnUserID" value="@Model.NewUserid">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Old Assigned User</label>
+                            <div>
+                                @Html.DevExpress().ButtonEdit(
+                                settings =>
+                                {
+                                    settings.Name = "OldUserTxt";
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settings.Text = Model.AssignedTo;
+                                    settings.ReadOnly = true;
+                                    settings.Properties.Buttons.Add("...");
+                                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){OldUserButnClick(s,e);}";
+                                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){OldUser_KeyDown(s,e);}";
+
+                                }).GetHtml()
+
+                                <input type="hidden" id="hdnOldUserID" value="@Model.OldUserid">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Add Photo</label>
+                            <input type="file" id="uploadFile" accept=".jpg, .jpeg, .png, .gif" class="form-control" />
+                            <span class="red">
+                                Accepts .jpg, .jpeg, .png, .gif upto 1 MB
+                            </span>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+
+
+                    <div class="contact-info">
+                        <h3 class="add-party-popup-section-title col-md-12">Contact Info</h3>
+
+                        <div class="col-md-3">
+                            <label>Contact Name</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.contact_name, new { @class = "form-control", @id = "txtContactName" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Contact No.</label>
+                            <div>
+                                @Html.TextBoxFor(m => m.contact_no, new { @class = "form-control numbersOnly", @id = "txtContactNo", @MaxLength = "10" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Alternate Contact </label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Alternate_Contact, new { @class = "form-control numbersOnly", @id = "txtAlternateContact", @MaxLength = "10" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Whatsapp Number </label>
+                            <div>
+                                @Html.TextBoxFor(m => m.Whatsapp_Number, new { @class = "form-control numbersOnly", @id = "txtWhatsappNumber", @MaxLength = "10" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Email </label>
+                            <div>
+                                @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
+                            </div>
+                        </div>
+
+
+                        <div class="clear"></div>
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onclick="Addstore('Exit');">Save & Exit</button>
-                    <button type="button" class="btn btn-primary" onclick="Addstore('New');">Save & New</button>
+                    <button type="button" class="btn btn-success" onclick="AddStore('Exit');">Save & Exit</button>
+                    <button type="button" class="btn btn-primary" onclick="AddStore('New');">Save & New</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ClearData();">Close</button>
                 </div>
             </div>
@@ -1277,6 +1685,7 @@
     </div>
 </div>
 <input type="hidden" id="hdnstoreMode" />
+<input type="hidden" id="hdnStateId" />
 
 <!--User List-->
 <div class="modal fade pmsModal w70" id="UserSearchModel" role="dialog">
@@ -1306,7 +1715,6 @@
     </div>
 </div>
 <!--User List-->
-
 <!--Old User List-->
 <div class="modal fade pmsModal w70" id="OldUserSearchModel" role="dialog">
     <div class="modal-dialog w-50">
