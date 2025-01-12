@@ -183,6 +183,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_PINZIPMASTERLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_STOREMASTERLIST> MR_STOREMASTERLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_STOREMASTERLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -3726,6 +3734,267 @@ namespace ModernRetail.Models
 				if ((this._MODIFYUSER != value))
 				{
 					this._MODIFYUSER = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_STOREMASTERLIST")]
+	public partial class MR_STOREMASTERLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private string _STORE_ID;
+		
+		private string _STORE_NAME;
+		
+		private string _STORE_ADDRESS;
+		
+		private string _STORE_PINCODE;
+		
+		private string _STORE_BRANCH;
+		
+		private string _STORE_CONTACT_NUMBER;
+		
+		private string _STORE_TYPE;
+		
+		private string _STORE_WHATSAPP_NUMBER;
+		
+		private string _STORE_EMAIL;
+		
+		private string _CREATEDATE;
+		
+		private string _STORE_CREATEDUSER;
+		
+		private string _STORE_ISACTIVE;
+		
+		public MR_STOREMASTERLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_ID", DbType="VarChar(100)")]
+		public string STORE_ID
+		{
+			get
+			{
+				return this._STORE_ID;
+			}
+			set
+			{
+				if ((this._STORE_ID != value))
+				{
+					this._STORE_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_NAME", DbType="VarChar(200)")]
+		public string STORE_NAME
+		{
+			get
+			{
+				return this._STORE_NAME;
+			}
+			set
+			{
+				if ((this._STORE_NAME != value))
+				{
+					this._STORE_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_ADDRESS", DbType="VarChar(500)")]
+		public string STORE_ADDRESS
+		{
+			get
+			{
+				return this._STORE_ADDRESS;
+			}
+			set
+			{
+				if ((this._STORE_ADDRESS != value))
+				{
+					this._STORE_ADDRESS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_PINCODE", DbType="VarChar(100)")]
+		public string STORE_PINCODE
+		{
+			get
+			{
+				return this._STORE_PINCODE;
+			}
+			set
+			{
+				if ((this._STORE_PINCODE != value))
+				{
+					this._STORE_PINCODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_BRANCH", DbType="VarChar(100)")]
+		public string STORE_BRANCH
+		{
+			get
+			{
+				return this._STORE_BRANCH;
+			}
+			set
+			{
+				if ((this._STORE_BRANCH != value))
+				{
+					this._STORE_BRANCH = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_CONTACT_NUMBER", DbType="VarChar(20)")]
+		public string STORE_CONTACT_NUMBER
+		{
+			get
+			{
+				return this._STORE_CONTACT_NUMBER;
+			}
+			set
+			{
+				if ((this._STORE_CONTACT_NUMBER != value))
+				{
+					this._STORE_CONTACT_NUMBER = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_TYPE", DbType="VarChar(100)")]
+		public string STORE_TYPE
+		{
+			get
+			{
+				return this._STORE_TYPE;
+			}
+			set
+			{
+				if ((this._STORE_TYPE != value))
+				{
+					this._STORE_TYPE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_WHATSAPP_NUMBER", DbType="VarChar(20)")]
+		public string STORE_WHATSAPP_NUMBER
+		{
+			get
+			{
+				return this._STORE_WHATSAPP_NUMBER;
+			}
+			set
+			{
+				if ((this._STORE_WHATSAPP_NUMBER != value))
+				{
+					this._STORE_WHATSAPP_NUMBER = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_EMAIL", DbType="VarChar(100)")]
+		public string STORE_EMAIL
+		{
+			get
+			{
+				return this._STORE_EMAIL;
+			}
+			set
+			{
+				if ((this._STORE_EMAIL != value))
+				{
+					this._STORE_EMAIL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDATE", DbType="VarChar(100)")]
+		public string CREATEDATE
+		{
+			get
+			{
+				return this._CREATEDATE;
+			}
+			set
+			{
+				if ((this._CREATEDATE != value))
+				{
+					this._CREATEDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_CREATEDUSER", DbType="VarChar(200)")]
+		public string STORE_CREATEDUSER
+		{
+			get
+			{
+				return this._STORE_CREATEDUSER;
+			}
+			set
+			{
+				if ((this._STORE_CREATEDUSER != value))
+				{
+					this._STORE_CREATEDUSER = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_ISACTIVE", DbType="VarChar(10)")]
+		public string STORE_ISACTIVE
+		{
+			get
+			{
+				return this._STORE_ISACTIVE;
+			}
+			set
+			{
+				if ((this._STORE_ISACTIVE != value))
+				{
+					this._STORE_ISACTIVE = value;
 				}
 			}
 		}

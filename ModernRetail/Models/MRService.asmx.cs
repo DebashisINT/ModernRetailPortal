@@ -52,7 +52,7 @@ namespace ModernRetail.Models
 
                 BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
 
-                ProcedureExecute proc = new ProcedureExecute("PRC_UserNameSearch");
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_UserNameSearch");
                 proc.AddPara("@USER_ID", Convert.ToInt32(Session["MRuserid"]));
                 proc.AddPara("@SearchKey", SearchKey);
                 DataTable Shop = proc.GetTable();

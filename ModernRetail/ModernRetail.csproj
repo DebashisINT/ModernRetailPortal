@@ -1149,6 +1149,7 @@
     <Content Include="Views\ProductRates\ImportLog.cshtml" />
     <Content Include="Views\PinZipMaster\Index.cshtml" />
     <Content Include="Views\PinZipMaster\PartialPinzipMasterList.cshtml" />
+    <Content Include="Views\StoreMaster\PartialStoreMasterGridList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
