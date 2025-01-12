@@ -210,7 +210,7 @@ namespace ModernRetail.Controllers
             var settings = new GridViewSettings();
             settings.Name = "PartialGridList";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
-            settings.SettingsExport.FileName = "Branch";
+            settings.SettingsExport.FileName = "Userlist";
 
             settings.Columns.Add(x =>
             {
