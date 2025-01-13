@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: Modern Retail Info Details.Row: 3,4,5,6,7,11
+//Purpose: Modern Retail Info Details.Row: 3,4,5,6,7,11,12,13
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -223,5 +223,55 @@ namespace ModernRetailAPI.Models
     {
         public long branch_id { get; set; }
         public string branch_name { get; set; }
+    }
+    public class StockInfoSaveInput
+    {
+        public long user_id { get; set; }
+        public string stock_id { get; set; }
+        public string save_date_time { get; set; }
+        public string store_id { get; set; }
+        public List<StockSavelists> product_list { get; set; }
+    }
+    public class StockSavelists
+    {
+        public string stock_id { get; set; }
+        public long product_id { get; set; }
+        public decimal qty { get; set; }
+        public long uom { get; set; }
+        public string mfg_date { get; set; }
+        public string expire_date { get; set; }
+    }
+    public class StockInfoSaveOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+    public class StockInfoFetchListsInput
+    {
+        public long user_id { get; set; }
+    }
+    public class StockInfoFetchListsOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public long user_id { get; set; }
+        public List<StocklistOutput> stock_list { get; set; }        
+    }
+
+    public class StocklistOutput
+    {        
+        public string stock_id { get; set; }
+        public string save_date_time { get; set; }
+        public string store_id { get; set; }
+        public List<StockProductlists> product_list { get; set; }
+    }
+    public class StockProductlists
+    {
+        public string stock_id { get; set; }
+        public long product_id { get; set; }
+        public decimal qty { get; set; }
+        public long uom { get; set; }
+        public string mfg_date { get; set; }
+        public string expire_date { get; set; }
     }
 }

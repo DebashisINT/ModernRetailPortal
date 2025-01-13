@@ -11,14 +11,6 @@
       "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\models\\modernretailinfodetailsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|d:\\projects\\modernretailportal\\businesslogiclayer\\dbengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EA505340-6C3F-4A45-8876-61C0C8A17A5F}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\dbengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|d:\\projects\\modernretailportal\\modernretail\\controllers\\userconfigurationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6B75DDB-1FA9-440F-BB3F-3D2BDC97F084}|ModernRetail\\ModernRetail.csproj|solutionrelative:modernretail\\controllers\\userconfigurationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|D:\\PROJECTS\\ModernRetailPortal\\modernretailapi\\controllers\\userlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E80420D8-44AE-4336-84D0-8499A550AFFB}|ModernRetailAPI\\ModernRetailAPI.csproj|solutionrelative:modernretailapi\\controllers\\userlogincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -30,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,39 +34,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DBEngine.cs",
-              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\BusinessLogicLayer\\DBEngine.cs",
-              "RelativeDocumentMoniker": "BusinessLogicLayer\\DBEngine.cs",
-              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\BusinessLogicLayer\\DBEngine.cs",
-              "RelativeToolTip": "BusinessLogicLayer\\DBEngine.cs",
-              "ViewState": "AgIAAJQBAAAAAAAAAAASwKMBAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-09T14:49:20.88Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserConfigurationController.cs",
-              "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetail\\Controllers\\UserConfigurationController.cs",
-              "RelativeDocumentMoniker": "ModernRetail\\Controllers\\UserConfigurationController.cs",
-              "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetail\\Controllers\\UserConfigurationController.cs",
-              "RelativeToolTip": "ModernRetail\\Controllers\\UserConfigurationController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-09T14:47:40.994Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "ModernRetailInfoDetailsModel.cs",
               "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
               "RelativeDocumentMoniker": "ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
               "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
               "RelativeToolTip": "ModernRetailAPI\\Models\\ModernRetailInfoDetailsModel.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAIA+wHAAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAPgAAAAAAAAAAAA+wAgBAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-24T08:29:43.268Z",
               "EditorCaption": ""
@@ -87,14 +53,14 @@
               "RelativeDocumentMoniker": "ModernRetailAPI\\Controllers\\ModernRetailInfoDetailsController.cs",
               "ToolTip": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\ModernRetailInfoDetailsController.cs",
               "RelativeToolTip": "ModernRetailAPI\\Controllers\\ModernRetailInfoDetailsController.cs",
-              "ViewState": "AgIAANQAAAAAAAAAAAAAAMYBAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAFkBAAAAAAAAAAA/wHsCAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-24T08:28:39.427Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "UserLoginController.cs",
               "DocumentMoniker": "D:\\PROJECTS\\ModernRetailPortal\\ModernRetailAPI\\Controllers\\UserLoginController.cs",
               "RelativeDocumentMoniker": "ModernRetailAPI\\Controllers\\UserLoginController.cs",
@@ -102,8 +68,7 @@
               "RelativeToolTip": "ModernRetailAPI\\Controllers\\UserLoginController.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAxwBwAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T07:32:59.364Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-24T07:32:59.364Z"
             }
           ]
         }
