@@ -54,10 +54,7 @@ namespace ModernRetail.Controllers
             ViewBag.CanExport = rights.CanExport;
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
-            //objdata.grp_id = 0;
-            //TempData["grp_id"] = null;
-
-            //TempData.Keep();
+            
             return View();
         }
         
@@ -718,14 +715,14 @@ namespace ModernRetail.Controllers
                 ViewData["ModelData"] = model;
                 string Userid = Convert.ToString(Session["MRuserid"]);
 
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_MR_SECURITYROLESDETAILS", sqlcon);
-                sqlcmd.Parameters.Add("@ACTION", "GETLISTINGDETAILS");
-                sqlcmd.Parameters.Add("@USER_ID", Userid);
-                sqlcmd.Parameters.Add("@ISPAGELOAD", model.Is_PageLoad);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDETAILS");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
+                sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_PageLoad);
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
