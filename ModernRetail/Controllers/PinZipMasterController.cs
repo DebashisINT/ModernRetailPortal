@@ -26,16 +26,7 @@ namespace ModernRetail.Controllers
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
             ViewBag.CanEdit = rights.CanEdit;
-            ViewBag.CanDelete = rights.CanDelete;
-
-            //CityMasterModel Dtls = new CityMasterModel();
-            //DataTable ds = Dtls.GetCountry();
-
-            //List<COUNTRYLIST> COUNTRYLIST = new List<COUNTRYLIST>();
-            //COUNTRYLIST = APIHelperMethods.ToModelList<COUNTRYLIST>(ds);
-            //Dtls.COUNTRYLIST = COUNTRYLIST;
-
-
+            ViewBag.CanDelete = rights.CanDelete;           
             return View();
         }
         public ActionResult PartialGridList(StateMasterModel model)
@@ -58,14 +49,14 @@ namespace ModernRetail.Controllers
                 ViewData["ModelData"] = model;
                 string Userid = Convert.ToString(Session["MRuserid"]);
 
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_MR_PINZIPMASTER", sqlcon);
-                sqlcmd.Parameters.Add("@ACTION", "GETLISTINGDETAILS");
-                sqlcmd.Parameters.Add("@USER_ID", Userid);
-                sqlcmd.Parameters.Add("@ISPAGELOAD", model.Is_PageLoad);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDETAILS");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
+                sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_PageLoad);
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);

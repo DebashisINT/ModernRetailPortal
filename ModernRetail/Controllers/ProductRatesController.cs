@@ -64,25 +64,7 @@ namespace ModernRetail.Controllers
                 TempData.Keep();
             }
 
-            //if (TempData["IsView"] != null)
-            //{
-            //    ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
-            //    TempData["IsView"] = null;
-            //    if (ViewBag.IsView == 0)
-            //    {
-            //        ViewBag.PageTitle = "Modify Branch";
-            //    }           
-            //    else
-            //    {
-            //        ViewBag.PageTitle = "Add Branch";
-            //    }
-
-            //}
-            //else
-            //{
-            //    ViewBag.IsView = 0;
-            //    ViewBag.PageTitle = "Add Question";
-            //}            
+            
             return View("~/Views/ProductRates/Index.cshtml", objdata);          
         }
 
@@ -169,15 +151,15 @@ namespace ModernRetail.Controllers
                 ViewData["ModelData"] = model;
                 string Userid = Convert.ToString(Session["MRuserid"]);
 
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_MR_PRODUCTRATES", sqlcon);
-                sqlcmd.Parameters.Add("@ACTION", "GETLISTINGDETAILS");
-                sqlcmd.Parameters.Add("@USER_ID", Userid);
-                sqlcmd.Parameters.Add("@ISPAGELOAD", model.Is_PageLoad);
-                sqlcmd.Parameters.Add("@Product_Ids", model.Product_Ids);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDETAILS");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
+                sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_PageLoad);
+                sqlcmd.Parameters.AddWithValue("@Product_Ids", model.Product_Ids);
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);

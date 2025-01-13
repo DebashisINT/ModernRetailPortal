@@ -276,19 +276,7 @@ namespace ModernRetail.Controllers
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetBookingGridViewSettings(), GetWareHouse(""));
-                //break;
-                //case 2:
-                //    return GridViewExtension.ExportToXlsx(GetBookingGridViewSettings(), GetWareHouse(""));
-                ////break;
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetBookingGridViewSettings(), GetWareHouse(""));
-                ////break;
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetBookingGridViewSettings(), GetWareHouse(""));
-                ////break;
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetBookingGridViewSettings(), GetWareHouse(""));
+                    return GridViewExtension.ExportToXlsx(GetBookingGridViewSettings(), GetWareHouse(""));               
                 default:
                     break;
             }
@@ -314,19 +302,7 @@ namespace ModernRetail.Controllers
                 column.FieldName = "ADDRESS1";
 
             });
-            //settings.Columns.Add(column =>
-            //{
-            //    column.Caption = "Address 2";
-            //    column.FieldName = "ADDRESS2";
-
-            //});
-            //settings.Columns.Add(column =>
-            //{
-            //    column.Caption = "Address 3";
-            //    column.FieldName = "ADDRESS3";
-
-            //});
-
+            
             settings.Columns.Add(column =>
             {
                 column.Caption = "Country";
@@ -370,12 +346,6 @@ namespace ModernRetail.Controllers
                 column.FieldName = "STORE_NAME";
             });
 
-            //settings.Columns.Add(column =>
-            //{
-            //    column.Caption = "Is Default";
-            //    column.FieldName = "ISDEFAULT";
-            //});
-
             settings.Columns.Add(column =>
             {
                 column.Caption = "Created By";
@@ -413,23 +383,8 @@ namespace ModernRetail.Controllers
 
         public ActionResult PartialWarehousePermission()
         {
-
-            //List<OrderDetailsSummaryProducts> oproduct = new List<OrderDetailsSummaryProducts>();
             try
-            {
-            //    string Is_PageLoad = string.Empty;
-            //    String weburl = System.Configuration.ConfigurationSettings.AppSettings["SiteURL"];
-            //    List<GpsStatusClasstOutput> omel = new List<GpsStatusClasstOutput>();
-
-            //    DataTable dt = new DataTable();
-            //    DataTable dtproduct = new DataTable();
-            //    dtproduct = objshop.GetProducts();
-            //    List<Productlist_Order> oproductlist = new List<Productlist_Order>();
-
-            //    oproductlist = APIHelperMethods.ToModelList<Productlist_Order>(dtproduct);
-
-            //    mproductwindow.products = oproductlist;
-
+            {  
                 return PartialView("_PartialWareHousePermission.cshtml",null);
             }
             catch
@@ -465,19 +420,9 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                //string StateId = "";
+               
                 int i = 1;
-                //if (model.StateId != null && model.StateId.Count > 0)
-                //{
-                //    foreach (string item in model.StateId)
-                //    {
-                //        if (i > 1)
-                //            StateId = StateId + "," + item;
-                //        else
-                //            StateId = item;
-                //        i++;
-                //    }
-                //}
+               
                 List<Getmasterstock> modelshop = new List<Getmasterstock>();
                 DataTable dtshop = objwar.GetShopListByparam(StateId, "ShopbyState", "4");
                 modelshop = APIHelperMethods.ToModelList<Getmasterstock>(dtshop);

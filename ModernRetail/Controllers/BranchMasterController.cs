@@ -53,14 +53,11 @@ namespace ModernRetail.Controllers
             ViewBag.CanEdit = rights.CanEdit;
             ViewBag.CanDelete = rights.CanDelete;
 
-
             if (TempData["branch_ID"] != null)
             {
                 objdata.branch_ID = Convert.ToInt64(TempData["branch_ID"]);
                 TempData.Keep();
-
             }
-
             if (TempData["IsView"] != null)
             {
                 ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
@@ -68,42 +65,18 @@ namespace ModernRetail.Controllers
                 if (ViewBag.IsView == 0)
                 {
                     ViewBag.PageTitle = "Modify Branch";
-                }
-                //else if (ViewBag.IsView == 2)
-                //{
-                //    ViewBag.PageTitle = "Add Branch";
-                //}
+                }               
                 else
                 {
                     ViewBag.PageTitle = "Add Branch";
                 }
-
             }
             else
             {
                 ViewBag.IsView = 0;
                 ViewBag.PageTitle = "Add Question";
-            }
-           
-
-            //DataSet dt = new DataSet();
-            //dt = GetListData();
-
-            //if (dt != null)
-            //{
-                //List<BranchList> BranchList = new List<BranchList>();
-                //BranchList = APIHelperMethods.ToModelList<BranchList>(dt.Tables[0]);
-                //objdata.BranchList = BranchList;
-
-                
-
-                //List<CountryList> Country_List = new List<CountryList>();
-                //Country_List = APIHelperMethods.ToModelList<CountryList>(dt.Tables[1]);
-                //objdata.CountryList = Country_List;
-
-            //}
-            return View("~/Views/BranchMaster/Index.cshtml", objdata);
-            // return View(objdata);
+            }    
+            return View("Index", objdata);            
         }
 
         public JsonResult SetMapDataByID(Int64 ID = 0, Int16 IsView = 0)
@@ -253,8 +226,8 @@ namespace ModernRetail.Controllers
                 }
             }
             
-            String retuenMsg = Success + "~" + DetailsID + "~" + Details.BranchName + "~" + Message;
-            return Json(retuenMsg);
+            String returnMsg = Success + "~" + DetailsID + "~" + Details.BranchName + "~" + Message;
+            return Json(returnMsg);
 
         }
 
@@ -278,14 +251,14 @@ namespace ModernRetail.Controllers
                 ViewData["ModelData"] = model;
                 string Userid = Convert.ToString(Session["MRuserid"]);
 
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_MR_BRANCHDETAILS", sqlcon);
-                sqlcmd.Parameters.Add("@ACTION", "GETLISTINGDETAILS");
-                sqlcmd.Parameters.Add("@USER_ID", Userid);
-                sqlcmd.Parameters.Add("@ISPAGELOAD", model.Is_PageLoad);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDETAILS");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
+                sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_PageLoad);
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -327,15 +300,7 @@ namespace ModernRetail.Controllers
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetBranchDetailsList(""));
-                //case 2:
-                //    return GridViewExtension.ExportToPdf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetBranchDetailsList(""));                
                 default:
                     break;
             }
