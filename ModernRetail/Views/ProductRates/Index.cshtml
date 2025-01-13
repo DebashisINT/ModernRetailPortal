@@ -1097,10 +1097,20 @@
     }
 </script>
 <script>
-
+    function DesignationOnChange() {
+        var OtherDetails = {}
+        OtherDetails.SearchKey = $("#txtEmployeeSearch").val();
+        OtherDetails.DesignationId = $('#ddlDesignation option:selected').val();       
+        var HeaderCaption = [];
+        HeaderCaption.push("Employee Name");
+        HeaderCaption.push("Employee Code");
+        callonServer("../../../Models/MRService.asmx/GetEmployee", OtherDetails, "EmployeeTable", HeaderCaption, "EmployeeIndex", "SetEmployee");
+    }
     function EmployeeButnClick(s, e) {
         $('#EmployeeModel').modal('show');
-        $("#txtEmployeeSearch").focus();
+       // $("#txtEmployeeSearch").focus();
+        setTimeout(function () { $("#txtEmployeeSearch").focus(); }, 500);
+        $('#txtEmployeeSearch').val('');
     }
 
     function EmployeebtnKeyDown(s, e) {
@@ -1206,7 +1216,7 @@
 
             <div class="col-sm-3  mb-3 h-branch-select">
                 <label>Designation<span style="color:red">*</span></label>
-                <select id="ddlDesignation" class="form-control"></select>
+                <select id="ddlDesignation" class="form-control" onchange="DesignationOnChange()"></select>
             </div>
             <div class=" col-sm-3 mb-3">
                 <label>Employee(s)<span style="color:red">*</span></label>
@@ -1242,10 +1252,7 @@
                 <label>Special Price<span style="color:red">*</span></label>             
                 @Html.TextBoxFor(m => m.SpecialPrice, new { @class = "form-control allow_decimal numbersOnly", @id = "txtSpecialPrice", type = "text" })
                 @Html.ValidationMessageFor(m => m.SpecialPrice, "", new { @class = "text-danger" })
-            </div>
-            
-
-
+            </div>          
 
             <div class="clear"></div>
             <div class="mt-4 px-4">

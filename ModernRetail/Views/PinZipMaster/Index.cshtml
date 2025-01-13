@@ -857,12 +857,11 @@
     /*Rev End Pallab: grid modification*/
 
     function AddCity() {
-        $("#hdnID").val('0');
-        $("#ddlCountry").val('0');
-        $("#ddlState").val('0');
-        $("#txtPinZip").val('');
-        $("#txtCityLocationLat").val('');
-        $("#txtCityLocationLong").val('');
+        $("#hdnID").val(0);
+        $("#ddlCountry").val(0).trigger('change');
+        $("#ddlState").val(0).trigger('change');
+        $("#ddlCity").val(0);
+        $("#txtPinZip").val('');       
         $("#PinZipModel").modal('show')
     }
     function SavePinZip() {
@@ -897,7 +896,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Enter City  to proceed.'
+                text: 'Enter Pin/Zip  to proceed.'
             });
             return false;
         }
@@ -1162,7 +1161,7 @@
                         <div class="col-md-12 mt-3">
                             <div><label>Pin / Zip Code<span class="red">*</span></label></div>
                             <div>
-                                <input type="text" id="txtPinZip" class="form-control" maxlength="250" />
+                                <input type="text" id="txtPinZip" class="form-control" maxlength="10" />
                             </div>
                         </div>
 

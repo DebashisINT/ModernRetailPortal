@@ -12,6 +12,8 @@ namespace ModernRetail.Models
         public decimal SpecialPrice { get; set; }
         public string Employee { get; set; }
         public string Is_PageLoad { get; set; }
+
+        public string Product_Ids { get; set; }
         public Int64 branch_ID { get; set; }
 
         public string Designation { get; set; }
