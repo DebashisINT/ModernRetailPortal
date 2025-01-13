@@ -18,646 +18,742 @@
 <link href="~/Scripts/pluggins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="~/Scripts/pluggins/multiselect/bootstrap-multiselect.js"></script>
 
+<link href="~/assests/pluggins/LightBox/lightbox.css" rel="stylesheet" />
+<script src="~/assests/pluggins/LightBox/lightbox.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+
 <style>
-        .pmsModal .modal-header {
-            background: #298ecc !important;
-            background-image: none !important;
-            padding: 11px 20px;
-            border: none;
-            border-radius: 20px 20px 0 0;
+    .pmsModal .modal-header {
+        background: #1843b1 !important;
+        background-image: none !important;
+        padding: 11px 20px;
+        border: none;
+        border-radius: 20px 20px 0 0;
+        color: #fff;
+    }
+
+    .pmsModal .modal-content {
+        border: none;
+    }
+
+    .pmsModal .modal-header .modal-title {
+        font-size: 14px;
+    }
+
+    .pmsModal.w70 .modal-dialog {
+        /*Rev 3.0*/
+        /*width: 70%;*/
+        width: 76%;
+        /*Rev end 3.0*/
+    }
+
+    #myModal label {
+        font-weight: 500;
+        margin-top: 5px;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .sample {
+        font-size: 12px;
+        color: #d48a28;
+    }
+
+    .buttonphoto {
+        padding: 11px 12px;
+        display: inline-block;
+        background: #dee3f7;
+        margin-top: 11px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        .buttonphoto:hover {
+            background: #415ed2;
             color: #fff;
         }
 
-        .pmsModal .modal-content {
-            border: none;
-        }
+    .infoQ {
+        color: #4b98b8;
+        margin-left: 5px;
+        cursor: pointer;
+    }
 
-        .pmsModal .modal-header .modal-title {
-            font-size: 14px;
-        }
+    #PanModel {
+        z-index: 9999;
+    }
 
-        .pmsModal.w70 .modal-dialog {
-            /*Rev 3.0*/
-            /*width: 70%;*/
-            width: 76%;
-            /*Rev end 3.0*/
-        }
+    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+        height: 34px;
+        padding: 3px 12px;
+    }
 
-        #myModal label {
-            font-weight: 500;
-            margin-top: 5px;
-        }
+    .modalScroll .modal-body {
+        max-height: 75vh !important;
+        overflow-y: auto;
+    }
 
-        .red {
-            color: red;
-        }
+    .pmsModal .close {
+        font-weight: 400;
+        font-size: 25px;
+    }
 
-        .sample {
-            font-size: 12px;
-            color: #d48a28;
-        }
+    .new-popup-width .modal-dialog {
+        width: 90% !important;
+    }
 
-        .buttonphoto {
-            padding: 11px 12px;
-            display: inline-block;
-            background: #dee3f7;
-            margin-top: 11px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+    #myImportModal .modal-body {
+        border-radius: 0 0 20px 20px;
+    }
+    /*rev 1.0*/
+    .btn {
+        /*margin-bottom: 15px;*/
+        height: 34px;
+    }
+    /*rev end 1.0*/
 
-            .buttonphoto:hover {
-                background: #415ed2;
-                color: #fff;
-            }
+    /*Rev 3.0*/
+    .dxeButtonEdit_PlasticBlue {
+        min-height: 34px;
+        border-radius: 4px;
+        border: 1px solid #cdcdcd;
+    }
 
-        .infoQ {
-            color: #4b98b8;
-            margin-left: 5px;
-            cursor: pointer;
-        }
+    .dxeButtonEditButton_PlasticBlue {
+        background: #094e8c !important;
+        border-radius: 4px !important;
+        padding: 0 4px !important;
+    }
 
-        #PanModel {
-            z-index: 9999;
-        }
+    #myModal label {
+        margin-top: 8px;
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
 
-        .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
-            height: 30px;
-            padding: 3px 12px;
-        }
+    .General-part {
+        padding-bottom: 20px;
+        background: #fff4eb;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #9b0909;*/
+        border-bottom: 1px solid #9b090991;
+    }
 
-        .modalScroll .modal-body {
-            max-height: 75vh !important;
-            overflow-y: auto;
-        }
+    .store-info {
+        padding-bottom: 20px;
+        background: #ebfff0;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #33974c;*/
+        border-bottom: 1px solid #33974c91;
+    }
 
-        .pmsModal .close {
-            font-weight: 400;
-            font-size: 25px;
-        }
+    .contact-info {
+        padding-bottom: 20px;
+        background: #f8ebff;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #7e3ea1;*/
+        border-bottom: 1px solid #7e3ea191;
+    }
 
-        .new-popup-width .modal-dialog {
-            width: 90% !important;
-        }
+    .account-info {
+        padding-bottom: 20px;
+        background: #fffff0;
+        padding-top: 12px;
+        padding-left: 4px;
+        /* border-left: 5px solid #2d84b3; */
+        border-bottom: 1px solid #c3b66391;
+    }
 
-        #myImportModal .modal-body {
-            border-radius: 0 0 20px 20px;
-        }
-        /*rev 1.0*/
-        .btn {
-            margin-bottom: 15px;
-        }
-        /*rev end 1.0*/
+    .other-info {
+        padding-bottom: 20px;
+        background: #fff3f3;
+        padding-top: 12px;
+        padding-left: 4px;
+        /*border-left: 5px solid #9eb329;*/
+        border-bottom: 1px solid #ef2a2a91;
+    }
 
-        /*Rev 3.0*/
-        .dxeButtonEdit_PlasticBlue {
-            min-height: 30px;
-            border-radius: 4px;
-            border: 1px solid #cdcdcd;
-        }
+    .Loan-info {
+        padding-bottom: 20px;
+        background: #1c76770d;
+        padding-top: 12px;
+        padding-left: 4px;
+        /* border-left: 5px solid #9eb329; */
+        border-bottom: 1px solid #1c7677b5;
+    }
 
-        .dxeButtonEditButton_PlasticBlue {
-            background: #094e8c !important;
-            border-radius: 4px !important;
-            padding: 0 4px !important;
-        }
-
-        #myModal label {
-            margin-top: 8px;
-            font-size: 13px;
-            margin-bottom: 2px;
-        }
-
-        .General-part {
-            padding-bottom: 20px;
-            background: #fff4eb;
-            padding-top: 12px;
-            padding-left: 4px;
-            /*border-left: 5px solid #9b0909;*/
-            border-bottom: 1px solid #9b090991;
-        }
-
-        .store-info {
-            padding-bottom: 20px;
-            background: #ebfff0;
-            padding-top: 12px;
-            padding-left: 4px;
-            /*border-left: 5px solid #33974c;*/
-            border-bottom: 1px solid #33974c91;
-        }
-
-        .contact-info {
-            padding-bottom: 20px;
-            background: #f8ebff;
-            padding-top: 12px;
-            padding-left: 4px;
-            /*border-left: 5px solid #7e3ea1;*/
-            border-bottom: 1px solid #7e3ea191;
-        }
-
-        .account-info {
-            padding-bottom: 20px;
-            background: #fffff0;
-            padding-top: 12px;
-            padding-left: 4px;
-            /* border-left: 5px solid #2d84b3; */
-            border-bottom: 1px solid #c3b66391;
-        }
-
-        .other-info {
-            padding-bottom: 20px;
-            background: #fff3f3;
-            padding-top: 12px;
-            padding-left: 4px;
-            /*border-left: 5px solid #9eb329;*/
-            border-bottom: 1px solid #ef2a2a91;
-        }
-
-        .Loan-info {
-            padding-bottom: 20px;
-            background: #1c76770d;
-            padding-top: 12px;
-            padding-left: 4px;
-            /* border-left: 5px solid #9eb329; */
-            border-bottom: 1px solid #1c7677b5;
-        }
-
-        .pmsModal .modal-body {
-            /*Rev 5.0*/
-            /*padding-top: 0;*/
-            padding-top: 10px;
-            /*Rev end 5.0*/
-            padding-right: 15px;
-            padding-left: 15px;
-            /*Rev 5.0*/
-            /*padding-bottom: 0;*/
-            padding-bottom: 10px;
-            /*Rev end 5.0*/
-        }
-
-        .General-part h3 {
-            font-size: 16px;
-            margin: 0;
-            color: #8c0909;
-            padding-left: 8px;
-        }
-
-        .store-info h3 {
-            font-size: 16px;
-            margin: 0;
-            color: #33974c;
-            padding-left: 8px;
-        }
-
-        .contact-info h3 {
-            font-size: 16px;
-            margin: 0;
-            color: #7e3ea1;
-            padding-left: 8px;
-        }
-
-        .account-info h3 {
-            font-size: 16px;
-            margin: 0;
-            color: #bfaa15;
-            padding-left: 8px;
-        }
-
-        .other-info h3 {
-            font-size: 16px;
-            margin: 0;
-            color: #e54949;
-            padding-left: 8px;
-        }
-
-        .Loan-info h3 {
-            font-size: 16px;
-            margin: 0;
-            color: #1c7677;
-            padding-left: 8px;
-        }
-
-        .col-md-3, .col-md-6, .col-md-4 {
-            padding-left: 8px;
-            padding-right: 8px;
-        }
-
-        .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
-            padding: 3px 5px;
-        }
-
-        .red {
-            font-size: 12px;
-        }
-
-
-        /*Rev end 3.0*/
-
+    .pmsModal .modal-body {
         /*Rev 5.0*/
-        #EmployeeTable table tr th,
-        #PPModel table tr th,
-        .dynamicPopupTbl > tbody > tr > td input {
-            font-family: 'Poppins', sans-serif !important;
-            font-size: 12px;
-            padding: 5px;
-        }
+        /*padding-top: 0;*/
+        padding-top: 0px;
+        /*Rev end 5.0*/
+        padding-right: 15px;
+        padding-left: 15px;
+        /*Rev 5.0*/
+        /*padding-bottom: 0;*/
+        padding-bottom: 0px;
+        /*Rev end 5.0*/
+    }
 
-        .w-50 {
-            width: 50% !important
-        }
+    .General-part h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #8c0909;
+        padding-left: 8px;
+    }
 
-        #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
-            left: 20px !important;
-        }
+    .store-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #33974c;
+        padding-left: 8px;
+    }
 
-        #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
-            margin-top: 15px;
-        }
+    .contact-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #7e3ea1;
+        padding-left: 8px;
+    }
 
-        #dtFrom, #dtTo {
-            position: relative;
-            z-index: 1;
-            background: transparent;
-        }
+    .account-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #bfaa15;
+        padding-left: 8px;
+    }
 
-        .calendar-icon {
-            position: absolute;
-            bottom: 7px;
-            right: 12px;
-            z-index: 0;
-            cursor: pointer;
-        }
+    .other-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #e54949;
+        padding-left: 8px;
+    }
 
-        #dtFrom_B-1, #dtTo_B-1 {
-            background: transparent !important;
-            border: none;
-            width: 30px;
-            padding: 10px !important;
-        }
+    .Loan-info h3 {
+        font-size: 16px;
+        margin: 0;
+        color: #1c7677;
+        padding-left: 8px;
+    }
 
-            #dtFrom_B-1 #dtFrom_B-1Img,
-            #dtTo_B-1 #dtTo_B-1Img {
-                display: none;
-            }
+    .col-md-3, .col-md-6, .col-md-4, .col-sm-3 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
 
-        #dtFrom_I, #dtTo_I {
-            background: transparent;
-        }
+    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+        padding: 3px 5px;
+    }
 
-        .for-cust-icon {
-            position: relative;
-            z-index: 1;
-            width: 160px;
-        }
+    .red {
+        font-size: 12px;
+    }
 
-        .pmsModal .modal-content {
-            overflow: hidden;
-        }
 
-        /*Rev 4.0*/
-        .multiselect-container.dropdown-menu {
-            right: 0 !important;
-            left: auto;
-            min-width: 340px;
-        }
+    /*Rev end 3.0*/
 
-        .iminentSpan .multiselect-container.dropdown-menu {
-            right: auto !important;
-            left: 0;
-            min-width: 340px;
-        }
+    /*Rev 5.0*/
+    #EmployeeTable table tr th,
+    #PPModel table tr th,
+    .dynamicPopupTbl > tbody > tr > td input {
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 12px;
+        padding: 5px;
+    }
 
-        .multiselect-container > li > a {
-            padding: 5px 0;
-        }
+    .w-50 {
+        width: 50% !important
+    }
 
-            .multiselect-container > li > a input[type="checkbox"] {
-                transform: translateY(3px);
-            }
+    #txtDOB_DDD_PW-1, #txtAnniversary_DDD_PW-1 {
+        left: 20px !important;
+    }
 
-        .multiselect-container > li.active > a {
-            background: transparent !important;
-            color: #333;
-        }
+    #pcModalImportLogViewMode_PW-1 .mTop5, #pcModalImportGroupBeatLogViewMode_PW-1 .mTop5 {
+        margin-top: 15px;
+    }
 
-            .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
-                background: #f3f3f3 !important;
-                color: #333 !important;
-                padding: 5px 0;
-            }
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
 
-        .multiselect-item.multiselect-filter {
-            padding-bottom: 6px;
-            border-bottom: 1px solid #ccc;
-        }
+    .calendar-icon {
+        position: absolute;
+        bottom: 7px;
+        right: 12px;
+        z-index: 0;
+        cursor: pointer;
+    }
 
-            .multiselect-item.multiselect-filter .form-control.multiselect-search {
-                height: 32px;
-            }
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
 
-            .multiselect-item.multiselect-filter .input-group-addon {
-                background: #41a8f1;
-                color: #fff;
-                border-color: #41a8f1;
-            }
-
-        .input-group-btn .multiselect-clear-filter {
-            background: #f98181;
-            color: #fffefe;
-            /* box-shadow: none; */
-            text-shadow: none;
-            border-color: #f96a6a;
-            padding: 5px 10px 4px 10px;
-        }
-
-        .multiselect.dropdown-toggle {
-            background: #fff;
-            border-radius: 0;
-        }
-
-        .iminentSpan > span {
-            display: block;
-        }
-
-        .btn-excel {
-            float: right;
-            margin-right: 38px;
-            margin-top: -4px;
-        }
-
-        .gridbinded {
-            position: absolute;
-            right: 15px;
-            top: 11px;
-        }
-
-        #cmbState + .btn-group > button {
-            border-radius: 4px;
-            height: 34px;
-        }
-
-        span.multiselect-native-select button {
-            border: 1px solid #c9c9c9 !important;
-            border-radius: 5px !important;
-        }
-
-        .pmsModal.w30 .modal-dialog {
-            max-width: 45%;
-        }
-
-        .mTop35 {
-            margin-top: 35px !important;
-        }
-
-        .multiselect-container {
-            position: static !important;
-        }
-
-        .iminentSpan .multiselect-container.dropdown-menu {
-            height: 300px;
-            overflow: auto;
-        }
-
-        .btn.multiselect-clear-filter {
-            margin-bottom: 0;
-            border-radius: 0 4px 4px 0 !important;
-            height: 32px;
-        }
-
-        .h-branch-select {
-            position: relative;
-        }
-
-            .h-branch-select::after {
-                content: '<';
-                position: absolute;
-                top: 43px;
-                right: 13px;
-                font-size: 18px;
-                transform: rotate(269deg);
-                font-weight: 500;
-                background: #094e8c;
-                color: #fff;
-                height: 18px;
-                display: block;
-                width: 28px;
-                /* padding: 10px 0; */
-                border-radius: 4px;
-                text-align: center;
-                line-height: 19px;
-                z-index: 0;
-            }
-
-        .multiselect.dropdown-toggle {
-            text-align: left;
-        }
-
-        .multiselect.dropdown-toggle, #ddlShowReport {
-            -webkit-appearance: none;
-            position: relative;
-            z-index: 1;
-            background-color: transparent;
-        }
-
-        .open .dropdown-toggle.btn-default {
-            background: transparent !important;
-        }
-
-        .btn .caret {
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
             display: none;
         }
 
-        /*End of Rev 4.0*/
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
 
-        /*Rev end 5.0*/
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+        width: 160px;
+    }
 
-        /*Rev 8.0*/
-        #txtEmployeeSearch {
-            margin-bottom: 10px;
+    .pmsModal .modal-content {
+        overflow: hidden;
+    }
+
+    /*Rev 4.0*/
+    .multiselect-container.dropdown-menu {
+        right: 0 !important;
+        left: auto;
+        min-width: 340px;
+    }
+
+    .iminentSpan .multiselect-container.dropdown-menu {
+        right: auto !important;
+        left: 0;
+        min-width: 340px;
+    }
+
+    .multiselect-container > li > a {
+        padding: 5px 0;
+    }
+
+        .multiselect-container > li > a input[type="checkbox"] {
+            transform: translateY(3px);
         }
 
-        .btn-default {
-            background-color: #e0e0e0;
-        }
-        /*Rev end 8.0*/
+    .multiselect-container > li.active > a {
+        background: transparent !important;
+        color: #333;
+    }
 
-        .dxgvControl_PlasticBlue a {
-            margin: 0 3px;
-        }
-
-        .mTop5, .lblmTop8 {
-            margin-top: 10px !important;
+        .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
+            background: #f3f3f3 !important;
+            color: #333 !important;
+            padding: 5px 0;
         }
 
-        #txtDOB_DDD_PWC-1 #txtDOB_DDD_C_FNP_PW-1 {
-            left: 65px !important;
+    .multiselect-item.multiselect-filter {
+        padding-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .multiselect-item.multiselect-filter .form-control.multiselect-search {
+            height: 32px;
         }
 
-        #txtAnniversary_DDD_PWC-1 #txtAnniversary_DDD_C_FNP_PW-1 {
-            left: -55px !important;
-        }
-
-        .btn-mass-dlt-imp-log {
-            background: #874a03;
+        .multiselect-item.multiselect-filter .input-group-addon {
+            background: #41a8f1;
             color: #fff;
-            transition: all .3s;
+            border-color: #41a8f1;
         }
 
-            .btn-mass-dlt-imp-log:hover {
-                background: #bf6905;
-                color: #fff;
-            }
+    .input-group-btn .multiselect-clear-filter {
+        background: #f98181;
+        color: #fffefe;
+        /* box-shadow: none; */
+        text-shadow: none;
+        border-color: #f96a6a;
+        padding: 5px 10px 4px 10px;
+    }
 
-        .btn-info {
-            background-color: #0698c4 !important;
-            transition: all .3s;
-        }
+    .multiselect.dropdown-toggle {
+        background: #fff;
+        border-radius: 0;
+    }
 
-            .btn-info:hover {
-                background-color: #21b9e7 !important;
-            }
+    .iminentSpan > span {
+        display: block;
+    }
 
-        .btn-danger {
-            background-color: #dd1d17 !important;
-            transition: all .3s;
-        }
+    .btn-excel {
+        float: right;
+        margin-right: 38px;
+        margin-top: -4px;
+    }
 
-            .btn-danger:hover {
-                background-color: #f9413b !important;
-            }
+    .gridbinded {
+        position: absolute;
+        right: 15px;
+        top: 11px;
+    }
 
-        .btn-success {
-            background-color: #1ba749 !important;
-            transition: all .3s;
-        }
+    #cmbState + .btn-group > button {
+        border-radius: 4px;
+        height: 34px;
+    }
 
-            .btn-success:hover {
-                background-color: #27d560 !important;
-            }
+    span.multiselect-native-select button {
+        border: 1px solid #c9c9c9 !important;
+        border-radius: 5px !important;
+    }
 
-        .btn-primary {
-            background-color: #033868 !important;
-        }
+    .pmsModal.w30 .modal-dialog {
+        max-width: 45%;
+    }
 
-            .btn-primary:hover {
-                background-color: #01519a !important;
-            }
+    .mTop35 {
+        margin-top: 35px !important;
+    }
 
-        .dxpcLite_PlasticBlue .dxpc-content, .dxdpLite_PlasticBlue .dxpc-content {
-            padding: 7px 10px 10px !important;
-        }
+    .multiselect-container {
+        position: static !important;
+    }
 
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-        }
+    .iminentSpan .multiselect-container.dropdown-menu {
+        height: 300px;
+        overflow: auto;
+    }
 
-        .tooltip {
-            visibility: hidden;
-            /*width: 140px;*/
-            background-color: #0d8f24;
-            color: #fff;
-            text-align: center;
-            border-radius: 10px;
-            padding: 8px 10px;
+    .btn.multiselect-clear-filter {
+        margin-bottom: 0;
+        border-radius: 0 4px 4px 0 !important;
+        height: 32px;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            content: '<';
             position: absolute;
-            z-index: 99;
-            bottom: 130%;
-            left: 42%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 36px;
+            right: 7px;
+            font-size: 18px;
+            transform: rotate(270deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
         }
 
-            .tooltip::after {
-                content: '';
-                position: absolute;
-                top: 100%;
-                left: 50%;
-                margin-left: -10px;
-                border-width: 10px;
-                border-style: solid;
-                border-color: #0d8f24 transparent transparent transparent;
-            }
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
 
-        .tooltip-container:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
+    .multiselect.dropdown-toggle, #ddlShowReport {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .open .dropdown-toggle.btn-default {
+        background: transparent !important;
+    }
+
+    .btn .caret {
+        display: none;
+    }
+
+    /*End of Rev 4.0*/
+
+    /*Rev end 5.0*/
+
+    /*Rev 8.0*/
+    #txtEmployeeSearch {
+        margin-bottom: 10px;
+    }
+
+    .btn-default {
+        background-color: #e0e0e0;
+    }
+    /*Rev end 8.0*/
+
+    .dxgvControl_PlasticBlue a {
+        margin: 0 3px;
+    }
+
+    .mTop5, .lblmTop8 {
+        margin-top: 10px !important;
+    }
+
+    #txtDOB_DDD_PWC-1 #txtDOB_DDD_C_FNP_PW-1 {
+        left: 65px !important;
+    }
+
+    #txtAnniversary_DDD_PWC-1 #txtAnniversary_DDD_C_FNP_PW-1 {
+        left: -55px !important;
+    }
+
+    .btn-mass-dlt-imp-log {
+        background: #874a03;
+        color: #fff;
+        transition: all .3s;
+    }
+
+        .btn-mass-dlt-imp-log:hover {
+            background: #bf6905;
+            color: #fff;
         }
 
-        .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-            overflow: visible;
+    .btn-info {
+        background-color: #0698c4 !important;
+        transition: all .3s;
+    }
+
+        .btn-info:hover {
+            background-color: #21b9e7 !important;
         }
 
-        .party-list-buttons .btn {
-            border-radius: 50px;
-            margin-right: 8px;
-            transition: .3s;
+    .btn-danger {
+        background-color: #dd1d17 !important;
+        transition: all .3s;
+    }
+
+        .btn-danger:hover {
+            background-color: #f9413b !important;
         }
 
-            .party-list-buttons .btn:hover {
-                transform: scale(1.1);
-            }
+    .btn-success {
+        background-color: #1ba749 !important;
+        transition: all .3s;
+    }
 
-        .plr-5 {
-            padding-left: 8px;
-            padding-right: 8px;
+        .btn-success:hover {
+            background-color: #27d560 !important;
         }
 
-        .btn-warning {
-            background-color: #db8711;
+    .btn-primary {
+        background-color: #033868 !important;
+    }
+
+        .btn-primary:hover {
+            background-color: #01519a !important;
         }
 
-        .select2-container {
-            width: 100% !important;
-            z-index: 99999;
+    .dxpcLite_PlasticBlue .dxpc-content, .dxdpLite_PlasticBlue .dxpc-content {
+        padding: 7px 10px 10px !important;
+    }
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
         }
 
-        .select2-container--default .select2-selection--single {
-            height: 34px;
-            /* padding: 6px 12px; */
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        overflow: visible;
+    }
+
+    .party-list-buttons .btn {
+        border-radius: 6px;
+        margin-right: 8px;
+        transition: .3s;
+    }
+
+        .party-list-buttons .btn:hover {
+            transform: scale(1.1);
         }
 
-        /*.select2-container {
+    .plr-5 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .btn-warning {
+        background-color: #db8711;
+    }
+
+    .select2-container {
+        width: 100% !important;
+        z-index: 99999;
+    }
+
+    .select2-container--default .select2-selection--single {
+        height: 34px;
+        /* padding: 6px 12px; */
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    /*.select2-container {
         z-index: 1;
     }*/
 
-        .select2-container--default .select2-selection--single {
-            background-color: transparent;
+    .select2-container--default .select2-selection--single {
+        background-color: transparent;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            display: none;
         }
 
-            .select2-container--default .select2-selection--single .select2-selection__arrow {
-                display: none;
-            }
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        border-radius: 4px;
+    }
 
-        .select2-container--default .select2-search--dropdown .select2-search__field {
-            border-radius: 4px;
-        }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 32px;
+        padding-right: 22px;
+    }
 
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 32px;
-            padding-right: 22px;
-        }
-
-        div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
-            z-index: 99999;
-        }
-        /*
+    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+        z-index: 99999;
+    }
+    /*
         .dropdown-menu, .modal {
             z-index: 999999;
         }*/
 
-        .multiselect.dropdown-toggle {
-            width: 100% !important;
-            overflow: hidden;
-            text-overflow: ellipsis;
+    .multiselect.dropdown-toggle {
+        width: 100% !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btn-group {
+        width: 100%;
+    }
+
+    .cust-dropdown {
+        background: #fff;
+    }
+
+    .pmsModal .modal-footer {
+        background: #fff !important;
+        padding-right: 0;
+    }
+
+    /*.select2-dropdown
+    {
+        z-index: 99999;
+    }*/
+
+    .inputShrink select:not(.btn), .inputShrink .form-control:not(textarea) {
+        position: relative;
+        /*background: transparent;*/
+    }
+
+    /*#ddlBranch {
+        -webkit-appearance: none;
+    }*/
+
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: none; /* Initially hidden */
+    }
+
+    .flex-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dxgvLoadingPanel_PlasticBlue {
+        display: none !important;
+    }
+
+    .flex-loader img {
+        width: 120px;
+    }
+
+    .flex-loader h4 {
+        font-size: 22px;
+        color: #000000;
+    }
+
+    .save-btn .btn-icon, .cancel-catg .btn-icon, .saveicon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 20px;
+        margin-right: 5px;
+    }
+
+        .save-btn .btn-icon img, .saveicon img {
+            color: #238945;
+            width: 14px;
         }
 
-        .btn-group {
-            width: 100%;
+    .cancel-catg, .save-btn {
+        transition: all .3s ease-in-out;
+    }
+
+        .cancel-catg .btn-icon img {
+            color: #DC0505;
+            width: 16px;
+        }
+
+        .cancel-catg:hover {
+            transform: scale(1.1);
+        }
+
+        .save-btn:hover {
+            transform: scale(1.1);
         }
 </style>
 
@@ -670,16 +766,6 @@
 
         dtFrom.SetValue(d);
         dtTo.SetValue(d);
-
-        $('#ddlAppIds').on('change', function () {
-            if ($("#ddlAppIds option:selected").index() > 0) {
-                var selectedValue = $(this).val();
-                $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExportStorelist", "StoreMaster", new { type = "_type_" })'
-                window.location.href = url.replace("_type_", selectedValue);
-            }
-        });
-
 
         $('body').on('click', '#btnshow', function () {
 
@@ -749,6 +835,8 @@
 
             }
         });
+
+
     }
 
     @*function CountryChange() {
@@ -822,10 +910,7 @@
             $('#txtOldUserSearch').focus();
         })
 
-        $('#ddlPIN').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
+
 
     });
 
@@ -956,6 +1041,8 @@
 
     function AddStore(values) {
 
+        $("#loading-overlay").show();
+
         //if ($("#ddlCountry").val() == "0") {
         //    jAlert("Please select Country.", "Alert", function () {
         //        setTimeout(function () {
@@ -987,6 +1074,7 @@
         //}
 
         if ($("#ddlPIN").val() == "0" || $("#ddlPIN").val() == "") {
+            $("#loading-overlay").hide();
             jAlert("Please select PIN.", "Alert", function () {
                 setTimeout(function () {
                     $("#ddlPIN").focus();
@@ -997,6 +1085,7 @@
         }
 
         if ($("#ddlBranch").val() == "0" || $("#ddlBranch").val() == "") {
+            $("#loading-overlay").hide();
             jAlert("Please select Branch.", "Alert", function () {
                 setTimeout(function () {
                     $("#ddlBranch").focus();
@@ -1007,6 +1096,7 @@
         }
 
         if ($("#txtStoreName").val() == "" || $("#txtStoreName").val() == null || $("#txtStoreName").val() == undefined) {
+            $("#loading-overlay").hide();
             jAlert("Please enter Store Name.", "Alert", function () {
                 setTimeout(function () {
                     $("#txtStoreName").focus();
@@ -1017,6 +1107,7 @@
         }
 
         if ($("#txtAddress").val() == "" || $("#txtAddress").val() == null || $("#txtAddress").val() == undefined) {
+            $("#loading-overlay").hide();
             jAlert("Please enter Address.", "Alert", function () {
                 setTimeout(function () {
                     $("#txtAddress").focus();
@@ -1037,6 +1128,7 @@
         //}
 
         if ($("#ddlStatus").val() == "Select") {
+            $("#loading-overlay").hide();
             jAlert("Please select Status.", "Alert", function () {
                 setTimeout(function () {
                     $("#ddlStatus").focus();
@@ -1047,6 +1139,7 @@
         }
 
         if ($("#ddlStoreType").val() == "0") {
+            $("#loading-overlay").hide();
             jAlert("Please select Store Type.", "Alert", function () {
                 setTimeout(function () {
                     $("#ddlStoreType").focus();
@@ -1059,6 +1152,7 @@
         var mail = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if ($("#txtEmail").val() != "") {
             if (!mail.test($("#txtEmail").val().trim())) {
+                $("#loading-overlay").hide();
                 jAlert("Please Enter Valid Email.", "Alert", function () {
                     setTimeout(function () {
                         $("#txtEmail").focus();
@@ -1174,7 +1268,7 @@
 
                          $.ajax({
                          // and other parameter is set here
-                         url: add_photo_url,
+                                 url: add_photo_url,
                                  type: "POST",
                                  data: model,
                                  dataType: "json",
@@ -1184,12 +1278,18 @@
                              }).always(function (result) {
                                  if (result == 'OK')
                                  {
-                                     if (result1 == '1') {
-                                         jAlert("Store added successfully.");
-                                     }
-                                     else {
-                                         jAlert("Store updated successfully.");
-                                     }
+                                     //if (result1 == '1') {
+                                     //    jAlert("Store added successfully.");
+                                     //}
+                                     //else {
+                                     //    jAlert("Store updated successfully.");
+                                     //}
+                                     $("#loading-overlay").hide();
+                                     Swal.fire({
+                                         icon: 'success',
+                                         title: 'Success',
+                                         text: result1 == '1' ? "Store added successfully." : "Store updated successfully."
+                                     });
 
 
                                      ClearData();
@@ -1205,9 +1305,11 @@
                      else
                      {
                         if (result1 == '1') {
+                            $("#loading-overlay").hide();
                             jAlert("Store added successfully.");
                         }
                         else {
+                            $("#loading-overlay").hide();
                             jAlert("Store updated successfully.");
                         }
 
@@ -1230,7 +1332,8 @@
                       else {
                           jAlert("Error in update.");
                       }
-                    }
+                      }
+
 
                });
 
@@ -1362,6 +1465,14 @@
         });
         $('#mask').addClass('showing');
     }
+
+    $(document).ready(function () {
+        $('#ddlPIN').select2({
+            placeholder: "Select",
+            allowClear: false,
+            minimumResultsForSearch: 0
+        });
+    });
 </script>
 
 
@@ -1369,28 +1480,28 @@
     <span>Store Master</span>
 </div>
 
-@*<div class="overlay" id="loading-overlay">
+<div class="overlay" id="loading-overlay">
     <div class="flex-loader">
         <img src="/assests/images/new-loader.gif" />
         <h4>Data is loading, Please Wait</h4>
     </div>
 
-</div>*@
+</div>
 
 <div class="container ">
     <div class="row">
         <div class="col-md-12">
             <div class="backBox mt-5 px-4">
-                <div class="row">
-                    <div class="col-md-12 party-list-buttons" style="padding-top: 15px;margin-bottom: 10px;">
+                <div class="row pt-4 pb-4">
+                    <div class="col-md-1 party-list-buttons" style="padding-top: 20px;margin-bottom: 0px;">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="ClearData();">
                             <span class="btn-icon"><i class="fa fa-plus"></i></span> Store
                         </button>
 
                     </div>
-                    <div class="clear"></div>
-                    <div class="col-md-2 for-cust-icon plr-5">
+                    @*<div class="clear"></div>*@
+                    <div class="col-md-3 for-cust-icon plr-5">
                         <span>From Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -1407,7 +1518,7 @@
                             <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
-                    <div class="col-md-2 for-cust-icon plr-5">
+                    <div class="col-md-3 for-cust-icon plr-5">
                         <span>To Date</span>
                         <div>
                             @Html.DevExpress().DateEditFor(x => x.Todate,
@@ -1425,7 +1536,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2 plr-5" style="padding-top: 13px;">
+                    <div class="col-md-3 plr-5" style="padding-top: 20px;">
                         <span></span>
                         <div>
                             <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
@@ -1469,7 +1580,7 @@
 
                         <div class="col-md-3 h-branch-select">
                             <label>PIN <span class="red">*</span></label>
-                            <div>
+                            <div class="cust-dropdown">
                                 @Html.DropDownListFor(m => m.Pin, new SelectList(Model.PinList, "pin_id", "pin_code", Model.PinID), new { @id = "ddlPIN", @class = "form-control", @onchange = "PINChange();" })
                             </div>
                         </div>
@@ -1495,43 +1606,43 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 mb-3 h-branch-select">
+                        <div class="col-sm-3 mb-3 ">
                             <label>Branch<span style="color:red">*</span></label>
                             @Html.DropDownListFor(m => m.Branch, new SelectList(Model.BranchList, "ID", "NAME", Model.BranchID), new { @id = "ddlBranch", @class = "form-control" }
                         )
                         </div>
 
-                       
+
 
                         @*<div class="col-md-3">
-                            <label>Country <span class="red">*</span></label>
-                            <div>
-                                @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryListstore, "cou_id", "cou_country", Model.CountryID), new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryChange();" })
+                                <label>Country <span class="red">*</span></label>
+                                <div>
+                                    @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryListstore, "cou_id", "cou_country", Model.CountryID), new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryChange();" })
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>State <span class="red">*</span></label>
-                            <div id="statediv">
-                                @Html.DropDownListFor(m => m.State, new SelectList(Model.StateListstore, "StateID", "StateName", Model.StateID), new { @id = "ddlState", @class = "form-control", @onchange = "StateChange();" })
+                            <div class="col-md-3">
+                                <label>State <span class="red">*</span></label>
+                                <div id="statediv">
+                                    @Html.DropDownListFor(m => m.State, new SelectList(Model.StateListstore, "StateID", "StateName", Model.StateID), new { @id = "ddlState", @class = "form-control", @onchange = "StateChange();" })
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>District <span class="red">*</span></label>
-                            <div id="Citydiv">
-                                <select class="form-control" onchange="CityChange()">
-                                    <option>Select</option>
-                                </select>
+                            <div class="col-md-3">
+                                <label>District <span class="red">*</span></label>
+                                <div id="Citydiv">
+                                    <select class="form-control" onchange="CityChange()">
+                                        <option>Select</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-3 mb-3 h-branch-select">
-                            <label>PIN</label>
-                            <div id="Citydiv">
-                                <select id="ddlPIN" class="form-control">
+                            <div class="col-sm-3 mb-3 h-branch-select">
+                                <label>PIN</label>
+                                <div id="Citydiv">
+                                    <select id="ddlPIN" class="form-control">
 
-                                </select>
-                            </div>
-                        </div>*@
+                                    </select>
+                                </div>
+                            </div>*@
 
                         <div class="clear"></div>
                     </div>
@@ -1562,6 +1673,9 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="clear"></div>
+
                         <div class="col-md-3">
                             <label>Store Type <span class="red">*</span></label>
                             <div>
@@ -1692,9 +1806,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onclick="AddStore('Exit');">Save & Exit</button>
-                    <button type="button" class="btn btn-primary" onclick="AddStore('New');">Save & New</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="ClearData();">Close</button>
+                    <button type="button" class="btn btn-success save-btn" onclick="AddStore('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
+                    @*<button type="button" class="btn btn-primary save-btn" onclick="AddStore('New');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & New</button>*@
+                <button type="button" class="btn btn-danger cancel-catg" data-dismiss="modal" onclick="ClearData();"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
                 </div>
             </div>
         </div>
