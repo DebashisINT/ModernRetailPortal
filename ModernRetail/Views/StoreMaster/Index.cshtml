@@ -1345,7 +1345,13 @@
            }
        });
    }
+    function OpenStoreImage(imgfile) {
 
+        $('.image').attr({
+            'src': imgfile
+        });
+        $('#mask').addClass('showing');
+    }
 </script>
 
 

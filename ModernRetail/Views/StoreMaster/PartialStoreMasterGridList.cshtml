@@ -129,12 +129,44 @@
 
     });
 
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "STORE_IMAGE";
+        x.Caption = "Store Image";
+        x.VisibleIndex = 10;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(70);
+    });
+    settings.HtmlDataCellPrepared += (s, e) =>
+    {
+
+        if (e.DataColumn.FieldName == "STORE_IMAGE")
+        {
+            MVCxGridView grid = (MVCxGridView)s;
+            var IMG_PATH = (string)grid.GetRowValues(e.VisibleIndex, new string[] { "STORE_IMAGE" });
+            var cont = (string)grid.GetRowValues(e.VisibleIndex, new string[] { "STORE_IMAGE" }) + grid.GetRowValues(e.VisibleIndex, new string[] { "STORE_ID" });
+
+            var buttonHtml = "";
+            var img_folder = System.Configuration.ConfigurationSettings.AppSettings["StoreAttachment"];
+            if (IMG_PATH != "" && IMG_PATH != null)
+            {
+                buttonHtml = string.Format(" <a class='example-image-link' href='{0}' data-lightbox='" + cont + "'><img src='{0}' data-lightbox='" + cont + "' alt='No Image Found' height='42' width='42'></a>", img_folder + IMG_PATH);
+            }
+            else
+            {
+                buttonHtml = string.Format("<span>No Image Found </span>", IMG_PATH);
+            }
+
+            e.Cell.Text = buttonHtml;
+        }
+    };
+
 
 
     settings.Columns.Add(x =>
     {
         x.Caption = "Action";
-        x.VisibleIndex = 9;
+        x.VisibleIndex = 11;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
@@ -146,7 +178,7 @@
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "STORE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
             }
 
-            
+
             if (ViewBag.CanDelete)
             {
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "STORE_ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
