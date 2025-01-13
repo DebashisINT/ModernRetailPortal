@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.SalesmanTrack;
+using DataAccessLayer;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
 using DevExpress.XtraExport;
@@ -182,42 +183,13 @@ namespace ModernRetail.Controllers
                 WareHouse_ID = null;
             }
             String DistributorList= Distributor;
-
             string StateId = "";
-            //int i = 1;
-            //if (Distributor != null && Distributor.Count > 0)
-            //{
-            //    foreach (string item in Distributor)
-            //    {
-            //        if (i > 1)
-            //            DistributorList = DistributorList + "," + item;
-            //        else
-            //            DistributorList = item;
-            //        i++;
-            //    }
-            //}
-
+          
             String msg = "";
             DataTable dt = objwar.Masterdatainsert(action, WareHouse_ID, warehouseName, address1, address2, address3, country, State, City, Pin, contactPerson, ContactPhone, DistributorList, defaultvalue, Session["MRuserid"].ToString());
             if (dt != null && dt.Rows.Count > 0)
             {
-                msg = dt.Rows[0]["MSG"].ToString();
-                //if (dt.Rows[0]["MSG"].ToString() == "-11")
-                //{
-                //    msg = "Default warehouse already define.";
-                //}
-                //else if (dt.Rows[0]["MSG"].ToString() == "10")
-                //{
-                //    msg = "Ware house added successfully.";
-                //}
-                //else if (dt.Rows[0]["MSG"].ToString() == "20")
-                //{
-                //    msg = "Ware house updated successfully.";
-                //}
-                //else
-                //{
-                //    msg = "please try again later.";
-                //}
+                msg = dt.Rows[0]["MSG"].ToString();              
             }
             else
             {
@@ -551,6 +523,28 @@ namespace ModernRetail.Controllers
             }
             catch { }
             return Json(Success, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult CHECKUNIQUETARGETDOCNUMBER(string WarehouseName, string WareHouse_ID)
+        {
+            var retData = 0;
+            try
+            {
+                ProcedureExecute proc;
+                using (proc = new ProcedureExecute("PRC_MR_MASTERWAREHOUSE"))
+                {
+                    proc.AddVarcharPara("@action", 100, "CHECKUNIQUETARGETDOCNUMBER");
+                    proc.AddIntegerPara("@ReturnValue", 0, QueryParameterDirection.Output);
+                    proc.AddVarcharPara("@WAREHOUSE_NAME", 300, WarehouseName.Trim());
+                    proc.AddVarcharPara("@WAREHOUSE_ID", 100, WareHouse_ID);
+                    int i = proc.RunActionQuery();
+                    retData = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
+
+                }
+            }
+            catch { }
+            return Json(retData);
         }
     }
 }
