@@ -6,6 +6,12 @@
     ViewBag.Title = "Product Rate";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js"></script>
+<script src="~/Scripts/SearchPopupDatatable.js"></script>
+<link href="~/assests/css/custom/SearchPopup.css" rel="stylesheet" />
+<script src="~/Scripts/SearchMultiPopup.js"></script>
 <style>
     .modal-header {
         padding: 8px;
@@ -737,6 +743,11 @@
     }
 </style>
 <style>
+    .dis-flex {
+        display: flex;
+        align-items: center;
+    }
+
     .dropdown-menu {
         display: none;
         opacity: 0;
@@ -784,6 +795,7 @@
         opacity: 1;
         transform: translateY(0);
     }
+
     .more-btn {
         position: relative;
     }
@@ -791,6 +803,7 @@
     .more-option-buttons {
         background: #893823;
     }
+
     .btn-icon img {
         width: 22px;
     }
@@ -800,9 +813,8 @@
             right: 0;
             left: auto;
         }
-
             /*        .flex-loader {
-             width: 25% !important; 
+             width: 25% !important;
             height: 100vh !important;
         }*/
 
@@ -818,16 +830,106 @@
     }
 </style>
 <script>
+     var ProductId = [];
+    var ProdArr = new Array();
+    $(document).ready(function () {
+         $('#ProductModel').on('shown.bs.modal', function () {
+     $('#txtProductSearch').focus();
+    })
+
+
+
+    var ProdObj = new Object();
+    ProdObj.Name = "ProductSource";
+    ProdObj.ArraySource = ProdArr;
+    arrMultiPopup.push(ProdObj);
+    })
+
+    function ProductButnClick(s, e) {
+        $('#ProductModel').modal('show');
+    }
+
+    function Product_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter") {
+            $('#ProductModel').modal('show');
+        }
+    }
+
+    function Productkeydown(e) {
+        var OtherDetails = {}
+
+        if ($.trim($("#txtProductSearch").val()) == "" || $.trim($("#txtProductSearch").val()) == null) {
+            return false;
+        }
+        OtherDetails.SearchKey = $("#txtProductSearch").val();
+
+
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+
+            var HeaderCaption = [];
+            HeaderCaption.push("Product Code");
+            HeaderCaption.push("Product Name");
+
+
+            if ($("#txtProductSearch").val() != "") {
+                callonServerM("../../../Models/MRService.asmx/GetProduct", OtherDetails, "UserTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "ProductSource");
+            }
+        }
+        else if (e.code == "ArrowDown") {
+            if ($("input[dPropertyIndex=0]"))
+                $("input[dPropertyIndex=0]").focus();
+        }
+    }
+
+    function SetfocusOnseach(indexName) {
+        if (indexName == "dPropertyIndex")
+            $('#txtProductSearch').focus();
+        else
+            $('#txtProductSearch').focus();
+    }
+
+    function SetSelectedValues(Id, Name, ArrName) {
+        if (ArrName == 'ProductSource') {
+            var key = Id;
+            if (key != null && key != '') {
+                $('#ProductModel').modal('hide');
+                Producttxt.SetText(Name);
+                $('#hdnProductId').val(key);
+            }
+            else {
+                Producttxt.SetText('');
+                $('#hdnProductId').val('');
+            }
+        }
+    }
+
+     function GetProductSelectedFieldValuesOndemand(values) {
+     try {
+         ProductId = [];
+         var eids = values.split(',');
+         for (var i = 0; i < eids.length; i++) {
+             ProductId.push(eids[i]);
+         }
+     } finally {
+         console.log(ProductId);
+     }
+ }
+</script>
+<script>
     var Is_PageLoad = "0";
+    var Product_Ids="";
 
     $(function () {
 
         $('body').on('click', '#btnshow', function () {
             Is_PageLoad = "1";
+            GetProductSelectedFieldValuesOndemand($("#hdnProductId").val());
+            Product_Ids = ProductId.join(',');
+            gridList.Refresh();
             gridList.Refresh();
         });
 
-        
+
 
         $('#ddlAppIds').on('click', function () {
             var selectedValue = "1"; // XLSX export value
@@ -840,6 +942,7 @@
 
     function OnStartCallback(s, e) {
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
+        e.customArgs["Product_Ids"] = Product_Ids;
         /*Rev Pallab: grid modification*/
         document.getElementById("loading-overlay").style.display = "block";
         /*Rev End Pallab: grid modification*/
@@ -1093,6 +1196,9 @@ function ProductImportUserLog() {
         }
     });
 </script>
+
+
+
 <div class="breadCumb">
     <span>Product Rate</span>
 </div>
@@ -1108,58 +1214,77 @@ function ProductImportUserLog() {
 
 <div class="container">
     <div class="form_main backBox p-3">
-        <div class="row">
-            <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
-                <div class="add-show-btns">
+        @*<div class="row">
+            <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">*@
+        <div class="pull-left tblspace smblock d-flex mt-2 mb-4">
+            @if (ViewBag.CanAdd)
+            {
+                <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddProductRates();">
+                    <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Rate
+                </button>
+            }
+
+            @*@if (ViewBag.CanExport)
+                {
+                    <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                        <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                        <div class="tooltip">Export to XLSX</div>
+                    </button>
+
+                }*@
+            <div class="mr-3 more-btn">
+                <button type="button" id="btnMore" class="btn more-option-buttons tooltip-container" onclick="toggleDropdown()">
+                    <span class="btn-icon"><img src="../../../assests/images/more-btns.svg"></span>
+                    <div class="tooltip">More Options</div>
+                </button>
+                <div id="moreOptions" class="dropdown-menu">
+                    @if (ViewBag.CanExport)
+                    {
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm">
+                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span> Export to XLSX
+                        </button>
+                    }
                     @if (ViewBag.CanAdd)
                     {
-                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddProductRates();">
-                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Rate
+                        <button type="button" id="btnDownloadFormat" class="btn" onclick="DownloadFormat()">
+                            <span class="btn-icon"><img src="../../../assests/images/download-format.svg"></span> Download Format
+                        </button>
+                        <button type="button" id="btnImport" class="btn" onclick="ImportProductPopOpen()">
+                            <span class="btn-icon"><img src="../../../assests/images/file-import.svg"></span> Import(Add/Update)
+                        </button>
+                        <button type="button" id="btnShowImportLog" class="btn" onclick="ImportLogPopOpen()">
+                            <span class="btn-icon"><img src="../../../assests/images/log-files.svg"></span> View Log
                         </button>
                     }
-                    @if (ViewBag.CanView)
-                    {
-                        <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-                    }
-                    @*@if (ViewBag.CanExport)
-                        {
-                            <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
-                                <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
-                                <div class="tooltip">Export to XLSX</div>
-                            </button>
-
-                        }*@
-                    <div class="mr-3 more-btn">
-                        <button type="button" id="btnMore" class="btn more-option-buttons tooltip-container" onclick="toggleDropdown()">
-                            <span class="btn-icon"><img src="../../../assests/images/more-btns.svg"></span>
-                            <div class="tooltip">More Options</div>
-                        </button>
-                        <div id="moreOptions" class="dropdown-menu">
-                            @if (ViewBag.CanExport)
-                            {
-                                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm">
-                                    <span class="btn-icon"><img src="/assests/images/excel.png" /></span> Export to XLSX
-                                </button>
-                            }
-                            @if (ViewBag.CanAdd)
-                            {
-                                <button type="button" id="btnDownloadFormat" class="btn" onclick="DownloadFormat()">
-                                    <span class="btn-icon"><img src="../../../assests/images/download-format.svg"></span> Download Format
-                                </button>
-                                <button type="button" id="btnImport" class="btn" onclick="ImportProductPopOpen()">
-                                    <span class="btn-icon"><img src="../../../assests/images/file-import.svg"></span> Import(Add/Update)
-                                </button>
-                                <button type="button" id="btnShowImportLog" class="btn" onclick="ImportLogPopOpen()">
-                                    <span class="btn-icon"><img src="../../../assests/images/log-files.svg"></span> View Log
-                                </button>
-                            }
-                        </div>
-                    </div>
                 </div>
-
             </div>
+            <div class="dis-flex">
+                <label>
+                    Product(s)
+                </label>
+                <div>
+                    @Html.DevExpress().ButtonEdit(
+                    settings =>
+                    {
+                    settings.Name = "Producttxt";
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.ReadOnly = true;
+                    settings.Properties.Buttons.Add("...");
+                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){ProductButnClick(s,e);}";
+                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Product_KeyDown(s,e);}";
 
+                    }).GetHtml()
+                </div>
+            </div>
+            @if (ViewBag.CanView)
+            {
+                <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+            }
         </div>
+
+        @*</div>
+
+            </div>*@
         <div class="clearfix"></div>
         <div class="scrooler">
             <div id="refreshgrid">
@@ -1197,7 +1322,7 @@ function ProductImportUserLog() {
         settings =>
         {
             settings.Name = "pcModalTemplateImportLog";
-            settings.Width = 1000; 
+            settings.Width = 1000;
             settings.AllowDragging = true;
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;
@@ -1242,4 +1367,36 @@ function ProductImportUserLog() {
     </div>
 </div>
 
+<!--User Modal -->
+<div class="modal fade pmsModal w50" id="ProductModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Product Search</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" onkeydown="Productkeydown(event)" id="txtProductSearch" width="100%" placeholder="Search By User Name" />
+                <div id="UserTable">
+                    <table border='1' width="100%">
 
+                        <tr class="HeaderStyle" style="font-size:small">
+                            <th>Select</th>
+                            <th class="hide">id</th>
+                            <th>Product Code</th>
+                            <th>Product Name</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btnOkformultiselection btn-default btn btn-danger" onclick="DeSelectAll('ProductSource')">Deselect All</button>
+                <button type="button" class="btnOkformultiselection btn-default  btn btn-success" data-dismiss="modal" onclick="OKPopup('ProductSource')">OK</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<asp:HiddenField ID="hdnProductId" runat="server" />
+<!--User Modal -->
