@@ -671,6 +671,16 @@
         dtFrom.SetValue(d);
         dtTo.SetValue(d);
 
+        $('#ddlAppIds').on('change', function () {
+            if ($("#ddlAppIds option:selected").index() > 0) {
+                var selectedValue = $(this).val();
+                $('#ddlAppIds').prop("selectedIndex", 0);
+                var url = '@Url.Action("ExportStorelist", "StoreMaster", new { type = "_type_" })'
+                window.location.href = url.replace("_type_", selectedValue);
+            }
+        });
+
+
         $('body').on('click', '#btnshow', function () {
 
             //GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeId").val());
@@ -736,7 +746,7 @@
                     $("#txtCity").val(data[0].CityName);
                     $("#hdnStateId").val(data[0].StateId);
                 }
-                
+
             }
         });
     }
@@ -945,7 +955,7 @@
     }
 
     function AddStore(values) {
-        
+
         //if ($("#ddlCountry").val() == "0") {
         //    jAlert("Please select Country.", "Alert", function () {
         //        setTimeout(function () {
@@ -1180,7 +1190,7 @@
                                      else {
                                          jAlert("Store updated successfully.");
                                      }
-                                 
+
 
                                      ClearData();
 
@@ -1332,7 +1342,7 @@
                    $("#ddlBranch").val(response.store_branch).trigger('change');
                    $("#ddlStatus").val(response.store_status).trigger('change');
 
-                   
+
                    $('#hdnUserID').val(response.created_userid)
                    UserTxt.SetText(response.created_username);
                    $('#hdnOldUserID').val(response.created_userid_old)
