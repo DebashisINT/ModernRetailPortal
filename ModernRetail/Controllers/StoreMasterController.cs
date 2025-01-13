@@ -323,6 +323,8 @@ namespace ModernRetail.Controllers
             //    }
             //}
 
+            string AttachmentUrl = System.Configuration.ConfigurationManager.AppSettings["StoreAttachment"];
+
             DataTable ds = new DataTable();
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_STOREMASTERADDUPDATELIST");
             proc.AddPara("@ACTION", "STOREMASTERLISTING");
@@ -330,6 +332,7 @@ namespace ModernRetail.Controllers
             proc.AddPara("@TODATE", dattoat);
             proc.AddPara("@USER_ID", Userid);
             proc.AddPara("@ISPAGELOAD", model.Is_PageLoad);
+            proc.AddPara("@AttachmentUrl", AttachmentUrl);
             //proc.AddPara("@STATEID", stateID);
             // proc.AddPara("@EMPID", userlist);
             // proc.AddPara("@IsReAssignedDate", IS_ReAssignedDate);

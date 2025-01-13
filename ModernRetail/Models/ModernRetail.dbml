@@ -265,6 +265,7 @@
       <Column Name="STORE_TYPE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="STORE_WHATSAPP_NUMBER" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="STORE_EMAIL" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="STORE_IMAGE" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
       <Column Name="CREATEDATE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="STORE_CREATEDUSER" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="STORE_ISACTIVE" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />

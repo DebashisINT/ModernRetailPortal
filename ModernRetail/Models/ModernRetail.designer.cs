@@ -3765,6 +3765,8 @@ namespace ModernRetail.Models
 		
 		private string _STORE_EMAIL;
 		
+		private string _STORE_IMAGE;
+		
 		private string _CREATEDATE;
 		
 		private string _STORE_CREATEDUSER;
@@ -3947,6 +3949,22 @@ namespace ModernRetail.Models
 				if ((this._STORE_EMAIL != value))
 				{
 					this._STORE_EMAIL = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_IMAGE", DbType="VarChar(500)")]
+		public string STORE_IMAGE
+		{
+			get
+			{
+				return this._STORE_IMAGE;
+			}
+			set
+			{
+				if ((this._STORE_IMAGE != value))
+				{
+					this._STORE_IMAGE = value;
 				}
 			}
 		}

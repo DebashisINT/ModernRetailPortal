@@ -98,10 +98,10 @@
         <elementListCompartment Id="6535b834-6140-4f1b-938d-df2aa197b2db" absoluteBounds="5.89, 2.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a9884b17-12aa-4c19-b52c-c74edfef7ad4" isExpanded="false" absoluteBounds="3.125, 4.25, 2, 0.45">
+    <classShape Id="126ed9d9-3ef6-4a62-8a77-6b654d1f9c5d" isExpanded="false" absoluteBounds="3, 4.25, 2, 0.45">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_STOREMASTERLIST" />
       <nestedChildShapes>
-        <elementListCompartment Id="88b1552a-617a-4b2f-9854-b5183b444273" absoluteBounds="3.14, 4.71, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="83e9e35e-e3d9-4669-93f0-2fde83f1696a" absoluteBounds="3.015, 4.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
