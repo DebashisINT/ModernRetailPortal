@@ -812,11 +812,8 @@
 
     $(document).ready(function () {
         $('#txtWarehouse').focus();
-
-        $("#txtContactPhone").keypress(function (e) {
-            //if the letter is not digit then display error and don't type anything
-            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                //display error message
+        $("#txtContactPhone").keypress(function (e) {         
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {              
                 $("#errmsg").html("Digits Only").show().fadeOut("slow");
                 return false;
             }
@@ -841,8 +838,39 @@
             allowClear: false
         });
 
+        $('#txtWarehouse').blur(function () {
+            var value = $(this).val();            
+            var hdnDetailsID = $("#WareHouse_ID").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CHECKUNIQUETARGETDOCNUMBER", "WarehouseMaster")",
+                data: JSON.stringify({ WarehouseName: value, WareHouse_ID: hdnDetailsID }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                asyn: false,
+                success: function (msg) {
+                    CheckUniqueCode = msg;
+                    if (CheckUniqueCode == 1) {                        
+                        Swal.fire({
+                            title: 'Sorry!',                           
+                            html: 'Please enter unique Warehouse Name to proceed.',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {                                
+                                    setTimeout(function () {
+                                        $('#txtWarehouse').val("");
+                                        $('#txtWarehouse').focus();
+                                    }, 600);                              
+                            }
+                        });
+                    }
+                }
+            });            
+        });      
 
     });
+
     var urlKeys = getUrlVars();
      function getUrlVars() {
          var vars = [], hash;
@@ -873,7 +901,6 @@
                       if (status != null) {
                           GETCOUNTRY();
                           CoutryChangePopulate(status.State, status.Country);
-                         
                           $("#WareHouse_ID").val(status.WarehouseID);
                           $("#hdnAdd").val(status.WarehouseID);
                           $('#txtWarehouse').val(status.WarehouseName);
@@ -884,37 +911,17 @@
                           $('#txtPin').val(status.Pin);
                           $('#txtContactName').val(status.ContactName);
                           $('#txtContactPhone').val(status.ContactPhone);
-
                           Shop_Id = status.Distributer;
                           StateChagePopulate(status.CityDistrict, status.State);
-
-                          //setTimeout(function () {
-                          //   // $('#ddlState').val(status.State).change();     
-                          //    StateChagePopulate(status.CityDistrict, status.State);
-                          //    //setTimeout(function () {
-                          //    //    $('#ddlCityDistrict').val(status.CityDistrict).change();
-                          //    //}, 100);
-
-                          //}, 100);
-                         
-
-
-
                       }
 
                   },
-                  error: function (response) {
-                      // alert(response);
+                  error: function (response) {                     
                       jAlert("Please try again later.");
                   }
               });
-
          }
      }
-
-
-
-
     function CoutryChange() {
         $.ajax({
             type: "post",
@@ -922,9 +929,7 @@
             data: { countryID: $('#ddlCountry').val() },
             datatype: "json",
             traditional: true,
-            success: function (data) {
-
-               // var status = "<select id='ddlState' onchange=StateChage() class = 'full form-control'>";
+            success: function (data) {             
                 var status = '';
                 status = status + '<option value="0">select</option>';
                 for (var i = 0; i < data.length; i++) {
@@ -943,15 +948,12 @@
             data: { StateID: $('#ddlState').val() },
             datatype: "json",
             traditional: true,
-            success: function (data) {
-
-                //var status = "<select id='ddlCityDistrict' class = 'full form-control'>";
+            success: function (data) {               
                 var status = "";
                 status = status + '<option value="0">select</option>';
                 for (var i = 0; i < data.length; i++) {
                     status = status + '<option value=' + data[i].city_id + '>' + data[i].city_name + '</option>';
-                }
-               // status = status + '</select>';
+                }              
                 $('#ddlCityDistrict').html(status);
             }
         });
@@ -961,40 +963,23 @@
 
     function SaveWareHouse() {
         var falgs = true;
-        if ($('#txtWarehouse').val() == "") {
-            //jAlert("Enter Warehouse Name.");
-            //jAlert("Enter Warehouse Name.", "alert", function () {
-            //    $('#txtWarehouse').focus();
-            //});
+        if ($('#txtWarehouse').val() == "") {          
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
                 text: 'Enter Warehouse Name.'
             });
-
-
             falgs = false;
         }
-        else if ($('#txtAddress1').val() == "") {
-            //jAlert("Enter Address.");
-            //jAlert("Enter Address.", "alert", function () {
-            //    $('#txtAddress1').focus();
-            //});
+        else if ($('#txtAddress1').val() == "") {          
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
                 text: 'Enter Address.'
             });
-
-
-
             falgs = false;
         }
-        else if ($('#ddlCountry').val() == "" || $('#ddlCountry').val() == "0") {
-            //jAlert("Select Country.");
-            //jAlert("Select Country.", "alert", function () {
-            //    $('#ddlCountry').focus();
-            //});
+        else if ($('#ddlCountry').val() == "" || $('#ddlCountry').val() == "0") {           
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
@@ -1003,11 +988,7 @@
 
             falgs = false;
         }
-        else if ($('#ddlState').val() == "" || $('#ddlState').val() == "0") {
-            //jAlert("Select State.");
-            //jAlert("Select State.", "alert", function () {
-            //    $('#ddlState').focus();
-            //});
+        else if ($('#ddlState').val() == "" || $('#ddlState').val() == "0") {           
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
@@ -1015,11 +996,7 @@
             });
             falgs = false;
         }
-        else if ($('#ddlCityDistrict').val() == "" || $('#ddlCityDistrict').val() == "0") {
-            //jAlert("Select City/District.");
-            //jAlert("Select City/District.", "alert", function () {
-            //    $('#ddlCityDistrict').focus();
-            //});
+        else if ($('#ddlCityDistrict').val() == "" || $('#ddlCityDistrict').val() == "0") {           
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
@@ -1027,49 +1004,28 @@
             });
             falgs = false;
         }
-        else if ($('#txtPin').val() == "") {
-            //jAlert("Enter Pin.");
-            //jAlert("Enter Pin.", "alert", function () {
-            //    $('#txtPin').focus();
-            //});
+        else if ($('#txtPin').val() == "") {            
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
                 text: 'Enter Pin.'
             });
-
-
             falgs = false;
         }
-        else if ($('#txtContactName').val() == "") {
-            //jAlert("Enter Contact Person Name.");
-            //jAlert("Enter Contact Person Name.", "alert", function () {
-            //    $('#txtContactName').focus();
-            //});
+        else if ($('#txtContactName').val() == "") {          
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
                 text: 'Enter Contact Person Name.'
             });
-
-
-
-
             falgs = false;
         }
-        else if ($('#txtContactPhone').val() == "") {
-            //jAlert("Enter Contact Person Phone.");
-            //jAlert("Enter Contact Person Phone.", "alert", function () {
-            //    $('#txtContactPhone').focus();
-            //});
+        else if ($('#txtContactPhone').val() == "") {           
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
                 text: 'Enter Contact Person Phone.'
             });
-
-
-
             falgs = false;
         }
         else if (Shop_Id == "") {
@@ -1077,19 +1033,9 @@
                 icon: 'warning',
                 title: 'Warning',
                 text: 'Select distributor.'
-            });
-
-            //jAlert("Select distributor.", "alert", function () {
-
-            //});
+            });           
             falgs = false;
-        }
-
-        //if ($('#ddlDistributer').val() == "" || $('#ddlDistributer').val() == "0") {
-        //    jAlert("Enter Contact Person Phone.");
-        //    $('#ddlDistributer').focus();
-        //}
-
+        }      
         var isdefault = "0";
         if (document.getElementById("chkDefault").checked == true) {
             isdefault = "1";
@@ -1116,59 +1062,48 @@
                 traditional: true,
                 success: function (data) {
                     if (data == "Ware house added successfully.") {
-
                         Swal.fire({
-                            title: 'Success!',
-                            /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
-                            // html: 'W: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
+                            title: 'Success!',                          
                             text: data,
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then((result) => {
-                            if (result.isConfirmed) {
-                               /* if (savemode === "Exit") {*/
+                            if (result.isConfirmed) {                              
                                     setTimeout(function () {
                                         var url = '/WarehouseMaster/WarehouseIndex';
                                         window.location.href = url;
-                                    }, 500);
-                                //}
+                                    }, 500);                               
                             }
-                        });
-
-
-                      //  Clear();
-                        //gridWareHouseList.Refresh();
-                        //gridWareHouseList.Refresh();
+                        });                                         
 
                     }
-                    else if (data == "Ware house updated successfully.") {
-                        //jAlert(data);
-
-
+                    else if (data == "Ware house updated successfully.") {                    
                         Swal.fire({
-                            title: 'Success!',
-                            /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
-                            // html: 'W: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
+                            title: 'Success!',                          
                             text: data,
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                /* if (savemode === "Exit") {*/
+                             
                                 setTimeout(function () {
                                     var url = '/WarehouseMaster/WarehouseIndex';
                                     window.location.href = url;
                                 }, 500);
-                                //}
+                              
                             }
                         });
-                       // Clear();
-                        //gridWareHouseList.Refresh();
-                        //gridWareHouseList.Refresh();
-
+                      
                     }
                     else {
-                        jAlert(data);
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: data
+                        });
+                        return false;
+                        //jAlert(data);
                     }
                 }
             });
@@ -1191,12 +1126,10 @@
             success: function (data) {
 
                 var status = '';
-               // var status = "<select id='ddlState' onchange=StateChage() class = 'full form-control'>";
                 status = status + '<option value="0">select</option>';
                 for (var i = 0; i < data.length; i++) {
                     status = status + '<option value=' + data[i].ID + '>' + data[i].Name + '</option>';
                 }
-                //status = status + '</select>';
                 $('#ddlState').html(status);
             }
         });
@@ -1213,12 +1146,10 @@
             success: function (data) {
 
                 var status = '';
-                //var status = "<select id='ddlCityDistrict' class = 'full form-control'>";
                 status = status + '<option value="0">select</option>';
                 for (var i = 0; i < data.length; i++) {
                     status = status + '<option value=' + data[i].city_id + '>' + data[i].city_name + '</option>';
                 }
-                //status = status + '</select>';
                 $('#ddlCityDistrict').html(status);
             }
 
@@ -1226,9 +1157,6 @@
         $("#ddlCityDistrict").val(value);
 
     }
-
-
-
     function Clear() {
         $("#WareHouse_ID").val("");
         $('#txtWarehouse').val("");
@@ -1249,36 +1177,23 @@
         ShopId = [];
         Shop_Id = "";
         $('#ShopGridLookup_I').val("");
-
-
     }
-
-
-
-    function WarehousePermission(obj) {
-
-        //  $("#hdnorder").val(orderid);
-        $("#myModal").modal('show');
-        //  Clearall();
-        //  gridProductlist.Refresh();
+    function WarehousePermission(obj) {        
+        $("#myModal").modal('show');        
     }
 
     function OpenShopList() {
         gridWareHouseShopList.Refresh();
     }
-
     function OnShopStartCallback() {
 
     }
-
     function ShopStartCallback(s, e) {
         e.customArgs["StateId"] = $('#ddlState').val();
 
         if (urlKeys.key!='Add')
             e.customArgs["WarehouseID"] = urlKeys.key;
     }
-
-
     function ShopSelectionChanged(s, e) {
         ShopGridLookup.gridView.GetSelectedFieldValues("ID", GetShopSelectedFieldValuesCallback);
     }
@@ -1291,7 +1206,7 @@
                 Shop_Id += values[i] + ',';
             }
         } finally {
-           // console.log(ShopId);
+           
         }
     }
 
@@ -1318,25 +1233,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label>Name <span style="color:red">*</span></label>                    
-                        @Html.TextBoxFor(m => m.WarehouseName, new { @class = "form-control", @id = "txtWarehouse" })
+                        @Html.TextBoxFor(m => m.WarehouseName, new { @class = "form-control", @id = "txtWarehouse", @MaxLength = "300" })
                     </div>                   
                     <div class="col-md-6">
                         <label>Address <span style="color:red">*</span></label>                      
-                        @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @id = "txtAddress1" })
+                        @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @id = "txtAddress1", @MaxLength = "500" })
                     </div>                    
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-3 h-branch-select">
                         <label>Country <span style="color:red">*</span></label>
-                        @*@Html.DropDownList("ddlCountry", new SelectList(Model.Country_List, "cou_id", "cou_country"), new { @name = "from", @class = "full form-control", @Onchange = "CoutryChange()" })*@
                         <select id="ddlCountry" class="form-control" onchange="CoutryChange()"></select>
 
                     </div>
                     <div class="col-md-3 h-branch-select">
                         <label>State <span style="color:red">*</span></label>
                         <div id="divState">
-                            @*@Html.DropDownList("ddlState", new SelectList(Model.State_List, "id", "state"), new { @name = "from", @class = "full form-control" })*@
                             <select id="ddlState" class="form-control" onchange="StateChage()"></select>
 
                         </div>
@@ -1345,33 +1258,27 @@
                     <div class="col-md-3  h-branch-select">
                         <label>City/District <span style="color:red">*</span></label>
                         <div id="divCity">
-                            @*<input type="text" class="form-control" />*@
-                            @*@Html.DropDownList("ddlCityDistrict", new SelectList(Model.CityDistrict_List, "city_id", "city_name"), new { @name = "from", @class = "full form-control" })*@
                             <select id="ddlCityDistrict" class="form-control" ></select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <label>Pin <span style="color:red">*</span></label>
-                        @*<input type="text" class="form-control" />*@
-                        @Html.TextBoxFor(m => m.Pin, new { @class = "form-control", @id = "txtPin" })
+                        @Html.TextBoxFor(m => m.Pin, new { @class = "form-control", @id = "txtPin", @MaxLength = "20" })
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <label>Contact Person Name <span style="color:red">*</span></label>
-                        @*<input type="text" class="form-control" />*@
                         @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control", @id = "txtContactName" })
                     </div>
 
                     <div class="col-md-3">
                         <label>Contact Person Phone <span style="color:red">*</span></label>
-                        @*<input type="text" class="form-control" />*@
                         @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", @id = "txtContactPhone" ,@MaxLength = "10" })
                     </div>
                     <div class="col-md-3">
                         <label>Distributor <span style="color:red">*</span></label>
-                        @*@Html.Action("GetShopList", "WarehouseMaster")*@
                         @Html.Action("GetShopList", "WarehouseMaster", new { WarehouseID = @Model.WarehouseID, State = @Model.State })
                     </div>
                     <div class="col-md-2 hidden">
@@ -1387,9 +1294,7 @@
                     <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
                 </div>
-
                 <div class="row">
-
                 </div>
             </div>
         </div>
