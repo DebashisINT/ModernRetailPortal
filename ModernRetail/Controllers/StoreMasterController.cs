@@ -1,6 +1,8 @@
 ﻿using BusinessLogicLayer;
 using DataAccessLayer;
 using DevExpress.Data.WcfLinq;
+using DevExpress.Web.Mvc;
+using DevExpress.Web;
 using DevExpress.XtraRichEdit.Import.Html;
 using ModernRetail.Models;
 using Newtonsoft.Json;
@@ -436,6 +438,122 @@ namespace ModernRetail.Controllers
                 return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+        public ActionResult ExportStorelist(int type)
+        {
+            //List<AttendancerecordModel> model = new List<AttendancerecordModel>();
+            switch (type)
+            {
+                //case 1:
+                //    return GridViewExtension.ExportToPdf(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
+                //break;
+                case 2:
+                    return GridViewExtension.ExportToXlsx(GetEmployeeBatchGridViewSettings(), GetDataDetails(""));
+                //break;
+                //case 3:
+                //    return GridViewExtension.ExportToXls(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
+                ////break;
+                //case 4:
+                //    return GridViewExtension.ExportToRtf(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
+                ////break;
+                //case 5:
+                //    return GridViewExtension.ExportToCsv(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
+                default:
+                    break;
+            }
+            return null;
+        }
+
+        private GridViewSettings GetEmployeeBatchGridViewSettings()
+        {
+            var settings = new GridViewSettings();
+            settings.Name = "Stroe List";
+            // settings.CallbackRouteValues = new { Controller = "Employee", Action = "ExportEmployee" };
+            // Export-specific settings
+            settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
+            settings.SettingsExport.FileName = "Store List Report";
+
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Store Name";
+                column.FieldName = "STORE_NAME";
+                column.ExportWidth = 200;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Branch";
+                column.FieldName = "STORE_BRANCH";
+                column.ExportWidth = 150;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Address";
+                column.FieldName = "STORE_ADDRESS";
+                column.ExportWidth = 180;
+            });
+            
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Pincode";
+                column.FieldName = "STORE_PINCODE";
+                column.ExportWidth = 180;
+            });
+            
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Type";
+                column.FieldName = "STORE_TYPE";
+                column.ExportWidth = 120;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Contact No.";
+                column.FieldName = "STORE_CONTACT_NUMBER";
+                column.ExportWidth = 120;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "WhatsApp No.";
+                column.FieldName = "STORE_WHATSAPP_NUMBER";
+                column.ExportWidth = 100;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Created By";
+                column.FieldName = "STORE_CREATEDUSER";
+                column.ExportWidth = 100;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Created On";
+                column.FieldName = "CREATEDATE";
+                column.ExportWidth = 100;
+            });
+            
+            settings.Columns.Add(column =>
+            {
+                column.Caption = "Active";
+                column.FieldName = "STORE_ISACTIVE";
+                column.ExportWidth = 100;
+            });
+
+            
+           
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.LeftMargin = 20;
+            settings.SettingsExport.RightMargin = 20;
+            settings.SettingsExport.TopMargin = 20;
+            settings.SettingsExport.BottomMargin = 20;
+
+            return settings;
         }
     }
 }
