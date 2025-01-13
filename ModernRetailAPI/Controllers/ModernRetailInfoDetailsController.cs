@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: Modern Retail Info Details.Row: 3,4,6,7,11,14
+//Purpose: Modern Retail Info Details.Row: 3,4,6,7,11,12,13,14
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -542,6 +542,159 @@ namespace ModernRetailAPI.Controllers
                         omodel.message = "Successfully Get List.";
                         UBview = APIHelperMethods.ToModelList<UserBranlistOutput>(ds.Tables[0]);
                         omodel.branch_list = UBview;
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No Data Found.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage StockInfoSave(StockInfoSaveInput model)
+        {
+            StockInfoSaveOutput omodel = new StockInfoSaveOutput();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    List<StockSavelists> omodel2 = new List<StockSavelists>();
+                    foreach (var s2 in model.product_list)
+                    {
+                        omodel2.Add(new StockSavelists()
+                        {
+                            stock_id = s2.stock_id,
+                            product_id=s2.product_id,
+                            qty=s2.qty,
+                            uom=s2.uom,
+                            mfg_date=s2.mfg_date,
+                            expire_date=s2.expire_date
+                        });
+                    }
+
+                    string JsonXML = XmlConversion.ConvertToXml(omodel2, 0);
+
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "STOCKINFOSAVE");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@STOCK_ID", model.stock_id);
+                    sqlcmd.Parameters.AddWithValue("@STOCK_CREATEDATE", model.save_date_time);
+                    sqlcmd.Parameters.AddWithValue("@STORE_ID", model.store_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+                    if (dt.Rows.Count > 0 && Convert.ToInt64(dt.Rows[0][0]) == model.user_id)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Information added successfully.";
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "Data not Saved.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage StockInfoFetchLists(StockInfoFetchListsInput model)
+        {
+            StockInfoFetchListsOutput omodel = new StockInfoFetchListsOutput();
+            List<StocklistOutput> Stkview = new List<StocklistOutput>();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    DataSet ds = new DataSet();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "STOCKINFOFETCH");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(ds);
+                    sqlcon.Close();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                        {
+                            List<StockProductlists> Poview = new List<StockProductlists>();
+                            for (int j = 0; j < ds.Tables[1].Rows.Count; j++)
+                            {
+                                if (Convert.ToString(ds.Tables[0].Rows[i]["stock_id"]) == Convert.ToString(ds.Tables[1].Rows[j]["stock_id"]))
+                                {
+                                    Poview.Add(new StockProductlists()
+                                    {
+                                        stock_id = Convert.ToString(ds.Tables[1].Rows[j]["stock_id"]),
+                                        product_id = Convert.ToInt64(ds.Tables[1].Rows[j]["product_id"]),
+                                        qty = Convert.ToDecimal(ds.Tables[1].Rows[j]["qty"]),
+                                        uom = Convert.ToInt64(ds.Tables[1].Rows[j]["uom"]),
+                                        mfg_date = Convert.ToString(ds.Tables[1].Rows[j]["mfg_date"]),
+                                        expire_date = Convert.ToString(ds.Tables[1].Rows[j]["expire_date"])
+                                    });
+                                }
+                            }
+
+                            Stkview.Add(new StocklistOutput()
+                            {
+                                stock_id = Convert.ToString(ds.Tables[0].Rows[i]["stock_id"]),
+                                save_date_time = Convert.ToString(ds.Tables[0].Rows[i]["save_date_time"]),
+                                store_id = Convert.ToString(ds.Tables[0].Rows[i]["store_id"]),
+                                product_list = Poview
+                            });
+                        }
+
+                        omodel.status = "200";
+                        omodel.message = "Successfully Get List.";
+                        omodel.user_id = model.user_id;
+                        omodel.stock_list = Stkview;
                     }
                     else
                     {
