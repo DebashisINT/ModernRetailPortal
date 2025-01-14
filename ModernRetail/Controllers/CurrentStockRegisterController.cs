@@ -53,19 +53,19 @@ namespace ModernRetail.Controllers
 
             CurrentStockImportLogModel Dtls = new CurrentStockImportLogModel();
 
-            DataSet ds = new DataSet();
-            ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
-            proc.AddPara("@ACTION", "GetDropdownBindData");
-            ds = proc.GetDataSet();
+            //DataSet ds = new DataSet();
+            //ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+            //proc.AddPara("@ACTION", "GetDropdownBindData");
+            //ds = proc.GetDataSet();
 
 
-            if (ds != null)
-            {
-                List<StockBranchList> StockBranchList = new List<StockBranchList>();
-                StockBranchList = APIHelperMethods.ToModelList<StockBranchList>(ds.Tables[0]);
-                Dtls.StockBranchList = StockBranchList;
+            //if (ds != null)
+            //{
+            //    List<StockBranchList> StockBranchList = new List<StockBranchList>();
+            //    StockBranchList = APIHelperMethods.ToModelList<StockBranchList>(ds.Tables[0]);
+            //    Dtls.StockBranchList = StockBranchList;
 
-            }
+            //}
 
 
 
@@ -414,9 +414,12 @@ namespace ModernRetail.Controllers
                 proc.AddPara("@ACTION", data.Action);
                 proc.AddPara("@STOCKID", data.StockId);
                 proc.AddPara("@BRANCHID", data.BranchID);
-                proc.AddPara("@SHOPCODE", data.ShopCode);
+                proc.AddPara("@SHOPCODE", data.StoreCode);
                 proc.AddPara("@PRODUCTID", data.ProductID);
                 proc.AddPara("@QUANTITY", data.Quantity);
+                proc.AddPara("@UOMID", data.UOMid);
+                proc.AddPara("@MFGDATE", data.MfgDate);
+                proc.AddPara("@EXPDATE", data.ExpDate);
                 proc.AddPara("@CURRENTSTOCKDATE", CurrentStockDate);
                 proc.AddPara("@user_id", user_id);
                 proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
@@ -445,11 +448,11 @@ namespace ModernRetail.Controllers
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     ret.BranchID = dt.Rows[0]["STOCK_BRANCHID"].ToString();
-                    ret.ShopCode = dt.Rows[0]["STOCK_SHOPCODE"].ToString();
+                    ret.StoreCode = dt.Rows[0]["STOCK_SHOPCODE"].ToString();
                     ret.ProductID = dt.Rows[0]["STOCK_PRODUCTID"].ToString();
                     ret.CurrentStockDate = dt.Rows[0]["STOCK_CURRENTDATE"].ToString();
                     ret.Quantity = dt.Rows[0]["STOCK_PRODUCTQTY"].ToString();
-                    ret.ShopName = dt.Rows[0]["STOCK_SHOPNAME"].ToString();
+                    ret.StoreName = dt.Rows[0]["STOCK_SHOPNAME"].ToString();
                     ret.ProductName = dt.Rows[0]["STOCK_PRODUCTNAME"].ToString();
 
                 }
@@ -661,5 +664,32 @@ namespace ModernRetail.Controllers
             return settings;
         }
 
+        [HttpPost]
+        public ActionResult GetProductUOM(string productid)
+        {
+            List<UOMData> UOMData = new List<UOMData>();
+
+            DataTable dtUOMData = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+            proc.AddPara("@ACTION", "GETPRODUCTUOM");
+            proc.AddPara("@PRODUCTID", productid);
+            dtUOMData = proc.GetTable();
+
+            if (dtUOMData.Rows.Count > 0)
+            {
+                UOMData = APIHelperMethods.ToModelList<UOMData>(dtUOMData);
+            }
+            return Json(UOMData, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult GetProductEntryList()
+        {
+            StockProductDetails productdataobj = new StockProductDetails();
+            List<StockProductDetails> productdata = new List<StockProductDetails>();
+            Int64 DetailsID = 0;
+
+            return PartialView("~/Views/CurrentStockRegister/_PartialStoreMasterProductList.cshtml", productdata);
+        }
     }
 }
