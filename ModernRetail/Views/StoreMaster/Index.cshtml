@@ -8,6 +8,15 @@
 @{
     ViewBag.Title = "PartyList";
 }
+
+<script type="text/javascript" src="~/Scripts/globalize.js"></script>
+<script src="~/Scripts/cultures/globalize.cultures.js"></script>
+
+<script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
+<link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
+<link href="~/Content/media.css" rel="stylesheet" />
+
+
 <link href="~/assests/css/custom/PMSStyles.css" rel="stylesheet" />
 <script src="~/Scripts/SearchPopup.js"></script>
 @*<link href="~/assests/css/custom/SearchPopup.css" rel="stylesheet" />*@
@@ -767,6 +776,15 @@
         dtFrom.SetValue(d);
         dtTo.SetValue(d);
 
+         $('#ddlAppIds').on('change', function () {
+                if ($("#ddlAppIds option:selected").index() > 0) {
+                    var selectedValue = $(this).val();
+                    $('#ddlAppIds').prop("selectedIndex", 0);
+                    var url = '@Url.Action("ExportStorelist", "StoreMaster", new { type = "_type_" })'
+                    window.location.href = url.replace("_type_", selectedValue);
+                }
+         });
+
         $('body').on('click', '#btnshow', function () {
 
             //GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeId").val());
@@ -816,6 +834,22 @@
     function gridRowclick(s, e) {
         $('#gridStoreDetails').find('tr').removeClass('rowActive');
         $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+    }
+
+    function GETPIN() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetPIN", "StoreMaster")",
+            async: false,
+            success: function (response) {
+                $('#ddlPIN').html('');
+                var html = "";
+                for (var i = 0; i < response.length; i++) {
+                    html = html + "<option value='" + response[i].pin_id + "'>" + response[i].pin_code + "</option>";
+                }
+                $('#ddlPIN').html(html);
+            }
+        });
     }
 
     function PINChange(){
@@ -903,6 +937,7 @@
 
 
     $(document).ready(function () {
+
         $('#UserSearchModel').on('shown.bs.modal', function () {
             $('#txtUserSearch').focus();
         })
@@ -1426,7 +1461,9 @@
                    $("#txtStoreName").val(response.store_name);
                    $("#txtAddress").val(response.store_address);
 
+                   GETPIN();
                    $("#ddlPIN").val(response.store_pincode).trigger('change');
+
                    $("#txtCountry").val(response.CountryName);
                    $("#txtState").val(response.StateName);
                    $("#txtCity").val(response.CityName);
@@ -1467,11 +1504,27 @@
     }
 
     $(document).ready(function () {
+        GETPIN();
+
+
         $('#ddlPIN').select2({
             placeholder: "Select",
-            allowClear: false,
-            minimumResultsForSearch: 0
+            allowClear: false
         });
+
+        //$('#ddlBranch').select2({
+        //    placeholder: "Select",
+        //    allowClear: false,
+        //    minimumResultsForSearch: 0
+        //});
+
+        //$('#ddlStoreType').select2({
+        //    placeholder: "Select",
+        //    allowClear: false,
+        //    minimumResultsForSearch: 0
+        //});
+
+
     });
 </script>
 
@@ -1581,7 +1634,8 @@
                         <div class="col-md-3 h-branch-select">
                             <label>PIN <span class="red">*</span></label>
                             <div class="cust-dropdown">
-                                @Html.DropDownListFor(m => m.Pin, new SelectList(Model.PinList, "pin_id", "pin_code", Model.PinID), new { @id = "ddlPIN", @class = "form-control", @onchange = "PINChange();" })
+                                @* @Html.DropDownListFor(m => m.Pin, new SelectList(Model.PinList, "pin_id", "pin_code", Model.PinID), new { @id = "ddlPIN", @class = "form-control", @onchange = "PINChange();" })*@
+                                <select id="ddlPIN" class="form-control" onchange="PINChange()"></select>
                             </div>
                         </div>
 
@@ -1612,37 +1666,6 @@
                         )
                         </div>
 
-
-
-                        @*<div class="col-md-3">
-                                <label>Country <span class="red">*</span></label>
-                                <div>
-                                    @Html.DropDownListFor(m => m.Country, new SelectList(Model.CountryListstore, "cou_id", "cou_country", Model.CountryID), new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryChange();" })
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>State <span class="red">*</span></label>
-                                <div id="statediv">
-                                    @Html.DropDownListFor(m => m.State, new SelectList(Model.StateListstore, "StateID", "StateName", Model.StateID), new { @id = "ddlState", @class = "form-control", @onchange = "StateChange();" })
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>District <span class="red">*</span></label>
-                                <div id="Citydiv">
-                                    <select class="form-control" onchange="CityChange()">
-                                        <option>Select</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3 mb-3 h-branch-select">
-                                <label>PIN</label>
-                                <div id="Citydiv">
-                                    <select id="ddlPIN" class="form-control">
-
-                                    </select>
-                                </div>
-                            </div>*@
 
                         <div class="clear"></div>
                     </div>
@@ -1808,7 +1831,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success save-btn" onclick="AddStore('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
                     @*<button type="button" class="btn btn-primary save-btn" onclick="AddStore('New');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & New</button>*@
-                <button type="button" class="btn btn-danger cancel-catg" data-dismiss="modal" onclick="ClearData();"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                    <button type="button" class="btn btn-danger cancel-catg" data-dismiss="modal" onclick="ClearData();"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
                 </div>
             </div>
         </div>

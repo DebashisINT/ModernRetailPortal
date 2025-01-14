@@ -1,0 +1,118 @@
+﻿
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "gridStockProductEntryList";
+    settings.CallbackRouteValues = new { Action = "GetProductEntryList", Controller = "CurrentStockRegister" };
+    settings.KeyFieldName = "Guids";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.VerticalScrollBarMode = DevExpress.Web.ScrollBarMode.Auto;
+   // settings.SettingsEditing.BatchEditSettings.ShowConfirmOnLosingChanges = false;
+    settings.SettingsBehavior.AllowSort = false;
+
+    //settings.SettingsEditing.BatchEditSettings.EditMode = DevExpress.Web.GridViewBatchEditMode.Cell;
+    //settings.SettingsEditing.BatchEditSettings.StartEditAction = DevExpress.Web.GridViewBatchStartEditAction.Click;
+    settings.SettingsEditing.NewItemRowPosition = DevExpress.Web.GridViewNewItemRowPosition.Bottom;
+    settings.Settings.HorizontalScrollBarMode = DevExpress.Web.ScrollBarMode.Auto;
+    settings.SettingsBehavior.ColumnResizeMode = DevExpress.Web.ColumnResizeMode.Control;
+    settings.SettingsPager.PageSizeItemSettings.Visible = false;
+    settings.SettingsPager.PageSize = 100000;
+
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "SlNO";
+        x.Caption = "Sl#";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(7);
+        x.ReadOnly = true;
+        // x.Index = 1;
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ProductID";
+        x.Caption = "Product ID";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ProductName";
+        x.Caption = "Product Name";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "Quantity";
+        x.Caption = "Quantity";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        x.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
+        (x.PropertiesEdit as DevExpress.Web.TextBoxProperties).MaskSettings.Mask = "<0..999999999>.<00..99>";
+        DevExpress.Web.TextBoxProperties txtEditProperties = x.PropertiesEdit as DevExpress.Web.TextBoxProperties;
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        x.EditCellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        (x.PropertiesEdit as DevExpress.Web.TextBoxProperties).Style.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "UOMid";
+        x.Caption = "UOM ID";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "UOMName";
+        x.Caption = "UOM Name";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+
+    });
+
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "STARTEDATE";
+        x.Caption = "Start Date";
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "MfgDate";
+        x.Caption = "Mfg. Date";
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ExpDate";
+        x.Caption = "Exp. Date";
+        x.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+
+    });
+
+
+
+}).Bind(Model).GetHtml()
+
+
+

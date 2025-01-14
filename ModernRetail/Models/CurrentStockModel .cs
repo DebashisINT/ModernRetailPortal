@@ -16,6 +16,11 @@ namespace ModernRetail.Models
         public String ProductCode { get; set; }
         public String ProductName { get; set; }
         public String Quantity { get; set; }
+
+        public String UOM { get; set; }
+        public String MfgDate { get; set; }
+        public String ExpDate { get; set; }
+
         public String ImportStatus { get; set; }
         public String ImportMsg { get; set; }
         public String ImportDate { get; set; }
@@ -45,14 +50,34 @@ namespace ModernRetail.Models
         public String Action { get; set; }
         public String StockId { get; set; }
         public String BranchID { get; set; }
-        public String ShopCode { get; set; }
+        public String StoreCode { get; set; }
         public String ProductID { get; set; }
         public String CurrentStockDate { get; set; }
         public String Quantity { get; set; }
-
-        public String ShopName { get; set; }
+        public string UOMid { get; set; }
+        public string MfgDate { get; set; }
+        public string ExpDate { get; set; }
+        public String StoreName { get; set; }
         public String ProductName { get; set; }
 
+
+    }
+    public class StockProductDetails
+    {
+        public String ProductID { get; set; }
+        public String ProductName { get; set; }
+        public String Quantity { get; set; }
+        public string UOMid { get; set; }
+        public string UOMName { get; set; }
+        public string MfgDate { get; set; }
+        public string ExpDate { get; set; }
+
+    }
+
+    public class UOMData
+    {
+        public Int64 UOM_ID { get; set; }
+        public string UOM_NAME { get; set; }
 
     }
 }

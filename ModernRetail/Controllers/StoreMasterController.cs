@@ -38,8 +38,8 @@ namespace ModernRetail.Controllers
 
             if (ds != null)
             {
-                List<PinList> PinList = new List<PinList>();
-                PinList = APIHelperMethods.ToModelList<PinList>(ds.Tables[0]);
+                //List<PinList> PinList = new List<PinList>();
+                //PinList = APIHelperMethods.ToModelList<PinList>(ds.Tables[0]);
 
                 List<StoreTypeList> StoreTypeList = new List<StoreTypeList>();
                 StoreTypeList = APIHelperMethods.ToModelList<StoreTypeList>(ds.Tables[1]);
@@ -47,7 +47,7 @@ namespace ModernRetail.Controllers
                 List<BranchList> BranchList = new List<BranchList>();
                 BranchList = APIHelperMethods.ToModelList<BranchList>(ds.Tables[2]);
 
-                dtLs.PinList = PinList;
+                //dtLs.PinList = PinList;
                 dtLs.StoreTypeList = StoreTypeList;
                 dtLs.BranchList = BranchList;
 
@@ -58,6 +58,16 @@ namespace ModernRetail.Controllers
 
             return View(dtLs);
         }
+
+        public JsonResult GetPIN()
+        {
+            DataTable DT = new DataTable();
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_STOREMASTERADDUPDATELIST");
+            proc.AddPara("@ACTION", "GETPINLIST");
+            DT = proc.GetTable();
+            return Json(APIHelperMethods.ToModelList<PinList>(DT));
+        }
+        
 
         [HttpPost]
         public ActionResult GetCountryStateCity(string PIN)
@@ -123,11 +133,7 @@ namespace ModernRetail.Controllers
 
             var storeid = "";
 
-            TempData["store_id"] = storeid;
-            TempData["created_userid"] = data.created_userid;
-            TempData.Keep();
-
-
+            
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_STOREMASTERADDUPDATELIST");
             if (data.store_id == null || data.store_id == "")
             {
@@ -139,6 +145,10 @@ namespace ModernRetail.Controllers
                 proc.AddPara("@ACTION", "UPDATESTORE");
                 storeid = data.store_id;
             }
+
+            TempData["store_id"] = storeid;
+            TempData["created_userid"] = data.created_userid;
+            TempData.Keep();
 
             proc.AddPara("@STORE_ID", storeid);
             proc.AddPara("@STORE_NAME", data.store_name);

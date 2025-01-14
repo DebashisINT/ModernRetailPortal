@@ -126,6 +126,62 @@ namespace ModernRetail.Models
             return listCust;
         }
 
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetStoreList(string SearchKey)
+        {
+            List<StoreListModel> listStore = new List<StoreListModel>();
+            if (HttpContext.Current.Session["MRuserid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+                proc.AddPara("@ACTION", "GETSTORELIST");
+                proc.AddPara("@USER_ID", Convert.ToInt32(Session["MRuserid"]));
+                proc.AddPara("@SearchKey", SearchKey);
+                DataTable Store = proc.GetTable();
+
+                listStore = (from DataRow dr in Store.Rows
+                            select new StoreListModel()
+                            {
+                                STORE_ID = dr["STORE_ID"].ToString(),
+                                STORE_NAME = dr["STORE_NAME"].ToString(),
+                                STORETYPE_NAME = dr["STORETYPE_NAME"].ToString(),
+                               
+                            }).ToList();
+            }
+
+            return listStore;
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetProductList(string SearchKey)
+        {
+            List<ProductListModel> listProduct = new List<ProductListModel>();
+            if (HttpContext.Current.Session["MRuserid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+                proc.AddPara("@USER_ID", Convert.ToInt32(Session["MRuserid"]));
+                proc.AddPara("@SearchKey", SearchKey);
+                proc.AddPara("@ACTION", "GETPRODUCTLIST");
+                dt = proc.GetTable();
+
+                listProduct = (from DataRow dr in dt.Rows
+                               select new ProductListModel()
+                               {
+                                   sProducts_ID = Convert.ToInt32(dr["sProducts_ID"]),
+                                   sProducts_Code = Convert.ToString(dr["sProducts_Code"]),
+                                   sProducts_Name = Convert.ToString(dr["sProducts_Name"])
+                                   //sProducts_Description = Convert.ToString(dr["sProducts_Description"])
+                               }).ToList();
+            }
+
+            return listProduct;
+        }
+
+
         public class UsersModel
         {
             public string USER_ID { get; set; }
@@ -147,7 +203,19 @@ namespace ModernRetail.Models
             public string Des { get; set; }
             // public string MinSalePrice { get; set; }
         }
-
+        public class StoreListModel
+        {
+            public string STORE_ID { get; set; }
+            public string STORE_NAME { get; set; }
+            public string STORETYPE_NAME { get; set; }
+        }
+        public class ProductListModel
+        {
+            public int sProducts_ID { get; set; }
+            public string sProducts_Code { get; set; }
+            public string sProducts_Name { get; set; }
+            //public string sProducts_Description { get; set; }
+        }
 
     }
 }

@@ -1150,6 +1150,10 @@
     <Content Include="Views\PinZipMaster\Index.cshtml" />
     <Content Include="Views\PinZipMaster\PartialPinzipMasterList.cshtml" />
     <Content Include="Views\StoreMaster\PartialStoreMasterGridList.cshtml" />
+    <Content Include="Views\CurrentStockRegister\PartialCurrentStockGridList.cshtml" />
+    <Content Include="Views\CurrentStockRegister\CurrentStockImportLog.cshtml" />
+    <Content Include="Views\CurrentStockRegister\_CurrentStockImportManualLogView.cshtml" />
+    <Content Include="Views\CurrentStockRegister\_PartialStoreMasterProductList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

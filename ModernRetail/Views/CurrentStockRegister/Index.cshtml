@@ -38,7 +38,7 @@
                 padding-top: 56px !important;
             }
 
-            #ShopSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog, #ProductSearchModel .model-dialog {
+            #StoreSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog, #ProductSearchModel .model-dialog {
                 padding-top: 100px !important;
             }
         }
@@ -933,7 +933,7 @@
             padding: 2px 10px !important;
         }
 
-        #ShopSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog, #ProductSearchModel .model-dialog {
+        #StoreSearchModel .modal-dialog, #ReferenceUserSearchModel .modal-dialog, #ProductSearchModel .model-dialog {
             width: 42% !important;
         }
 
@@ -952,6 +952,14 @@
         }
 
         #dtCurrentStockDate_DDD_PW-1 {
+            left: 10px !important;
+        }
+
+        #dtMfgDate_DDD_PW-1 {
+            left: 10px !important;
+        }
+
+        #dtExpDate_DDD_PW-1 {
             left: 10px !important;
         }
 
@@ -1415,35 +1423,33 @@
     }
 
 
-    // Shop Name
+    // Store Name
     function StoreButnClick(s, e) {
-        $('#ShopSearchModel').modal('show');
-        $("#txtShopSearch").focus();
+        $('#StoreSearchModel').modal('show');
+        $("#txtStoreSearch").focus();
     }
 
     function Store_KeyDown(s, e) {
         if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
-            $('#ShopSearchModel').modal('show');
-            $("#txtShopSearch").focus();
+            $('#StoreSearchModel').modal('show');
+            $("#txtStoreSearch").focus();
         }
     }
 
-    function Shopkeydown(e) {
+    function Storekeydown(e) {
         var OtherDetails = {}
-        if ($.trim($("#txtShopSearch").val()) == "" || $.trim($("#txtShopSearch").val()) == null) {
+        if ($.trim($("#txtStoreSearch").val()) == "" || $.trim($("#txtStoreSearch").val()) == null) {
             return false;
         }
-        OtherDetails.SearchKey = $("#txtShopSearch").val();
+        OtherDetails.SearchKey = $("#txtStoreSearch").val();
 
         if (e.code == "Enter" || e.code == "NumpadEnter") {
             var HeaderCaption = [];
-            HeaderCaption.push("Shop Name");
-            HeaderCaption.push("Shop Code");
-            HeaderCaption.push("Shop Owner Contact");
-            HeaderCaption.push("Shop Type");
+            HeaderCaption.push("Store Name");
+            HeaderCaption.push("Store Type");
 
-            if ($("#txtShopSearch").val() != "") {
-                callonServer("../../../Models/ShopAddress.asmx/GetShopList", OtherDetails, "ShopTable", HeaderCaption, "ShopIndex", "SetShop");
+            if ($("#txtStoreSearch").val() != "") {
+                callonServer("../../../Models/MRService.asmx/GetStoreList", OtherDetails, "StoreTable", HeaderCaption, "StoreIndex", "SetStore");
             }
         }
         else if (e.code == "ArrowDown") {
@@ -1452,17 +1458,17 @@
         }
     }
 
-    function SetShop(id, Name) {
+    function SetStore(id, Name) {
         var key = id;
         $('#hdnStoreCode').val(id)
         if (key != null && key != '') {
-            $('#ShopSearchModel').modal('hide');
+            $('#StoreSearchModel').modal('hide');
             StoreNameTxt.SetText(Name);
             StoreNameTxt.SetFocus();
         }
     }
 
-    // End Shop Name
+    // End Stoe Name
 
     // Product Name
     function ProductButnClick(s, e) {
@@ -1490,7 +1496,7 @@
             HeaderCaption.push("Product Name");
 
             if ($("#txtProductSearch").val() != "") {
-                callonServer("../../../Models/ShopAddress.asmx/GetProductList", OtherDetails, "ProductTable", HeaderCaption, "ProductIndex", "SetProduct");
+                callonServer("../../../Models/MRService.asmx/GetProductList", OtherDetails, "ProductTable", HeaderCaption, "ProductIndex", "SetProduct");
             }
         }
         else if (e.code == "ArrowDown") {
@@ -1503,9 +1509,25 @@
         var key = id;
         $('#hdnProductID').val(id)
         if (key != null && key != '') {
-            $('#ProductSearchModel').modal('hide');
-            ProductNameTxt.SetText(Name);
-            ProductNameTxt.SetFocus();
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("GetProductUOM", "CurrentStockRegister")",
+                data: { productid: $('#hdnProductID').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    if (data.length > 0) {
+                        $("#txtUOM").val(data[0].UOM_NAME);
+                        $('#hdnUOMID').val(data[0].UOM_ID);
+
+                        $('#ProductSearchModel').modal('hide');
+                        ProductNameTxt.SetText(Name);
+                        ProductNameTxt.SetFocus();
+                    }
+
+                }
+            });
+            
         }
     }
 
@@ -1517,16 +1539,20 @@
         $('#hdnProductID').val('0');
         $('#txtQuantity').val('');
         dtCurrentStockDate.Clear();
+        dtMfgDate.Clear();
+        dtExpDate.Clear();
+        $('#txtUOM').val('');
+        $('#hdnUOMID').val('0');
         $("#txtExpSalesValue").val('');
         ProductNameTxt.SetText('');
         StoreNameTxt.SetText('');
 
         $("#txtProductSearch").val('');
-        $("#txtShopSearch").val('');
+        $("#txtStoreSearch").val('');
 
 
-        var txt = "<table border = '1' width = '100%' class='dynamicPopupTbl' > <tr class='HeaderStyle'> <th class='hide'>id</th><th class='ShopIndex_0'>Shop Name</th><th class='ShopIndex_1'>Shop Code</th><th class='ShopIndex_2'>Shop Owner Contact</th><th class='ShopIndex_3'>Shop Type</th></table>"
-        document.getElementById("ShopTable").innerHTML = txt;
+        var txt = "<table border = '1' width = '100%' class='dynamicPopupTbl' > <tr class='HeaderStyle'> <th class='hide'>id</th><th class='StoreIndex_0'>Store Name</th><th class='ShopIndex_3'>Store Type</th></table>"
+        document.getElementById("StoreTable").innerHTML = txt;
 
         txt = "<table border = '1' width = '100%' class='dynamicPopupTbl' > <tr class='HeaderStyle'> <th class='hide'>id</th><th class='ProductIndex_0'>Product Code</th><th class='ProductIndex_1'>Product Name</th></table>"
         document.getElementById("ProductTable").innerHTML = txt;
@@ -1645,9 +1671,12 @@
             Action: action,
             StockId: $('#hdnStockId').val(),
             BranchID: $("#ddlBranch").val(),
-            ShopCode: $("#hdnStoreCode").val(),
+            StoreCode: $("#hdnStoreCode").val(),
             ProductID: $("#hdnProductID").val(),
             CurrentStockDate: dtCurrentStockDate.GetText(),
+            UOMid: $("#hdnUOMID").val(),
+            MfgDate: dtMfgDate.GetText(),
+            ExpDate: dtExpDate.GetText(),
             Quantity: $("#txtQuantity").val()
         }
 
@@ -1719,6 +1748,8 @@
                 $("#txtQuantity").val(data.Quantity);
                 ProductNameTxt.SetText(data.ProductName);
                 StoreNameTxt.SetText(data.ShopName);
+                txtUOM.SetText(data.UOM);
+                $('#hdnUOMID').val(data.UOMID);
 
                 if (data.CurrentStockDate != "") {
                     var d = new Date(data.CurrentStockDate);
@@ -1726,6 +1757,22 @@
                 }
                 else {
                     dtCurrentStockDate.Clear();
+                }
+
+                if (data.MfgDate != "") {
+                    var d = new Date(data.MfgDate);
+                    dtMfgDate.SetDate(d);
+                }
+                else {
+                    dtMfgDate.Clear();
+                }
+
+                if (data.ExpDate != "") {
+                    var d = new Date(data.ExpDate);
+                    dtExpDate.SetDate(d);
+                }
+                else {
+                    dtExpDate.Clear();
                 }
 
                 $('#myModal').modal('show');
@@ -1875,8 +1922,8 @@
     });
 
     $(document).ready(function () {
-        $('#ShopSearchModel').on('shown.bs.modal', function () {
-            $('#txtShopSearch').focus();
+        $('#StoreSearchModel').on('shown.bs.modal', function () {
+            $('#txtStoreSearch').focus();
         });
 
         $('#ProductSearchModel').on('shown.bs.modal', function () {
@@ -1898,13 +1945,13 @@
     <span>Current Stock</span>
 </div>
 
-<div class="overlay" id="loading-overlay">
+@*<div class="overlay" id="loading-overlay">
     <div class="flex-loader">
         <img src="/assests/images/new-loader.gif" />
         <h4>Data is loading, Please Wait</h4>
     </div>
 
-</div>
+</div>*@
 
 <div class="container ">
     <div class="row">
@@ -1913,83 +1960,61 @@
                 <div class="row">
                     <div class="col-md-12" style="padding-top: 15px;margin-bottom: 20px;">
                         <!-- Button trigger modal -->
-                        @if (ViewBag.CanAdd)
-                        {
+                        @*@if (ViewBag.CanAdd)
+                        {*@
                             <button type="button" class="btn btn-success add-btn add-new-btn" data-toggle="modal" data-backdrop="static" data-keyboard="false" onclick="AddCurrentStock();">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Add
                             </button>
-                        }
+                        @*}*@
 
-                        @if (ViewBag.CanView)
-                        {
+                        @*@if (ViewBag.CanView)
+                        {*@
                             <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>
                                 <span class="btn-icon"><img src="/assests/images/stock-view.svg"></span> Show
                             </button>
-                        }
+                        @*}*@
 
-                        @if (ViewBag.CanBulkUpdate)
-                        {
-                            <button type="button" class="btn btn-info btn-clr-3" onclick="DownloadFormat();">
-                                <span class="btn-icon"><img src="/assests/images/download-btn-icon.svg"></span> Download Format
-                            </button>
+                         @*@if (ViewBag.CanBulkUpdate)
+                         {*@
+                              <button type="button" class="btn btn-info btn-clr-3" onclick="DownloadFormat();">
+                                  <span class="btn-icon"><img src="/assests/images/download-btn-icon.svg"></span> Download Format
+                              </button>
 
-                            <button type="button" class="btn btn-primary btn-clr-4" onclick="ImportCurrentStockPopOpen();">
-                                <span class="btn-icon"><img src="/assests/images/file-import.svg"></span> Import File
-                            </button>
+                              <button type="button" class="btn btn-primary btn-clr-4" onclick="ImportCurrentStockPopOpen();">
+                                  <span class="btn-icon"><img src="/assests/images/file-import.svg"></span> Import File
+                              </button>
 
-                            <button type="button" class="btn btn-warning btn-clr-5" onclick="ImportLogPopOpen();">
-                                <span class="btn-icon"><img src="/assests/images/log-file.svg"></span> View Log
-                            </button>
-                        }
+                              <button type="button" class="btn btn-warning btn-clr-5" onclick="ImportLogPopOpen();">
+                                  <span class="btn-icon"><img src="/assests/images/log-file.svg"></span> View Log
+                              </button>
+                         @*}*@
 
 
-                        @if (ViewBag.CanExport)
-                        {
-                            @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                                    <option value="0">Export to</option>
-                                    <option value="2">XLSX</option>
-                                </select>*@
-
+                        @*@if (ViewBag.CanExport)
+                        {*@
+                            
                             <div class="custom-dropdown">
                                 <button class="dropdown-button" id="dropdownButton">
                                     <span class="btn-icon"><img src="/assests/images/export.svg"></span>
                                     <span id="selectedOption">Export to</span>
                                 </button>
                                 <ul class="dropdown-list" id="dropdownList">
-                                    @*<li data-value="0">Export to</li>*@
-
+                              
                                     <li data-value="2">XLSX</li>
 
                                 </ul>
-                                <!-- Hidden original select for export logic -->
-                                @*<select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds" style="display: none;">
-                                        <option value="0">Export to</option>
-                                        <option value="1">PDF</option>
-                                        <option value="2">XLSX</option>
-                                        <option value="3">XLS</option>
-                                        <option value="4">RTF</option>
-                                        <option value="5">CSV</option>
-                                    </select>*@
+                              
                                 <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds" style="display: none;">
                                     <option value="0">Export to</option>
                                     <option value="2">XLSX</option>
                                 </select>
                             </div>
-                        }
+                        @*}*@
 
                     </div>
                     <div class="clear"></div>
 
-                    @*<div class="col-md-3" style="padding-top: 20px;">
-                            <span></span>
-                            <div>
-
-
-
-
-                            </div>
-                        </div>*@
-
+                  
                 </div>
                 <div class="clearfix"></div>
 
@@ -2120,13 +2145,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 mb-10 h-branch-select">
-                                @*Rev 1.0 [caption "Type" change to "Contact Type" ] *@
-                                <label>Branch<em style="color: red">*</em> </label>
-                                <div>
-                                    @Html.DropDownListFor(m => m.StockBranchId, new SelectList(Model.StockBranchList, "branch_id", "branch_code", Model.StockBranchId), new { @id = "ddlBranch", @class = "form-control whclass selectH" })
-                                </div>
-                            </div>
 
 
                             <div class="col-md-4 mb-10">
@@ -2184,12 +2202,67 @@
                                     @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
+                            <div class=" col-sm-3 mb-3">
+                                <label>UOM<span style="color:red">*</span></label>
+                                <div class="relative">
+                                    @Html.TextBoxFor(m => m.UOM, new { @class = "form-control", @id = "txtUOM", @readonly = "readonly" })
+
+                                    <input type="hidden" id="hdnUOMID">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-10">
+                                <label>Mfg. Date<em style="color: red">*</em></label>
+                                <div class="date-select">
+                                    @Html.DevExpress().DateEditFor(x => x.MfgDate,
+                                   deSettings =>
+                                   {
+                                       deSettings.Name = "dtMfgDate";
+                                       deSettings.Date = DateTime.Now;
+                                       deSettings.Properties.UseMaskBehavior = true;
+                                       deSettings.Properties.EditFormat = EditFormat.Custom;
+                                       deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                       deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                       deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                       deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
+                                   }).GetHtml()
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-10">
+                                <label>Exp. Date<em style="color: red">*</em></label>
+                                <div class="date-select">
+                                    @Html.DevExpress().DateEditFor(x => x.ExpDate,
+                                   deSettings =>
+                                   {
+                                       deSettings.Name = "dtExpDate";
+                                       deSettings.Date = DateTime.Now;
+                                       deSettings.Properties.UseMaskBehavior = true;
+                                       deSettings.Properties.EditFormat = EditFormat.Custom;
+                                       deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                       deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                       deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                       deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
+                                   }).GetHtml()
+
+                                </div>
+                            </div>
                         </div>
 
                         <div class="clearfix"></div>
                     </div>
 
-
+                    <div class="clearfix"></div>
+                    <div class="scrooler">
+                        <div id="refreshgrid">
+                            @{
+                                Html.RenderAction("GetProductEntryList", "CurrentStockRegister");
+                            }
+                        </div>
+                    </div>
+                    
                     <div class="clear"></div>
 
                 </div>
@@ -2200,7 +2273,6 @@
             <div class="modal-footer">
                 <div class="mt-15 ml-n15">
                     <button type="button" id="btnSaveExit" class="btn btn-success mr-2" onclick="SaveCurrentStock('Exit');">Save & Exit</button>
-                    <button type="button" id="btnSaveNew" class="btn btn-primary mr-2" onclick="SaveCurrentStock('New');">Save & New</button>
                     <button type="button" class="btn btn-danger mr-2" data-dismiss="modal" onclick="ClearData();">Close</button>
                 </div>
             </div>
@@ -2211,24 +2283,22 @@
 <input type="hidden" id="hdnAddEditMode" />
 <input type="hidden" id="hdnStockId" />
 
-<div class="modal fade pmsModal w70" id="ShopSearchModel" role="dialog" data-backdrop="static" data-keyboard="false">
+<div class="modal fade pmsModal w70" id="StoreSearchModel" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog w-50">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Shop Search</h4>
+                <h4 class="modal-title">Store Search</h4>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control mb-3" onkeydown="Shopkeydown(event)" id="txtShopSearch" autofocus style="width:100%" placeholder="Search By Shop Name or Entity Code or Type or Owner Contact" />
-                <div id="ShopTable">
+                <input type="text" class="form-control mb-3" onkeydown="Storekeydown(event)" id="txtStoreSearch" autofocus style="width:100%" placeholder="Search By Store Name" />
+                <div id="StoreTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
                         <tr class="HeaderStyle">
                             <th class="hide">id</th>
-                            <th>Shop Name</th>
-                            <th>Shop Code</th>
-                            <th>Shop Owner Contact</th>
-                            <th>Shop Type</th>
+                            <th>Store Name</th>
+                            <th>Store Type</th>
                         </tr>
                     </table>
                 </div>
