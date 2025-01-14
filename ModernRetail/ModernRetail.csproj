@@ -1154,6 +1154,7 @@
     <Content Include="Views\CurrentStockRegister\CurrentStockImportLog.cshtml" />
     <Content Include="Views\CurrentStockRegister\_CurrentStockImportManualLogView.cshtml" />
     <Content Include="Views\CurrentStockRegister\_PartialStoreMasterProductList.cshtml" />
+    <Content Include="Views\StoreMaster\StoreAddEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

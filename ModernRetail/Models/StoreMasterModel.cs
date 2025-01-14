@@ -8,6 +8,7 @@ namespace ModernRetail.Models
 {
     public class StoreMasterModel
     {
+        public string store_id { get; set; }
         public string StoreTypeId { get; set; }
         public string Is_PageLoad { get; set; }
         public string Fromdate { get; set; }

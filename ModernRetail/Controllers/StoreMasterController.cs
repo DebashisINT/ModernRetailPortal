@@ -25,7 +25,36 @@ namespace ModernRetail.Controllers
     public class StoreMasterController : Controller
     {
         // GET: StoreMaster
+        StoreMasterModel objdata = null;
+        Int64 DetailsID = 0;
+        string UserName = string.Empty;
+
+        public StoreMasterController()
+        {
+            objdata = new StoreMasterModel();
+        }
+
         public ActionResult Index()
+        {
+            StoreMasterModel dtLs = new StoreMasterModel();
+
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UserMasterList", "UserConfiguration");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
+            objdata.store_id = null;
+            TempData["store_id"] = null;
+
+            TempData.Keep();
+
+            return View(dtLs);
+
+        }
+
+        public ActionResult StoreAddEdit()
         {
             StoreMasterModel dtLs = new StoreMasterModel();
 
@@ -57,6 +86,20 @@ namespace ModernRetail.Controllers
             TempData["created_userid"] = null;
 
             return View(dtLs);
+        }
+
+        public JsonResult SetMapDataByID(string ID = "", Int16 IsView = 0)
+        {
+            Boolean Success = false;
+            try
+            {
+                TempData["store_id"] = ID;
+                TempData["IsView"] = IsView;
+                TempData.Keep();
+                Success = true;
+            }
+            catch { }
+            return Json(Success, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetPIN()
@@ -135,7 +178,7 @@ namespace ModernRetail.Controllers
 
             
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_STOREMASTERADDUPDATELIST");
-            if (data.store_id == null || data.store_id == "")
+            if (data.store_id == null || data.store_id == "" || data.store_id == "Add")
             {
                 proc.AddPara("@ACTION", "INSERTSTORE");
                 storeid = Convert.ToString(Session["MRuserid"]) + "_" + DateTime.Now.Date.ToString("yyMMdd") + DateTime.Now.ToString("hhmmss");
