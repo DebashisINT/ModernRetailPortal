@@ -235,6 +235,7 @@ namespace ModernRetailAPI.Models
     public class StockSavelists
     {
         public string stock_id { get; set; }
+        public long product_dtls_id { get; set; }
         public long product_id { get; set; }
         public decimal qty { get; set; }
         public long uom_id { get; set; }
@@ -268,9 +269,11 @@ namespace ModernRetailAPI.Models
     public class StockProductlists
     {
         public string stock_id { get; set; }
+        public long product_dtls_id { get; set; }
         public long product_id { get; set; }
         public decimal qty { get; set; }
         public long uom_id { get; set; }
+        public string uom { get; set; }
         public string mfg_date { get; set; }
         public string expire_date { get; set; }
     }
