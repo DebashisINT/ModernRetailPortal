@@ -584,7 +584,7 @@ namespace ModernRetailAPI.Controllers
                             stock_id = s2.stock_id,
                             product_id=s2.product_id,
                             qty=s2.qty,
-                            uom=s2.uom,
+                            uom_id=s2.uom_id,
                             mfg_date=s2.mfg_date,
                             expire_date=s2.expire_date
                         });
@@ -675,7 +675,7 @@ namespace ModernRetailAPI.Controllers
                                         stock_id = Convert.ToString(ds.Tables[1].Rows[j]["stock_id"]),
                                         product_id = Convert.ToInt64(ds.Tables[1].Rows[j]["product_id"]),
                                         qty = Convert.ToDecimal(ds.Tables[1].Rows[j]["qty"]),
-                                        uom = Convert.ToInt64(ds.Tables[1].Rows[j]["uom"]),
+                                        uom_id = Convert.ToInt64(ds.Tables[1].Rows[j]["uom_id"]),
                                         mfg_date = Convert.ToString(ds.Tables[1].Rows[j]["mfg_date"]),
                                         expire_date = Convert.ToString(ds.Tables[1].Rows[j]["expire_date"])
                                     });
