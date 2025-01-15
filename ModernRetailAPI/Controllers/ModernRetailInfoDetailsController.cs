@@ -580,9 +580,10 @@ namespace ModernRetailAPI.Controllers
                     foreach (var s2 in model.product_list)
                     {
                         omodel2.Add(new StockSavelists()
-                        {
+                        {                            
                             stock_id = s2.stock_id,
-                            product_id=s2.product_id,
+                            product_dtls_id = s2.product_dtls_id,
+                            product_id =s2.product_id,
                             qty=s2.qty,
                             uom_id=s2.uom_id,
                             mfg_date=s2.mfg_date,
@@ -673,9 +674,11 @@ namespace ModernRetailAPI.Controllers
                                     Poview.Add(new StockProductlists()
                                     {
                                         stock_id = Convert.ToString(ds.Tables[1].Rows[j]["stock_id"]),
+                                        product_dtls_id = Convert.ToInt64(ds.Tables[1].Rows[j]["product_dtls_id"]),
                                         product_id = Convert.ToInt64(ds.Tables[1].Rows[j]["product_id"]),
                                         qty = Convert.ToDecimal(ds.Tables[1].Rows[j]["qty"]),
                                         uom_id = Convert.ToInt64(ds.Tables[1].Rows[j]["uom_id"]),
+                                        uom = Convert.ToString(ds.Tables[1].Rows[j]["uom"]),
                                         mfg_date = Convert.ToString(ds.Tables[1].Rows[j]["mfg_date"]),
                                         expire_date = Convert.ToString(ds.Tables[1].Rows[j]["expire_date"])
                                     });
