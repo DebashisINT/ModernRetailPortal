@@ -8192,12 +8192,14 @@ namespace BusinessLogicLayer
 
                                 DataSet dsbranchhrchy = new DataSet();
                                 string[] strSpParam = new string[1];
-                                strSpParam[0] = "branchid|" + GenericStoreProcedure.ParamDBType.Int + "|10|" + HttpContext.Current.Session["MRuserbranchID"].ToString() + "|" + GenericStoreProcedure.ParamType.ExParam;
+                                //strSpParam[0] = "branchid|" + GenericStoreProcedure.ParamDBType.Int + "|10|" + HttpContext.Current.Session["MRuserbranchID"].ToString() + "|" + GenericStoreProcedure.ParamType.ExParam;
+                                strSpParam[0] = "branchid|" + GenericStoreProcedure.ParamDBType.Varchar + "|-1|" + HttpContext.Current.Session["MRuserbranchID"].ToString() + "|" + GenericStoreProcedure.ParamType.ExParam;
 
                                 GenericStoreProcedure oGenericStoreProcedure = new GenericStoreProcedure();
                                 try
                                 {
-                                    dsbranchhrchy = oGenericStoreProcedure.Procedure_DataSet(strSpParam, "Hr_GetBranchSubTree");
+                                    //dsbranchhrchy = oGenericStoreProcedure.Procedure_DataSet(strSpParam, "Hr_GetBranchSubTree");
+                                    dsbranchhrchy = oGenericStoreProcedure.Procedure_DataSet(strSpParam, "PRC_MR_GetBranchSubTree");
                                     HttpContext.Current.Session["MRuserbranchHierarchy"] = dsbranchhrchy.Tables[0].Rows[0][0].ToString();
                                 }
                                 catch { }
