@@ -9,7 +9,7 @@
     ViewBag.Title = "LOGIN CONFIGURATION";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<title>Store Master</title>
 <script type="text/javascript" src="~/Scripts/globalize.js"></script>
 <script src="~/Scripts/cultures/globalize.cultures.js"></script>
 
@@ -1114,9 +1114,90 @@
         width: 100%;
     }
 
+    .General-part {
+        border: 1px solid #0d8f24;
+        border-radius: 10px;
+        background: #f5fff7;
+        position: relative;
+        padding-top: 25px;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+    }
+
+    .store-info {
+        border: 1px solid #610d8f;
+        border-radius: 10px;
+        background: #fbf3ff;
+        position: relative;
+        padding-top: 25px;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+    }
+
+    .contact-info {
+        border: 1px solid #075c7c;
+        border-radius: 10px;
+        background: #f6fdff;
+        position: relative;
+        padding-top: 25px;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+    }
+
+    .backBox {
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        padding-top: 30px !important;
+    }
+
+    .General-part-title {
+        padding: 5px 24px;
+        border-radius: 50px;
+        background: #0d8f24;
+        color: #fff;
+        font-size: 17px;
+        display: block;
+        position: absolute;
+        top: -35px;
+        left: 15px;
+        font-weight: 500;
+    }
+
+    .store-info-title {
+        padding: 5px 24px;
+        border-radius: 50px;
+        background: #610d8f;
+        color: #fff;
+        font-size: 17px;
+        display: block;
+        position: absolute;
+        top: -35px;
+        left: 15px;
+        font-weight: 500;
+    }
+
+    .contact-info-title {
+        padding: 5px 24px;
+        border-radius: 50px;
+        background: #075c7c;
+        color: #fff;
+        font-size: 17px;
+        display: block;
+        position: absolute;
+        top: -35px;
+        left: 15px;
+        font-weight: 500;
+    }
+
+    .cust-dropdown {
+        background: #fff;
+    }
+
+    .col-md-3, .col-md-6 {
+        margin-bottom: 10px;
+    }
+
     @@media only screen and (max-width: 768px) {
-
-
         #ddlAppIds .tooltip {
             display: none;
         }
@@ -1765,7 +1846,7 @@
 
 
             <div class="General-part">
-                <h3 class="add-party-popup-section-title col-md-12">General</h3>
+                <h3 class="General-part-title">General</h3>
 
                 <div class="col-md-3 h-branch-select">
                     <label>PIN <span class="red">*</span></label>
@@ -1796,18 +1877,20 @@
                     </div>
                 </div>
 
-                <div class="col-sm-3 mb-3 ">
+                <div class="col-sm-3 mb-3 h-branch-select">
                     <label>Branch<span style="color:red">*</span></label>
-                    @Html.DropDownListFor(m => m.Branch, new SelectList(Model.BranchList, "ID", "NAME", Model.BranchID), new { @id = "ddlBranch", @class = "form-control" }
-                )
+                    <div class="cust-dropdown">
+                        @Html.DropDownListFor(m => m.Branch, new SelectList(Model.BranchList, "ID", "NAME", Model.BranchID), new { @id = "ddlBranch", @class = "form-control" }
+                    )
+                    </div>
                 </div>
 
 
-                <div class="clear"></div>
-            </div>
+                    <div class="clear"></div>
+                </div>
 
             <div class="store-info">
-                <h3 class="add-party-popup-section-title col-md-12">Store Info</h3>
+                <h3 class="store-info-title">Store Info</h3>
 
                 <div class="col-md-3">
                     <label>Store Name <span class="red">*</span></label>
@@ -1822,9 +1905,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 h-branch-select">
                     <label>Status <span class="red">*</span></label>
-                    <div>
+                    <div class="cust-dropdown">
                         <select class="form-control" id="ddlStatus">
                             <option value="Select">Select</option>
                             <option value="1">Active</option>
@@ -1835,9 +1918,9 @@
 
                 <div class="clear"></div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 h-branch-select">
                     <label>Store Type <span class="red">*</span></label>
-                    <div>
+                    <div class="cust-dropdown">
                         @Html.DropDownListFor(m => m.StoreType, new SelectList(Model.StoreTypeList, "storetype_id", "storetype_name", Model.StoreTypeId), new { @id = "ddlStoreType", @class = "form-control" })
                     </div>
                 </div>
@@ -1921,7 +2004,7 @@
 
 
             <div class="contact-info">
-                <h3 class="add-party-popup-section-title col-md-12">Contact Info</h3>
+                <h3 class="contact-info-title">Contact Info</h3>
 
                 <div class="col-md-3">
                     <label>Contact Name</label>
@@ -1965,10 +2048,10 @@
             <div class="clear"></div>
             <div class="clear"></div>
 
-            <div class=" px-4">
+            <div class=" px-4 text-center">
                 @if (Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 4)
                 {
-                    <button type="button" class="btn btn-success save-btn" onclick="AddStore('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
+                    <button type="button" class="btn btn-success save-btn mr-3" onclick="AddStore('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
                 }
                 <button type="button" class="btn btn-danger cancel-catg" data-dismiss="modal" onclick="ClearData();"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
@@ -2006,7 +2089,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -2034,7 +2117,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
