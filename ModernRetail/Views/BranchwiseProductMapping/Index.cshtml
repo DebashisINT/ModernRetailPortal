@@ -895,7 +895,7 @@
     }
     function BranchEndCallback() {
         PartialParentGridLookup.gridView.Refresh();  
-        
+        PartialParentGridLookup.gridView.Refresh();  
         PartialChildGridLookup.gridView.Refresh();
     }
 </script>
@@ -1234,11 +1234,12 @@
     var hdnDetailsID = $('#hdnDetailsID').val();
 
     var data = {
-        ID: hdnDetailsID,
+        PRODUCTBRANCHMAP_ID: hdnDetailsID,
         Branch_Ids: Branch_Id,
         PARENTERMP_IDS: PARENTEMP_ID,
         CHILDERMP_IDS: CHILDEMP_ID,
-        PRODUCT_IDS: PRODUCT_ID,       
+        PRODUCT_IDS: PRODUCT_ID,  
+    
     }
 
             $.ajax({
