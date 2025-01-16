@@ -39,21 +39,21 @@
     settings.Columns.Add(x =>
     {
         x.FieldName = "PARENTEMP_NAME";
-        x.Caption = "Parent Employee";
+        x.Caption = "Store";
         x.VisibleIndex = 2;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
     });
-    settings.Columns.Add(x =>
-    {
-        x.FieldName = "CHILDEMP_NAME";
-        x.Caption = "Child Employee";
-        x.VisibleIndex = 3;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "CHILDEMP_NAME";
+    //    x.Caption = "Child Employee";
+    //    x.VisibleIndex = 3;
+    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+    //    x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
-    });
+    //});
     settings.Columns.Add(x =>
     {
         x.FieldName = "PRODUCT_CODE";
@@ -135,10 +135,10 @@
             //{
             ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "PRODUCTBRANCHMAP_ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
 
-        //}
-    });
+            //}
+        });
 
-});
+    });
     //Rev Pallab: grid modification
     settings.ClientSideEvents.RowClick = "gridRowclick";
     //Rev End Pallab: grid modification

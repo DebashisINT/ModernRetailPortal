@@ -30,6 +30,12 @@ namespace ModernRetail.Models
 
         }
 
+
+        public class GETSTORELIST
+        {
+            public string STORE_ID{ get; set; }
+            public string STORE_NAME { get; set; }           
+        }
         public class GetParentEmployeeList
         {
             public Int64 USER_ID { get; set; }

@@ -896,7 +896,7 @@
     function BranchEndCallback() {
         PartialParentGridLookup.gridView.Refresh();  
         PartialParentGridLookup.gridView.Refresh();  
-        PartialChildGridLookup.gridView.Refresh();
+        //PartialChildGridLookup.gridView.Refresh();
     }
 </script>
 <script>
@@ -916,7 +916,7 @@
         e.customArgs["Branch_Ids"] = Branch_Id;
     }
     function PartialParentSelectionChanged(s, e) {
-        PartialParentGridLookup.gridView.GetSelectedFieldValues("USER_ID", GetParentSelectedFieldValuesCallback);
+        PartialParentGridLookup.gridView.GetSelectedFieldValues("STORE_ID", GetParentSelectedFieldValuesCallback);
     }
     function GetParentSelectedFieldValuesCallback(values) {
         try {
@@ -961,7 +961,7 @@
         PARENTEMP_ID = "";
     }
     function ParentEndCallback() {
-        PartialChildGridLookup.gridView.Refresh();
+        //PartialChildGridLookup.gridView.Refresh();
     }
 </script>
 <script>
@@ -1154,7 +1154,7 @@
 
     var BranchIDS = BranchGridLookup.gridView.GetSelectedKeysOnPage();
     var ParentIDS = PartialParentGridLookup.gridView.GetSelectedKeysOnPage();
-    var ChildIDS = PartialChildGridLookup.gridView.GetSelectedKeysOnPage();
+    //var ChildIDS = PartialChildGridLookup.gridView.GetSelectedKeysOnPage();
     var ProductIDS = ProductGridLookup.gridView.GetSelectedKeysOnPage();
 
     if (BranchIDS == null || BranchIDS == "") {
@@ -1177,18 +1177,18 @@
         document.getElementById("loading-overlay").style.display = "none";
         return false;
     }
-    else if (ParentIDS != null || ParentIDS != "") {
-        if (ChildIDS == null || ChildIDS == "") {
-            // SweetAlert for empty Child description
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sorry!',
-                text: 'Please select atleast one Child Employee.'
-            });
-            document.getElementById("loading-overlay").style.display = "none";
-            return false;
-        }
-    }
+    //else if (ParentIDS != null || ParentIDS != "") {
+    //    if (ChildIDS == null || ChildIDS == "") {
+    //        // SweetAlert for empty Child description
+    //        Swal.fire({
+    //            icon: 'warning',
+    //            title: 'Sorry!',
+    //            text: 'Please select atleast one Child Employee.'
+    //        });
+    //        document.getElementById("loading-overlay").style.display = "none";
+    //        return false;
+    //    }
+    //}
         
 
 
@@ -1211,14 +1211,14 @@
         }
     }
 
-    CHILDEMPID = [];
-    CHILDEMP_ID = "";
-    if (CHILDEMP_ID == "") {
-        for (var i = 0; i < ChildIDS.length; i++) {
-            CHILDEMPID.push(ChildIDS[i]);
-            CHILDEMP_ID += ChildIDS[i] + ',';
-        }
-    }
+    //CHILDEMPID = [];
+    //CHILDEMP_ID = "";
+    //if (CHILDEMP_ID == "") {
+    //    for (var i = 0; i < ChildIDS.length; i++) {
+    //        CHILDEMPID.push(ChildIDS[i]);
+    //        CHILDEMP_ID += ChildIDS[i] + ',';
+    //    }
+    //}
     PRODUCTID = [];
     PRODUCT_ID = "";
 
@@ -1237,7 +1237,7 @@
         PRODUCTBRANCHMAP_ID: hdnDetailsID,
         Branch_Ids: Branch_Id,
         PARENTERMP_IDS: PARENTEMP_ID,
-        CHILDERMP_IDS: CHILDEMP_ID,
+        //CHILDERMP_IDS: CHILDEMP_ID,
         PRODUCT_IDS: PRODUCT_ID,  
     
     }
@@ -1348,31 +1348,31 @@
     <div class="form_main backBox p-3 mb-3">
         <div class="row mb-3">
 
-            <div class="col-md-2 h-branch-select" id="DivHeadBranch">
+            <!--<div class="col-md-2 h-branch-select" id="DivHeadBranch">
                 <label>Head Branch</label>
-                <div>
+                <div>-->
                     @*<select id="ddlHeadBranch" class="form-control"></select>*@
-                    @Html.DropDownListFor(m => m.HeadBranchID, new SelectList(Model.HeadBranchList, "ID", "NAME", Model.HeadBranchID), new { @id = "ddlHeadBranch", @class = "form-control" })
+                    @*@Html.DropDownListFor(m => m.HeadBranchID, new SelectList(Model.HeadBranchList, "ID", "NAME", Model.HeadBranchID), new { @id = "ddlHeadBranch", @class = "form-control" })*@
 
-                </div>
-            </div>
+                @*</div>
+            </div>*@
             <div class="col-md-2">
                 <label>Branch<span class="red">*</span></label>
                 @*@Html.Action("GetBranchList", "BranchwiseProductMapping")*@
                 @Html.Action("GetBranchList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
             </div>
             <div class="col-md-2">
-                <label>Parent Employee</label>
+                <label>Store</label>
                 @*@Html.Action("GetParentEmployeeList", "BranchwiseProductMapping")*@
                 @Html.Action("GetParentEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
             </div>
-            <div class="col-md-2">
-                <label>Child Employee</label>
-                @*@Html.Action("GetChildEmployeeList", "BranchwiseProductMapping")*@
-                @Html.Action("GetChildEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
-            </div>
+            <!--<div class="col-md-2">
+                <label>Child Employee</label>-->
+               
+                @*@Html.Action("GetChildEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })*@
+            @*</div>*@
             <div class="col-md-4">
-                <label>Product</label>
+                <label>Product<span class="red">*</span></label>
                 @*@Html.Action("GetProductList", "BranchwiseProductMapping")*@
                 @Html.Action("GetProductList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
             </div>
