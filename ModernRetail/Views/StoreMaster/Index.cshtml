@@ -127,7 +127,7 @@
 
     /*Rev 3.0*/
     .dxeButtonEdit_PlasticBlue {
-        min-height: 38px;
+        min-height: 30px;
         border-radius: 8px;
         border: 1px solid #cdcdcd;
     }
@@ -298,7 +298,7 @@
 
     .calendar-icon {
         position: absolute;
-        bottom: 11px;
+        bottom: 6px;
         right: 14px;
         z-index: 0;
         cursor: pointer;
@@ -894,6 +894,7 @@
         top: 40px;
         right: 22px;
         width: 80%;
+        z-index: 99;
     }
 
     #dateRangeSelector li {
@@ -932,6 +933,48 @@
         overflow: hidden;
         margin-bottom: 0;
     }
+
+
+    #gridStoreDetails {
+        position: relative;
+    }
+
+    .action-buttons {
+        display: none;
+        position: absolute;
+        /*background: #ffffff;*/
+        /*border: 1px solid #ddd;*/
+        border-radius: 5px;
+        padding: 5px 10px;
+        /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+        white-space: nowrap;
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(-50%, -100%); /* Position above and centered horizontally */
+        transition: opacity 0.3s ease; /* Smooth fade-in effect */
+        top: 45px;
+        right: -45px;
+    }
+
+        .action-buttons.visible {
+            display: block !important; /* Add this class dynamically */
+        }
+
+
+        .action-buttons a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+            .action-buttons a img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .action-buttons a:hover {
+                text-decoration: underline;
+            }
 </style>
 
 
@@ -1065,7 +1108,36 @@
     function gridRowclick(s, e) {
         $('#gridStoreDetails').find('tr').removeClass('rowActive');
         $(s.GetRow(e.visibleIndex)).addClass('rowActive');
+
+        $('.action-buttons').removeClass('visible').hide();
+
+
+        var rowElement = $('#gridStoreDetails_DXDataRow' + e.visibleIndex);
+
+
+        var actionButtons = $(rowElement).find('.action-buttons');
+
+
+        var rowOffset = $(rowElement).offset();
+
+
+        //actionButtons.css({
+        //    top: rowOffset.top,
+        //    left: rowOffset.left + ($(rowElement).outerWidth() / 2) - (actionButtons.outerWidth() / 2),
+        //    zIndex: 9999 
+        //});
+
+
+        actionButtons.addClass('visible').fadeIn(200);
     }
+
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.action-buttons, .dxgvDataRow').length) {
+            $('.action-buttons').hide();
+        }
+    });
+
 
     function AddStore() {
         $("#hdnID").val('0');

@@ -101,12 +101,40 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(0);
+        //x.SetDataItemTemplateContent(c =>
+        //{
+        //    if (ViewBag.CanEdit)
+        //    {
+        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+        //    }
+
+        //    if (ViewBag.CanAdd)
+        //    {
+        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OnCopyInfoClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/copy-new.png' style='margin-right:3px' /><div class=\"tooltip\">Copy</div></a>");
+
+        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"StateBind('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/state-mapping.png' style='margin-right:3px' /><div class=\"tooltip\">State Mapping</div></a>");
+        //    }
+
+        //    if (ViewBag.ActivateEmployeeBranchHierarchy=="1")
+        //    {
+        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"fn_BranchMap('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/branch-mapping.png' style='margin-right:3px' /><div class=\"tooltip\">Branch Mapping</div></a>");
+        //    }
+
+        //    if (ViewBag.CanDelete)
+        //    {
+        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
+        //    }
+
+
+        //});
+
         x.SetDataItemTemplateContent(c =>
         {
+            ViewContext.Writer.Write("<div class='action-buttons' style=' position: absolute;'>");
             if (ViewBag.CanEdit)
             {
-                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/edit.svg' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
             }
 
             if (ViewBag.CanAdd)
@@ -116,17 +144,17 @@
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"StateBind('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/state-mapping.png' style='margin-right:3px' /><div class=\"tooltip\">State Mapping</div></a>");
             }
 
-            if (ViewBag.ActivateEmployeeBranchHierarchy=="1")
+            if (ViewBag.ActivateEmployeeBranchHierarchy == "1")
             {
                 ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"fn_BranchMap('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/branch-mapping.png' style='margin-right:3px' /><div class=\"tooltip\">Branch Mapping</div></a>");
             }
 
             if (ViewBag.CanDelete)
             {
-                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "USER_ID")) + "')\"><img src='/assests/images/delete.svg'/><div class=\"tooltip\">Delete</div></a>");
             }
 
-
+            ViewContext.Writer.Write("</div>");
         });
 
     });

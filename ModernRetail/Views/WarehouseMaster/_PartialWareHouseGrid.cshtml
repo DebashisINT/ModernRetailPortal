@@ -160,16 +160,30 @@
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
 
+        //x.SetDataItemTemplateContent(c =>
+        //{
+        //    if (ViewBag.CanEdit)
+        //    {
+        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+        //    }
+        //    if (ViewBag.CanDelete)
+        //    {
+        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container'  onclick=\"WarehouseDelete('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src=\"../../../assests/images/Delete.png\" /><div class=\"tooltip\">Delete</div></a>");
+        //    }
+        //});
+
         x.SetDataItemTemplateContent(c =>
         {
+            ViewContext.Writer.Write("<div class='action-buttons' style=' position: absolute;'>");
             if (ViewBag.CanEdit)
             {
-                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"OpenWarehouseEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src='/assests/images/edit.svg' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
             }
             if (ViewBag.CanDelete)
             {
-                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container'  onclick=\"WarehouseDelete('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src=\"../../../assests/images/Delete.png\" /><div class=\"tooltip\">Delete</div></a>");
+                ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container'  onclick=\"WarehouseDelete('" + Convert.ToString(DataBinder.Eval(c.DataItem, "WAREHOUSE_ID")) + "')\"><img src=\"../../../assests/images/delete.svg\" /><div class=\"tooltip\">Delete</div></a>");
             }
+            ViewContext.Writer.Write("</div>");
         });
     });
 
