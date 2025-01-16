@@ -4,6 +4,8 @@ using DataAccessLayer;
 using DevExpress.Utils;
 using DevExpress.Web;
 using DevExpress.Web.Mvc;
+using DocumentFormat.OpenXml.Wordprocessing;
+
 //using DocumentFormat.OpenXml.EMMA;
 //using DocumentFormat.OpenXml.Packaging;
 //using DocumentFormat.OpenXml.Spreadsheet;
@@ -28,19 +30,29 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Xml;
 using UtilityLayer;
-using static ModernRetail.Models.CurrentStockImportLogModel;
+using static ModernRetail.Models.CurrentStockModel;
 
 
 namespace ModernRetail.Controllers
 {
-    public class CurrentStockRegisterController : Controller
+    public class CurrentStockController : Controller
     {
-        // GET: CurrentStockRegister
+        // GET: CurrentStock
+        CurrentStockModel objdata = null;
+        Int64 DetailsID = 0;
+        string UserName = string.Empty;
+
+        public CurrentStockController()
+        {
+            objdata = new CurrentStockModel();
+        }
+
         public ActionResult Index()
         {
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "CurrentStockRegister");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "CurrentStock");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -48,29 +60,411 @@ namespace ModernRetail.Controllers
             ViewBag.CanAssign = rights.CanAssign;
             ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
 
-            TempData["FromManualLog"] = null;
-            TempData["CurrentStockImportLog"] = null;
+            //TempData["FromManualLog"] = null;
+            //TempData["CurrentStockImportLog"] = null;
 
-            CurrentStockImportLogModel Dtls = new CurrentStockImportLogModel();
-
-            //DataSet ds = new DataSet();
-            //ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
-            //proc.AddPara("@ACTION", "GetDropdownBindData");
-            //ds = proc.GetDataSet();
-
-
-            //if (ds != null)
-            //{
-            //    List<StockBranchList> StockBranchList = new List<StockBranchList>();
-            //    StockBranchList = APIHelperMethods.ToModelList<StockBranchList>(ds.Tables[0]);
-            //    Dtls.StockBranchList = StockBranchList;
-
-            //}
-
-
+            CurrentStockModel Dtls = new CurrentStockModel();
 
             return View(Dtls);
         }
+
+        public ActionResult CurrentStockAddEdit()
+        {
+            TempData["FromManualLog"] = null;
+            TempData["CurrentStockImportLog"] = null;
+            TempData.Keep();
+
+            TempData["Count"] = 1;
+            TempData.Keep();
+
+            TempData["DetailsID"] = null;
+            TempData.Keep();
+
+            TempData["LevelDetails"] = null;
+            TempData.Keep();
+
+
+            if (TempData["user_id"] != null)
+            {
+                objdata.stock_id = Convert.ToString(TempData["user_id"]);
+                TempData.Keep();
+
+            }
+
+            if (TempData["IsView"] != null)
+            {
+                ViewBag.IsView = Convert.ToInt16(TempData["IsView"]);
+                TempData["IsView"] = null;
+                if (ViewBag.IsView == 0)
+                {
+                    ViewBag.PageTitle = "Modify User";
+                }
+                else
+                {
+                    ViewBag.PageTitle = "Add User";
+                }
+
+            }
+
+            CurrentStockModel Dtls = new CurrentStockModel();
+
+            return View("~/Views/CurrentStock/CurrentStockAddEdit.cshtml", objdata);
+        }
+
+        public JsonResult CHECKUNIQUESTOCKDETAILS(string StoreCode, string ProductID )
+        {
+            var retData = 0;
+            try
+            {
+                ProcedureExecute proc;
+                using (proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK"))
+                {
+                    proc.AddVarcharPara("@action", 100, "CHECKUNIQUESTOCKDETAILS");
+
+                    proc.AddVarcharPara("@STORECODE", 100, StoreCode);
+                    proc.AddVarcharPara("@PRODUCTID", 100, ProductID);
+                    proc.AddIntegerPara("@RETURN_VALUE", 0, QueryParameterDirection.Output);
+                    int i = proc.RunActionQuery();
+                    retData = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
+
+                }
+            }
+            catch { }
+            return Json(retData);
+        }
+
+        [WebMethod]
+        public JsonResult AddLevelDetails(StockProductDetails prod)
+        {
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+            DataTable dt2 = new DataTable();
+
+            string MfgDate = prod.MfgDate;
+            string ExpDate = prod.ExpDate;
+
+                       
+            if (prod.MfgDate == "01-01-0100")
+            {
+                MfgDate = "";
+                prod.MfgDate = "01-01-1900" ;
+            }
+
+            if (prod.ExpDate == "01-01-0100")
+            {
+                ExpDate = "";
+                prod.ExpDate = "01-01-1900";
+            }
+
+
+            if (dt == null)
+            {
+                DataTable dtable = new DataTable();
+
+                dtable.Clear();
+                dtable.Columns.Add("HIddenID", typeof(System.Guid));
+                dtable.Columns.Add("SlNO", typeof(System.String));
+                dtable.Columns.Add("PRODUCTID", typeof(System.String));
+                dtable.Columns.Add("QUANTITY", typeof(System.String));
+                dtable.Columns.Add("UOMID", typeof(System.String));
+                dtable.Columns.Add("MFGDATE", typeof(System.String));
+                dtable.Columns.Add("EXPDATE", typeof(System.String));
+                dtable.Columns.Add("PRODUCTNAME", typeof(System.String));
+                dtable.Columns.Add("UOMNAME", typeof(System.String));
+                dtable.Columns.Add("MFGDATETEXT", typeof(System.String));
+                dtable.Columns.Add("EXPDATETEXT", typeof(System.String));
+
+
+                object[] trow = { Guid.NewGuid(), 1, prod.ProductID, prod.Quantity, prod.UOMid,
+                        DateTime.ParseExact(prod.MfgDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd"),
+                        DateTime.ParseExact(prod.ExpDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd"),
+                        prod.ProductName, prod.UOMName, MfgDate, ExpDate 
+                    };
+
+                dtable.Rows.Add(trow);
+                TempData["LevelDetails"] = dtable;
+                TempData.Keep();
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(prod.Guids))
+                {
+                    object[] trow = { Guid.NewGuid(), Convert.ToInt32(dt.Rows.Count) + 1, prod.ProductID, prod.Quantity, prod.UOMid,
+                        DateTime.ParseExact(prod.MfgDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd"),
+                        DateTime.ParseExact(prod.ExpDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd"),
+                        prod.ProductName, prod.UOMName, MfgDate, ExpDate
+                    };
+
+                    dt.Rows.Add(trow);
+                    TempData["LevelDetails"] = dt;
+                    TempData.Keep();
+                }
+                else
+                {
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            if (prod.Guids.ToString() == item["HIddenID"].ToString())
+                            {
+                                item["PRODUCTID"] = prod.ProductID;
+                                item["PRODUCTNAME"] = prod.ProductName;
+                                item["QUANTITY"] = prod.Quantity;
+                                item["UOMID"] = prod.UOMid;
+                                item["UOMNAME"] = prod.UOMName;
+                                item["MFGDATETEXT"] = MfgDate;
+                                item["EXPDATETEXT"] = ExpDate;
+                                item["MFGDATE"] = DateTime.ParseExact(prod.MfgDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                                item["EXPDATE"] = DateTime.ParseExact(prod.ExpDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+                            }
+                        }
+                    }
+                }
+                TempData["LevelDetails"] = dt;
+                TempData.Keep();
+            }
+            return Json("");
+        }
+
+        public ActionResult GetProductEntryList()
+        {
+            StockProductDetails productdataobj = new StockProductDetails();
+            List<StockProductDetails> productdata = new List<StockProductDetails>();
+            Int64 DetailsID = 0;
+
+            try
+            {
+                DataTable dt = new DataTable();
+                if (TempData["DetailsID"] != null)
+                {
+                    DetailsID = Convert.ToInt64(TempData["DetailsID"]);
+                    TempData.Keep();
+                }
+                if (DetailsID > 0 && TempData["LevelDetails"] == null)
+                {
+                    // EDIT MODE
+                    
+                    //DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETDETAILSSALESTARGET", DetailsID);
+                    //if (objData != null && objData.Rows.Count > 0)
+                    //{
+                    //    dt = objData;
+
+                    //    DataTable dtable = new DataTable();
+
+                    //    dtable.Clear();
+                    //    dtable.Columns.Add("HIddenID", typeof(System.Guid));
+                    //    dtable.Columns.Add("SlNO", typeof(System.String));
+                    //    dtable.Columns.Add("TARGETLEVEL", typeof(System.String));
+                    //    dtable.Columns.Add("TIMEFRAME", typeof(System.String));
+                    //    dtable.Columns.Add("STARTEDATE", typeof(System.String));
+                    //    dtable.Columns.Add("ENDDATE", typeof(System.String));
+                    //    dtable.Columns.Add("TARGETLEVELID", typeof(System.String));
+                    //    dtable.Columns.Add("INTERNALID", typeof(System.String));
+                    //    dtable.Columns.Add("NEWVISIT", typeof(System.String));
+                    //    dtable.Columns.Add("REVISIT", typeof(System.String));
+                    //    dtable.Columns.Add("ORDERAMOUNT", typeof(System.String));
+                    //    dtable.Columns.Add("COLLECTION", typeof(System.String));
+                    //    dtable.Columns.Add("ORDERQTY", typeof(System.String));
+
+                    //    String Gid = "";
+
+                    //    foreach (DataRow row in dt.Rows)
+                    //    {
+                    //        Gid = Guid.NewGuid().ToString();
+                    //        productdataobj = new SalesTargetProduct();
+                    //        productdataobj.SlNO = Convert.ToString(row["SlNO"]);
+                    //        //productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
+                    //        productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
+                    //        productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
+                    //        productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
+
+                    //        productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
+                    //        productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
+                    //        productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
+
+                    //        productdataobj.NEWVISIT = Convert.ToString(row["NEWVISIT"]);
+                    //        productdataobj.REVISIT = Convert.ToString(row["REVISIT"]);
+                    //        productdataobj.ORDERAMOUNT = Convert.ToString(row["ORDERAMOUNT"]);
+                    //        productdataobj.COLLECTION = Convert.ToString(row["COLLECTION"]);
+                    //        productdataobj.ORDERQTY = Convert.ToString(row["ORDERQTY"]);
+
+                    //        productdataobj.Guids = Gid;
+
+                    //        productdata.Add(productdataobj);
+
+                    //        object[] trow = { Gid, row["SlNO"] , Convert.ToString(row["TARGETLEVEL"]), Convert.ToString(row["TIMEFRAME"]),
+                    //                    Convert.ToString(row["STARTEDATE"]), Convert.ToString(row["ENDDATE"]),
+                    //                    Convert.ToString(row["TARGETLEVELID"]), Convert.ToString(row["INTERNALID"]),
+                    //                    Convert.ToString(row["NEWVISIT"]), Convert.ToString(row["REVISIT"]), Convert.ToString(row["ORDERAMOUNT"]),
+                    //                    Convert.ToString(row["COLLECTION"]), Convert.ToString(row["ORDERQTY"]) };
+                    //        dtable.Rows.Add(trow);
+
+                    //    }
+
+                    //    dt = dtable;
+
+                    //}
+                }
+                else
+                {
+                    dt = (DataTable)TempData["LevelDetails"];
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            productdataobj = new StockProductDetails();
+                            productdataobj.SlNO = Convert.ToString(row["SlNO"]);
+                            productdataobj.ProductID = Convert.ToString(row["PRODUCTID"]);
+                            productdataobj.ProductName = Convert.ToString(row["PRODUCTNAME"]);
+                            productdataobj.Quantity = Convert.ToString(row["QUANTITY"]);
+                            productdataobj.UOMid = Convert.ToString(row["UOMID"]);
+                            productdataobj.UOMName = Convert.ToString(row["UOMNAME"]);
+                            productdataobj.MfgDate = Convert.ToString(row["MFGDATE"]);
+                            productdataobj.ExpDate = Convert.ToString(row["EXPDATE"]);
+                            productdataobj.MfgDateText = Convert.ToString(row["MFGDATETEXT"]);
+                            productdataobj.ExpDateText = Convert.ToString(row["EXPDATETEXT"]);
+                            productdataobj.Guids = Convert.ToString(row["HIddenID"]);
+                            productdata.Add(productdataobj);
+                        }
+                    }
+                }
+                TempData["LevelDetails"] = dt;
+                TempData.Keep();
+            }
+            catch { }
+
+            return PartialView("~/Views/CurrentStock/_PartialStoreMasterProductList.cshtml", productdata);
+        }
+
+        [HttpPost]
+        public ActionResult SaveCurrentStock(AddCurrentStockData data)
+        {
+            try
+            {
+                var stockid = "";
+
+                stockid = "STK_" + Convert.ToString(Session["MRuserid"]) + DateTime.Now.Date.ToString("yyMMdd") + DateTime.Now.ToString("hhmmss");
+
+                DataSet dt = new DataSet();
+                DataTable dt_Details = (DataTable)TempData["LevelDetails"];
+
+                if (dt_Details.Columns.Contains("HIddenID"))
+                {
+                    dt_Details.Columns.Remove("HIddenID");
+                }
+
+                if (dt_Details.Columns.Contains("SlNO"))
+                {
+                    dt_Details.Columns.Remove("SlNO");
+                }
+
+                if (dt_Details.Columns.Contains("PRODUCTNAME"))
+                {
+                    dt_Details.Columns.Remove("PRODUCTNAME");
+                }
+
+                if (dt_Details.Columns.Contains("UOMNAME"))
+                {
+                    dt_Details.Columns.Remove("UOMNAME");
+                }
+
+                if (dt_Details.Columns.Contains("MFGDATETEXT"))
+                {
+                    dt_Details.Columns.Remove("MFGDATETEXT");
+                }
+
+                if (dt_Details.Columns.Contains("EXPDATETEXT"))
+                {
+                    dt_Details.Columns.Remove("EXPDATETEXT");
+                }
+
+
+                string CurrentStockDate = null;
+
+                if (data.CurrentStockDate != null && data.CurrentStockDate != "01-01-0100")
+                {
+                    CurrentStockDate = data.CurrentStockDate.Split('-')[2] + '-' + data.CurrentStockDate.Split('-')[1] + '-' + data.CurrentStockDate.Split('-')[0];
+                }
+
+
+                string user_id = Convert.ToString(Session["MRuserid"]);
+
+                string rtrnvalue = "";
+                string Userid = Convert.ToString(Session["MRuserid"]);
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+                proc.AddPara("@ACTION", data.Action);
+                proc.AddPara("@STOCKID", stockid);
+                proc.AddPara("@STORECODE", data.StoreCode);
+                proc.AddPara("@CURRENTSTOCKDATE", CurrentStockDate);
+                proc.AddPara("@UDT_MR_CURRENTSTOCKPRODDET", dt_Details);
+                proc.AddPara("@user_id", user_id);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                int k = proc.RunActionQuery();
+                rtrnvalue = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+                return Json(rtrnvalue, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        public ActionResult EditCurrentStock(String stockid)
+        {
+            try
+            {
+                AddCurrentStockData ret = new AddCurrentStockData();
+
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+                proc.AddPara("@ACTION", "EDITCURRENTSTOCK");
+                proc.AddPara("@STOCKID", stockid);
+                dt = proc.GetTable();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    ret.BranchID = dt.Rows[0]["STOCK_BRANCHID"].ToString();
+                    ret.StoreCode = dt.Rows[0]["STOCK_SHOPCODE"].ToString();
+                    ret.ProductID = dt.Rows[0]["STOCK_PRODUCTID"].ToString();
+                    ret.CurrentStockDate = dt.Rows[0]["STOCK_CURRENTDATE"].ToString();
+                    ret.Quantity = dt.Rows[0]["STOCK_PRODUCTQTY"].ToString();
+                    ret.StoreName = dt.Rows[0]["STOCK_SHOPNAME"].ToString();
+                    ret.ProductName = dt.Rows[0]["STOCK_PRODUCTNAME"].ToString();
+
+                }
+                return Json(ret, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCurrentStock(string StockId)
+        {
+            string output_msg = string.Empty;
+            try
+            {
+                DataTable dt = new DataTable();
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+                proc.AddPara("@ACTION", "DELETECURRENTSTOCK");
+                proc.AddPara("@STOCKID", StockId);
+                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
+                dt = proc.GetTable();
+
+                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
+
+            }
+            catch (Exception ex)
+            {
+                output_msg = "Please try again later";
+            }
+
+            return Json(output_msg, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult DownloadFormat()
         {
@@ -219,7 +613,7 @@ namespace ModernRetail.Controllers
         }
         public ActionResult CurrentStockImportLog()
         {
-            List<CurrentStockImportLogModel> list = new List<CurrentStockImportLogModel>();
+            List<CurrentStockModel> list = new List<CurrentStockModel>();
             DataTable dt = new DataTable();
             try
             {
@@ -242,10 +636,10 @@ namespace ModernRetail.Controllers
                     TempData.Keep();
                     if (dt != null && dt.Rows.Count > 0)
                     {
-                        CurrentStockImportLogModel data = null;
+                        CurrentStockModel data = null;
                         foreach (DataRow row in dt.Rows)
                         {
-                            data = new CurrentStockImportLogModel();
+                            data = new CurrentStockModel();
                             data.Branch = Convert.ToString(row["Branch"]);
                             data.ShopName = Convert.ToString(row["ShopName"]);
                             data.Code = Convert.ToString(row["Code"]);
@@ -314,7 +708,7 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "CurrentStockRegister");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "CurrentStock");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
@@ -391,101 +785,6 @@ namespace ModernRetail.Controllers
             }
 
 
-        }
-
-        [HttpPost]
-        public ActionResult SaveCurrentStock(AddCurrentStockData data)
-        {
-            try
-            {
-                string CurrentStockDate = null;
-
-                if (data.CurrentStockDate != null && data.CurrentStockDate != "01-01-0100")
-                {
-                    CurrentStockDate = data.CurrentStockDate.Split('-')[2] + '-' + data.CurrentStockDate.Split('-')[1] + '-' + data.CurrentStockDate.Split('-')[0];
-                }
-
-
-                string user_id = Convert.ToString(Session["MRuserid"]);
-
-                string rtrnvalue = "";
-                string Userid = Convert.ToString(Session["MRuserid"]);
-                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
-                proc.AddPara("@ACTION", data.Action);
-                proc.AddPara("@STOCKID", data.StockId);
-                proc.AddPara("@BRANCHID", data.BranchID);
-                proc.AddPara("@SHOPCODE", data.StoreCode);
-                proc.AddPara("@PRODUCTID", data.ProductID);
-                proc.AddPara("@QUANTITY", data.Quantity);
-                proc.AddPara("@UOMID", data.UOMid);
-                proc.AddPara("@MFGDATE", data.MfgDate);
-                proc.AddPara("@EXPDATE", data.ExpDate);
-                proc.AddPara("@CURRENTSTOCKDATE", CurrentStockDate);
-                proc.AddPara("@user_id", user_id);
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                int k = proc.RunActionQuery();
-                rtrnvalue = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
-                return Json(rtrnvalue, JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
-            }
-        }
-
-        public ActionResult EditCurrentStock(String stockid)
-        {
-            try
-            {
-                AddCurrentStockData ret = new AddCurrentStockData();
-
-                DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
-                proc.AddPara("@ACTION", "EDITCURRENTSTOCK");
-                proc.AddPara("@STOCKID", stockid);
-                dt = proc.GetTable();
-
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    ret.BranchID = dt.Rows[0]["STOCK_BRANCHID"].ToString();
-                    ret.StoreCode = dt.Rows[0]["STOCK_SHOPCODE"].ToString();
-                    ret.ProductID = dt.Rows[0]["STOCK_PRODUCTID"].ToString();
-                    ret.CurrentStockDate = dt.Rows[0]["STOCK_CURRENTDATE"].ToString();
-                    ret.Quantity = dt.Rows[0]["STOCK_PRODUCTQTY"].ToString();
-                    ret.StoreName = dt.Rows[0]["STOCK_SHOPNAME"].ToString();
-                    ret.ProductName = dt.Rows[0]["STOCK_PRODUCTNAME"].ToString();
-
-                }
-                return Json(ret, JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
-            }
-        }
-
-        [HttpPost]
-        public JsonResult DeleteCurrentStock(string StockId)
-        {
-            string output_msg = string.Empty;
-            try
-            {
-                DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
-                proc.AddPara("@ACTION", "DELETECURRENTSTOCK");
-                proc.AddPara("@STOCKID", StockId);
-                proc.AddVarcharPara("@RETURN_VALUE", 500, "", QueryParameterDirection.Output);
-                dt = proc.GetTable();
-
-                output_msg = Convert.ToString(proc.GetParaValue("@RETURN_VALUE"));
-
-            }
-            catch (Exception ex)
-            {
-                output_msg = "Please try again later";
-            }
-
-            return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ExporRegisterList(int type)
@@ -683,13 +982,6 @@ namespace ModernRetail.Controllers
 
         }
 
-        public ActionResult GetProductEntryList()
-        {
-            StockProductDetails productdataobj = new StockProductDetails();
-            List<StockProductDetails> productdata = new List<StockProductDetails>();
-            Int64 DetailsID = 0;
-
-            return PartialView("~/Views/CurrentStockRegister/_PartialStoreMasterProductList.cshtml", productdata);
-        }
+        
     }
 }

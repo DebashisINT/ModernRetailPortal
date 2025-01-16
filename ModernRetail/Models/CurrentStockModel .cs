@@ -5,8 +5,9 @@ using System.Web;
 
 namespace ModernRetail.Models
 {
-    public class CurrentStockImportLogModel
+    public class CurrentStockModel
     {
+        public string stock_id { get; set; }
         public String Branch { get; set; }
         public String ShopName { get; set; }
         public String Code { get; set; }
@@ -62,8 +63,18 @@ namespace ModernRetail.Models
 
 
     }
+    
+    public class UOMData
+    {
+        public string UOM_ID { get; set; }
+        public string UOM_NAME { get; set; }
+
+    }
+
     public class StockProductDetails
     {
+        public string SlNO { get; set; }
+        public string Guids { get; set; }
         public String ProductID { get; set; }
         public String ProductName { get; set; }
         public String Quantity { get; set; }
@@ -71,13 +82,9 @@ namespace ModernRetail.Models
         public string UOMName { get; set; }
         public string MfgDate { get; set; }
         public string ExpDate { get; set; }
+        public string MfgDateText { get; set; }
+        public string ExpDateText { get; set; }
 
     }
 
-    public class UOMData
-    {
-        public Int64 UOM_ID { get; set; }
-        public string UOM_NAME { get; set; }
-
-    }
 }

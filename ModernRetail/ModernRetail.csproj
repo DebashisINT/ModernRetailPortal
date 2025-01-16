@@ -288,7 +288,7 @@
     <Compile Include="Controllers\CityMasterController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
-    <Compile Include="Controllers\CurrentStockRegisterController.cs" />
+    <Compile Include="Controllers\CurrentStockController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DesignationMasterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1134,7 +1134,7 @@
     <Content Include="Views\BrandMaster\PartialBrandMasterList.cshtml" />
     <Content Include="Views\ProductClassCategory\Index.cshtml" />
     <Content Include="Views\ProductClassCategory\PartialProductClassListing.cshtml" />
-    <Content Include="Views\CurrentStockRegister\Index.cshtml" />
+    <Content Include="Views\CurrentStock\Index.cshtml" />
     <Content Include="Views\StoreMaster\Index.cshtml" />
     <Content Include="Views\WarehouseMaster\WarehouseIndex.cshtml" />
     <Content Include="Views\WarehouseMaster\_PartialWareHouseGrid.cshtml" />
@@ -1150,11 +1150,12 @@
     <Content Include="Views\PinZipMaster\Index.cshtml" />
     <Content Include="Views\PinZipMaster\PartialPinzipMasterList.cshtml" />
     <Content Include="Views\StoreMaster\PartialStoreMasterGridList.cshtml" />
-    <Content Include="Views\CurrentStockRegister\PartialCurrentStockGridList.cshtml" />
-    <Content Include="Views\CurrentStockRegister\CurrentStockImportLog.cshtml" />
-    <Content Include="Views\CurrentStockRegister\_CurrentStockImportManualLogView.cshtml" />
-    <Content Include="Views\CurrentStockRegister\_PartialStoreMasterProductList.cshtml" />
+    <Content Include="Views\CurrentStock\PartialCurrentStockGridList.cshtml" />
+    <Content Include="Views\CurrentStock\CurrentStockImportLog.cshtml" />
+    <Content Include="Views\CurrentStock\_CurrentStockImportManualLogView.cshtml" />
+    <Content Include="Views\CurrentStock\_PartialStoreMasterProductList.cshtml" />
     <Content Include="Views\StoreMaster\StoreAddEdit.cshtml" />
+    <Content Include="Views\CurrentStock\CurrentStockAddEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
