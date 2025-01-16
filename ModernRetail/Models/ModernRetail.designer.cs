@@ -191,6 +191,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_STOREMASTERLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_PRODUCTBRANCHMAPLIST> MR_PRODUCTBRANCHMAPLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_PRODUCTBRANCHMAPLIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -4013,6 +4021,303 @@ namespace ModernRetail.Models
 				if ((this._STORE_ISACTIVE != value))
 				{
 					this._STORE_ISACTIVE = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_PRODUCTBRANCHMAPLIST")]
+	public partial class MR_PRODUCTBRANCHMAPLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<long> _PRODUCTBRANCHMAP_ID;
+		
+		private System.Nullable<int> _BRANCH_ID;
+		
+		private string _BRANCHNAME;
+		
+		private System.Nullable<long> _PRODUCT_ID;
+		
+		private string _PRODUCT_CODE;
+		
+		private string _PRODUCTS_NAME;
+		
+		private System.Nullable<long> _PARENTEMP_USERID;
+		
+		private string _PARENTEMP_NAME;
+		
+		private System.Nullable<long> _CHILDEMP_USERID;
+		
+		private string _CHILDEMP_NAME;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private string _CreateUser;
+		
+		private System.Nullable<System.DateTime> _ModifyDate;
+		
+		private string _ModifyUser;
+		
+		public MR_PRODUCTBRANCHMAPLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTBRANCHMAP_ID", DbType="BigInt")]
+		public System.Nullable<long> PRODUCTBRANCHMAP_ID
+		{
+			get
+			{
+				return this._PRODUCTBRANCHMAP_ID;
+			}
+			set
+			{
+				if ((this._PRODUCTBRANCHMAP_ID != value))
+				{
+					this._PRODUCTBRANCHMAP_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH_ID", DbType="Int")]
+		public System.Nullable<int> BRANCH_ID
+		{
+			get
+			{
+				return this._BRANCH_ID;
+			}
+			set
+			{
+				if ((this._BRANCH_ID != value))
+				{
+					this._BRANCH_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCHNAME", DbType="NVarChar(300)")]
+		public string BRANCHNAME
+		{
+			get
+			{
+				return this._BRANCHNAME;
+			}
+			set
+			{
+				if ((this._BRANCHNAME != value))
+				{
+					this._BRANCHNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_ID", DbType="BigInt")]
+		public System.Nullable<long> PRODUCT_ID
+		{
+			get
+			{
+				return this._PRODUCT_ID;
+			}
+			set
+			{
+				if ((this._PRODUCT_ID != value))
+				{
+					this._PRODUCT_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_CODE", DbType="NVarChar(100)")]
+		public string PRODUCT_CODE
+		{
+			get
+			{
+				return this._PRODUCT_CODE;
+			}
+			set
+			{
+				if ((this._PRODUCT_CODE != value))
+				{
+					this._PRODUCT_CODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCTS_NAME", DbType="NVarChar(100)")]
+		public string PRODUCTS_NAME
+		{
+			get
+			{
+				return this._PRODUCTS_NAME;
+			}
+			set
+			{
+				if ((this._PRODUCTS_NAME != value))
+				{
+					this._PRODUCTS_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PARENTEMP_USERID", DbType="BigInt")]
+		public System.Nullable<long> PARENTEMP_USERID
+		{
+			get
+			{
+				return this._PARENTEMP_USERID;
+			}
+			set
+			{
+				if ((this._PARENTEMP_USERID != value))
+				{
+					this._PARENTEMP_USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PARENTEMP_NAME", DbType="VarChar(300)")]
+		public string PARENTEMP_NAME
+		{
+			get
+			{
+				return this._PARENTEMP_NAME;
+			}
+			set
+			{
+				if ((this._PARENTEMP_NAME != value))
+				{
+					this._PARENTEMP_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CHILDEMP_USERID", DbType="BigInt")]
+		public System.Nullable<long> CHILDEMP_USERID
+		{
+			get
+			{
+				return this._CHILDEMP_USERID;
+			}
+			set
+			{
+				if ((this._CHILDEMP_USERID != value))
+				{
+					this._CHILDEMP_USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CHILDEMP_NAME", DbType="VarChar(300)")]
+		public string CHILDEMP_NAME
+		{
+			get
+			{
+				return this._CHILDEMP_NAME;
+			}
+			set
+			{
+				if ((this._CHILDEMP_NAME != value))
+				{
+					this._CHILDEMP_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(100)")]
+		public string CreateUser
+		{
+			get
+			{
+				return this._CreateUser;
+			}
+			set
+			{
+				if ((this._CreateUser != value))
+				{
+					this._CreateUser = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ModifyDate
+		{
+			get
+			{
+				return this._ModifyDate;
+			}
+			set
+			{
+				if ((this._ModifyDate != value))
+				{
+					this._ModifyDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(100)")]
+		public string ModifyUser
+		{
+			get
+			{
+				return this._ModifyUser;
+			}
+			set
+			{
+				if ((this._ModifyUser != value))
+				{
+					this._ModifyUser = value;
 				}
 			}
 		}
