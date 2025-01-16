@@ -6,7 +6,7 @@
         settings.Properties.Caption = "";
         settings.Properties.CaptionCellStyle.CssClass = "hide";
         settings.Name = "PartialParentGridLookup";
-        settings.KeyFieldName = "USER_ID";
+        settings.KeyFieldName = "STORE_ID";
         settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
 
         settings.Properties.ClientInstanceName = "PartialParentGridLookup";
@@ -29,30 +29,30 @@
         settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.None;
 
 
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "USER_LOGINID";
+        //    column.Caption = "Login Id";
+        //    column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        //});
         settings.Columns.Add(column =>
         {
-            column.FieldName = "USER_LOGINID";
-            column.Caption = "Login Id";
+            column.FieldName = "STORE_NAME";
+            column.Caption = "Store";
             column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
         });
-        settings.Columns.Add(column =>
-        {
-            column.FieldName = "USER_NAME";
-            column.Caption = "Parent Employee";
-            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
-        });
-        settings.Columns.Add(column =>
-        {
-            column.FieldName = "DESIGNATION";
-            column.Caption = "Degisnation";
-            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
-        });
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "DESIGNATION";
+        //    column.Caption = "Degisnation";
+        //    column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        //});
 
         settings.Properties.Caption = " ";
         settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
         settings.Properties.SelectionMode = DevExpress.Web.GridLookupSelectionMode.Multiple;
 
-        settings.Properties.TextFormatString = "{1}";
+        settings.Properties.TextFormatString = "{0}";
         settings.Properties.MultiTextSeparator = ", ";
 
         settings.Properties.Width = System.Web.UI.WebControls.Unit.Percentage(100);
@@ -100,7 +100,7 @@
                 foreach (var item in ViewBag.PARENTEMP_USERID)
                 {
                     MVCxGridLookup l = s as MVCxGridLookup;
-                    l.GridView.Selection.SelectRowByKey(item.USER_ID);
+                    l.GridView.Selection.SelectRowByKey(item.STORE_ID);
 
                 }
             }

@@ -48,21 +48,21 @@ namespace ModernRetail.Controllers
 
 
             
-            DataTable DT = new DataTable();
-            DataTable dtBranchChild = new DataTable();
-            DT = GetBranchheadoffice(Convert.ToString(Session["MRuserbranchHierarchy"]), "HO");
-            if (DT.Rows.Count > 0)
-            {
-                dtBranchChild = GetChildBranch(Convert.ToString(Session["MRuserbranchHierarchy"]));
-                if (dtBranchChild.Rows.Count > 0)
-                {
-                    DT.Rows.Add(0, "All");
-                }
-            }
+            //DataTable DT = new DataTable();
+            //DataTable dtBranchChild = new DataTable();
+            //DT = GetBranchheadoffice(Convert.ToString(Session["MRuserbranchHierarchy"]), "HO");
+            //if (DT.Rows.Count > 0)
+            //{
+            //    dtBranchChild = GetChildBranch(Convert.ToString(Session["MRuserbranchHierarchy"]));
+            //    if (dtBranchChild.Rows.Count > 0)
+            //    {
+            //        DT.Rows.Add(0, "All");
+            //    }
+            //}
 
-            List<BranchList> _BranchList = new List<BranchList>();
-            _BranchList = APIHelperMethods.ToModelList<BranchList>(DT);
-            objdata.HeadBranchList = _BranchList;
+            //List<BranchList> _BranchList = new List<BranchList>();
+            //_BranchList = APIHelperMethods.ToModelList<BranchList>(DT);
+            //objdata.HeadBranchList = _BranchList;
             objdata.HeadBranchID = 0;
 
             return View(objdata);
@@ -127,33 +127,35 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                string IsActivateEmployeeBranchHierarchy = objSystemSettings.GetSystemSettingsResult("IsActivateEmployeeBranchHierarchy");
-                ViewBag.IsActivateEmployeeBranchHierarchy = IsActivateEmployeeBranchHierarchy;
+                //string IsActivateEmployeeBranchHierarchy = objSystemSettings.GetSystemSettingsResult("IsActivateEmployeeBranchHierarchy");
+                //ViewBag.IsActivateEmployeeBranchHierarchy = IsActivateEmployeeBranchHierarchy;
 
                 DataTable dtbranch = new DataTable();
                 List<GetBranchList> modelbranch = new List<GetBranchList>();
-                if (headBranch != null)
-                {
-                    if (headBranch != "0")
-                    {
-                        dtbranch = GetBranch(Convert.ToString(Session["userbranchHierarchy"]), headBranch);
-                    }
-                    else if (IsActivateEmployeeBranchHierarchy == "0")
-                    {
-                        ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
-                        proc.AddVarcharPara("@Action", 50, "FETCHBRANCHS");
-                        proc.AddIntegerPara("@USERID", Convert.ToInt32(Session["MRuserid"]));
-                        dtbranch = proc.GetTable();
-                    }
-                    else
-                    {
-                        dtbranch = GetBranchData();
-                    }
-                }
-                else
-                {
-                    dtbranch = GetBranchData();
-                }
+                //if (headBranch != null)
+                //{
+                //    if (headBranch != "0")
+                //    {
+                //        dtbranch = GetBranch(Convert.ToString(Session["userbranchHierarchy"]), headBranch);
+                //    }
+                //    else if (IsActivateEmployeeBranchHierarchy == "0")
+                //    {
+                //        ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
+                //        proc.AddVarcharPara("@Action", 50, "FETCHBRANCHS");
+                //        proc.AddIntegerPara("@USERID", Convert.ToInt32(Session["MRuserid"]));
+                //        dtbranch = proc.GetTable();
+                //    }
+                //    else
+                //    {
+                //        dtbranch = GetBranchData();
+                //    }
+                //}
+                //else
+                //{
+                //    dtbranch = GetBranchData();
+                //}
+
+                dtbranch = GetBranchData();
                 modelbranch = APIHelperMethods.ToModelList<GetBranchList>(dtbranch);
                 return Json(modelbranch, JsonRequestBehavior.AllowGet);
             }
@@ -173,33 +175,31 @@ namespace ModernRetail.Controllers
                 DataTable dtbranch=new DataTable();
                 List<GetBranchList> modelbranch = new List<GetBranchList>();
 
-                if(values.HeadBranch!=null)
-                {
-                    if (values.HeadBranch != "0")
-                    {
-                        dtbranch = GetBranch(Convert.ToString(Session["userbranchHierarchy"]), values.HeadBranch);
-                    }
-                    else if (IsActivateEmployeeBranchHierarchy == "0")
-                    {
-                        ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
-                        proc.AddVarcharPara("@Action", 50, "FETCHBRANCHS");
-                        proc.AddIntegerPara("@USERID", Convert.ToInt32(Session["MRuserid"]));
-                        dtbranch = proc.GetTable();
-                    }
-                    else
-                    {
-                        dtbranch = GetBranchData();
-                    }
-                }
+                //if(values.HeadBranch!=null)
+                //{
+                //    if (values.HeadBranch != "0")
+                //    {
+                //        dtbranch = GetBranch(Convert.ToString(Session["userbranchHierarchy"]), values.HeadBranch);
+                //    }
+                //    else if (IsActivateEmployeeBranchHierarchy == "0")
+                //    {
+                //        ProcedureExecute proc = new ProcedureExecute("PRC_FSMBRANCHWISEPRODUCTMAPPING");
+                //        proc.AddVarcharPara("@Action", 50, "FETCHBRANCHS");
+                //        proc.AddIntegerPara("@USERID", Convert.ToInt32(Session["MRuserid"]));
+                //        dtbranch = proc.GetTable();
+                //    }
+                //    else
+                //    {
+                //        dtbranch = GetBranchData();
+                //    }
+                //}
                 
-                else
-                {
-                    dtbranch = GetBranchData();
-                }
-                    
+                //else
+                //{
+                    //dtbranch = GetBranchData();
+                //}
+                dtbranch = GetBranchData();
                 modelbranch = APIHelperMethods.ToModelList<GetBranchList>(dtbranch);
-
-
 
 
 
@@ -260,14 +260,14 @@ namespace ModernRetail.Controllers
             try
             {
                 //DataTable dt = new DataTable();
-                List<GetParentEmployeeList> model = new List<GetParentEmployeeList>();
+                List<GETSTORELIST> model = new List<GETSTORELIST>();
                 DataTable ComponentTable = new DataTable();
 
                 if (values.Branch_Ids != null)
                 {
                     BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
                     ProcedureExecute proc = new ProcedureExecute("PRC_MR_BRANCHWISEPRODUCTMAPPING");
-                    proc.AddVarcharPara("@Action", 50, "FETCHPARENTEMPLOYEE");
+                    proc.AddVarcharPara("@Action", 50, "GETSTORE");
                     proc.AddVarcharPara("@BRANCHID", 4000, values.Branch_Ids);
                     ComponentTable = proc.GetTable();
                 }
@@ -275,19 +275,19 @@ namespace ModernRetail.Controllers
                 {
                     BusinessLogicLayer.DBEngine oDBEngine = new BusinessLogicLayer.DBEngine();
                     ProcedureExecute proc = new ProcedureExecute("PRC_MR_BRANCHWISEPRODUCTMAPPING");
-                    proc.AddVarcharPara("@Action", 50, "FETCHPARENTEMPLOYEEEDITMODE");
+                    proc.AddVarcharPara("@Action", 50, "GETSTOREEDITMODE");
                     proc.AddBigIntegerPara("@PRODUCTBRANCHMAP_ID",values.PRODUCTBRANCHMAP_ID);
                     ComponentTable = proc.GetTable();
                 }
 
 
 
-                model = APIHelperMethods.ToModelList<GetParentEmployeeList>(ComponentTable);
+                model = APIHelperMethods.ToModelList<GETSTORELIST>(ComponentTable);
 
 
 
-                List<GetParentEmployeeList> productdata = new List<GetParentEmployeeList>();
-                GetParentEmployeeList dataobj = new GetParentEmployeeList();
+                List<GETSTORELIST> productdata = new List<GETSTORELIST>();
+                GETSTORELIST dataobj = new GETSTORELIST();
 
                 DataSet output = objdata.FETCHBRANCHMAP("FETCHBRANCHMAP", values.PRODUCTBRANCHMAP_ID);
 
@@ -296,8 +296,8 @@ namespace ModernRetail.Controllers
 
                     foreach (DataRow row in output.Tables[0].Rows)
                     {
-                        dataobj = new GetParentEmployeeList();
-                        dataobj.USER_ID = Convert.ToInt64(row["PARENTEMP_USERID"]);
+                        dataobj = new GETSTORELIST();
+                        dataobj.STORE_ID = Convert.ToString(row["STORE_ID"]);
                         productdata.Add(dataobj);
 
                     }
@@ -610,21 +610,21 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "PARENTEMP_NAME";
-                x.Caption = "Parent Employee";
+                x.Caption = "Store";
                 x.VisibleIndex = 2;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
             });
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "CHILDEMP_NAME";
-                x.Caption = "Child Employee";
-                x.VisibleIndex = 3;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
+            //settings.Columns.Add(x =>
+            //{
+            //    x.FieldName = "CHILDEMP_NAME";
+            //    x.Caption = "Child Employee";
+            //    x.VisibleIndex = 3;
+            //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+            //    x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
 
-            });
+            //});
             settings.Columns.Add(x =>
             {
                 x.FieldName = "PRODUCT_CODE";

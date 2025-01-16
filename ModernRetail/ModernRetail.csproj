@@ -291,6 +291,7 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\CurrentStockController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DesignationMasterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\CurrentStockModel .cs" />
     <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\DepartmentsModel.cs" />
     <Compile Include="Models\DesignationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MeasurementModel.cs" />
@@ -1165,6 +1167,7 @@
     <Content Include="Views\BranchwiseProductMapping\PartialChildEmployee.cshtml" />
     <Content Include="Views\BranchwiseProductMapping\PartialParentEmployee.cshtml" />
     <Content Include="Views\BranchwiseProductMapping\PartialProduct.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
