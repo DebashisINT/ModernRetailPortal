@@ -9,7 +9,7 @@ namespace ModernRetail.Models
     {
         public string stock_id { get; set; }
         public String Branch { get; set; }
-        public String ShopName { get; set; }
+        public String StoreName { get; set; }
         public String Code { get; set; }
         public String ContactNumber { get; set; }
         public String Shoptype { get; set; }

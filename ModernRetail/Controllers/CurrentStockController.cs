@@ -42,7 +42,7 @@ namespace ModernRetail.Controllers
     {
         // GET: CurrentStock
         CurrentStockModel objdata = null;
-        Int64 DetailsID = 0;
+        string stock_id = "";
         string UserName = string.Empty;
 
         public CurrentStockController()
@@ -63,6 +63,12 @@ namespace ModernRetail.Controllers
             //TempData["FromManualLog"] = null;
             //TempData["CurrentStockImportLog"] = null;
 
+            TempData["stock_id"] = null;
+            TempData.Keep();
+
+            TempData["LevelDetails"] = null;
+            TempData.Keep();
+
             CurrentStockModel Dtls = new CurrentStockModel();
 
             return View(Dtls);
@@ -74,16 +80,10 @@ namespace ModernRetail.Controllers
             TempData["CurrentStockImportLog"] = null;
             TempData.Keep();
 
-            TempData["Count"] = 1;
-            TempData.Keep();
+            //TempData["Count"] = 1;
+            //TempData.Keep();
 
-            TempData["DetailsID"] = null;
-            TempData.Keep();
-
-            TempData["LevelDetails"] = null;
-            TempData.Keep();
-
-
+           
             if (TempData["user_id"] != null)
             {
                 objdata.stock_id = Convert.ToString(TempData["user_id"]);
@@ -97,11 +97,11 @@ namespace ModernRetail.Controllers
                 TempData["IsView"] = null;
                 if (ViewBag.IsView == 0)
                 {
-                    ViewBag.PageTitle = "Modify User";
+                    ViewBag.PageTitle = "Modify Current Stock";
                 }
                 else
                 {
-                    ViewBag.PageTitle = "Add User";
+                    ViewBag.PageTitle = "Add Current Stock";
                 }
 
             }
@@ -230,80 +230,85 @@ namespace ModernRetail.Controllers
         {
             StockProductDetails productdataobj = new StockProductDetails();
             List<StockProductDetails> productdata = new List<StockProductDetails>();
-            Int64 DetailsID = 0;
+            string stock_id = "";
 
             try
             {
                 DataTable dt = new DataTable();
-                if (TempData["DetailsID"] != null)
+                if (TempData["stock_id"] != null)
                 {
-                    DetailsID = Convert.ToInt64(TempData["DetailsID"]);
+                    stock_id = Convert.ToString(TempData["stock_id"]);
                     TempData.Keep();
                 }
-                if (DetailsID > 0 && TempData["LevelDetails"] == null)
+                if (stock_id != "" && TempData["LevelDetails"] == null)
                 {
                     // EDIT MODE
-                    
-                    //DataTable objData = objdata.GETSALESTARGETASSIGNDETAILSBYID("GETDETAILSSALESTARGET", DetailsID);
-                    //if (objData != null && objData.Rows.Count > 0)
-                    //{
-                    //    dt = objData;
+                    DataTable objData = new DataTable();
+                    ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+                    proc.AddPara("@ACTION", "EDITCURRENTSTOCKPRODUCTS");
+                    proc.AddPara("@STOCKID", Convert.ToString(TempData["stock_id"]));
+                    objData = proc.GetTable();
 
-                    //    DataTable dtable = new DataTable();
+                    if (objData != null && objData.Rows.Count > 0)
+                    {
+                        dt = objData;
 
-                    //    dtable.Clear();
-                    //    dtable.Columns.Add("HIddenID", typeof(System.Guid));
-                    //    dtable.Columns.Add("SlNO", typeof(System.String));
-                    //    dtable.Columns.Add("TARGETLEVEL", typeof(System.String));
-                    //    dtable.Columns.Add("TIMEFRAME", typeof(System.String));
-                    //    dtable.Columns.Add("STARTEDATE", typeof(System.String));
-                    //    dtable.Columns.Add("ENDDATE", typeof(System.String));
-                    //    dtable.Columns.Add("TARGETLEVELID", typeof(System.String));
-                    //    dtable.Columns.Add("INTERNALID", typeof(System.String));
-                    //    dtable.Columns.Add("NEWVISIT", typeof(System.String));
-                    //    dtable.Columns.Add("REVISIT", typeof(System.String));
-                    //    dtable.Columns.Add("ORDERAMOUNT", typeof(System.String));
-                    //    dtable.Columns.Add("COLLECTION", typeof(System.String));
-                    //    dtable.Columns.Add("ORDERQTY", typeof(System.String));
+                        DataTable dtable = new DataTable();
 
-                    //    String Gid = "";
+                        dtable.Clear();
+                        dtable.Columns.Add("HIddenID", typeof(System.Guid));
+                        dtable.Columns.Add("SlNO", typeof(System.String));
+                        dtable.Columns.Add("PRODUCTID", typeof(System.String));
+                        dtable.Columns.Add("QUANTITY", typeof(System.String));
+                        dtable.Columns.Add("UOMID", typeof(System.String));
+                        dtable.Columns.Add("MFGDATE", typeof(System.String));
+                        dtable.Columns.Add("EXPDATE", typeof(System.String));
+                        dtable.Columns.Add("PRODUCTNAME", typeof(System.String));
+                        dtable.Columns.Add("UOMNAME", typeof(System.String));
+                        dtable.Columns.Add("MFGDATETEXT", typeof(System.String));
+                        dtable.Columns.Add("EXPDATETEXT", typeof(System.String));
 
-                    //    foreach (DataRow row in dt.Rows)
-                    //    {
-                    //        Gid = Guid.NewGuid().ToString();
-                    //        productdataobj = new SalesTargetProduct();
-                    //        productdataobj.SlNO = Convert.ToString(row["SlNO"]);
-                    //        //productdataobj.TARGETDOCNUMBER = Convert.ToString(row["TARGETDOCNUMBER"]);
-                    //        productdataobj.TARGETLEVELID = Convert.ToString(row["TARGETLEVELID"]);
-                    //        productdataobj.TARGETLEVEL = Convert.ToString(row["TARGETLEVEL"]);
-                    //        productdataobj.INTERNALID = Convert.ToString(row["INTERNALID"]);
+                        String Gid = "";
 
-                    //        productdataobj.TIMEFRAME = Convert.ToString(row["TIMEFRAME"]);
-                    //        productdataobj.STARTEDATE = Convert.ToString(row["STARTEDATE"]);
-                    //        productdataobj.ENDDATE = Convert.ToString(row["ENDDATE"]);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            Gid = Guid.NewGuid().ToString();
+                            productdataobj = new StockProductDetails();
+                            productdataobj.Guids = Gid;
+                            productdataobj.SlNO = Convert.ToString(row["SlNO"]);
+                            productdataobj.ProductID = Convert.ToString(row["PRODUCTID"]);
+                            productdataobj.ProductName = Convert.ToString(row["PRODUCTNAME"]);
+                            productdataobj.Quantity = Convert.ToString(row["QUANTITY"]);
+                            productdataobj.UOMid = Convert.ToString(row["UOMID"]);
+                            productdataobj.UOMName = Convert.ToString(row["UOMNAME"]);
+                            productdataobj.MfgDate = Convert.ToString(row["MFGDATE"]);
+                            productdataobj.ExpDate = Convert.ToString(row["EXPDATE"]);
+                            productdataobj.MfgDateText = Convert.ToString(row["MFGDATETEXT"]);
+                            productdataobj.ExpDateText = Convert.ToString(row["EXPDATETEXT"]);
+                            
 
-                    //        productdataobj.NEWVISIT = Convert.ToString(row["NEWVISIT"]);
-                    //        productdataobj.REVISIT = Convert.ToString(row["REVISIT"]);
-                    //        productdataobj.ORDERAMOUNT = Convert.ToString(row["ORDERAMOUNT"]);
-                    //        productdataobj.COLLECTION = Convert.ToString(row["COLLECTION"]);
-                    //        productdataobj.ORDERQTY = Convert.ToString(row["ORDERQTY"]);
+                            productdata.Add(productdataobj);
 
-                    //        productdataobj.Guids = Gid;
+                            object[] trow = { Gid, row["SlNO"] , Convert.ToString(row["PRODUCTID"]), Convert.ToString(row["QUANTITY"]),
+                                        Convert.ToString(row["UOMID"]), 
+                                        Convert.ToString(row["MFGDATE"]), Convert.ToString(row["EXPDATE"]), 
+                                        Convert.ToString(row["PRODUCTNAME"]),
+                                        Convert.ToString(row["UOMNAME"]), Convert.ToString(row["MFGDATETEXT"]), Convert.ToString(row["EXPDATETEXT"])
+                            };
 
-                    //        productdata.Add(productdataobj);
+                            //object[] trow = { Guid.NewGuid(), 1, prod.ProductID, prod.Quantity, prod.UOMid,
+                            //        DateTime.ParseExact(prod.MfgDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd"),
+                            //        DateTime.ParseExact(prod.ExpDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd"),
+                            //        prod.ProductName, prod.UOMName, MfgDate, ExpDate
+                            //    };
 
-                    //        object[] trow = { Gid, row["SlNO"] , Convert.ToString(row["TARGETLEVEL"]), Convert.ToString(row["TIMEFRAME"]),
-                    //                    Convert.ToString(row["STARTEDATE"]), Convert.ToString(row["ENDDATE"]),
-                    //                    Convert.ToString(row["TARGETLEVELID"]), Convert.ToString(row["INTERNALID"]),
-                    //                    Convert.ToString(row["NEWVISIT"]), Convert.ToString(row["REVISIT"]), Convert.ToString(row["ORDERAMOUNT"]),
-                    //                    Convert.ToString(row["COLLECTION"]), Convert.ToString(row["ORDERQTY"]) };
-                    //        dtable.Rows.Add(trow);
+                            dtable.Rows.Add(trow);
 
-                    //    }
+                        }
 
-                    //    dt = dtable;
+                        dt = dtable;
 
-                    //}
+                    }
                 }
                 else
                 {
@@ -344,7 +349,14 @@ namespace ModernRetail.Controllers
             {
                 var stockid = "";
 
-                stockid = "STK_" + Convert.ToString(Session["MRuserid"]) + DateTime.Now.Date.ToString("yyMMdd") + DateTime.Now.ToString("hhmmss");
+                if (data.StockId == "")
+                {
+                    stockid = "STK_" + Convert.ToString(Session["MRuserid"]) + DateTime.Now.Date.ToString("yyMMdd") + DateTime.Now.ToString("hhmmss");
+                }
+                else
+                {
+                    stockid = data.StockId;
+                }
 
                 DataSet dt = new DataSet();
                 DataTable dt_Details = (DataTable)TempData["LevelDetails"];
@@ -410,36 +422,140 @@ namespace ModernRetail.Controllers
             }
         }
 
-        public ActionResult EditCurrentStock(String stockid)
+        [WebMethod]
+        public JsonResult EditLevelData(String HiddenID)
         {
+            StockProductDetails ret = new StockProductDetails();
+
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (HiddenID.ToString() == item["HIddenID"].ToString())
+                    {
+                        ret.SlNO = item["SlNO"].ToString();
+                        ret.ProductID = item["PRODUCTID"].ToString();
+                        ret.ProductName = item["PRODUCTNAME"].ToString();
+                        ret.Guids = item["HIddenID"].ToString();
+                        ret.Quantity = item["QUANTITY"].ToString();
+                        ret.UOMid = item["UOMID"].ToString();
+                        ret.UOMName = item["UOMNAME"].ToString();
+                        ret.MfgDate = item["MFGDATE"].ToString();
+                        ret.ExpDate = item["EXPDATE"].ToString();
+                        ret.MfgDateText = item["MFGDATETEXT"].ToString();
+                        ret.ExpDateText = item["EXPDATETEXT"].ToString();
+
+                        break;
+                    }
+                }
+            }
+            TempData["LevelDetails"] = dt;
+            TempData.Keep();
+            return Json(ret);
+        }
+        public JsonResult DeleteLevelData(string HiddenID)
+        {
+            DataTable dt = (DataTable)TempData["LevelDetails"];
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (HiddenID.ToString() == item["HIddenID"].ToString())
+                    {
+                        dt.Rows.Remove(item);
+                        break;
+                    }
+                }
+            }
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                int conut = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dr["SlNO"] = conut;
+                    conut++;
+                }
+            }
+
+            TempData["LevelDetails"] = dt;
+            TempData.Keep();
+            return Json("Level Removed Successfully.");
+        }
+
+        public JsonResult SetDataByID(string stock_id = "", Int16 IsView = 0)
+        {
+            Boolean Success = false;
             try
             {
-                AddCurrentStockData ret = new AddCurrentStockData();
+                TempData["LevelDetails"] = null;
 
-                DataTable dt = new DataTable();
-                ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
-                proc.AddPara("@ACTION", "EDITCURRENTSTOCK");
-                proc.AddPara("@STOCKID", stockid);
-                dt = proc.GetTable();
-
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    ret.BranchID = dt.Rows[0]["STOCK_BRANCHID"].ToString();
-                    ret.StoreCode = dt.Rows[0]["STOCK_SHOPCODE"].ToString();
-                    ret.ProductID = dt.Rows[0]["STOCK_PRODUCTID"].ToString();
-                    ret.CurrentStockDate = dt.Rows[0]["STOCK_CURRENTDATE"].ToString();
-                    ret.Quantity = dt.Rows[0]["STOCK_PRODUCTQTY"].ToString();
-                    ret.StoreName = dt.Rows[0]["STOCK_SHOPNAME"].ToString();
-                    ret.ProductName = dt.Rows[0]["STOCK_PRODUCTNAME"].ToString();
-
-                }
-                return Json(ret, JsonRequestBehavior.AllowGet);
+                TempData["stock_id"] = stock_id;
+                TempData["IsView"] = IsView;
+                TempData.Keep();
+                Success = true;
             }
-            catch
-            {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
-            }
+            catch { }
+            return Json(Success);
         }
+
+        public JsonResult EditCurrentStock( string stock_id)
+        {
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "CurrentStock");
+            ViewBag.CanAdd = rights.CanAdd;
+            ViewBag.CanView = rights.CanView;
+            ViewBag.CanExport = rights.CanExport;
+            ViewBag.CanEdit = rights.CanEdit;
+            ViewBag.CanDelete = rights.CanDelete;
+
+            AddCurrentStockData ret = new AddCurrentStockData();
+
+            TempData["stock_id"] = stock_id;
+            TempData.Keep();
+
+            //// SELECT TARGET TYPE DROPDOWN //
+            //DataTable dt1 = new DataTable();
+            //dt1 = GetListData();
+
+            //if (dt1 != null)
+            //{
+            //    List<LevelList> LevelList = new List<LevelList>();
+            //    LevelList = APIHelperMethods.ToModelList<LevelList>(dt1);
+            //    objdata.LevelList = LevelList;
+            //}
+            //// SELECT TARGET TYPE DROPDOWN //
+
+            if (TempData["stock_id"] != null)
+            {
+                objdata.stock_id = Convert.ToString(TempData["stock_id"]);
+                TempData.Keep();
+
+                if (Convert.ToString(objdata.stock_id) != "")
+                {
+                    DataTable dt = new DataTable();
+                    ProcedureExecute proc = new ProcedureExecute("PRC_MR_INSERTUPDATECURRENTSTOCK");
+                    proc.AddPara("@ACTION", "EDITCURRENTSTOCK");
+                    proc.AddPara("@STOCKID", Convert.ToString(TempData["stock_id"]));
+                    dt = proc.GetTable();
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        objdata.StoreId = dt.Rows[0]["STORE_ID"].ToString();
+                        objdata.CurrentStockDate = dt.Rows[0]["STOCK_CREATEDATE"].ToString();
+                        objdata.StoreName = dt.Rows[0]["STORE_NAME"].ToString();
+                    }
+                }
+            }
+
+
+            TempData["Count"] = 1;
+            TempData.Keep();
+            return Json(objdata, JsonRequestBehavior.AllowGet);
+
+        }
+
 
         [HttpPost]
         public JsonResult DeleteCurrentStock(string StockId)
@@ -556,7 +672,7 @@ namespace ModernRetail.Controllers
                         //** New Datatable included to resolve no. format for Phone numbers. State and Contact blank check was implemented to filter out blank rows from the excel Sheet. **//
                         DataTable dtExcelData = new DataTable();
                         dtExcelData.Columns.Add("Branch", typeof(string));
-                        dtExcelData.Columns.Add("ShopName", typeof(string));
+                        dtExcelData.Columns.Add("StoreName", typeof(string));
                         dtExcelData.Columns.Add("Code", typeof(string));
                         dtExcelData.Columns.Add("ContactNumber", typeof(string));
                         dtExcelData.Columns.Add("Shoptype", typeof(string));
@@ -641,7 +757,7 @@ namespace ModernRetail.Controllers
                         {
                             data = new CurrentStockModel();
                             data.Branch = Convert.ToString(row["Branch"]);
-                            data.ShopName = Convert.ToString(row["ShopName"]);
+                            data.StoreName = Convert.ToString(row["StoreName"]);
                             data.Code = Convert.ToString(row["Code"]);
                             data.ContactNumber = Convert.ToString(row["ContactNumber"]);
                             data.Shoptype = Convert.ToString(row["Shoptype"]);
@@ -792,19 +908,14 @@ namespace ModernRetail.Controllers
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToPdf(GetDoctorBatchGridViewSettings(), GetCurrentStockDetails(""));
-                case 2:
                     return GridViewExtension.ExportToXlsx(GetDoctorBatchGridViewSettings(), GetCurrentStockDetails(""));
-                case 3:
-                    return GridViewExtension.ExportToXls(GetDoctorBatchGridViewSettings(), GetCurrentStockDetails(""));
-                case 4:
-                    return GridViewExtension.ExportToRtf(GetDoctorBatchGridViewSettings(), GetCurrentStockDetails(""));
-                case 5:
-                    return GridViewExtension.ExportToCsv(GetDoctorBatchGridViewSettings(), GetCurrentStockDetails(""));
                 default:
                     break;
             }
             return null;
+
+
+           
         }
 
         private GridViewSettings GetDoctorBatchGridViewSettings()
@@ -824,42 +935,10 @@ namespace ModernRetail.Controllers
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "BRANCH";
-                x.Caption = "Branch";
+                x.FieldName = "STORENAME";
+                x.Caption = "Store Name";
                 x.VisibleIndex = 2;
                 x.ExportWidth = 200;
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "SHOPNAME";
-                x.Caption = "Shop Name";
-                x.VisibleIndex = 3;
-                x.ExportWidth = 200;
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "CODE";
-                x.Caption = "Code";
-                x.VisibleIndex = 4;
-                x.ExportWidth = 100;
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "CONTACTNUMBER";
-                x.Caption = "Contact Number";
-                x.VisibleIndex = 5;
-                x.ExportWidth = 150;
-            });
-            //Mantis Issue 24928
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "SHOPTYPE";
-                x.Caption = "Shop type";
-                x.VisibleIndex = 6;
-                x.ExportWidth = 250;
             });
 
 
@@ -867,7 +946,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "CURRENTSTOCKDATE";
                 x.Caption = "Current Stock Date";
-                x.VisibleIndex = 7;
+                x.VisibleIndex = 3;
                 x.ExportWidth = 100;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
@@ -877,50 +956,9 @@ namespace ModernRetail.Controllers
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "PRODUCTCODE";
-                x.Caption = "Product Code";
-                x.VisibleIndex = 8;
-                x.ExportWidth = 150;
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "PRODUCTNAME";
-                x.Caption = "Product Name";
-                x.VisibleIndex = 9;
-                x.ExportWidth = 100;
-            });
-
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "QUANTITY";
-                x.Caption = "Quantity";
-                x.VisibleIndex = 10;
-                x.ExportWidth = 150;
-                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.PropertiesEdit.DisplayFormatString = "0.00";
-            });
-
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "QUANTITY_BAL";
-                x.Caption = "Bal Quantity";
-                x.VisibleIndex = 11;
-                x.ExportWidth = 150;
-                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
-                x.PropertiesEdit.DisplayFormatString = "0.00";
-            });
-
-
-
-            settings.Columns.Add(x =>
-            {
                 x.FieldName = "CREATED_DATE";
                 x.Caption = "Created Date";
-                x.VisibleIndex = 12;
+                x.VisibleIndex = 4;
                 x.ExportWidth = 100;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
@@ -930,7 +968,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "CREATED_BY";
                 x.Caption = "Created By";
-                x.VisibleIndex = 13;
+                x.VisibleIndex = 5;
                 x.ExportWidth = 100;
             });
 
@@ -939,7 +977,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "MODIFIED_DATE";
                 x.Caption = "Modified Date";
-                x.VisibleIndex = 14;
+                x.VisibleIndex = 6;
                 x.ExportWidth = 120;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
@@ -949,7 +987,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "MODIFIED_BY";
                 x.Caption = "Modified By";
-                x.VisibleIndex = 15;
+                x.VisibleIndex = 7;
                 x.ExportWidth = 100;
             });
 
