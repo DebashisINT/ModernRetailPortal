@@ -718,6 +718,51 @@
             height: 30px;
         }
 
+
+
+    #gridList {
+        position: relative;
+    }
+
+    .action-buttons {
+        display: none;
+        position: absolute;
+        /*background: #ffffff;*/
+        /*border: 1px solid #ddd;*/
+        border-radius: 5px;
+        padding: 5px 10px;
+        /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+        white-space: nowrap;
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(-50%, -100%); /* Position above and centered horizontally */
+        transition: opacity 0.3s ease; /* Smooth fade-in effect */
+        top: 45px;
+        right: -55px;
+    }
+
+        .action-buttons.visible {
+            display: block !important; /* Add this class dynamically */
+        }
+
+
+        .action-buttons a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+            .action-buttons a img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .action-buttons a:hover {
+                text-decoration: underline;
+            }
+
+
+
     @@media only screen and (max-width: 768px) {
 
 
@@ -853,7 +898,36 @@
 
         $(s.GetRow(e.visibleIndex)).addClass('rowActive');
 
+
+        // Hide all other action-buttons
+        $('.action-buttons').removeClass('visible').hide();
+
+        // Get the clicked row's DOM element
+        var rowElement = $('#gridList_DXDataRow' + e.visibleIndex);
+
+        // Find the action-buttons container in the clicked row
+        var actionButtons = $(rowElement).find('.action-buttons');
+
+        // Get the position of the clicked row
+        var rowOffset = $(rowElement).offset();
+
+
+        //actionButtons.css({
+        //    top: rowOffset.top,
+        //    left: rowOffset.left + ($(rowElement).outerWidth() / 2) - (actionButtons.outerWidth() / 2),
+        //    zIndex: 9999 
+        //});
+
+        // Show the buttons
+        actionButtons.addClass('visible').fadeIn(200);
+
     }
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.action-buttons, .dxgvDataRow').length) {
+            $('.action-buttons').hide();
+        }
+    });
     /*Rev End Pallab: grid modification*/
 
 
