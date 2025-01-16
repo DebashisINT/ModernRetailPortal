@@ -104,5 +104,11 @@
         <elementListCompartment Id="83e9e35e-e3d9-4669-93f0-2fde83f1696a" absoluteBounds="3.015, 4.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="51ea58d0-779c-4585-ab6c-b737259af9ea" absoluteBounds="5.875, 2.75, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_PRODUCTBRANCHMAPLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7267ab64-e8d3-4aa6-a692-47a5e72c7889" absoluteBounds="5.89, 3.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

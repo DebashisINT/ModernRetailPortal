@@ -284,6 +284,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BranchMasterController.cs" />
+    <Compile Include="Controllers\BranchwiseProductMappingController.cs" />
     <Compile Include="Controllers\BrandMasterController.cs" />
     <Compile Include="Controllers\CityMasterController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -308,6 +309,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BranchMaster.cs" />
+    <Compile Include="Models\BranchwiseProductMappingModel.cs" />
     <Compile Include="Models\BrandMasterModel.cs" />
     <Compile Include="Models\CityMasterModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
@@ -1156,6 +1158,13 @@
     <Content Include="Views\CurrentStock\_PartialStoreMasterProductList.cshtml" />
     <Content Include="Views\StoreMaster\StoreAddEdit.cshtml" />
     <Content Include="Views\CurrentStock\CurrentStockAddEdit.cshtml" />
+    <Content Include="Views\BranchwiseProductMapping\BWPListing.cshtml" />
+    <Content Include="Views\BranchwiseProductMapping\Index.cshtml" />
+    <Content Include="Views\BranchwiseProductMapping\PartialBranch.cshtml" />
+    <Content Include="Views\BranchwiseProductMapping\PartialBWPMListing.cshtml" />
+    <Content Include="Views\BranchwiseProductMapping\PartialChildEmployee.cshtml" />
+    <Content Include="Views\BranchwiseProductMapping\PartialParentEmployee.cshtml" />
+    <Content Include="Views\BranchwiseProductMapping\PartialProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

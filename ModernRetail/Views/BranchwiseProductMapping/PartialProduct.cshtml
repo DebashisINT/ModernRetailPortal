@@ -1,0 +1,120 @@
+﻿
+
+@Html.DevExpress().GridLookup(
+    settings =>
+    {
+        settings.Properties.Caption = "";
+        settings.Properties.CaptionCellStyle.CssClass = "hide";
+        settings.Name = "ProductGridLookup";
+        settings.KeyFieldName = "SPRODUCTS_ID";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.Properties.ClientInstanceName = "ProductGridLookup";
+        settings.GridViewClientSideEvents.SelectionChanged = "ProductSelectionChanged";
+        settings.Properties.ClientSideEvents.ValueChanged = "ProductSelectionChanged";
+        settings.GridViewClientSideEvents.BeginCallback = "ProductStartCallback";
+        settings.CommandColumn.Width = System.Web.UI.WebControls.Unit.Pixel(10);
+        settings.GridViewProperties.SettingsPager.PageSize= 10;
+        settings.GridViewProperties.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50", "100" };
+        settings.GridViewProperties.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.Properties.SelectionMode = GridLookupSelectionMode.Multiple;
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        settings.CommandColumn.ShowClearFilterButton = true;
+        settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.None;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SPRODUCTS_CODE";
+            column.Caption = "Code";
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SPRODUCTS_NAME";
+            column.Caption = "Name";
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "BRANDNAME";
+            column.Caption = "Brand";
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CLASSCODE";
+            column.Caption = "Class/Category";
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(80);
+        });
+        settings.Properties.Caption = " ";
+        settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        settings.Properties.SelectionMode = DevExpress.Web.GridLookupSelectionMode.Multiple;
+
+        settings.Properties.TextFormatString = "{1}";
+        settings.Properties.MultiTextSeparator = ", ";
+
+        //settings.Properties.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.GridViewProperties.CallbackRouteValues = new { Controller = "BranchwiseProductMapping", Action = "GetProductList" };
+
+        settings.GridViewProperties.Settings.ShowFilterRow = true;
+        settings.GridViewProperties.Settings.ShowStatusBar = GridViewStatusBarMode.Visible;
+        settings.GridViewProperties.SetStatusBarTemplateContent(c =>
+        {
+
+            ViewContext.Writer.Write("<div style=\"padding: 2px 8px 2px 0; float: right\">");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnDeSelectAllProduct";
+                btnSettings.UseSubmitBehavior = false;
+                btnSettings.Text = "DeSelect All";
+                btnSettings.ClientSideEvents.Click = "DeSelectAllGridLookupProduct";
+
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div style=\"padding: 2px 8px 2px 0; float: right\">");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnSelectAllProduct";
+                btnSettings.UseSubmitBehavior = false;
+                btnSettings.Text = "Select All";
+                btnSettings.ClientSideEvents.Click = "SelectAllGridLookupProduct";
+
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        });
+
+        settings.DataBound = (sender, e) =>
+        {
+            var gridLookup = (MVCxGridLookup)sender;
+            gridLookup.GridView.Width = 310;
+        };
+
+        settings.PreRender = (s, e) =>
+        {
+            if (ViewBag.PRODUCTS_ID != null)
+            {
+
+                foreach (var item in ViewBag.PRODUCTS_ID)
+                {
+                    MVCxGridLookup l = s as MVCxGridLookup;
+                    l.GridView.Selection.SelectRowByKey(item.SPRODUCTS_ID);
+
+                }
+            }
+            //if (ViewBag.CONTENT_TOPICIDS != null)
+            //{
+
+            //    MVCxGridLookup l = s as MVCxGridLookup;
+            //    l.GridView.Selection.SelectRowByKey(ViewBag.CONTENT_TOPICIDS);
+            //    //l.GridView.Enabled = false;
+            //}
+
+
+        };
+
+    }).BindList(Model).GetHtml()
+
+

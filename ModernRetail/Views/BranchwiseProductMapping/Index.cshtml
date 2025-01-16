@@ -3,13 +3,22 @@
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
 
-@model ModernRetail.Models.BranchMaster
+@model ModernRetail.Models.BranchwiseProductMappingModel
 @{
-    ViewBag.Title = "Branch";
+    ViewBag.Title = "Branchwise Product Mapping";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: none; /* Initially hidden */
+    }
     #grid .dxgvHSDC > div, #grid .dxgvCSD {
         width: 100% !important;
     }
@@ -35,9 +44,9 @@
         background: #fff;
     }
 
-    .dxgvStatusBar_PlasticBlue {
+   /* .dxgvStatusBar_PlasticBlue {
         display: none;
-    }
+    }*/
 
     .modal-header {
         padding: 8px;
@@ -231,16 +240,16 @@
         background: #185598;
     }
 
-    .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
+    ./*dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
     .dxbButton_PlasticBlue,
     .dxeCalendar_PlasticBlue,
     .dxeEditArea_PlasticBlue {
         font-family: 'Poppins', sans-serif !important;
-    }
+    }*/
 
-    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+    /*.dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {*/
         /*font-weight: 500;*/
-    }
+    /*}*/
 
     .btnPadding .btn {
         padding: 7px 14px !important;
@@ -815,8 +824,7 @@
         background-color: transparent;
     }
 
-        .select2-container--default .select2-selection--single .select2-selection__arrow
-        {
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
             display: none;
         }
 
@@ -830,81 +838,266 @@
     }
 </style>
 <script>
+    var BranchId = [];
+    var Branch_Id = "";
     $(document).ready(function () {
-
-        var branch_ID = $('#hdnDetailsID').val();
-        if (branch_ID== 0) {
-            GETBRANCH();
-            GETCOUNTRY();
-        }
-       
-
-        $('#ddlParentBranch').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-
-        $('#ddlCountry').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-
-        $('#ddlState').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-
-        $('#ddlCity').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
-
-        $('#ddlPIN').select2({
-            placeholder: "Select",
-            allowClear: false
-        });
+      
     });
+    
+    function BranchStartCallback(s, e) {
+        e.customArgs["PRODUCTBRANCHMAP_ID"] = urlKeys.key;
+        e.customArgs["HeadBranch"] = $('#ddlHeadBranch').val();
+    }
+    function BranchSelectionChanged(s, e) {
+        BranchGridLookup.gridView.GetSelectedFieldValues("branch_id", GetBranchSelectedFieldValuesCallback);
+    }
+    function GetBranchSelectedFieldValuesCallback(values) {
+        try {
+            BranchId = [];
+            Branch_Id = "";
+            for (var i = 0; i < values.length; i++) {
+                BranchId.push(values[i]);
+                Branch_Id += values[i] + ',';
+            }
+        } finally {
 
-    function GETCOUNTRY() {
+        }
+    }
+    function SelectAllGridLookupBranch(s, e) {
+        BranchGridLookup.gridView.SelectRows();        
+        BranchGridLookup.SetText("");
+
+        var headBranch = $('#ddlHeadBranch').val();
         $.ajax({
-            type: "POST",
-            url: "@Url.Action("GetCountry", "BranchMaster")",
+            type: 'POST',
+            url: "/BranchwiseProductMapping/GetBranchListJson",
+            data: { headBranch: headBranch },
+            dataType: "json",
             async: false,
-            success: function (response) {
-                $('#ddlCountry').html('');
-                var html = "";
-                for (var i = 0; i < response.length; i++) {
-                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-                }
-                $('#ddlCountry').html(html);
+            success: function (data) {
+                BranchId = [];
+                Branch_Id = "";
+                $.each(data, function (i, data) {
+                    BranchId.push(data.branch_id);
+                    Branch_Id += data.branch_id + ',';
+                });
+                BranchGridLookup.gridView.SelectRows();
+            },
+            error: function () {
             }
         });
-    }
 
-    function GETBRANCH() {
-     var branch_ID = $('#hdnDetailsID').val();
-     $.ajax({
-         type: "POST",
-         url: "@Url.Action("GetBranch", "BranchMaster")",
-         data: { branch_ID: branch_ID },
-         async: false,
-         success: function (response) {
-             $('#ddlParentBranch').html('');
-             var html = "";
-             for (var i = 0; i < response.length; i++) {
-                 html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-             }
-             $('#ddlParentBranch').html(html);
-         }
-     });
+    }
+    function DeSelectAllGridLookupBranch(s, e) {
+        BranchGridLookup.gridView.UnselectRows();
+        BranchId = [];
+        Branch_Id = "";
+    }
+    function BranchEndCallback() {
+        PartialParentGridLookup.gridView.Refresh();  
+        
+        PartialChildGridLookup.gridView.Refresh();
+    }
+</script>
+<script>
+    var PARENTEMPID = [];
+    var PARENTEMP_ID = "";
+    function PartialParentStartCallback(s, e) {
+        e.customArgs["PRODUCTBRANCHMAP_ID"] = urlKeys.key;
+        BranchId = [];
+        Branch_Id = "";
+        var values = BranchGridLookup.gridView.GetSelectedKeysOnPage();
+        if (values != null) {
+            for (var i = 0; i < values.length; i++) {
+                BranchId.push(values[i]);
+                Branch_Id += values[i] + ',';
+            }
+        }       
+        e.customArgs["Branch_Ids"] = Branch_Id;
+    }
+    function PartialParentSelectionChanged(s, e) {
+        PartialParentGridLookup.gridView.GetSelectedFieldValues("USER_ID", GetParentSelectedFieldValuesCallback);
+    }
+    function GetParentSelectedFieldValuesCallback(values) {
+        try {
+            PARENTEMPID = [];
+            PARENTEMP_ID = "";
+            for (var i = 0; i < values.length; i++) {
+                PARENTEMPID.push(values[i]);
+                PARENTEMP_ID += values[i] + ',';
+            }
+        } finally {
+
+        }
+    }
+    function SelectAllGridLookupParent(s, e) {
+        PartialParentGridLookup.gridView.SelectRows();
+        PartialParentGridLookup.SetText("");       
+        var Branch_Ids = Branch_Id;
+
+        $.ajax({
+            type: 'POST',
+            url: "/BranchwiseProductMapping/GetParentEmployeeListJson",
+            data: { Branch_Ids: Branch_Ids },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                PARENTEMPID = [];
+                PARENTEMP_ID = "";
+                $.each(data, function (i, data) {
+                    PARENTEMPID.push(data.USER_ID);
+                    PARENTEMP_ID += data.USER_ID + ',';
+                });
+                PartialParentGridLookup.gridView.SelectRows();
+            },
+            error: function () {
+            }
+        });
+
+    }
+    function DeSelectAllGridLookupParent(s, e) {
+        PartialParentGridLookup.gridView.UnselectRows();
+        PARENTEMPID = [];
+        PARENTEMP_ID = "";
+    }
+    function ParentEndCallback() {
+        PartialChildGridLookup.gridView.Refresh();
+    }
+</script>
+<script>
+    var CHILDEMPID = [];
+    var CHILDEMP_ID = "";
+    function PartialChildStartCallback(s, e){
+        e.customArgs["PRODUCTBRANCHMAP_ID"] = urlKeys.key;
+        BranchId = [];
+        Branch_Id = "";
+        var values = BranchGridLookup.gridView.GetSelectedKeysOnPage();
+        if (values != null) {
+            for (var i = 0; i < values.length; i++) {
+                BranchId.push(values[i]);
+                Branch_Id += values[i] + ',';
+            }
+        }   
+
+        PARENTEMPID = [];
+        PARENTEMP_ID = "";
+        var values = PartialParentGridLookup.gridView.GetSelectedKeysOnPage();
+        if (values != null) {
+            for (var i = 0; i < values.length; i++) {
+                PARENTEMPID.push(values[i]);
+                PARENTEMP_ID += values[i] + ',';
+            }
+        }   
+
+
+        e.customArgs["Branch_Ids"] = Branch_Id;
+        e.customArgs["PARENTERMP_IDS"] = PARENTEMP_ID;       
+
+    }
+    function PartialChildSelectionChanged(s, e) {
+        PartialChildGridLookup.gridView.GetSelectedFieldValues("USER_ID", GetChildSelectedFieldValuesCallback);
+    }
+    function GetChildSelectedFieldValuesCallback(values) {
+        try {
+            CHILDEMPID = [];
+            CHILDEMP_ID = "";
+            for (var i = 0; i < values.length; i++) {
+                CHILDEMPID.push(values[i]);
+                CHILDEMP_ID += values[i] + ',';
+            }
+        } finally {
+
+        }
+    }
+    function SelectAllGridLookupChild (s, e) {
+        PartialChildGridLookup.gridView.SelectRows();
+        PartialChildGridLookup.SetText("");
+        var PARENTERMP_IDS=PARENTEMP_ID;
+        var Branch_Ids=Branch_Id;
+        
+        $.ajax({
+            type: 'POST',
+            url: "/BranchwiseProductMapping/GetChildEmployeeListJson",
+            data: { PARENTERMP_IDS: PARENTERMP_IDS, Branch_Ids: Branch_Ids },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                CHILDEMPID = [];
+                CHILDEMP_ID = "";
+                $.each(data, function (i, data) {
+                    CHILDEMPID.push(data.USER_ID);
+                    CHILDEMP_ID += data.USER_ID + ',';
+                });
+                PartialChildGridLookup.gridView.SelectRows();
+            },
+            error: function () {
+            }
+        });
+
+    }
+    function DeSelectAllGridLookupChild(s, e) {
+        PartialChildGridLookup.gridView.UnselectRows();
+        CHILDEMPID = [];
+        CHILDEMP_ID = "";
+    }
+</script>
+<script>
+    var PRODUCTID = [];
+    var PRODUCT_ID = "";
+    function ProductStartCallback(s, e) {
+        e.customArgs["PRODUCTBRANCHMAP_ID"] = urlKeys.key;      
+    }
+    function ProductSelectionChanged(s, e) {
+        ProductGridLookup.gridView.GetSelectedFieldValues("SPRODUCTS_ID", GetProductSelectedFieldValuesCallback);
+    }
+    function GetProductSelectedFieldValuesCallback(values) {
+        try {
+            PRODUCTID = [];
+            PRODUCT_ID = "";
+            for (var i = 0; i < values.length; i++) {
+                PRODUCTID.push(values[i]);
+                PRODUCT_ID += values[i] + ',';
+            }
+        } finally {
+
+        }
+    }
+    function SelectAllGridLookupProduct(s, e) {
+        ProductGridLookup.gridView.SelectRows();
+        ProductGridLookup.SetText("");       
+
+        $.ajax({
+            type: 'POST',
+            url: "/BranchwiseProductMapping/GetProductListJson",
+           // data: { PARENTERMP_IDS: PARENTERMP_IDS, Branch_Ids: Branch_Ids },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                PRODUCTID = [];
+                PRODUCT_ID = "";
+                $.each(data, function (i, data) {
+                    PRODUCTID.push(data.SPRODUCTS_ID);
+                    PRODUCT_ID += data.SPRODUCTS_ID + ',';
+                });
+                ProductGridLookup.gridView.SelectRows();
+            },
+            error: function () {
+            }
+        });
+
+    }
+    function DeSelectAllGridLookupProduct(s, e) {
+        ProductGridLookup.gridView.UnselectRows();
+        PRODUCTID = [];
+        PRODUCT_ID = "";
     }
 </script>
 <script>
 
     var ID = 0;
     var urlKeys = getUrlVars();
-    function BranchAdd() {
-        window.location.href = '/BranchMaster/BranchMasterList';
+    function BPMClose() {
+        window.location.href = '/BranchwiseProductMapping/BWPListing';
     }
 
     function getUrlVars() {
@@ -919,11 +1112,11 @@
     }
     if (urlKeys.key != 'Add') {
         ID = urlKeys.key;
-        $("#hdnAdd").val(ID);
+        $("#hdnDetailsID").val(ID);
         if (ID != 0) {
-            $.ajax({
+            @*$.ajax({
                 type: "POST",
-                url: "@Url.Action("EditBranch", "BranchMaster")",
+                url: "@Url.Action("EditProductRate", "ProductRates")",
                 data: { id: ID },
                 success: function (response) {
                     if (response.code == "") {
@@ -931,322 +1124,185 @@
                     }
                     else {
                         GETBRANCH();
-                        GETCOUNTRY();
-                        $("#ShortName").val(response.ShortName);
-                        $("#ddlParentBranch").val(response.ParentBranch);
-                        // $("#ddlParentBranch").val(response.ParentBranch).trigger('change');
-                        $("#BranchName").val(response.BranchName);
-                        $("#Address1").val(response.Address1);
-                        $("#ddlCountry").val(response.Country);
-                        // $("#ddlCountry").val(response.Country).trigger('change');
-                        EditCountryOnChange(response.State);
-                        EditStateOnChange(response.City);
-                        EditCityOnChange(response.PIN);
+                        GETDESIGNATION();
+                            $("#ddlBranch").val(response.BRANCH_ID);
+                            $("#ddlDesignation").val(response.DESIGID);
+                            txtEmployee.SetText(response.USER_NAME);
+                            txtProductNameAdd.SetText(response.sProducts_Name);
+                            $("#txtEmployee_hidden").val(response.USER_ID);
+                            $("#HiddenProductID").val(response.PRODUCT_ID);
+                            $("#txtSpecialPrice").val(response.STORE_RATE);
                     }
                 }
+            });*@
+          
+        }
+    }
+    $(document).ready(function () {
+        ID = urlKeys.key;
+        if (ID != 0) {
+            
+        }
+        
+
+    });
+    function EntrySave(mode) {
+    document.getElementById("loading-overlay").style.display = "block";
+    $("#hdnDetailsID").val("0");
+    savemode = mode;
+    hasmsg = 0;
+
+    var BranchIDS = BranchGridLookup.gridView.GetSelectedKeysOnPage();
+    var ParentIDS = PartialParentGridLookup.gridView.GetSelectedKeysOnPage();
+    var ChildIDS = PartialChildGridLookup.gridView.GetSelectedKeysOnPage();
+    var ProductIDS = ProductGridLookup.gridView.GetSelectedKeysOnPage();
+
+    if (BranchIDS == null || BranchIDS == "") {
+        // SweetAlert for empty Branch description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Select  Branch to proceed.'
+        });
+        document.getElementById("loading-overlay").style.display = "none";
+        return false;
+    }    
+    else if (ProductIDS == null || ProductIDS== "") {
+        // SweetAlert for empty Product description
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry!',
+            text: 'Please Select Product to proceed.'
+        });
+        document.getElementById("loading-overlay").style.display = "none";
+        return false;
+    }
+    else if (ParentIDS != null || ParentIDS != "") {
+        if (ChildIDS == null || ChildIDS == "") {
+            // SweetAlert for empty Child description
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Please select atleast one Child Employee.'
             });
+            document.getElementById("loading-overlay").style.display = "none";
+            return false;
+        }
+    }
+        
+
+
+    BranchId = [];
+    Branch_Id = "";
+
+    if (Branch_Id == "") {
+        for (var i = 0; i < BranchIDS.length; i++) {
+            BranchId.push(BranchIDS[i]);
+            Branch_Id += BranchIDS[i] + ',';
+        }
+    }
+
+    PARENTEMPID = [];
+    PARENTEMP_ID = "";
+    if (PARENTEMP_ID == "") {
+        for (var i = 0; i < ParentIDS.length; i++) {
+            PARENTEMPID.push(ParentIDS[i]);
+            PARENTEMP_ID += ParentIDS[i] + ',';
+        }
+    }
+
+    CHILDEMPID = [];
+    CHILDEMP_ID = "";
+    if (CHILDEMP_ID == "") {
+        for (var i = 0; i < ChildIDS.length; i++) {
+            CHILDEMPID.push(ChildIDS[i]);
+            CHILDEMP_ID += ChildIDS[i] + ',';
+        }
+    }
+    PRODUCTID = [];
+    PRODUCT_ID = "";
+
+    if (PRODUCT_ID == "") {
+        for (var i = 0; i < ProductIDS.length; i++) {
+            PRODUCTID.push(ProductIDS[i]);
+            PRODUCT_ID += ProductIDS[i] + ',';
         }
     }
     
 
 
-    function EditCountryOnChange(State) {
-    var CountryID = $('#ddlCountry option:selected').val();
-         $.ajax({
-             type: "POST",
-             url: "@Url.Action("GetState", "BranchMaster")",
-             data: { CountryID: CountryID },
-             async: false,
-             success: function (response) {
-                 $('#ddlState').html('');
-                 var html = "";
-                 for (var i = 0; i < response.length; i++) {
-                     html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+    var hdnDetailsID = $('#hdnDetailsID').val();
 
-                 }
-                 $('#ddlState').html(html);
-                 $('#ddlState').val(State);
-               
-
-             }
-         });
+    var data = {
+        ID: hdnDetailsID,
+        Branch_Ids: Branch_Id,
+        PARENTERMP_IDS: PARENTEMP_ID,
+        CHILDERMP_IDS: CHILDEMP_ID,
+        PRODUCT_IDS: PRODUCT_ID,       
     }
 
-    function EditStateOnChange(City) {
-    var StateID = $('#ddlState option:selected').val();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("GETCITY", "BranchMaster")",
-            data: { StateID: StateID },
-            async: false,
-            success: function (response) {
-                $('#ddlCity').html('');
-                var html = "";
-                for (var i = 0; i < response.length; i++) {
-                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-                }
-                $('#ddlCity').html(html);
-                $('#ddlCity').val(City);
-            }
-        });
-}
-    function EditCityOnChange(PIN) {
-    var CityID = $('#ddlCity option:selected').val();
-    $.ajax({
-        type: "POST",
-        url: "@Url.Action("GETPINZIP", "BranchMaster")",
-        data: { CityID: CityID },
-        async: false,
-        success: function (response) {
-            $('#ddlPIN').html('');
-            var html = "";
-            for (var i = 0; i < response.length; i++) {
-                html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-            }
-            $('#ddlPIN').html(html);
-
-            $('#ddlPIN').val(PIN);
-        }
-    });
-}
-
-    function CountryOnChange() {
-        var CountryID = $('#ddlCountry option:selected').val();
-     $.ajax({
-         type: "POST",
-         url: "@Url.Action("GetState", "BranchMaster")",
-         data: { CountryID: CountryID },
-         success: function (response) {
-             $('#ddlState').html('');
-             var html = "";
-             for (var i = 0; i < response.length; i++) {
-                 html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-             }
-             $('#ddlState').html(html);
-
-
-         }
-     });
-    }
-
-    function StateOnChange() {
-        var StateID = $('#ddlState option:selected').val();
             $.ajax({
-                type: "POST",
-                url: "@Url.Action("GETCITY", "BranchMaster")",
-                data: { StateID: StateID },
-                success: function (response) {
-                    $('#ddlCity').html('');
-                    var html = "";
-                    for (var i = 0; i < response.length; i++) {
-                        html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
-
-                    }
-                    $('#ddlCity').html(html);
-                }
-            });
-    }
-    function CityOnChange() {
-        var CityID = $('#ddlCity option:selected').val();
-        $.ajax({
             type: "POST",
-            url: "@Url.Action("GETPINZIP", "BranchMaster")",
-            data: { CityID: CityID },
+            url: "@Url.Action("SaveBranchProductMap", "BranchwiseProductMapping")",
+            data: JSON.stringify({ Details: data }), // Fixed JSON formatting
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
             success: function (response) {
-                $('#ddlPIN').html('');
-                var html = "";
-                for (var i = 0; i < response.length; i++) {
-                    html = html + "<option value='" + response[i].ID + "'>" + response[i].NAME + "</option>";
+                if (response != null) {
+                    var Sucess = response.split('~')[0];
+                    var DetailsID = response.split('~')[1];
+                    var Message = response.split('~')[2];
+                    $('#hdnDetailsID').val(DetailsID);
+                    if (DetailsID > 0) {
+                        document.getElementById("loading-overlay").style.display = "none";
+                        ProductionID = 0;
+                        DetailsID = 0;
+                        Swal.fire({
+                            title: 'Success!',
+                            html: 'Branch wise Product Mapped successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                if (savemode === "Exit") {
+                                    setTimeout(function () {
+                                        var url = '/BranchwiseProductMapping/BWPListing';
+                                        window.location.href = url;
+                                    }, 500);
+                                }
+                            }
+                        });
+                    }
+                    else if (DetailsID ==-1){
+                        DetailsID = 0;
+                        savemode = "";
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Branch wise Product Mapped. Please enter a unique Product rate.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                        document.getElementById("loading-overlay").style.display = "none";
+                        return false;
+                    }
+                    else {
+                        DetailsID = 0;
+                        savemode = "";
 
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Please try again later.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                        document.getElementById("loading-overlay").style.display = "none";
+                        return false;
+                    }
+                    Message = "";
                 }
-                $('#ddlPIN').html(html);
             }
         });
-    }
-
-    function EntrySave(mode) {
-
-    $("#hdnAdd").val("0");
-    savemode = mode;
-    hasmsg = 0;
-    var ShortName = $('#ShortName').val();
-    var ParentBranch = $('#ddlParentBranch option:selected').val();
-    var BranchName = $('#BranchName').val();
-    var Address1 = $('#Address1').val();
-    var Country = $('#ddlCountry option:selected').val();
-    var State = $('#ddlState option:selected').val();
-    var City = $('#ddlCity option:selected').val();
-    var PIN = $('#ddlPIN option:selected').val();
-
-    var ShortName = $("#ShortName").val();
-    var branch_ID = $('#hdnDetailsID').val();
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("CheckUniqueShortName", "BranchMaster")",
-            data: { ShortName: ShortName, branch_ID: branch_ID },
-            async: false,
-            success: function (response) {
-                if(response=="1"){
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Sorry!',
-                        text: 'Please Enter Unique Short Name to proceed'
-                    });
-                    return false;
-                }
-                else{
-                        if ($("#ShortName").val().trim() == "") {
-                            // SweetAlert for empty category name
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Enter Short Name to proceed'
-                            });
-                            return false;
-                        }
-                        //else if (ParentBranch.trim() == "Select" || TargetLevel.trim() == "") {
-                        else if ($('#ddlParentBranch option:selected').val() == null || $('#ddlParentBranch option:selected').val() == "" || $('#ddlParentBranch option:selected').val() == "Select" || $('#ddlParentBranch option:selected').val() == "undefined") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Select Parent Branch to proceed.'
-                            });
-                            return false;
-                         }
-                        else if (BranchName.trim() == "") {
-                        // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Enter Branch Name to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (Address1.trim() == "") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please Enter Address to proceed.'
-                            });
-                            return false;
-                        }
-
-                        else if (Country == null || Country.trim() == "" || Country.trim() =="Select") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select country to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (State == null || State.trim() == "" || State.trim() == "Select" || State.trim() == "0") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select state to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (City == null || City.trim() == "" || City.trim() == "Select" || City.trim() == "0") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select city to proceed.'
-                            });
-                            return false;
-                        }
-                        else if (PIN == null || PIN.trim() == "" || PIN.trim() == "Select" || PIN.trim() == "0") {
-                            // SweetAlert for empty category description
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Sorry!',
-                                text: 'Please select pin to proceed.'
-                            });
-                            return false;
-                        }
-
-                    var hdnDetailsID = $('#hdnDetailsID').val();
-
-                    var data = {
-                        branch_ID:hdnDetailsID,
-                        ShortName: ShortName   ,
-                        ParentBranch: ParentBranch,
-                        BranchName: BranchName,
-                        Address1: Address1,
-                        Country: Country,
-                        State: State,
-                        City: City,
-                        PIN: PIN
-                    }
-
-                    $.ajax({
-                        type: "POST",
-                        url: "@Url.Action("SaveBranch", "BranchMaster")",
-                        data: JSON.stringify({ Details: data }), // Fixed JSON formatting
-                        async: true,
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (response) {
-                            if (response != null) {
-                                var Sucess = response.split('~')[0];
-                                var DetailsID = response.split('~')[1];
-                                var TargetNo = response.split('~')[2];
-                                var Message = response.split('~')[3];
-
-                                $('#hdnDetailsID').val(DetailsID);
-
-                                if (DetailsID > 0 && TargetNo != "") {
-                                    ProductionID = 0;
-                                    DetailsID = 0;
-
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
-                                        html: 'Branch: <strong style="color: #007bff;">' + TargetNo + '</strong> saved successfully.',
-                                        icon: 'success',
-                                        confirmButtonText: 'OK'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            if (savemode === "Exit") {
-                                                setTimeout(function () {
-                                                    var url = '/BranchMaster/BranchMasterList';
-                                                    window.location.href = url;
-                                                }, 500);
-                                            }
-                                        }
-                                    });
-
-                                } else {
-                                    DetailsID = 0;
-                                    savemode = "";
-
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Please try again later.',
-                                        icon: 'error',
-                                        confirmButtonText: 'OK'
-                                    });
-
-                                    return false;
-                                }
-                                Message = "";
-                            }
-                        }
-                    });
-                }
-            }
-        })
-
-
     }
 
     function CancelAdd() {
@@ -1263,95 +1319,68 @@
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/BranchMaster/BranchMasterList';
+                    window.location.href = '/BranchwiseProductMapping/BWPListing';
 
                 }
             });
         }
-
         else {
-            window.location.href = '/BranchMaster/BranchMasterList';
+            window.location.href = '/BranchwiseProductMapping/BWPListing';
         }
 
     }
 </script>
 
 
-
 <div class="breadCumb">
-    <span id="HeaderLableID">Branch</span>
-    <div id="ApprovalCross" onclick="BranchAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <span id="HeaderLableID">Branchwise Product Mapping</span>
+    <div id="ApprovalCross" onclick="BPMClose()" class="crossBtnN"><i class="fa fa-times"></i></div>
+</div>
+<div class="overlay" id="loading-overlay">
+    <div class="flex-loader">
+        <img src="/assests/images/new-loader.gif" />
+        <h4>Data is Saving, Please Wait</h4>
+    </div>
+
 </div>
 <div class="container">
     <div class="form_main backBox p-3 mb-3">
         <div class="row mb-3">
 
-            <div class=" col-sm-3 mb-3">
-                <label>Short Name<span style="color:red">*</span></label>
-                <div class="relative">
-                    @Html.TextBoxFor(m => m.ShortName, new { @class = "form-control txtShortName", @MaxLength = "80" })
-                </div>
-            </div>
-            <div class="col-sm-3  mb-3 h-branch-select">
-                <label>Parent Branch<span style="color:red">*</span></label>
-                @*@Html.DropDownListFor(
-            m => m.ParentBranch,
-            new SelectList(Model.BranchList, "ID", "NAME"),
-            "Select",
-            new { @id = "ddlParentBranch", @class = "form-control" }
-        )*@
-                <select id="ddlParentBranch" class="form-control" ></select>
-
-            </div>
-            <div class="col-sm-3 mb-3">
-                <label>Branch Name<span style="color:red">*</span></label>
-                <div class="relative">
-                    @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control", @MaxLength = "100" })
-                </div>
-            </div>
-            <div class="col-sm-6 mb-3">
-                <label>Address<span style="color:red">*</span></label>
-                <div class="relative">
-                    @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @MaxLength = "500" })
-                </div>
-            </div>
-            <div class="col-sm-3  mb-3 h-branch-select">
-                <label>Country<span style="color:red">*</span></label>
-                @*@Html.DropDownListFor(
-                m => m.Country,
-                new SelectList(Model.CountryList, "ID", "NAME"),
-                "Select",
-                new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
-            )*@
-
-                <select id="ddlCountry" class="form-control" onchange="CountryOnChange()"></select>
-            </div>
-            <div class="col-sm-3  mb-3 h-branch-select">
-                <label>State<span style="color:red">*</span></label>
+            <div class="col-md-2 h-branch-select" id="DivHeadBranch">
+                <label>Head Branch</label>
                 <div>
-                    <select id="ddlState" class="form-control" onchange="StateOnChange()"></select>
+                    @*<select id="ddlHeadBranch" class="form-control"></select>*@
+                    @Html.DropDownListFor(m => m.HeadBranchID, new SelectList(Model.HeadBranchList, "ID", "NAME", Model.HeadBranchID), new { @id = "ddlHeadBranch", @class = "form-control" })
+
                 </div>
             </div>
-
-            <div class="col-sm-3  mb-3 h-branch-select">
-                <label>City / District <span style="color:red">*</span></label>
-                <div>
-                    <select id="ddlCity" class="form-control" onchange="CityOnChange()"></select>
-                </div>
+            <div class="col-md-2">
+                <label>Branch<span class="red">*</span></label>
+                @*@Html.Action("GetBranchList", "BranchwiseProductMapping")*@
+                @Html.Action("GetBranchList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
             </div>
-
-            <div class="col-sm-3  mb-3 h-branch-select">
-                <label>PIN<span style="color:red">*</span></label>
-                <div>
-                    <select id="ddlPIN" class="form-control"></select>
-                </div>
+            <div class="col-md-2">
+                <label>Parent Employee</label>
+                @*@Html.Action("GetParentEmployeeList", "BranchwiseProductMapping")*@
+                @Html.Action("GetParentEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
+            </div>
+            <div class="col-md-2">
+                <label>Child Employee</label>
+                @*@Html.Action("GetChildEmployeeList", "BranchwiseProductMapping")*@
+                @Html.Action("GetChildEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
+            </div>
+            <div class="col-md-4">
+                <label>Product</label>
+                @*@Html.Action("GetProductList", "BranchwiseProductMapping")*@
+                @Html.Action("GetProductList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
             </div>
             <div class="clear"></div>
             <div class="mt-4 px-4">
-                @if (Convert.ToInt16(ViewBag.IsView) == 0)
-                {
+                @*@if (ViewBag.CanAdd)
+                {*@
                     <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
-                }
+                @*}*@
                 <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
             </div>
@@ -1359,35 +1388,4 @@
     </div>
 
 </div>
-<input type="hidden" value="" id="hdnAdd" />
-<input type="hidden" value="" id="hdnTARGETLEVELID" />
-<input type="hidden" value="" id="hdnINTERNALID" />
-<input type="hidden" value="" id="hdnLevelGuiIDS" />
-<input type="hidden" value="@Model.branch_ID" id="hdnDetailsID" />
-<!-- Grid Product List -->
-<div class="modal fade pmsModal" id="GridLevellistModel" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Target For</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" onkeydown="GridProductListkeydown(event)" id="txtGridLevelName" autofocus width="100%" placeholder="Search By  Name" />
-                <div id="GridTargetTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th> Name</th>
-                            <th> Code</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-cancel" data-dismiss="modal" onclick="SetFocusDesc()">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Grid Product List-->
+<input type="hidden" value="@Model.PRODUCTBRANCHMAP_ID" id="hdnDetailsID" />
