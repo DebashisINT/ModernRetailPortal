@@ -42,7 +42,7 @@
         column.FieldName = "SEQ";
         column.Caption = "Sr. No\r\n";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
-        column.Width = 96;
+        column.Width = 60;
         column.VisibleIndex = 1;
     });
     settings.Columns.Add(column =>
@@ -51,6 +51,7 @@
         column.Caption = "Store Name";
         column.VisibleIndex = 2;
         column.Width = System.Web.UI.WebControls.Unit.Pixel(250);
+        column.Width = 300;
     });
 
     
@@ -73,8 +74,8 @@
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-        column.Width = 100;
-
+        column.Width = 150;
+        column.VisibleIndex = 4;
     });
 
     settings.Columns.Add(column =>
@@ -83,8 +84,8 @@
         column.Caption = "Created By";
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width = 100;
-
+        column.Width = 150;
+        column.VisibleIndex = 5;
     });
 
     settings.Columns.Add(column =>
@@ -94,8 +95,8 @@
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-        column.Width = 100;
-
+        column.Width = 150;
+        column.VisibleIndex = 6;
     });
 
     settings.Columns.Add(column =>
@@ -104,8 +105,8 @@
         column.Caption = "Modified By";
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width = 100;
-
+        column.Width = 150;
+        column.VisibleIndex = 7;
     });
 
     settings.Columns.Add(column =>
@@ -125,6 +126,7 @@
         column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         column.Caption = "Action";
+        column.VisibleIndex = 8;
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
 
 
