@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: Modern Retail Info Details.Row: 3,4,5,6,7,11,12,13
+//Purpose: Modern Retail Info Details.Row: 3,4,5,6,7,11,12,13,14,15,16,17,18,19
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -230,6 +230,7 @@ namespace ModernRetailAPI.Models
         public string stock_id { get; set; }
         public string save_date_time { get; set; }
         public string store_id { get; set; }
+        public string remarks { get; set; }
         public List<StockSavelists> product_list { get; set; }
     }
     public class StockSavelists
@@ -264,6 +265,7 @@ namespace ModernRetailAPI.Models
         public string stock_id { get; set; }
         public string save_date_time { get; set; }
         public string store_id { get; set; }
+        public string remarks { get; set; }
         public List<StockProductlists> product_list { get; set; }
     }
     public class StockProductlists
@@ -276,5 +278,115 @@ namespace ModernRetailAPI.Models
         public string uom { get; set; }
         public string mfg_date { get; set; }
         public string expire_date { get; set; }
+    }
+
+    public class OrderInfoSaveInput
+    {
+        public long user_id { get; set; }
+        public string store_id { get; set; }
+        public string order_id { get; set; }
+        public DateTime order_date_time { get; set; }       
+        public decimal order_amount { get; set; }
+        public string order_status { get; set; }
+        public string remarks { get; set; }
+        public List<OrderProductLists> order_details_list { get; set; }
+    }
+
+    public class OrderProductLists
+    {
+        public string order_id { get; set; }
+        public long product_id { get; set; }
+        public decimal qty { get; set; }
+        public decimal rate { get; set; }
+    }
+    public class OrderInfoSaveSaveOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+    public class OrderInfoFetchListsInput
+    {
+        public long user_id { get; set; }
+    }
+    public class OrderInfoFetchListsOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+        public long user_id { get; set; }
+        public List<OrderlistOutput> order_list { get; set; }
+    }
+
+    public class OrderlistOutput
+    {
+        public string store_id { get; set; }
+        public string order_id { get; set; }
+        public string order_date_time { get; set; }
+        public decimal order_amount { get; set; }
+        public string order_status { get; set; }
+        public string remarks { get; set; }
+        public List<OrderProductlists> order_details_list { get; set; }
+    }
+    public class OrderProductlists
+    {
+        public string order_id { get; set; }
+        public long product_id { get; set; }
+        public decimal qty { get; set; }
+        public decimal rate { get; set; }
+    }
+    public class StockImageSaveInput
+    {
+        public string data { get; set; }
+        public HttpPostedFileBase attachments { get; set; }
+    }
+    public class StockImageSaveInputDetails
+    {
+        public long user_id { get; set; }
+        public string stock_id { get; set; }
+    }
+    public class StockImageSaveOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+    public class OrderInfoEditInput
+    {
+        public long user_id { get; set; }
+        public string store_id { get; set; }
+        public string order_id { get; set; }
+        public DateTime order_date_time { get; set; }
+        public decimal order_amount { get; set; }
+        public string order_status { get; set; }
+        public string remarks { get; set; }
+        public List<OrderProductEditLists> order_details_list { get; set; }
+    }
+
+    public class OrderProductEditLists
+    {
+        public string order_id { get; set; }
+        public long product_id { get; set; }
+        public decimal qty { get; set; }
+        public decimal rate { get; set; }
+    }
+    public class OrderInfoEditOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
+    }
+    public class OrderWithProductDetailDeleteInput
+    {
+        public long user_id { get; set; }
+        public string session_token { get; set; }
+        public List<DeleteOrderProductLists> order_delete_list { get; set; }
+    }
+
+    public class DeleteOrderProductLists
+    {
+        public string order_id { get; set; }
+    }
+
+    public class OrderWithProductDetailDeleteOutput
+    {
+        public string status { get; set; }
+        public string message { get; set; }
     }
 }

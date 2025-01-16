@@ -1,6 +1,6 @@
 ﻿#region======================================Revision History=========================================================
 //Written By : Debashis Talukder On 09/12/2024
-//Purpose: Modern Retail Info Details.Row: 3,4,6,7,11,12,13,14
+//Purpose: Modern Retail Info Details.Row: 3,4,6,7,11,12,13,14,15,16,17,18,19
 #endregion===================================End of Revision History==================================================
 
 using System;
@@ -604,6 +604,7 @@ namespace ModernRetailAPI.Controllers
                     sqlcmd.Parameters.AddWithValue("@STOCK_ID", model.stock_id);
                     sqlcmd.Parameters.AddWithValue("@STOCK_CREATEDATE", model.save_date_time);
                     sqlcmd.Parameters.AddWithValue("@STORE_ID", model.store_id);
+                    sqlcmd.Parameters.AddWithValue("@REMARKS", model.remarks);
                     sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
 
                     sqlcmd.CommandType = CommandType.StoredProcedure;
@@ -690,6 +691,7 @@ namespace ModernRetailAPI.Controllers
                                 stock_id = Convert.ToString(ds.Tables[0].Rows[i]["stock_id"]),
                                 save_date_time = Convert.ToString(ds.Tables[0].Rows[i]["save_date_time"]),
                                 store_id = Convert.ToString(ds.Tables[0].Rows[i]["store_id"]),
+                                remarks = Convert.ToString(ds.Tables[0].Rows[i]["remarks"]),
                                 product_list = Poview
                             });
                         }
@@ -703,6 +705,296 @@ namespace ModernRetailAPI.Controllers
                     {
                         omodel.status = "205";
                         omodel.message = "No Data Found.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage OrderInfoSave(OrderInfoSaveInput model)
+        {
+            OrderInfoSaveSaveOutput omodel = new OrderInfoSaveSaveOutput();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    List<OrderProductLists> omodel2 = new List<OrderProductLists>();
+                    foreach (var s2 in model.order_details_list)
+                    {
+                        omodel2.Add(new OrderProductLists()
+                        {
+                            order_id = s2.order_id,
+                            product_id = s2.product_id,
+                            qty = s2.qty,
+                            rate = s2.rate
+                        });
+                    }
+
+                    string JsonXML = XmlConversion.ConvertToXml(omodel2, 0);
+
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "ORDERINFOSAVE");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@STORE_ID", model.store_id);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_ID", model.order_id);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_DATETIME", model.order_date_time);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_AMOUNT", model.order_amount);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_STATUS", model.order_status);
+                    sqlcmd.Parameters.AddWithValue("@REMARKS", model.remarks);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+                    if (dt.Rows.Count > 0 && Convert.ToString(dt.Rows[0][0]) == model.order_id)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Order Saved Successfully.";
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "Data not Saved.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage OrderInfoFetchLists(OrderInfoFetchListsInput model)
+        {
+            OrderInfoFetchListsOutput omodel = new OrderInfoFetchListsOutput();
+            List<OrderlistOutput> Ordview = new List<OrderlistOutput>();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    DataSet ds = new DataSet();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "ORDERINFOFETCH");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(ds);
+                    sqlcon.Close();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                        {
+                            List<OrderProductlists> Poview = new List<OrderProductlists>();
+                            for (int j = 0; j < ds.Tables[1].Rows.Count; j++)
+                            {
+                                if (Convert.ToString(ds.Tables[0].Rows[i]["order_id"]) == Convert.ToString(ds.Tables[1].Rows[j]["order_id"]))
+                                {
+                                    Poview.Add(new OrderProductlists()
+                                    {
+                                        order_id = Convert.ToString(ds.Tables[1].Rows[j]["order_id"]),
+                                        product_id = Convert.ToInt64(ds.Tables[1].Rows[j]["product_id"]),
+                                        qty = Convert.ToDecimal(ds.Tables[1].Rows[j]["qty"]),
+                                        rate = Convert.ToDecimal(ds.Tables[1].Rows[j]["rate"])
+                                    });
+                                }
+                            }
+
+                            Ordview.Add(new OrderlistOutput()
+                            {
+                                store_id = Convert.ToString(ds.Tables[0].Rows[i]["store_id"]),
+                                order_id = Convert.ToString(ds.Tables[0].Rows[i]["order_id"]),
+                                order_date_time = Convert.ToString(ds.Tables[0].Rows[i]["order_date_time"]),
+                                order_amount = Convert.ToDecimal(ds.Tables[0].Rows[i]["order_amount"]),
+                                order_status = Convert.ToString(ds.Tables[0].Rows[i]["order_status"]),
+                                remarks = Convert.ToString(ds.Tables[0].Rows[i]["remarks"]),
+                                order_details_list = Poview
+                            });
+                        }
+
+                        omodel.status = "200";
+                        omodel.message = "Successfully Get List.";
+                        omodel.user_id = model.user_id;
+                        omodel.order_list = Ordview;
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "No Data Found.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage OrderWithProductDetailEdit(OrderInfoEditInput model)
+        {
+            OrderInfoEditOutput omodel = new OrderInfoEditOutput();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    List<OrderProductEditLists> omodel2 = new List<OrderProductEditLists>();
+                    foreach (var s2 in model.order_details_list)
+                    {
+                        omodel2.Add(new OrderProductEditLists()
+                        {
+                            order_id = s2.order_id,
+                            product_id = s2.product_id,
+                            qty = s2.qty,
+                            rate = s2.rate
+                        });
+                    }
+
+                    string JsonXML = XmlConversion.ConvertToXml(omodel2, 0);
+
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "ORDEREDIT");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@STORE_ID", model.store_id);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_ID", model.order_id);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_DATETIME", model.order_date_time);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_AMOUNT", model.order_amount);
+                    sqlcmd.Parameters.AddWithValue("@ORDER_STATUS", model.order_status);
+                    sqlcmd.Parameters.AddWithValue("@REMARKS", model.remarks);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+                    if (dt.Rows.Count > 0 && Convert.ToString(dt.Rows[0][0]) == model.order_id)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Order Saved Successfully.";
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "Data not Saved.";
+                    }
+                    var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                    return message;
+                }
+            }
+            catch (Exception ex)
+            {
+                omodel.status = "204";
+                omodel.message = ex.Message;
+                var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
+                return message;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage OrderWithProductDetailDelete(OrderWithProductDetailDeleteInput model)
+        {
+            OrderWithProductDetailDeleteOutput omodel = new OrderWithProductDetailDeleteOutput();
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    omodel.status = "213";
+                    omodel.message = "Some input parameters are missing.";
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, omodel);
+                }
+                else
+                {
+                    List<DeleteOrderProductLists> omodel2 = new List<DeleteOrderProductLists>();
+                    foreach (var s2 in model.order_delete_list)
+                    {
+                        omodel2.Add(new DeleteOrderProductLists()
+                        {
+                            order_id = s2.order_id
+                        });
+                    }
+
+                    string JsonXML = XmlConversion.ConvertToXml(omodel2, 0);
+
+                    DataTable dt = new DataTable();
+                    String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
+                    SqlCommand sqlcmd = new SqlCommand();
+                    SqlConnection sqlcon = new SqlConnection(con);
+                    sqlcon.Open();
+                    sqlcmd = new SqlCommand("PRC_MDRINFODETAILS", sqlcon);
+                    sqlcmd.Parameters.AddWithValue("@ACTION", "ORDERDELETE");
+                    sqlcmd.Parameters.AddWithValue("@USER_ID", model.user_id);
+                    sqlcmd.Parameters.AddWithValue("@JsonXML", JsonXML);
+
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+                    da.Fill(dt);
+                    sqlcon.Close();
+                    if (dt.Rows.Count > 0)
+                    {
+                        omodel.status = "200";
+                        omodel.message = "Order Deleted Successfully.";
+                    }
+                    else
+                    {
+                        omodel.status = "205";
+                        omodel.message = "Data not found.";
                     }
                     var message = Request.CreateResponse(HttpStatusCode.OK, omodel);
                     return message;
