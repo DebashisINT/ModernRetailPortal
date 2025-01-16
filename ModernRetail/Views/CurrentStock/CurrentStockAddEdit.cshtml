@@ -1441,7 +1441,7 @@
 
                     // ExpDate
                     if (response.ExpDate != "" && response.ExpDate != "01-01-1900") {
-                        var d = new Date(data.ExpDate);
+                        var d = new Date(response.ExpDate);
                         dtExpDate.SetDate(d);
 
                         //var partsEXP = response.ExpDate.split("-");
