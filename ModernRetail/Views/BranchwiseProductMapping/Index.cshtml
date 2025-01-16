@@ -1112,6 +1112,7 @@
     }
     if (urlKeys.key != 'Add') {
         ID = urlKeys.key;
+        $("#hdnAdd").val(ID);
         $("#hdnDetailsID").val(ID);
         if (ID != 0) {
             @*$.ajax({
@@ -1148,7 +1149,7 @@
     });
     function EntrySave(mode) {
     document.getElementById("loading-overlay").style.display = "block";
-    $("#hdnDetailsID").val("0");
+    $("#hdnAdd").val("0");
     savemode = mode;
     hasmsg = 0;
 
@@ -1390,3 +1391,4 @@
 
 </div>
 <input type="hidden" value="@Model.PRODUCTBRANCHMAP_ID" id="hdnDetailsID" />
+<input type="hidden" value="" id="hdnAdd" />

@@ -543,6 +543,7 @@ namespace ModernRetail.Controllers
                 sqlcmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDETAILS");
                 sqlcmd.Parameters.AddWithValue("@UserId", Userid);
                 sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_PageLoad);
+                sqlcmd.Parameters.AddWithValue("@PRODUCTID", model.PRODUCT_IDS); 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
