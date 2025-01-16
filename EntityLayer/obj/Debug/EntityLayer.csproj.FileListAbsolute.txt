@@ -34,3 +34,9 @@ D:\PROJECTS\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.csproj.Assembly
 D:\PROJECTS\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.csproj.CoreCompileInputs.cache
 D:\PROJECTS\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.dll
 D:\PROJECTS\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\EntityLayer\bin\Debug\EntityLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\EntityLayer\bin\Debug\EntityLayer.pdb
+D:\GIT\GitHub\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.csproj.AssemblyReference.cache
+D:\GIT\GitHub\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.csproj.CoreCompileInputs.cache
+D:\GIT\GitHub\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.dll
+D:\GIT\GitHub\ModernRetailPortal\EntityLayer\obj\Debug\EntityLayer.pdb
