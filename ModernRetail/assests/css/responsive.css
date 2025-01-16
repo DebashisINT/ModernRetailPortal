@@ -591,9 +591,16 @@
     }
 
     .dxeButtonEdit_PlasticBlue {
-        width: 60% !important;
+        width: 200px !important;
+    }
+    .action-buttons {
+        left: 275px;
+        right:auto !important;
     }
 
+        .action-buttons .tooltip {
+            display: none;
+        }
     
 
 }
