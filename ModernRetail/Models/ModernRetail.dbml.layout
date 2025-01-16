@@ -68,12 +68,6 @@
         <elementListCompartment Id="aa43d2a7-3be6-4b32-8c6f-03211b088856" absoluteBounds="13.89, 1.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a133d7da-f1b9-4e62-b1f4-d0b64e54a789" isExpanded="false" absoluteBounds="3, 2.75, 2, 0.45">
-      <DataClassMoniker Name="/ModernRetailDataContext/MR_CURRENTSTOCK_LISTING" />
-      <nestedChildShapes>
-        <elementListCompartment Id="347685d6-53ac-4aeb-9246-b75dde3027c1" absoluteBounds="3.015, 3.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="b85b62b9-2aff-4d46-af01-3ff092b1695e" isExpanded="false" absoluteBounds="5.75, 0.625, 2, 0.45">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_MEASUREMENTS_LIST" />
       <nestedChildShapes>
@@ -104,10 +98,16 @@
         <elementListCompartment Id="83e9e35e-e3d9-4669-93f0-2fde83f1696a" absoluteBounds="3.015, 4.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="51ea58d0-779c-4585-ab6c-b737259af9ea" absoluteBounds="5.875, 2.75, 2, 3.8862125651041666">
+    <classShape Id="51ea58d0-779c-4585-ab6c-b737259af9ea" isExpanded="false" absoluteBounds="5.875, 2.75, 2, 0.45">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_PRODUCTBRANCHMAPLIST" />
       <nestedChildShapes>
         <elementListCompartment Id="7267ab64-e8d3-4aa6-a692-47a5e72c7889" absoluteBounds="5.89, 3.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ef3be144-2d77-4d6f-abaa-a068a87caaf6" isExpanded="false" absoluteBounds="3, 2.75, 2, 0.45">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_CURRENTSTOCK_LISTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="79a47bc5-a0e7-40ff-8eda-30c6812d1647" absoluteBounds="3.015, 3.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
