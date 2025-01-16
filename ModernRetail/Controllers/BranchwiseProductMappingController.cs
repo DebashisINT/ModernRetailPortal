@@ -208,10 +208,10 @@ namespace ModernRetail.Controllers
                
                 DataSet output = objdata.FETCHBRANCHMAP("FETCHBRANCHMAP", values.PRODUCTBRANCHMAP_ID);
               
-                if (output != null && output.Tables[5].Rows.Count > 0)
+                if (output != null && output.Tables[0].Rows.Count > 0)
                 {
 
-                    foreach (DataRow row in output.Tables[5].Rows)
+                    foreach (DataRow row in output.Tables[0].Rows)
                     {
                         dataobj = new GetBranchList();
                         dataobj.branch_id = Convert.ToInt64(row["branch_id"]);
@@ -291,10 +291,10 @@ namespace ModernRetail.Controllers
 
                 DataSet output = objdata.FETCHBRANCHMAP("FETCHBRANCHMAP", values.PRODUCTBRANCHMAP_ID);
 
-                if (output != null && output.Tables[5].Rows.Count > 0)
+                if (output != null && output.Tables[0].Rows.Count > 0)
                 {
 
-                    foreach (DataRow row in output.Tables[5].Rows)
+                    foreach (DataRow row in output.Tables[0].Rows)
                     {
                         dataobj = new GetParentEmployeeList();
                         dataobj.USER_ID = Convert.ToInt64(row["PARENTEMP_USERID"]);
@@ -383,10 +383,10 @@ namespace ModernRetail.Controllers
 
                 DataSet output = objdata.FETCHBRANCHMAP("FETCHBRANCHMAP", values.PRODUCTBRANCHMAP_ID);
 
-                if (output != null && output.Tables[5].Rows.Count > 0)
+                if (output != null && output.Tables[0].Rows.Count > 0)
                 {
 
-                    foreach (DataRow row in output.Tables[5].Rows)
+                    foreach (DataRow row in output.Tables[0].Rows)
                     {
                         dataobj = new GetParentEmployeeList();
                         dataobj.USER_ID = Convert.ToInt64(row["CHILDEMP_USERID"]);
@@ -462,10 +462,10 @@ namespace ModernRetail.Controllers
                 GetProductList dataobj = new GetProductList();
                 DataSet output = objdata.FETCHBRANCHMAP("FETCHBRANCHMAP", values.PRODUCTBRANCHMAP_ID);
 
-                if (output != null && output.Tables[6].Rows.Count > 0)
+                if (output != null && output.Tables[1].Rows.Count > 0)
                 {
 
-                    foreach (DataRow row in output.Tables[6].Rows)
+                    foreach (DataRow row in output.Tables[1].Rows)
                     {
                         dataobj = new GetProductList();
                         dataobj.SPRODUCTS_ID = Convert.ToInt64(row["PRODUCT_ID"]);
@@ -728,6 +728,13 @@ namespace ModernRetail.Controllers
             
             return Json(returnMsg);
 
+        }
+
+        public JsonResult Delete(string ID)
+        {
+            int output = 0;
+            output = objdata.Delete(ID);
+            return Json(output, JsonRequestBehavior.AllowGet);
         }
 
     }

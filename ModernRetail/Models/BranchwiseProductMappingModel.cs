@@ -95,13 +95,13 @@ namespace ModernRetail.Models
             }
         }
 
-        public int DeleteBranch(string ID)
+        public int Delete(string ID)
         {
             int i;
             int rtrnvalue = 0;
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_BRANCHWISEPRODUCTMAPPING");
             proc.AddNVarcharPara("@action", 50, "DELETE");
-            proc.AddBigIntegerPara("@BRANCH_ID", Convert.ToInt64(ID));
+            proc.AddBigIntegerPara("@PRODUCTBRANCHMAP_ID", Convert.ToInt64(ID));
             proc.AddVarcharPara("@ReturnValue", 200, "0", QueryParameterDirection.Output);
             i = proc.RunActionQuery();
             rtrnvalue = Convert.ToInt32(proc.GetParaValue("@ReturnValue"));
