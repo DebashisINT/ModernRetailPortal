@@ -1,6 +1,6 @@
 ﻿
 @using ModernRetail.Models;
-@model ModernRetail.Models.CurrentStockImportLogModel
+@model ModernRetail.Models.CurrentStockModel
 @{
     ViewBag.Title = "Current Stock";
 }
@@ -1229,12 +1229,12 @@
 
     function DownloadFormat()
     {
-        var url = '@Url.Action("DownloadFormat", "CurrentStockRegister")'
+        var url = '@Url.Action("DownloadFormat", "CurrentStock")'
         window.location.href = url;
     }
 
     function ImportCurrentStockPopOpen() {
-        $("#myImportModal").modal('show');
+        $("#myImportModal").modal("show");
     }
 
     function ClickToImportCurrentStock() {
@@ -1288,7 +1288,7 @@
 
 
             $.ajax({
-                url: "@Url.Action("ImportExcel", "CurrentStockRegister")",
+                url: "@Url.Action("ImportExcel", "CurrentStock")",
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -1301,7 +1301,7 @@
                         GridShow();
                         $.ajax({
                             type: "POST",
-                            url: "@Url.Action("CurrentStockImportLog", "CurrentStockRegister")",
+                            url: "@Url.Action("CurrentStockImportLog", "CurrentStock")",
                             success: function (response) {
                                 if (response) {
                                     pcModalCurrentStockImportLogMode.Show();
@@ -1336,7 +1336,7 @@
 
 
     function CurrentStockImportUserLog() {
-        var url = '/CurrentStockRegister/CurrentStockImportManualLog/';
+        var url = '/CurrentStock/CurrentStockImportManualLog/';
         $.ajax({
             type: "POST",
             url: url,
@@ -1349,7 +1349,7 @@
                 if (response == "True") {
                     $.ajax({
                         type: "POST",
-                        url: "@Url.Action("CurrentStockImportLog", "CurrentStockRegister")",
+                        url: "@Url.Action("CurrentStockImportLog", "CurrentStock")",
                         success: function (response) {
                             if (response) {
                                 pcModalCurrentStockImportLogMode.Show();
@@ -1373,9 +1373,6 @@
             }
         });
     }
-
-
-
 
     function GridShow() {
         //GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeId").val());
@@ -1421,369 +1418,9 @@
         document.getElementById("loading-overlay").style.display = "none";
         /*document.getElementById("grid-container").classList.remove("blur");*/
     }
-
-
-    // Store Name
-    function StoreButnClick(s, e) {
-        $('#StoreSearchModel').modal('show');
-        $("#txtStoreSearch").focus();
-    }
-
-    function Store_KeyDown(s, e) {
-        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
-            $('#StoreSearchModel').modal('show');
-            $("#txtStoreSearch").focus();
-        }
-    }
-
-    function Storekeydown(e) {
-        var OtherDetails = {}
-        if ($.trim($("#txtStoreSearch").val()) == "" || $.trim($("#txtStoreSearch").val()) == null) {
-            return false;
-        }
-        OtherDetails.SearchKey = $("#txtStoreSearch").val();
-
-        if (e.code == "Enter" || e.code == "NumpadEnter") {
-            var HeaderCaption = [];
-            HeaderCaption.push("Store Name");
-            HeaderCaption.push("Store Type");
-
-            if ($("#txtStoreSearch").val() != "") {
-                callonServer("../../../Models/MRService.asmx/GetStoreList", OtherDetails, "StoreTable", HeaderCaption, "StoreIndex", "SetStore");
-            }
-        }
-        else if (e.code == "ArrowDown") {
-            if ($("input[ShopIndex=0]"))
-                $("input[ShopIndex=0]").focus();
-        }
-    }
-
-    function SetStore(id, Name) {
-        var key = id;
-        $('#hdnStoreCode').val(id)
-        if (key != null && key != '') {
-            $('#StoreSearchModel').modal('hide');
-            StoreNameTxt.SetText(Name);
-            StoreNameTxt.SetFocus();
-        }
-    }
-
-    // End Stoe Name
-
-    // Product Name
-    function ProductButnClick(s, e) {
-        $('#ProductSearchModel').modal('show');
-        $("#txtProductSearch").focus();
-    }
-
-    function Product_KeyDown(s, e) {
-        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
-            $('#ProductSearchModel').modal('show');
-            $("#txtProductSearch").focus();
-        }
-    }
-
-    function Productkeydown(e) {
-        var OtherDetails = {}
-        if ($.trim($("#txtProductSearch").val()) == "" || $.trim($("#txtProductSearch").val()) == null) {
-            return false;
-        }
-        OtherDetails.SearchKey = $("#txtProductSearch").val();
-
-        if (e.code == "Enter" || e.code == "NumpadEnter") {
-            var HeaderCaption = [];
-            HeaderCaption.push("Product Code");
-            HeaderCaption.push("Product Name");
-
-            if ($("#txtProductSearch").val() != "") {
-                callonServer("../../../Models/MRService.asmx/GetProductList", OtherDetails, "ProductTable", HeaderCaption, "ProductIndex", "SetProduct");
-            }
-        }
-        else if (e.code == "ArrowDown") {
-            if ($("input[ProductIndex=0]"))
-                $("input[ProductIndex=0]").focus();
-        }
-    }
-
-    function SetProduct(id, Name) {
-        var key = id;
-        $('#hdnProductID').val(id)
-        if (key != null && key != '') {
-            $.ajax({
-                type: "post",
-                url: "@Url.Action("GetProductUOM", "CurrentStockRegister")",
-                data: { productid: $('#hdnProductID').val() },
-                datatype: "json",
-                traditional: true,
-                success: function (data) {
-                    if (data.length > 0) {
-                        $("#txtUOM").val(data[0].UOM_NAME);
-                        $('#hdnUOMID').val(data[0].UOM_ID);
-
-                        $('#ProductSearchModel').modal('hide');
-                        ProductNameTxt.SetText(Name);
-                        ProductNameTxt.SetFocus();
-                    }
-
-                }
-            });
-            
-        }
-    }
-
-    // End Product Name
-
-    function ClearData() {
-        $("#ddlBranch").val('0');
-        $('#hdnStoreCode').val('0');
-        $('#hdnProductID').val('0');
-        $('#txtQuantity').val('');
-        dtCurrentStockDate.Clear();
-        dtMfgDate.Clear();
-        dtExpDate.Clear();
-        $('#txtUOM').val('');
-        $('#hdnUOMID').val('0');
-        $("#txtExpSalesValue").val('');
-        ProductNameTxt.SetText('');
-        StoreNameTxt.SetText('');
-
-        $("#txtProductSearch").val('');
-        $("#txtStoreSearch").val('');
-
-
-        var txt = "<table border = '1' width = '100%' class='dynamicPopupTbl' > <tr class='HeaderStyle'> <th class='hide'>id</th><th class='StoreIndex_0'>Store Name</th><th class='ShopIndex_3'>Store Type</th></table>"
-        document.getElementById("StoreTable").innerHTML = txt;
-
-        txt = "<table border = '1' width = '100%' class='dynamicPopupTbl' > <tr class='HeaderStyle'> <th class='hide'>id</th><th class='ProductIndex_0'>Product Code</th><th class='ProductIndex_1'>Product Name</th></table>"
-        document.getElementById("ProductTable").innerHTML = txt;
-    }
-
-    function AddCurrentStock() {
-        ClearData();
-
-        $('#hdnAddEditMode').val('ADDCURRENTSTOCK');
-        $('#hdnStockId').val('0');
-
-        $('#myModal').modal('show');
-
-    }
-
-    function SaveCurrentStock(mode)
-    {
-        if (dtCurrentStockDate.GetText() == "" || dtCurrentStockDate.GetText() == "01-01-0100" || dtCurrentStockDate.GetText() == null
-            || dtCurrentStockDate.GetText() == undefined) {
-
-            //jAlert("Please enter valid Current Stock Date. Current Stock Date should be greater than or equal to current system date.", "Alert", function () {
-            //    setTimeout(function () {
-            //        $("#dtCurrentStockDate").focus();
-            //        return
-            //    }, 200);
-            //});
-
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'Please enter valid Current Stock Date. Current Stock Date should be greater than or equal to current system date.'
-            });
-
-            $("#dtCurrentStockDate").focus();
-            return;
-        }
-
-        if ($("#ddlBranch").val() == "" || $("#ddlBranch").val() == "0" || $("#ddlBranch").val() == null || $("#ddlBranch").val() == undefined) {
-            //jAlert("Please select Branch.", "Alert", function () {
-            //    setTimeout(function () {
-            //        $("#ddlBranch").focus();
-            //        return
-            //    }, 200);
-            //});
-
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'Please select Branch.'
-            });
-
-            $("#ddlBranch").focus();
-            return;
-        }
-
-
-        if ($("#hdnStoreCode").val() == "" || $("#hdnStoreCode").val() == "0" || $("#hdnStoreCode").val() == null || $("#hdnStoreCode").val() == undefined) {
-            //jAlert("Please select Shop.", "Alert", function () {
-            //    setTimeout(function () {
-            //        $("#ShopNameText").focus();
-            //        return
-            //    }, 200);
-            //});
-
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'Please select Shop.'
-            });
-
-            $("#ShopNameText").focus();
-            return;
-        }
-
-
-        if ($("#hdnProductID").val() == "" || $("#hdnProductID").val() == "0" || $("#hdnProductID").val() == null || $("#hdnProductID").val() == undefined) {
-            //jAlert("Please select Product.", "Alert", function () {
-            //    setTimeout(function () {
-            //        $("#ProductNameText").focus();
-            //        return
-            //    }, 200);
-            //});
-
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'Please select Product.'
-            });
-
-            $("#ProductNameText").focus();
-            return;
-        }
-
-
-        if ($("#txtQuantity").val() == "" || $("#txtQuantity").val() == "0" || $("#txtQuantity").val() == null || $("#txtQuantity").val() == undefined) {
-            //jAlert("Please enter Quantity.", "Alert", function () {
-            //    setTimeout(function () {
-            //        $("#txtQuantity").focus();
-            //        return
-            //    }, 200);
-            //});
-
-            Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'Please enter Quantity.'
-            });
-
-            $("#txtQuantity").focus();
-            return;
-        }
-
-        var action = $("#hdnAddEditMode").val();
-
-        var data = {
-            Action: action,
-            StockId: $('#hdnStockId').val(),
-            BranchID: $("#ddlBranch").val(),
-            StoreCode: $("#hdnStoreCode").val(),
-            ProductID: $("#hdnProductID").val(),
-            CurrentStockDate: dtCurrentStockDate.GetText(),
-            UOMid: $("#hdnUOMID").val(),
-            MfgDate: dtMfgDate.GetText(),
-            ExpDate: dtExpDate.GetText(),
-            Quantity: $("#txtQuantity").val()
-        }
-
-        $.ajax({
-            url: "@Url.Action("SaveCurrentStock", "CurrentStockRegister")",
-            async: false,
-            data: { data: data },
-            type: 'POST',
-            success: function (returnValue
-                ) {
-                if (returnValue == "Duplicate") {
-                    //jAlert("Data exists with this Shop and Product.");
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Sorry!',
-                        text: 'Data exists with this Shop and Product.'
-                    });
-                }
-                else if (returnValue == "Success") {
-                    //jAlert("Current Stock submitted successfully.");
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Current Stock saved successfully.'
-                    }).then(() => {
-                        ClearData();
-                        if (mode == "Exit") {
-                            $('#myModal').modal('hide');
-                        }
-                    });
-                    //GridShow();
-                }
-                else {
-                    //jAlert(returnValue);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Sorry!',
-                        text: returnValue
-                    });
-                }
-            },
-            error: function () {
-            },
-        });
-
-    }
-
-    function OpenCurrentStockforEdit(stockid) {
-        var x = "";
-        var dt = "";
-
-        $.ajax({
-            url: "@Url.Action("EditCurrentStock", "CurrentStockRegister")",
-            async: false,
-            data: { stockid: stockid },
-            type: 'POST',
-            success: function (data) {
-
-                $("#btnSaveExit").removeClass('hide');  // Show Save & Exit
-                $("#btnSaveNew").addClass('hide'); // Hide Save & New
-
-                $("#hdnAddEditMode").val('MODIFYCURRENTSTOCK');
-                $("#myModalLabel").text("Edit Current Stock");
-                $('#hdnStockId').val(stockid);
-
-                $("#ddlBranch").val(data.BranchID);
-                $('#hdnStoreCode').val(data.ShopCode);
-                $('#hdnProductID').val(data.ProductID);
-                $("#txtQuantity").val(data.Quantity);
-                ProductNameTxt.SetText(data.ProductName);
-                StoreNameTxt.SetText(data.ShopName);
-                txtUOM.SetText(data.UOM);
-                $('#hdnUOMID').val(data.UOMID);
-
-                if (data.CurrentStockDate != "") {
-                    var d = new Date(data.CurrentStockDate);
-                    dtCurrentStockDate.SetDate(d);
-                }
-                else {
-                    dtCurrentStockDate.Clear();
-                }
-
-                if (data.MfgDate != "") {
-                    var d = new Date(data.MfgDate);
-                    dtMfgDate.SetDate(d);
-                }
-                else {
-                    dtMfgDate.Clear();
-                }
-
-                if (data.ExpDate != "") {
-                    var d = new Date(data.ExpDate);
-                    dtExpDate.SetDate(d);
-                }
-                else {
-                    dtExpDate.Clear();
-                }
-
-                $('#myModal').modal('show');
-            },
-            error: function () {
-            },
-        });
-    }
-
+    
     function OnClickDeleteCurrentStock(stockid) {
-        var url = '/CurrentStockRegister/DeleteCurrentStock/';
+        var url = '/CurrentStock/DeleteCurrentStock/';
 
         //jConfirm("Confirm Delete?", "Confirmation Dialog", function (ret) {
         Swal.fire({
@@ -1889,7 +1526,7 @@
                     //var desg = $("#drpdesignation").val();
                     //var usrtype = $("#ddlusertypes").val();
                     $('#ddlAppIds').prop("selectedIndex", 0);
-                    var url = '@Url.Action("ExporRegisterList", "CurrentStockRegister", new { type = "_type_" })'
+                    var url = '@Url.Action("ExporRegisterList", "CurrentStock", new { type = "_type_" })'
                     window.location.href = url.replace("_type_", selectedValue);
                 }
             });
@@ -1899,47 +1536,22 @@
 
     });
 
-
-    $(document).ready(function () {
-        $('#txtQuantity').on('input', function () {
-            var inputValue = $(this).val().replace(/[^0-9.]/g, ''); // Remove non-numeric characters except for the dot
-            var parts = inputValue.split('.');
-
-            // Allow up to 15 digits before the decimal
-            if (parts[0].length > 11) {
-                parts[0] = parts[0].substring(0, 11);
-            }
-
-            // Limit decimals to 2
-            if (parts[1] && parts[1].length > 2) {
-                parts[1] = parts[1].substring(0, 2);
-            }
-
-            // Combine the integer and decimal parts with only one decimal point
-            var sanitizedValue = parts.length > 1 ? parts[0] + '.' + parts.slice(1).join('') : parts[0];
-            $(this).val(sanitizedValue);
-        });
-    });
-
-    $(document).ready(function () {
-        $('#StoreSearchModel').on('shown.bs.modal', function () {
-            $('#txtStoreSearch').focus();
-        });
-
-        $('#ProductSearchModel').on('shown.bs.modal', function () {
-            $('#txtProductSearch').focus();
-        });
-    });
-
+        
     function gridRowclick(s, e) {
         $('#gridCurrentStock').find('tr').removeClass('rowActive');
-
 
         $(s.GetRow(e.visibleIndex)).addClass('rowActive');
 
     }
 
+    function AddCurrentStock() {
+        $("#hdnStockID").val('0');
+        var url = '/CurrentStock/CurrentStockAddEdit?key=Add';
+        window.location.href = url;
+    }
+
 </script>
+
 
 <div class="breadCumb">
     <span>Current Stock</span>
@@ -1962,7 +1574,7 @@
                         <!-- Button trigger modal -->
                         @*@if (ViewBag.CanAdd)
                         {*@
-                            <button type="button" class="btn btn-success add-btn add-new-btn" data-toggle="modal" data-backdrop="static" data-keyboard="false" onclick="AddCurrentStock();">
+                            <button type="button" class="btn btn-success add-btn add-new-btn" data-backdrop="static" data-keyboard="false" onclick="AddCurrentStock();">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Add
                             </button>
                         @*}*@
@@ -2021,7 +1633,7 @@
                 <div class="scrooler">
                     <div id="refreshgrid">
                         @{
-                            Html.RenderAction("PartialCurrentStockGridList", "CurrentStockRegister", new { Is_PageLoad = "Ispageload" });
+                            Html.RenderAction("PartialCurrentStockGridList", "CurrentStock", new { Is_PageLoad = "Ispageload" });
                         }
                     </div>
                 </div>
@@ -2061,6 +1673,8 @@
     </div>
 </div>
 
+<input type="hidden" id="hdnStockID" />
+
 @Html.DevExpress().PopupControl(
     settings =>
     {
@@ -2080,7 +1694,7 @@
         settings.PopupVerticalAlign = PopupVerticalAlign.Above;
         settings.SetContent(() =>
         {
-            Html.RenderPartial("CurrentStockImportLog", new List<CurrentStockImportLogModel>());
+            Html.RenderPartial("CurrentStockImportLog", new List<CurrentStockModel>());
            // ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportImportLogGrid();'>Export</button>");
         });
 
@@ -2113,226 +1727,4 @@
         }).GetHtml()
 
 
-<div class="modal fade pmsModal w70 font-pp modalScroll" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ClearData();"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Add Current Stock</h4>
-            </div>
-            @*<input type="hidden" id="hdnStoreCode" value="" />*@
-            <div class="modal-body inputShrink">
-                <div class="row">
 
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-4 mb-10">
-                                <label>Current Stock Date<em style="color: red">*</em></label>
-                                <div class="date-select">
-                                    @Html.DevExpress().DateEditFor(x => x.CurrentStockDate,
-                                   deSettings =>
-                                   {
-                                       deSettings.Name = "dtCurrentStockDate";
-                                       deSettings.Date = DateTime.Now;
-                                       deSettings.Properties.UseMaskBehavior = true;
-                                       deSettings.Properties.EditFormat = EditFormat.Custom;
-                                       deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                       deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                       deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                       deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
-                                   }).GetHtml()
-
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-md-4 mb-10">
-                                <label>Store<em style="color: red">*</em></label>
-                                <div>
-                                    @Html.DevExpress().ButtonEdit(
-                                    settings =>
-                                    {
-                                        settings.Name = "StoreNameTxt";
-                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                        settings.Text = Model.ShopName;
-                                        settings.ReadOnly = true;
-                                        settings.Properties.Buttons.Add("...");
-                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){StoreButnClick(s,e);}";
-                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Store_KeyDown(s,e);}";
-
-                                    }).GetHtml()
-
-                                    @*<input type="hidden" id="hdnUserID" value="@Model.NewUserid">*@
-                                    <input type="hidden" id="hdnStoreCode" value="@Model.StoreId">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div class="row">
-                            <div class="col-md-4 mb-10">
-                                <label>Product<em style="color: red">*</em></label>
-                                <div>
-                                    @Html.DevExpress().ButtonEdit(
-                                    settings =>
-                                    {
-                                        settings.Name = "ProductNameTxt";
-                                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                        settings.Text = Model.ProductName;
-                                        settings.ReadOnly = true;
-                                        settings.Properties.Buttons.Add("...");
-                                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){ProductButnClick(s,e);}";
-                                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Product_KeyDown(s,e);}";
-
-                                    }).GetHtml()
-
-                                    <input type="hidden" id="hdnProductID" value="@Model.ProductId">
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-4 mb-10">
-                                <label>Quantity<em style="color: red">*</em></label>
-                                <div>
-                                    @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control ", @id = "txtQuantity", type = "text" })
-                                    @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class=" col-sm-3 mb-3">
-                                <label>UOM<span style="color:red">*</span></label>
-                                <div class="relative">
-                                    @Html.TextBoxFor(m => m.UOM, new { @class = "form-control", @id = "txtUOM", @readonly = "readonly" })
-
-                                    <input type="hidden" id="hdnUOMID">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-10">
-                                <label>Mfg. Date<em style="color: red">*</em></label>
-                                <div class="date-select">
-                                    @Html.DevExpress().DateEditFor(x => x.MfgDate,
-                                   deSettings =>
-                                   {
-                                       deSettings.Name = "dtMfgDate";
-                                       deSettings.Date = DateTime.Now;
-                                       deSettings.Properties.UseMaskBehavior = true;
-                                       deSettings.Properties.EditFormat = EditFormat.Custom;
-                                       deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                       deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                       deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                       deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
-                                   }).GetHtml()
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-10">
-                                <label>Exp. Date<em style="color: red">*</em></label>
-                                <div class="date-select">
-                                    @Html.DevExpress().DateEditFor(x => x.ExpDate,
-                                   deSettings =>
-                                   {
-                                       deSettings.Name = "dtExpDate";
-                                       deSettings.Date = DateTime.Now;
-                                       deSettings.Properties.UseMaskBehavior = true;
-                                       deSettings.Properties.EditFormat = EditFormat.Custom;
-                                       deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                       deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                       deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                       deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
-                                   }).GetHtml()
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="scrooler">
-                        <div id="refreshgrid">
-                            @{
-                                Html.RenderAction("GetProductEntryList", "CurrentStockRegister");
-                            }
-                        </div>
-                    </div>
-                    
-                    <div class="clear"></div>
-
-                </div>
-
-
-            </div>
-
-            <div class="modal-footer">
-                <div class="mt-15 ml-n15">
-                    <button type="button" id="btnSaveExit" class="btn btn-success mr-2" onclick="SaveCurrentStock('Exit');">Save & Exit</button>
-                    <button type="button" class="btn btn-danger mr-2" data-dismiss="modal" onclick="ClearData();">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<input type="hidden" id="hdnAddEditMode" />
-<input type="hidden" id="hdnStockId" />
-
-<div class="modal fade pmsModal w70" id="StoreSearchModel" role="dialog" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog w-50">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Store Search</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" onkeydown="Storekeydown(event)" id="txtStoreSearch" autofocus style="width:100%" placeholder="Search By Store Name" />
-                <div id="StoreTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>Store Name</th>
-                            <th>Store Type</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade pmsModal" id="ProductSearchModel" role="dialog" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog w-50">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Product Search</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" onkeydown="Productkeydown(event)" id="txtProductSearch" autofocus style="width:100%" placeholder="Search By Product Code or Name" />
-                <div id="ProductTable">
-                    <table border='1' width="100%" class="dynamicPopupTbl">
-                        <tr class="HeaderStyle">
-                            <th class="hide">id</th>
-                            <th>Product Code</th>
-                            <th>Product Name</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
