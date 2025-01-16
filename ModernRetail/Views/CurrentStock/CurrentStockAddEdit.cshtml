@@ -1088,6 +1088,42 @@
         return vars;
     }
 
+    if (urlKeys.key != 'Add') {
+        ID = urlKeys.key;
+        $("#hdnAdd").val(ID);
+        if (ID != 0) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EditCurrentStock", "CurrentStock")",
+                data: { stock_id: ID },
+                success: function (response) {
+                    if (response.stock_id == "") {
+                        jAlert('No data found');
+                    }
+                    else {
+                        var d = new Date(response.CurrentStockDate);
+                        dtCurrentStockDate.SetDate(d);
+
+                        $("#hdnAddEditMode").val('MODIFYCURRENTSTOCK');
+
+                        $('#hdnStoreCode').val(response.StoreId);
+                        StoreNameTxt.SetText(response.StoreName);
+
+                        $('#hdnStockId').val(ID)
+
+                        //gridStockProductEntryList.Refresh();
+                        // gridStockProductEntryList.Refresh();
+
+
+                    }
+                }
+            });
+        }
+    }
+    else {
+        $("#hdnAddEditMode").val('ADDCURRENTSTOCK');
+    }
+
     $(document).ready(function () {
         $('#txtQuantity').on('input', function () {
             var inputValue = $(this).val().replace(/[^0-9.]/g, ''); // Remove non-numeric characters except for the dot
@@ -1230,21 +1266,21 @@
     // End Product Name
 
     function ClearData() {
-        //$("#hdnLevelGuiIDS").val('');
+        $("#hdnLevelGuiIDS").val('');
         //dtCurrentStockDate.Clear();
         //$('#hdnStoreCode').val('0');
         //StoreNameTxt.SetText('');
 
         $('#hdnProductID').val('0');
         $('#txtQuantity').val('');
-        
+
         dtMfgDate.Clear();
         dtExpDate.Clear();
         $('#txtUOM').val('');
         $('#hdnUOMID').val('0');
         $("#txtExpSalesValue").val('');
         ProductNameTxt.SetText('');
-        
+
 
         $("#txtProductSearch").val('');
         $("#txtStoreSearch").val('');
@@ -1290,7 +1326,7 @@
                 text: 'Please select Store.'
             });
 
-            $("#ShopNameText").focus();
+            $("#StoreNameText").focus();
             return;
         }
 
@@ -1303,32 +1339,6 @@
             });
             return false;
         }
-
-
-        //if ($("#hdnProductID").val() == "" || $("#hdnProductID").val() == "0" || $("#hdnProductID").val() == null || $("#hdnProductID").val() == undefined) {
-
-        //    Swal.fire({
-        //        icon: 'warning',
-        //        title: 'Warning',
-        //        text: 'Please select Product.'
-        //    });
-
-        //    $("#ProductNameText").focus();
-        //    return;
-        //}
-
-
-        //if ($("#txtQuantity").val() == "" || $("#txtQuantity").val() == "0" || $("#txtQuantity").val() == null || $("#txtQuantity").val() == undefined) {
-
-        //    Swal.fire({
-        //        icon: 'warning',
-        //        title: 'Warning',
-        //        text: 'Please enter Quantity.'
-        //    });
-
-        //    $("#txtQuantity").focus();
-        //    return;
-        //}
 
         var action = $("#hdnAddEditMode").val();
 
@@ -1385,69 +1395,100 @@
 
     }
 
-    function OpenCurrentStockforEdit(stockid) {
-        var x = "";
-        var dt = "";
-
+    function EditLevelData(values) {
         $.ajax({
-            url: "@Url.Action("EditCurrentStock", "CurrentStock")",
-            async: false,
-            data: { stockid: stockid },
-            type: 'POST',
-            success: function (data) {
+            type: "POST",
+            url: "../CurrentStock/EditLevelData",
+            data: { HiddenID: values },
+            success: function (response) {
+                if (response != null) {
 
-                $("#btnSaveExit").removeClass('hide');  // Show Save & Exit
-                $("#btnSaveNew").addClass('hide'); // Hide Save & New
+                    $("#hdnLevelGuiIDS").val(response.Guids);
+                    //$("#hdnAddEditMode").val('MODIFYCURRENTSTOCK');
+                    //$("#myModalLabel").text("Edit Current Stock");
+                    //$('#hdnStockId').val(stockid);
 
-                $("#hdnAddEditMode").val('MODIFYCURRENTSTOCK');
-                $("#myModalLabel").text("Edit Current Stock");
-                $('#hdnStockId').val(stockid);
+                    //$('#hdnStoreCode').val(data.ShopCode);
+                    //StoreNameTxt.SetText(data.StoreName);
 
-                //$("#ddlBranch").val(data.BranchID);
-                $('#hdnStoreCode').val(data.ShopCode);
-                $('#hdnProductID').val(data.ProductID);
-                $("#txtQuantity").val(data.Quantity);
-                ProductNameTxt.SetText(data.ProductName);
-                StoreNameTxt.SetText(data.ShopName);
-                txtUOM.SetText(data.UOM);
-                $('#hdnUOMID').val(data.UOMID);
+                    $('#hdnProductID').val(response.ProductID);
+                    ProductNameTxt.SetText(response.ProductName);
 
-                $("#hdnLevelGuiIDS").val(response.Guids);
+                    $("#txtQuantity").val(response.Quantity);
+                    $("#txtUOM").val(response.UOMName);
+                    $('#hdnUOMID').val(response.UOMid);
 
-                if (data.CurrentStockDate != "") {
-                    var d = new Date(data.CurrentStockDate);
-                    dtCurrentStockDate.SetDate(d);
+
+                    // MfgDate
+                    if (response.MfgDate != "" && response.MfgDate !="01-01-1900") {
+                        var d = new Date(response.MfgDate);
+                        dtMfgDate.SetDate(d);
+
+                        //var partsMFG = response.MfgDate.split("-");
+                        //var dayMFG = parseInt(partsMFG[0], 10);
+                        //var monthMFG = parseInt(partsMFG[1], 10) - 1; // Month is 0-based
+                        //var yearMFG = parseInt(partsMFG[2], 10);
+
+                        //var dateM = new Date(yearMFG, monthMFG, dayMFG); // Month is 0-based, so 10 represents November
+                        //dtMfgDate.SetDate(dateM);
+
+                    }
+                    else {
+                        dtMfgDate.Clear();
+                    }
+                    // End MfgDate
+
+
+                    // ExpDate
+                    if (response.ExpDate != "" && response.ExpDate != "01-01-1900") {
+                        var d = new Date(data.ExpDate);
+                        dtExpDate.SetDate(d);
+
+                        //var partsEXP = response.ExpDate.split("-");
+                        //var dayEXP = parseInt(partsEXP[0], 10);
+                        //var monthEXP = parseInt(partsEXP[1], 10) - 1; // Month is 0-based
+                        //var yearEXP = parseInt(partsEXP[2], 10);
+
+                        //var dateE = new Date(yearEXP, monthEXP, dayEXP); // Month is 0-based, so 10 represents November
+                        //dtExpDate.SetDate(dateE);
+
+                    }
+                    else {
+                        dtExpDate.Clear();
+                    }
+                    // End ExpDate
+
+
+                    /* $("#btnAdd").text("Save");*/
+                    $("#btnAdd").html('<span class="btn-icon saveicon"><img src="../../../assests/images/save-instagram.svg"></span> Save');
+
+
                 }
-                else {
-                    dtCurrentStockDate.Clear();
-                }
-
-                if (data.MfgDate != "") {
-                    var d = new Date(data.MfgDate);
-                    dtMfgDate.SetDate(d);
-                }
-                else {
-                    dtMfgDate.Clear();
-                }
-
-                if (data.ExpDate != "") {
-                    var d = new Date(data.ExpDate);
-                    dtExpDate.SetDate(d);
-                }
-                else {
-                    dtExpDate.Clear();
-                }
-
-                $('#myModal').modal('show');
-            },
-            error: function () {
-            },
+            }
         });
     }
 
+    function DeleteLevelData(values) {
+        var noofvisiblerows = gridStockProductEntryList.GetVisibleRowsOnPage();
+        if (noofvisiblerows != 1) {
+            $.ajax({
+                type: "POST",
+                url: "../CurrentStock/DeleteLevelData",
+                data: { HiddenID: values },
+                success: function (response) {
+                    if (response != null) {
+                        gridStockProductEntryList.Refresh();
+                        gridStockProductEntryList.Refresh();
+                    }
+                }
+            });
+        }
+    }
+
+
     function btnAdd_Click()
     {
-        $("#hdnAddEditMode").val("ADDCURRENTSTOCK");
+        //$("#hdnAddEditMode").val("ADDCURRENTSTOCK");
 
         if (dtCurrentStockDate.GetText() == "" || dtCurrentStockDate.GetText() == "01-01-0100" || dtCurrentStockDate.GetText() == null
             || dtCurrentStockDate.GetText() == undefined) {
@@ -1461,7 +1502,7 @@
             return false;
         }
 
-        
+
         if ($("#hdnStoreCode").val() == "" || $("#hdnStoreCode").val() == "0" || $("#hdnStoreCode").val() == null || $("#hdnStoreCode").val() == undefined) {
 
             Swal.fire({
@@ -1515,7 +1556,7 @@
                        text: 'Record for this Store and Product already exists.'
                    });
                }
-               else 
+               else
                {
                     var data = {
                         StockId: $('#hdnStockId').val(),
@@ -1545,7 +1586,7 @@
                             if (response != null) {
                                 gridStockProductEntryList.Refresh();
                                 gridStockProductEntryList.Refresh();
-                                
+
                                 ClearData();
 
                                 /*$("#btnAdd").text("Add");*/
@@ -1562,7 +1603,7 @@
 
     }
 
-   
+
 
 </script>
 
@@ -1607,7 +1648,7 @@
                             {
                                 settings.Name = "StoreNameTxt";
                                 settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                settings.Text = Model.ShopName;
+                                settings.Text = Model.StoreName;
                                 settings.ReadOnly = true;
                                 settings.Properties.Buttons.Add("...");
                                 settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){StoreButnClick(s,e);}";

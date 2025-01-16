@@ -1,6 +1,6 @@
 ﻿@*/***************************************************************************************
        * Written by Sanchita on 13/01/2025 for V2.0.51
-    ****************************************************************************************/*@
+ ****************************************************************************************/*@
 
 @Html.DevExpress().GridView(settings =>
 {
@@ -43,91 +43,28 @@
         column.Caption = "Sr. No\r\n";
         column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.Width = 96;
-
-    });
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "BRANCH";
-        column.Caption = "Branch";
         column.VisibleIndex = 1;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(120);
     });
-
     settings.Columns.Add(column =>
     {
-        column.FieldName = "SHOPNAME";
-        column.Caption = "Shop Name";
+        column.FieldName = "STORENAME";
+        column.Caption = "Store Name";
         column.VisibleIndex = 2;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(250);
     });
 
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "CODE";
-        column.Caption = "Code";
-        column.VisibleIndex = 3;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(150);
-    });
-
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "CONTACTNUMBER";
-        column.Caption = "Contact Number";
-        column.VisibleIndex = 4;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(150);
-    });
-
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "SHOPTYPE";
-        column.Caption = "Shop type";
-        column.VisibleIndex = 5;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(150);
-    });
-
+    
     settings.Columns.Add(column =>
     {
         column.FieldName = "CURRENTSTOCKDATE";
         column.Caption = "Current Stock Date";
-        column.VisibleIndex = 6;
+        column.VisibleIndex = 3;
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
         column.Width = 150;
     });
 
-
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "PRODUCTCODE";
-        column.Caption = "Product Code";
-        column.VisibleIndex = 7;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
-    });
-
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "PRODUCTNAME";
-        column.Caption = "Product Name";
-        column.VisibleIndex = 8;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
-    });
-
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "QUANTITY";
-        column.Caption = "Quantity";
-        column.VisibleIndex = 9;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-    });
-
-    settings.Columns.Add(column =>
-    {
-        column.FieldName = "QUANTITY_BAL";
-        column.Caption = "Bal Quantity";
-        column.VisibleIndex = 9;
-        column.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-    });
 
     settings.Columns.Add(column =>
     {
