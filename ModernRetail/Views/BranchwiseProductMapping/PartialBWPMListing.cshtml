@@ -6,7 +6,7 @@
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridList";
-    settings.KeyFieldName = "PRODUCTBRANCHMAP_ID";
+    settings.KeyFieldName = "SEQ";
     settings.CallbackRouteValues = new { Action = "PartialGridList", Controller = "BranchwiseProductMapping" };
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;

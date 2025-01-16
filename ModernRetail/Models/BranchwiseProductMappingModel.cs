@@ -15,6 +15,7 @@ namespace ModernRetail.Models
         public string Branch_Ids { get; set; }
         public string PARENTERMP_IDS { get; set; }
 
+        //public string Product_Ids { get; set; }
         public string CHILDERMP_IDS { get; set; }
 
         public string PRODUCT_IDS { get; set; }
