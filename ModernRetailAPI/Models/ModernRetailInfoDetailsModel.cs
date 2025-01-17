@@ -330,6 +330,7 @@ namespace ModernRetailAPI.Models
     {
         public string order_id { get; set; }
         public long product_id { get; set; }
+        public string product_name { get; set; }
         public decimal qty { get; set; }
         public decimal rate { get; set; }
     }
