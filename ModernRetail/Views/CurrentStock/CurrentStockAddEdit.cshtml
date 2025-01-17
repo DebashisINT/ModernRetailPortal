@@ -1148,7 +1148,7 @@
                         var d = new Date(response.CurrentStockDate);
                         dtCurrentStockDate.SetDate(d);
 
-                        $("#hdnAddEditMode").val('MODIFYCURRENTSTOCK');
+                       // $("#hdnAddEditMode").val('MODIFYCURRENTSTOCK');
 
                         $('#hdnStoreCode').val(response.StoreId);
                         StoreNameTxt.SetText(response.StoreName);
@@ -1164,9 +1164,7 @@
             });
         }
     }
-    else {
-        $("#hdnAddEditMode").val('ADDCURRENTSTOCK');
-    }
+    
 
     $(document).ready(function () {
         $('#txtQuantity').on('input', function () {
@@ -1382,6 +1380,13 @@
                 text: 'Please Add Product Details For to proceed.'
             });
             return false;
+        }
+
+        if (urlKeys.key == "Add") {
+            $("#hdnAddEditMode").val("ADDCURRENTSTOCK");
+        }
+        else {
+            $("#hdnAddEditMode").val("MODIFYCURRENTSTOCK");
         }
 
         var action = $("#hdnAddEditMode").val();
