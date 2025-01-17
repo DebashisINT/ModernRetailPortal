@@ -1212,7 +1212,59 @@
             $("#HiddenProductID").val(id);
            // document.getElementById('').value = varproductid;
 
-        }
+    }
+
+    $(document).ready(function () {
+        // Restrict input to numbers with up to two decimal places
+        $(document).on("input", "#txtSpecialPrice", function () {
+            // Get the current value
+            let value = this.value;
+
+            // Remove any characters that are not digits or a single decimal point
+            value = value.replace(/[^0-9.]/g, '');
+
+            // Ensure there's only one decimal point
+            if (value.indexOf('.') !== -1) {
+                let parts = value.split('.');
+                parts[1] = parts[1].slice(0, 2); // Limit to 2 decimal places
+                value = parts[0] + '.' + parts[1];
+            }
+
+            // Assign the formatted value back to the input field
+            this.value = value;
+        });
+
+        // Prevent non-numeric keypresses
+        $(document).on("keypress", "#txtSpecialPrice", function (e) {
+            const charCode = e.which || e.keyCode;
+
+            // Allow only digits (0-9) and a single dot
+            if (
+                charCode !== 46 && // Dot (.)
+                (charCode < 48 || charCode > 57) // Digits (0-9)
+            ) {
+                e.preventDefault();
+            }
+
+            // Prevent more than one dot
+            if (charCode === 46 && $(this).val().indexOf('.') !== -1) {
+                e.preventDefault();
+            }
+        });
+
+        // Prevent invalid paste content
+        $(document).on("paste", "#txtSpecialPrice", function (e) {
+            const clipboardData = e.originalEvent.clipboardData || window.clipboardData;
+            const pastedData = clipboardData.getData('Text');
+
+            // Allow only valid numeric input with up to two decimals
+            if (!/^\d+(\.\d{0,2})?$/.test(pastedData)) {
+                e.preventDefault();
+            }
+        });
+    });
+
+
 </script>
 
 <div class="breadCumb">
@@ -1321,7 +1373,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="AddProductModel" role="dialog">
+<div class="modal fade pmsModal" id="AddProductModel" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -1331,7 +1383,7 @@
                 <h4 class="modal-title">Product Search</h4>
             </div>
             <div class="modal-body">
-                <input type="text" onkeydown="Addprodkeydown(event)" id="txtAddProdSearch" class="form-control" autofocus width="100%" placeholder="Search By Product Name or Description" />
+                <input type="text" onkeydown="Addprodkeydown(event)" id="txtAddProdSearch" class="form-control mb-3" autofocus width="100%" placeholder="Search By Product Name or Description" />
 
                 <div id="AddProductTable">
                     <table border='1' width="100%" class="dynamicPopupTbl">
