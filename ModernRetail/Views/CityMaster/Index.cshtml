@@ -788,6 +788,13 @@
                 text-decoration: underline;
             }
 
+    .swal2-styled {
+        border-radius: 12px !important;
+        padding: 8px 20px !important;
+        color: #fff !important;
+        font-size: 14px !important;
+    }
+
     @@media only screen and (max-width: 768px) {
 
 
@@ -890,7 +897,8 @@
         $("#txtCity").val('');
         $("#txtCityLocationLat").val('');
         $("#txtCityLocationLong").val('');
-        $("#CityModel").modal('show')
+        $("#CityModel").modal('show');
+        $("#addmodf-city").text("Add City")
     }
     function SaveCity() {
         var id = $("#hdnID").val();
@@ -963,6 +971,7 @@
                         jAlert('No data found');
                     }
                     else {
+                        $("#addmodf-city").text("Modify City");
                         $("#CityModel").modal('show');
                         $("#ddlCountry").val(response.Country);
                         EditCountryOnChange(response.State);
@@ -1150,7 +1159,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add/Modify City</h4>
+                <h4 class="modal-title" id="addmodf-city">Add/Modify City</h4>
             </div>
             <div class="modal-body">
                 <div id="divModalBody">
