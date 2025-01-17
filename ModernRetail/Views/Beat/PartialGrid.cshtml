@@ -1,0 +1,184 @@
+﻿
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "gridList";
+    settings.KeyFieldName = "ID";
+    settings.CallbackRouteValues = new { Action = "PartialGrid", Controller = "Beat" };
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+    settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
+    settings.SettingsSearchPanel.Visible = true;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsContextMenu.EnableColumnMenu = DefaultBoolean.True;
+    settings.Settings.ShowFooter = true;
+    settings.SettingsContextMenu.EnableFooterMenu = DefaultBoolean.True;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "30", "40", "50" };
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSize = 10;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.Settings.ShowFilterRowMenu = true;
+    //Rev 2.0 : column width change
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "Beat_Code";
+        x.Caption = "Group/Beat Code";
+        x.VisibleIndex = 1;
+        // x.Width = 200;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+
+    });
+
+    //REV 1.0
+
+
+
+    //settings.Columns.Add(x =>
+    //{
+    //    x.FieldName = "Beat_Name";
+    //    x.Caption = "Group/Beat Name";
+    //    x.VisibleIndex = 2;
+    //    //x.Width = 120;
+    //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+    //    x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+    //});
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "AREANAME";
+        x.Caption = "Area Name";
+        x.VisibleIndex = 2;
+        //x.Width = 120;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "ROUTENAME";
+        x.Caption = "Route Name";
+        x.VisibleIndex = 3;
+        //x.Width = 120;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "BEATNAME";
+        x.Caption = "Beat Name";
+        x.VisibleIndex = 4;
+        //x.Width = 120;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+    });
+    //REV 1.0 END
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "Created_By";
+        x.Caption = "Created By";
+        //Rev 3.0
+        //x.VisibleIndex = 3;
+        x.VisibleIndex = 5;
+        //Rev end 3.0
+        //x.Width = 120;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+    });
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "Created_On";
+        x.Caption = "Created On";
+        //Rev 3.0
+        //x.VisibleIndex = 4;
+        x.VisibleIndex = 6;
+        //Rev end 3.0
+        x.Width = 120;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+        x.ColumnType = MVCxGridViewColumnType.DateEdit;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+        // x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "Updated_By";
+        x.Caption = "Updated By";
+        //Rev 3.0
+        //x.VisibleIndex = 5;
+        x.VisibleIndex = 7;
+        //Rev end 3.0
+        //x.Width = 120;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+    });
+
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "Updated_On";
+        x.Caption = "Updated On";
+        //Rev 3.0
+        //x.VisibleIndex = 6;
+        x.VisibleIndex = 8;
+        //Rev end 3.0
+        x.Width = 120;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
+        x.ColumnType = MVCxGridViewColumnType.DateEdit;
+        x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+        (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+        // x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+    });
+    // Mantis Issue 25536, 25535, 25542, 25543, 25544
+    settings.Columns.Add(x =>
+    {
+        x.FieldName = "CODE_TYPE";
+        x.Caption = "Type";
+        //Rev 3.0
+        //x.VisibleIndex = 7;
+        x.VisibleIndex = 9;
+        //Rev end 3.0
+        //x.Width = 120;
+        x.ColumnType = MVCxGridViewColumnType.TextBox;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+    });
+    // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
+
+    settings.Columns.Add(x =>
+    {
+        x.Caption = "Action";
+        //Rev 3.0
+        //x.VisibleIndex = 8;
+        x.VisibleIndex = 10;
+        //Rev end 3.0
+        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        x.SetDataItemTemplateContent(c =>
+        {
+            // ViewContext.Writer.Write("<a style='cursor:pointer' onclick=\"OpenHomeLocationforEdit('" + Convert.ToString(DataBinder.Eval(c.DataItem, "UserID")) + "')\">Modify</a>");
+            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"AssignUserClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/user1.png' style='margin-right:3px' /></a>");
+
+            // Mantis Issue 25536, 25535, 25542, 25543, 25544
+            //ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
+            //ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/Delete.png'/> </a>");
+            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "CODE_TYPE")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /></a>");
+            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "','" + Convert.ToString(DataBinder.Eval(c.DataItem, "CODE_TYPE")) + "')\"><img src='/assests/images/Delete.png'/> </a>");
+            // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
+
+        });
+
+    });
+
+}).Bind(Model).GetHtml()
+
+
+
+
+
+
+
