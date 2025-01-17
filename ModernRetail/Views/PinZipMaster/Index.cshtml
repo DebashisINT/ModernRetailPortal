@@ -788,6 +788,13 @@
                 text-decoration: underline;
             }
 
+    .swal2-styled {
+        border-radius: 12px !important;
+        padding: 8px 20px !important;
+        color: #fff !important;
+        font-size: 14px !important;
+    }
+
     @@media only screen and (max-width: 768px) {
 
 
@@ -904,7 +911,8 @@
         $("#ddlState").val(0).trigger('change');
         $("#ddlCity").val(0);
         $("#txtPinZip").val('');       
-        $("#PinZipModel").modal('show')
+        $("#PinZipModel").modal('show');
+        $("#addmdf-pin").text("Add Pin/Zip")
     }
     function SavePinZip() {
         var id = $("#hdnID").val();
@@ -986,6 +994,7 @@
                     }
                     else {
                         GETCOUNTRY();
+                        $("#addmdf-pin").text("Modify Pin/Zip");
                         $("#PinZipModel").modal('show');
                         $("#ddlCountry").val(response.Country);
                         EditCountryOnChange(response.State);
@@ -1144,7 +1153,43 @@
             $('#ddlCountry').html(html);
         }
     });
-}
+    }
+
+
+    $(document).ready(function () {
+        // Restrict input to numbers only and limit length to 6
+        $(document).on("input", "#txtPinZip", function () {
+            // Remove any non-numeric characters
+            this.value = this.value.replace(/[^0-9]/g, '');
+
+            // Ensure the length doesn't exceed 6 characters
+            if (this.value.length > 6) {
+                this.value = this.value.slice(0, 6);
+            }
+        });
+
+        // Prevent invalid characters during keypress
+        $(document).on("keypress", "#txtPinZip", function (e) {
+            const charCode = e.which || e.keyCode;
+
+            // Allow only digits (0-9)
+            if (charCode < 48 || charCode > 57) {
+                e.preventDefault();
+            }
+        });
+
+        // Prevent invalid characters on paste
+        $(document).on("paste", "#txtPinZip", function (e) {
+            const clipboardData = e.originalEvent.clipboardData || window.clipboardData;
+            const pastedData = clipboardData.getData('Text');
+
+            // Allow only numeric values and trim length to 6
+            if (!/^\d{1,6}$/.test(pastedData)) {
+                e.preventDefault();
+            }
+        });
+    });
+
 </script>
 <div class="breadCumb">
     <span>Pin/Zip</span>
@@ -1204,7 +1249,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add/Modify Pin/Zip</h4>
+                <h4 class="modal-title" id="addmdf-pin">Add/Modify Pin/Zip</h4>
             </div>
             <div class="modal-body">
                 <div id="divModalBody">
@@ -1231,7 +1276,7 @@
                         <div class="col-md-12 mt-3">
                             <div><label>Pin / Zip Code<span class="red">*</span></label></div>
                             <div>
-                                <input type="text" id="txtPinZip" class="form-control" maxlength="10" />
+                                <input type="text" id="txtPinZip" class="form-control" maxlength="6" />
                             </div>
                         </div>
 
