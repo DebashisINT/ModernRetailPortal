@@ -16,6 +16,7 @@
 <script src="~/Scripts/SearchPopup.js"></script>
 @*<script src="~/Scripts/SearchMultiPopup.js"></script>*@
 <style>
+
     #grid .dxgvHSDC > div, #grid .dxgvCSD {
         width: 100% !important;
     }
@@ -835,6 +836,20 @@
     }
 </style>
 <script>
+    $(function () {
+        $(".allow_decimal").on("input", function (evt) {
+            var self = $(this);
+            self.val(self.val().replace(/[^0-9\.]/g, ''));
+            if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                evt.preventDefault();
+            }
+        });
+        $('.numbersOnly').keyup(function () {
+            if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            }
+        });
+    });
     $(document).ready(function () {
 
         var branch_ID = $('#hdnDetailsID').val();

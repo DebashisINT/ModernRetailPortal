@@ -19,6 +19,14 @@
         z-index: 9999;
         display: none; /* Initially hidden */
     }
+    .flex-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
     #grid .dxgvHSDC > div, #grid .dxgvCSD {
         width: 100% !important;
     }
@@ -1379,10 +1387,10 @@
             </div>
             <div class="clear"></div>
             <div class="mt-4 px-4">
-                @*@if (ViewBag.CanAdd)
-                {*@
+                @if (ViewBag.CanAdd)
+                {
                     <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
-                @*}*@
+                }
                 <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
             </div>
