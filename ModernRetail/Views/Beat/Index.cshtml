@@ -1,0 +1,1361 @@
+﻿
+@using ModernRetail.Models;
+@model ModernRetail.Models.BeatModel
+@{
+    ViewBag.Title = "Group/Beat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+    function AddBeat() {
+        $("#hdnID").val('0');
+        $("#txtCode").val('');
+        $("#txtName").val('');
+        $("#ddlAreaB").val('0');
+        $("#ddlRoute").val('0');
+        // Rev 1.0
+        $("#dvlblBeatCode").hide();
+        $("#dvtxtBeatCode").show();
+        $("#dvtxtLblBeatCode").show();
+        // End of Rev 1.0
+        $("#beatModal").modal('show')
+    }
+
+    // Mantis Issue 25536, 25535, 25542, 25543, 25544 [CODE_TYPE added]
+    function EditClick(ID, CODE_TYPE) {
+        $("#hdnID").val(ID);
+        $("#hdnCODE_TYPE").val(CODE_TYPE);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("EditGroupBeat", "Beat")",
+            data: { id: ID, type: CODE_TYPE },
+            success: function (response) {
+
+                if (response.code == "") {
+                    //jAlert('No data found');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Sorry!',
+                        text: 'No data found.'
+                    });
+                }
+                else {
+                    // Mantis Issue 25536, 25535, 25542, 25543, 25544
+                    //$("#txtCode").val(response.code)
+                    //$("#txtName").val(response.name)
+                    //$("#beatModal").modal('show')
+                    if (CODE_TYPE == "AREA") {
+                        $("#txtAreaCode").val(response.code)
+                        $("#txtAreaName").val(response.name)
+                        // Rev 1.0
+                        $("#dvlblAreaCode").show();
+                        $("#dvtxtAreaCode").hide();
+                        $("#dvtxtLblAreaCode").hide();
+                        $("#lblAreaCode").html(response.code);
+                        // End of Rev 1.0
+                        $("#areaModal").modal('show')
+                    }
+                    else if (CODE_TYPE == "ROUTE") {
+                        $("#txtRouteCode").val(response.code)
+                        $("#txtRouteName").val(response.name)
+                        $("#ddlArea").val(response.area);
+                        // Rev 1.0
+                        $("#dvlblRouteCode").show();
+                        $("#dvtxtRouteCode").hide();
+                        $("#dvtxtLblRouteCode").hide();
+                        $("#lblRouteCode").html(response.code);
+                        // End of Rev 1.0
+                        $("#routeModal").modal('show')
+                    }
+                    else if (CODE_TYPE == "BEAT") {
+                        $("#txtCode").val(response.code)
+                        $("#txtName").val(response.name)
+                        $("#ddlAreaB").val(response.area);
+                        $("#ddlRoute").val(response.route);
+                        // Rev 1.0
+                        $("#dvlblBeatCode").show();
+                        $("#dvtxtBeatCode").hide();
+                        $("#dvtxtLblBeatCode").hide();
+                        $("#lblBeatCode").html(response.code);
+                        // End of Rev 1.0
+                        $("#beatModal").modal('show')
+                    }
+                    // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
+                }
+            }
+        });
+    }
+
+    function SaveBeat() {
+        var id = $("#hdnID").val();
+        if ($("#txtCode").val().trim() == "") {
+            //jAlert('Enter code to proceed.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Enter code to proceed.'
+            });
+            return false;
+        }
+        else if ($("#txtName").val().trim() == "") {
+            //jAlert("Enter name to proceed.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Enter name to proceed.'
+            });
+            return false;
+        }
+        //else if ($("#ddlAreaB").val() == "0") {
+        //    jAlert("Select area to proceed.");
+        //    return false;
+        //}
+        else if ($("#ddlRoute").val() == "0") {
+            //jAlert("Select route to proceed.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Select route to proceed.'
+            });
+            return false;
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("SaveGroupBeat", "Beat")",
+                data: { code: $("#txtCode").val(), name: $("#txtName").val(), id: id, route: $("#ddlRoute").val()  },
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        //jAlert('Saved successfully.');
+                        //$("#beatModal").modal('hide');
+                        //gridList.Refresh();
+
+                        //if (confirm("Beat saved successfully.")) {
+                        //    $("#beatModal").modal('hide');
+                        //    //gridList.Refresh();
+                        //    location.reload();
+                        //}
+                        Swal.fire({
+                            title: 'Success!',
+                            html: 'Beat saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#beatModal").modal('hide');
+                                location.reload();
+                            }
+                        });
+                    }
+                    else if (parseInt(response) == -1)
+                    //jAlert('Beat code already exists.')
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Beat code already exists.'
+                        });
+                }
+            });
+        }
+    }
+
+    /*Mantis Issue 25536, 25535, 25542, 25543, 25544*/
+    function AddArea() {
+        $("#hdnID").val('0');
+        $("#txtAreaCode").val('');
+        $("#txtAreaName").val('');
+        // Rev 1.0
+        $("#dvlblAreaCode").hide();
+        $("#dvtxtAreaCode").show();
+        $("#dvtxtLblAreaCode").show();
+        // End of Rev 1.0
+        $("#areaModal").modal('show')
+    }
+
+    function AddRoute() {
+        $("#hdnID").val('0');
+        $("#txtRouteCode").val('');
+        $("#txtRouteName").val('');
+        $("#ddlArea").val('0');
+        // Rev 1.0
+        $("#dvlblRouteCode").hide();
+        $("#dvtxtRouteCode").show();
+        $("#dvtxtLblRouteCode").show();
+        // End of Rev 1.0
+        $("#routeModal").modal('show')
+
+        @*$.ajax({
+                type: "POST",
+                url: "@Url.Action("getAreaList", "Beat")",
+               // data: { code: $("#txtAreaCode").val(), name: $("#txtAreaName").val(), id: id },
+                success: function (response) {
+                    $("#routeModal").modal('show')
+                }
+        });*@
+
+
+    }
+
+    function SaveArea() {
+        var id = $("#hdnID").val();
+        if ($("#txtAreaCode").val().trim() == "") {
+            //jAlert('Enter area code to proceed.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Enter area code to proceed.'
+            });
+            return false;
+        }
+        else if ($("#txtAreaName").val().trim() == "") {
+            //jAlert("Enter area name to proceed.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Enter area name to proceed.'
+            });
+            return false;
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("SaveArea", "Beat")",
+                data: { code: $("#txtAreaCode").val(), name: $("#txtAreaName").val(), id: id },
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        //jAlert('Area saved successfully.');
+                        //if (confirm("Area saved successfully.")) {
+                        //    $("#areaModal").modal('hide');
+                        //    //gridList.Refresh();
+                        //    location.reload();
+                        //}
+                        Swal.fire({
+                            title: 'Success!',
+                            html: 'Area saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#areaModal").modal('hide');
+                                location.reload();
+                            }
+                        });
+                    }
+                    else if (parseInt(response) == -1)
+                    //jAlert('Area code already exists.')
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Sorry!',
+                        text: 'Area code already exists.'
+                    });
+                }
+            });
+        }
+    }
+
+    function SaveRoute() {
+        var id = $("#hdnID").val();
+        if ($("#txtRouteCode").val().trim() == "") {
+            //jAlert('Enter route code to proceed.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Enter route code to proceed.'
+            });
+            return false;
+        }
+        else if ($("#txtRouteName").val().trim() == "") {
+            //jAlert("Enter route name to proceed.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Enter route name to proceed.'
+            });
+            return false;
+        }
+        else if ($("#ddlArea").val() == "0") {
+            //jAlert("Select area to proceed.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sorry!',
+                text: 'Select area to proceed.'
+            });
+            return false;
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("SaveRoute", "Beat")",
+                data: { code: $("#txtRouteCode").val(), name: $("#txtRouteName").val(), area: $("#ddlArea").val(), id: id },
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        //jAlert('Route saved successfully.');
+                        //$("#routeModal").modal('hide');
+                        //gridList.Refresh();
+                        //if (confirm("Route saved successfully.")) {
+                        //    $("#routeModal").modal('hide');
+                        //    //gridList.Refresh();
+                        //    location.reload();
+                        //}
+
+                        Swal.fire({
+                            title: 'Success!',
+                            html: 'Route saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#routeModal").modal('hide');
+                                location.reload();
+                            }
+                        });
+                    }
+                    else if (parseInt(response) == -1)
+                    //jAlert('Route code already exists.')
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Route code already exists.'
+                        });
+                }
+            });
+        }
+    }
+    /*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*/
+
+    function beginUsergridcallback(s, e) {
+        e.customArgs["id"] = $("#hdnID").val();
+    }
+    function AssignUserClick(ID) {
+        $("#hdnID").val(ID);
+        $("#usermapModal").modal('show');
+        // Mantis Issue 25160
+        //gridUserList.Refresh();
+        //var unselect = [];
+        //gridUserList.SelectRowsByKey(unselect)
+        gridUserList.UnselectRows();
+        // End of Mantis Issue 25160
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SetUsers", "Beat")",
+            data: { ID: ID },
+            success: function (response) {
+                if (response.length > 0) {
+                    // Mantis Issue 25160
+                    //gridUserList.SelectRowsByKey(response)
+                    setTimeout(function () {
+                        gridUserList.SelectRowsByKey(response)
+                    }, 2000)
+                    // End of Mantis Issue 25160
+                }
+            }
+        });
+
+
+    }
+
+    function SaveUserBeat() {
+        var id = $("#hdnID").val();
+        gridUserList.GetSelectedFieldValues("user_id", function (str) {
+            var selected = str.join(",");
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("SaveGroupBeatUser", "Beat")",
+                data: { selected: selected, id: id },
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        //jAlert('Saved successfully.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Success!',
+                            text: 'Saved successfully.'
+                        });
+                        $("#usermapModal").modal('hide');
+                        gridList.Refresh();
+                    }
+                    else if (parseInt(response) == -1)
+                    //jAlert('Code already exists.')
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sorry!',
+                            text: 'Code already exists.'
+                        });
+                }
+            });
+        });
+    }
+
+    // Mantis Issue 25536, 25535, 25542, 25543, 25544 [ CODE_TYPE added ]
+    function DeleteClick(ID, CODE_TYPE) {
+        $("#hdnID").val(ID);
+        /*Rev 4.0*/
+        /*jConfirm('Delete ?', 'Alert', function (r) {*/
+        jConfirm('Are you sure to delete?', 'Alert', function (r) {
+            /*Rev end 4.0*/
+            if (r == true)
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Delete", "Beat")",
+                    data: { ID: ID, type: CODE_TYPE },
+                    success: function (response) {
+                        // Mantis Issue 25536, 25535, 25542, 25543, 25544
+                        //jAlert('Deleted successfully.')
+                        if (parseInt(response) > 0) {
+                            //if (confirm("Deleted successfully.")) {
+                            //    location.reload();
+                            //}
+                            Swal.fire({
+                                title: 'Success!',
+                                html: 'Deleted successfully.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else if (parseInt(response) == -1) {
+                            if (CODE_TYPE == "AREA") {
+                                // jAlert('Area mapped with Route/Beat. Cannot delete.')
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Sorry!',
+                                    text: 'Area mapped with Route/Beat. Cannot delete.'
+                                });
+                            }
+                            else if (CODE_TYPE == "ROUTE") {
+                                //jAlert('Route mapped with Beat. Cannot delete.')
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Sorry!',
+                                    text: 'Route mapped with Beat. Cannot delete.'
+                                });
+                            }
+                            else {
+                                //jAlert('Delete failed.')
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Sorry!',
+                                    text: 'Delete failed.'
+                                });
+                            }
+                        }
+                        // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
+                    }
+                });
+        });
+
+
+
+    }
+
+    // Rev 6.0
+     function DownloadFormat()
+     {
+        var url = '@Url.Action("DownloadFormat", "Beat")'
+        window.location.href = url;
+    }
+
+     function ImportBeatPopOpen() {
+         $("#myImportModal").modal('show');
+     }
+
+     function ClickToImportBeat() {
+         todate = null;
+         fromdate = null;
+         var isprocess = false;
+         var filename = $("#fileprod").val();
+         if ($('#fileprod').get(0).files.length === 0) {
+             //jAlert("No files selected.");
+             //Swal.fire({
+             //    icon: 'warning',
+             //    title: 'Warning',
+             //    text: 'No files selected.'
+             //});
+
+             return false;
+         }
+         else {
+             var extension = filename.replace(/^.*\./, '');
+             switch (extension.toLowerCase()) {
+                 case 'xls':
+                     isprocess = true;
+                 case 'xlsx':
+                     isprocess = true;
+                 default:
+                     // Cancel the form submission
+                     if (!isprocess) {
+                         jAlert('Only excel file require.');
+                         //Swal.fire({
+                         //    icon: 'warning',
+                         //    title: 'Warning',
+                         //    text: 'Only excel file require.'
+                         //});
+
+                         return false;
+                     }
+             }
+         }
+
+         if (isprocess == true) {
+             var fileUpload = $("#fileprod").get(0);
+             var files = fileUpload.files;
+
+             // Create FormData object
+             var fileData = new FormData();
+
+             // Looping over all files and add it to FormData object
+             for (var i = 0; i < files.length; i++) {
+                 fileData.append(files[i].name, files[i]);
+             }
+
+
+             $.ajax({
+                 url: "@Url.Action("ImportExcel", "Beat")",
+                 type: "POST",
+                 contentType: false,
+                 processData: false,
+                 data: fileData,
+                 success: function (result) {
+                     jAlert(result, 'Alert', function () {
+                         $("#fileprod").val('');
+                         //$("#myImportModal").toggle();
+                         $("#myImportModal").modal('hide');
+                         //gridList.Refresh();
+
+                         $.ajax({
+                             type: "POST",
+                             url: "@Url.Action("BeatImportLog", "Beat")",
+                             success: function (response) {
+                                 if (response) {
+                                     pcModalBeatImportLogMode.Show();
+                                     gridBeatImportLog.Refresh();
+                                     gridBeatImportLog.Refresh();
+                                 }
+                             }
+                         });
+                     });
+
+                 },
+                 error: function (err) {
+                     jAlert(err.statusText);
+                     //Swal.fire({
+                     //    icon: 'error',
+                     //    title: 'Sorry!',
+                     //    text: err.statusText
+                     //});
+                 }
+             });
+         }
+     }
+
+     function ImportLogPopOpen() {
+         var d = new Date();
+
+         dtLogFrom_Import.SetValue(d);
+         dtLogTo_Import.SetValue(d);
+
+         pcModalImportViewMode.Show();
+    }
+
+    function CloseLog() {
+        location.reload();
+    }
+
+    function BeatImportUserLog() {
+        var url = '/Beat/BeatImportManualLog/';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify({ 'Fromdt': dtLogFrom_Import.GetText(), 'ToDate': dtLogTo_Import.GetText() }),
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response == "True") {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("BeatImportLog", "Beat")",
+                        success: function (response) {
+                            if (response) {
+                                pcModalImportViewMode.Hide();
+                                pcModalBeatImportLogMode.Show();
+                                gridBeatImportLog.Refresh();
+                                gridBeatImportLog.Refresh();
+                            }
+                        }
+                    });
+                }
+                else {
+                   jAlert(response);
+                   //Swal.fire({
+                   //    icon: 'error',
+                   //    title: 'Sorry!',
+                   //    text: response
+                   // });
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+     // End of Rev 6.0
+
+</script>
+
+<style>
+    .modal-header {
+        padding: 8px;
+        background: #094e8c;
+        border-radius: 8px 8px 0 0;
+    }
+
+    button.close {
+        color: #fff;
+        font-weight: 300;
+        opacity: .5;
+    }
+
+    .close:hover, .close:focus {
+        color: #fff;
+        opacity: 1;
+    }
+
+    .modal-content {
+        border-radius: 10px;
+    }
+
+    .modal-footer {
+        padding: 10px 20px 10px;
+    }
+
+    .dxgvLoadingPanel_PlasticBlue {
+        left: 42% !important;
+    }
+    /*Rev 2.0*/
+    #gridUserList {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    /*Rev end 2.0*/
+
+    /*Rev 3.0*/
+
+    #BranchGridLookup {
+        min-height: 34px;
+        border-radius: 5px;
+    }
+
+    .dxeButtonEditButton_PlasticBlue {
+        background: #094e8c !important;
+        border-radius: 4px !important;
+        padding: 0 4px !important;
+    }
+
+    .chosen-container-single .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+        border-radius: 4px;
+        height: 30px;
+        top: 1px;
+        right: 1px;
+        /*position:relative;*/
+    }
+
+        .chosen-container-single .chosen-single div b {
+            display: none;
+        }
+
+        .chosen-container-single .chosen-single div::after {
+            content: '<';
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+        }
+
+    .chosen-container-active.chosen-with-drop .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+    }
+
+        .chosen-container-active.chosen-with-drop .chosen-single div::after {
+            transform: rotate(90deg);
+            right: 5px;
+        }
+
+    .calendar-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 14px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    .date-select .form-control {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            content: '<';
+            position: absolute;
+            top: 8px;
+            right: -2px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
+        }
+
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
+
+    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .whclass.selectH {
+        padding-right: 30px;
+    }
+
+    #ddlShowReport:focus-visible {
+        box-shadow: none;
+        outline: none;
+        border: 1px solid #164f93;
+    }
+
+    #ddlShowReport:focus {
+        border: 1px solid #164f93;
+    }
+
+    .whclass.selectH:focus-visible {
+        outline: none;
+    }
+
+    .whclass.selectH:focus {
+        border: 1px solid #164f93;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border: 1px Solid #ccc;
+    }
+
+    .chosen-container-single .chosen-single {
+        border: 1px solid #ccc;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .daterangepicker td.active, .daterangepicker td.active:hover {
+        background-color: #175396;
+    }
+
+    label {
+        font-weight: 500;
+    }
+
+    .dxgvHeader_PlasticBlue {
+        background: #164f94;
+    }
+
+    .dxgvSelectedRow_PlasticBlue td.dxgv {
+        color: #fff;
+    }
+
+    .dxeCalendarHeader_PlasticBlue {
+        background: #185598;
+    }
+
+    .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
+    .dxbButton_PlasticBlue,
+    .dxeCalendar_PlasticBlue,
+    .dxeEditArea_PlasticBlue {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        font-weight: 500;
+    }
+
+    .btnPadding .btn {
+        padding: 7px 14px !important;
+        border-radius: 4px;
+    }
+
+    .btnPadding {
+        padding-top: 24px !important;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border-radius: 5px;
+        height: 34px;
+    }
+
+    #dtFrom, #dtTo {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
+        background: #165092;
+        vertical-align: middle;
+        font-weight: 500;
+    }
+
+    /*#refreshgrid {
+        background: #e5e5e5;
+        padding: 0 10px;
+        margin-top: 15px;
+        border-radius: 8px;
+    }*/
+
+    .styled-checkbox {
+        position: absolute;
+        opacity: 0;
+        z-index: 1;
+    }
+
+        .styled-checkbox + label {
+            position: relative;
+            /*cursor: pointer;*/
+            padding: 0;
+            margin-bottom: 0 !important;
+        }
+
+            .styled-checkbox + label:before {
+                content: "";
+                margin-right: 6px;
+                display: inline-block;
+                vertical-align: text-top;
+                width: 16px;
+                height: 16px;
+                /*background: #d7d7d7;*/
+                margin-top: 2px;
+                border-radius: 2px;
+                border: 1px solid #c5c5c5;
+            }
+
+        .styled-checkbox:hover + label:before {
+            background: #094e8c;
+        }
+
+
+        .styled-checkbox:checked + label:before {
+            background: #094e8c;
+        }
+
+        .styled-checkbox:disabled + label {
+            color: #b8b8b8;
+            cursor: auto;
+        }
+
+            .styled-checkbox:disabled + label:before {
+                box-shadow: none;
+                background: #ddd;
+            }
+
+        .styled-checkbox:checked + label:after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 9px;
+            background: white;
+            width: 2px;
+            height: 2px;
+            box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+            transform: rotate(45deg);
+        }
+
+    #dtstate {
+        padding-right: 8px;
+    }
+
+    .pmsModal .modal-header {
+        background: #094e8c !important;
+        background-image: none !important;
+        padding: 11px 20px;
+        border: none;
+        border-radius: 5px 5px 0 0;
+        color: #fff;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .pmsModal .modal-content {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .pmsModal .modal-header .modal-title {
+        font-size: 14px;
+    }
+
+    .pmsModal .close {
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-shadow: none;
+        opacity: .5;
+    }
+
+    #EmployeeTable {
+        margin-top: 10px;
+    }
+
+        #EmployeeTable table tr th {
+            padding: 5px 10px;
+        }
+
+    .dynamicPopupTbl {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+        .dynamicPopupTbl > tbody > tr > td,
+        #EmployeeTable table tr th {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 12px;
+        }
+
+    .w150 {
+        width: 160px;
+    }
+
+    .eqpadtbl > tbody > tr > td:not(:last-child) {
+        padding-right: 20px;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        z-index: 1;
+    }
+
+    .pad-md-18 {
+        padding-top: 24px;
+    }
+
+    .open .dropdown-toggle.btn-default {
+        background: transparent !important;
+    }
+
+    .input-group-btn .multiselect-clear-filter {
+        height: 32px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .btn .caret {
+        display: none;
+    }
+
+    .iminentSpan button.multiselect.dropdown-toggle {
+        height: 34px;
+    }
+
+    .col-lg-2 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    select:not(.btn) {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .dxgvControl_PlasticBlue a {
+        margin: 0 3px;
+    }
+
+    .dxeButtonDisabled_PlasticBlue {
+        background: #ababab !important;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .linerHd {
+        background: #4e8fcf !important;
+    }
+
+    /*Rev end 3.0*/
+    /*Rev 4.0*/
+    #popup_message {
+        padding-left: 0 !important;
+        text-align: center !important;
+    }
+
+    #popup_panel {
+        margin: 14px 0 5px;
+    }
+
+    #popup_ok, #popup_cancel {
+        border-radius: 4px !important;
+    }
+    /*Rev end 4.0*/
+    /*Rev 5.0*/
+    #gridUserList_DXPagerTop_PSP, #gridUserList_DXPagerBottom_PSP {
+        right: 36px !important;
+        left: auto !important;
+    }
+    /*Rev end 5.0*/
+</style>
+
+<div class="breadCumb">
+    <span>Group/Beat</span>
+</div>
+<div class="container">
+    <div class="form_main backBox p-3">
+        <table class="pull-left tblspace smblock mt-4 mb-3 ">
+            <tr>
+                @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
+                <td style="">
+                    <button type="button" id="btnAdd" class="btn btn-success btnwidth" onclick="AddArea()">Add Area</button>
+                </td>
+                <td style="">
+                    <button type="button" id="btnAdd" class="btn btn-success btnwidth" onclick="AddRoute()">Add Route</button>
+                </td>
+                @*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
+                <td style="">
+                    <button type="button" id="btnAdd" class="btn btn-success btnwidth" onclick="AddBeat()">Add Beat</button>
+                </td>
+
+                @*@if (ViewBag.CanBulkUpdate)
+                {*@
+                    <td style="">
+                        <button type="button" class="btn btn-info btn-clr-3" onclick="DownloadFormat();">Download Format</button>
+                    </td>
+
+                    <td style="">
+                        <button type="button" class="btn btn-primary btn-clr-4" onclick="ImportBeatPopOpen();">Import File</button>
+                    </td>
+
+                    <td style="">
+                        <button type="button" class="btn btn-warning btn-clr-5" onclick="ImportLogPopOpen();">View Log</button>
+                    </td>
+
+                @*}*@
+            </tr>
+            <tr></tr>
+        </table>
+        <br />
+        <div class="scrooler">
+            <div id="refreshgrid">
+                @{
+                    Html.RenderAction("PartialGrid", "Beat");
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="beatModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+    <div class="modal-dialog" style="width: 500px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add/Modify Group/Beat</h4>
+            </div>
+            <div class="modal-body" style="width: 476px;">
+                <div id="divModalBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
+                            <div id="dvlblBeatCode" style="display:none; margin-bottom:5px;">
+                                <label>Code : </label> <label id="lblBeatCode"> </label>
+                            </div>
+                            <div id="dvtxtLblBeatCode">
+                                <label>Code <span class="red">*</span></label>
+                            </div>
+                            <div id="dvtxtBeatCode">
+                                <input type="text" id="txtCode" maxlength="100" class="form-control" />
+                            </div>
+                            <div><label>Name <span class="red">*</span></label></div>
+                            <div>
+                                <input type="text" id="txtName" maxlength="100" class="form-control" />
+                            </div>
+
+                            @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
+                            @*<label>Area <span class="red">*</span></label>
+                                <div>
+                                    @Html.DropDownListFor(m => m.Area, new SelectList(Model.AreaList, "AreaId", "AreaName", Model.AreaId), new { @id = "ddlAreaB", @class = "form-control" })
+                                </div>*@
+
+                            <label>Route <span class="red">*</span></label>
+                            <div class="h-branch-select">
+                                @Html.DropDownListFor(m => m.Route, new SelectList(Model.RouteList, "RouteId", "RouteName", Model.RouteId), new { @id = "ddlRoute", @class = "form-control" })
+                            </div>
+                            @*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="width: 476px;">
+
+                <div>
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveBeat()">Save</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="hdnID" />
+</div>
+
+@*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
+<div id="areaModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+    <div class="modal-dialog" style="width: 500px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add/Modify Area</h4>
+            </div>
+            <div class="modal-body" style="width: 476px;">
+                <div id="divModalBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
+                            <div id="dvlblAreaCode" style="display:none; margin-bottom:5px;">
+                                <label>Code : </label> <label id="lblAreaCode"> </label>
+                            </div>
+                            <div id="dvtxtLblAreaCode"><label>Code <span class="red">*</span></label></div>
+                            <div id="dvtxtAreaCode">
+                                <input type="text" id="txtAreaCode" maxlength="100" class="form-control" />
+                            </div>
+                            <div><label>Name <span class="red">*</span></label></div>
+                            <div>
+                                <input type="text" id="txtAreaName" maxlength="100" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="width: 476px;">
+
+                <div>
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveArea()">Save</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="hdnID" />
+</div>
+
+<div id="routeModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+    <div class="modal-dialog" style="width: 500px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add/Modify Route</h4>
+            </div>
+            <div class="modal-body" style="width: 476px;">
+                <div id="divModalBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
+                            <div id="dvlblRouteCode" style="display:none; margin-bottom:5px;">
+                                <label>Code : </label> <label id="lblRouteCode"> </label>
+                            </div>
+                            <div id="dvtxtLblRouteCode"><label>Code <span class="red">*</span></label></div>
+                            <div id="dvtxtRouteCode">
+                                <input type="text" id="txtRouteCode" maxlength="100" class="form-control" />
+                            </div>
+                            <div><label>Name <span class="red">*</span></label></div>
+                            <div>
+                                <input type="text" id="txtRouteName" maxlength="100" class="form-control" />
+                            </div>
+                            <label>Area <span class="red">*</span></label>
+                            <div class="h-branch-select">
+                                @Html.DropDownListFor(m => m.Area, new SelectList(Model.AreaList, "AreaId", "AreaName", Model.AreaId), new { @id = "ddlArea", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="width: 476px;">
+
+                <div>
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveRoute()">Save</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="hdnID" />
+</div>
+@*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
+
+<div id="usermapModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
+    @*Rev 2.0*@
+    @*<div class="modal-dialog" style="width: 750px;">*@
+    <div class="modal-dialog" style="width: 780px;">
+        @*Rev end 2.0*@
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">User Map</h4>
+            </div>
+            <div class="modal-body" style="width: auto">
+                <div id="divModalBody">
+                    @{
+                        Html.RenderAction("PartialUserGrid", "Beat", new { id = "0" });
+                    }
+                </div>
+            </div>
+            <div class="modal-footer" style="width: auto">
+
+                <div>
+                    <button type="button" id="btnSave" class="btn btn-success" onclick="SaveUserBeat()">Map User</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="hdnID" />
+</div>
+
+<div id="myImportModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Import Excel Template For Beat</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel mb-4">Select File to Import (Add/Update)</label>
+                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5 mt-4"><input type="submit" value="Import (Add/Update)" onclick="return ClickToImportBeat();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "pcModalBeatImportLogMode";
+        settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
+        //settings.Height = 220;
+        //settings.ScrollBars.v
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Import Log";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.Top = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        settings.ClientSideEvents.CloseButtonClick = "function(s, e) {CloseLog(); }";
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("BeatImportLog", new List<BeatImportLogModel>());
+            // ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportImportLogGrid();'>Export</button>");
+        });
+
+        //settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalImportViewMode";
+            settings.Width = 300;
+            //settings.Height = 220;
+            //settings.ScrollBars.v
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Import Beat Log";
+            settings.Modal = true;
+            settings.AutoUpdatePosition = true;
+            settings.Top = 50;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+            settings.SetContent(() =>
+            {
+                Html.RenderPartial("BeatImportLogManual");
+            });
+
+            // settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true); }";
+        }).GetHtml()
