@@ -551,10 +551,13 @@
             height: 220px !important;
         }
 
-        .btn {
-            height: 35px;
-            border-radius: 8px;
-        }
+    .btn {
+        border-radius: 8px;
+        height: 38px;
+        padding-left: 12px;
+        padding-right: 12px;
+        color: #fff;
+    }
         /*Rev end 1.0*/
         /*Rev start 3.0*/
         .mrtop-6 {
@@ -926,7 +929,7 @@
         }
 
         #btnshow, #ddlAppIds {
-            height: 34px;
+            height: 38px;
         }
 
         #ddlAppIds {
@@ -1087,6 +1090,27 @@
             margin-right: 5px;
         }
 
+    .show-btn .btn-icon {
+        border-radius: 50px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        background: #fff;
+        line-height: 21px;
+        margin-right: 5px;
+        color: #054682;
+    }
+
+    .show-btn {
+        background: #054682;
+        transition: all .4s;
+        margin-right: 5px;
+    }
+
+        .show-btn:hover {
+            background: #072743;
+        }
+
         .custom-dropdown {
             position: relative;
             display: inline-block;
@@ -1163,7 +1187,7 @@
             width: 15px;
         }
 
-        .custom-dropdown .btn-icon, .btn-icon {
+        /*.custom-dropdown .btn-icon, .btn-icon {
             border-radius: 50px;
             width: 23px;
             height: 23px;
@@ -1171,7 +1195,7 @@
             background: #fff;
             line-height: 20px;
             margin-right: 5px;
-        }
+        }*/
 
 
         div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
@@ -1223,9 +1247,100 @@
             z-index: 999999 !important;
         }
 
+    .btn-export {
+        background: #d0d0d0;
+    }
+
+        .btn-export .btn-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .btn-export:hover {
+            background: #a24716 !important;
+            color: #fff;
+        }
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        /*width: 140px;*/
+        background-color: #0d8f24;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 99;
+        bottom: 130%;
+        left: 42%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #0d8f24 transparent transparent transparent;
+        }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #gridCurrentStock {
+        position: relative;
+    }
+
+    .action-buttons {
+        display: none;
+        position: absolute;
+        /*background: #ffffff;*/
+        /*border: 1px solid #ddd;*/
+        border-radius: 5px;
+        padding: 5px 10px;
+        /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+        white-space: nowrap;
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(-50%, -100%); /* Position above and centered horizontally */
+        transition: opacity 0.3s ease; /* Smooth fade-in effect */
+        top: 45px;
+        right: -45px;
+    }
+
+        .action-buttons.visible {
+            display: block !important; /* Add this class dynamically */
+        }
+
+
+        .action-buttons a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+            .action-buttons a img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .action-buttons a:hover {
+                text-decoration: underline;
+            }
+
     @@media only screen and (max-width: 768px) {
-
-
         #ddlAppIds .tooltip {
             display: none;
         }
@@ -1531,7 +1646,35 @@
 
         $(s.GetRow(e.visibleIndex)).addClass('rowActive');
 
+
+        $('.action-buttons').removeClass('visible').hide();
+
+
+        var rowElement = $('#gridCurrentStock_DXDataRow' + e.visibleIndex);
+
+
+        var actionButtons = $(rowElement).find('.action-buttons');
+
+
+        var rowOffset = $(rowElement).offset();
+
+
+        //actionButtons.css({
+        //    top: rowOffset.top,
+        //    left: rowOffset.left + ($(rowElement).outerWidth() / 2) - (actionButtons.outerWidth() / 2),
+        //    zIndex: 9999 
+        //});
+
+
+        actionButtons.addClass('visible').fadeIn(200);
+
     }
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.action-buttons, .dxgvDataRow').length) {
+            $('.action-buttons').hide();
+        }
+    });
 
     function AddCurrentStock() {
         $("#hdnStockID").val('0');
@@ -1583,16 +1726,16 @@
                         <!-- Button trigger modal -->
                         @*@if (ViewBag.CanAdd)
                         {*@
-                            <button type="button" class="btn btn-success add-btn add-new-btn" data-backdrop="static" data-keyboard="false" onclick="AddCurrentStock();">
+                            <button type="button" class="btn btn-success add-btn" data-backdrop="static" data-keyboard="false" onclick="AddCurrentStock();">
                                 <span class="btn-icon"><i class="fa fa-plus"></i></span> Add
                             </button>
                         @*}*@
 
                         @*@if (ViewBag.CanView)
                         {*@
-                            <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>
-                                <span class="btn-icon"><img src="/assests/images/stock-view.svg"></span> Show Data
-                            </button>
+                        <button type="button" id="btnshow" class="btn btn-success show-btn" tabindex=4>
+                            <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data
+                        </button>
                         @*}*@
 
                          @*@if (ViewBag.CanBulkUpdate)

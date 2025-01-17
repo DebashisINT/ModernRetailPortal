@@ -13,8 +13,8 @@
 
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
-    settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
-    settings.Settings.VerticalScrollableHeight = 200;
+    //settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+    //settings.Settings.VerticalScrollableHeight = 200;
 
 
     settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
@@ -41,8 +41,9 @@
     {
         column.FieldName = "SEQ";
         column.Caption = "Sr. No\r\n";
-        column.FixedStyle = GridViewColumnFixedStyle.Left;
-        column.Width = 60;
+        //column.FixedStyle = GridViewColumnFixedStyle.Left;
+        //column.Width = 60;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(80);
         column.VisibleIndex = 1;
     });
     settings.Columns.Add(column =>
@@ -51,10 +52,10 @@
         column.Caption = "Store Name";
         column.VisibleIndex = 2;
         column.Width = System.Web.UI.WebControls.Unit.Pixel(250);
-        column.Width = 300;
+        //column.Width = 300;
     });
 
-    
+
     settings.Columns.Add(column =>
     {
         column.FieldName = "CURRENTSTOCKDATE";
@@ -63,7 +64,8 @@
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-        column.Width = 150;
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(140);
     });
 
 
@@ -74,7 +76,8 @@
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-        column.Width = 150;
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(140);
         column.VisibleIndex = 4;
     });
 
@@ -84,7 +87,8 @@
         column.Caption = "Created By";
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width = 150;
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(230);
         column.VisibleIndex = 5;
     });
 
@@ -95,7 +99,8 @@
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-        column.Width = 150;
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(140);
         column.VisibleIndex = 6;
     });
 
@@ -105,24 +110,37 @@
         column.Caption = "Modified By";
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
-        column.Width = 150;
+        //column.Width = 0;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(230);
         column.VisibleIndex = 7;
     });
 
     settings.Columns.Add(column =>
     {
+        //column.SetDataItemTemplateContent(tc =>
+        //{
+        //    ViewContext.Writer.Write(
+        //        "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenCurrentStockforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "STOCK_ID")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
+        //        "" +
+        //        "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteCurrentStock('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "STOCK_ID")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
+        //    );
+        //});
+
         column.SetDataItemTemplateContent(tc =>
         {
+            ViewContext.Writer.Write("<div class='action-buttons' style=' position: absolute;'>");
             ViewContext.Writer.Write(
-                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenCurrentStockforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "STOCK_ID")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/Edit.png\" /></span></a>" +
+                "<div class=''><a href=\"javascript:void(0);\" onclick=\"OpenCurrentStockforEdit('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "STOCK_ID")) + "')\" class=\"\" title=\"Modify\"><span class='ico editColor mr-2'><img src=\"../../../assests/images/edit.svg\" /></span></a>" +
                 "" +
-                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteCurrentStock('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "STOCK_ID")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/Delete.png\" /></span></a></div>"
+                "<a href=\"javascript:void(0);\" onclick=\"OnClickDeleteCurrentStock('" + Convert.ToString(DataBinder.Eval(tc.DataItem, "STOCK_ID")) + "')\" class=\"\" title=\"Delete\"><span class='ico deleteColor mr-2'><img src=\"../../../assests/images/delete.svg\" /></span></a></div>"
             );
+            ViewContext.Writer.Write("</div>");
         });
 
         column.Settings.AllowDragDrop = DefaultBoolean.False;
         column.Settings.AllowSort = DefaultBoolean.False;
-        column.Width = 100;
+        //column.Width = 100;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(0);
         column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         column.Caption = "Action";

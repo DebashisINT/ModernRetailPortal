@@ -140,10 +140,35 @@
     .calendar-icon {
         position: absolute;
         bottom: 8px;
-        right: 14px;
+        right: 20px;
         z-index: 0;
         cursor: pointer;
     }
+
+    #dtFrom_B-1, #dtTo_B-1, #dtCurrentStockDate_B-1, #dtMfgDate_B-1, #dtExpDate_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img,
+        #dtCurrentStockDate_B-1 #dtCurrentStockDate_B-1Img,
+        #dtMfgDate_B-1 #dtMfgDate_B-1Img,
+        #dtExpDate_B-1 #dtExpDate_B-1Img {
+            display: none;
+        }
+
+    #dtFrom_I, #dtTo_I, #dtCurrentStockDate_I, #dtMfgDate_I, #dtExpDate_I {
+        background: transparent;
+    }
+
+    ./*for-cust-icon {
+        position: relative;
+        z-index: 1;
+        width: 50%;
+    }*/
 
     .date-select .form-control {
         position: relative;
@@ -270,7 +295,7 @@
         height: 34px;
     }
 
-    #dtFrom, #dtTo {
+    #dtFrom, #dtTo, #dtCurrentStockDate, #dtMfgDate, #dtExpDate {
         position: relative;
         z-index: 1;
         background: transparent;
@@ -522,8 +547,8 @@
 
     .add-btn .btn-icon {
         border-radius: 50px;
-        width: 21px;
-        height: 21px;
+        width: 20px;
+        height: 20px;
         display: inline-block;
         background: #fff;
         line-height: 21px;
@@ -1049,9 +1074,28 @@
         width: 100%;
     }
 
+    #dtCurrentStockDateOutOfRWarn {
+        left: 278px !important;
+        top: 20px;
+        width: 200px;
+    }
+
+    .focusrow td {
+        background-color: #3CA5DF !important;
+        color: #ffffff !important;
+    }
+
+        .focusrow td input {
+            color: #ffffff !important;
+            background-color: #3CA5DF !important;
+        }
+
+    .dxgv.dx-ac img
+    {
+        width: 24px;
+    }
+
     @@media only screen and (max-width: 768px) {
-
-
         #ddlAppIds .tooltip {
             display: none;
         }
@@ -1619,7 +1663,7 @@
 
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4 mb-10">
+                    <div class="col-md-3 mb-4  for-cust-icon">
                         <label>Current Stock Date<em style="color: red">*</em></label>
                         <div class="date-select">
                             @Html.DevExpress().DateEditFor(x => x.CurrentStockDate,
@@ -1634,13 +1678,13 @@
                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
                            }).GetHtml()
-
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
 
 
 
-                    <div class="col-md-4 mb-10">
+                    <div class="col-md-3 mb-4">
                         <label>Store<em style="color: red">*</em></label>
                         <div>
                             @Html.DevExpress().ButtonEdit(
@@ -1662,12 +1706,12 @@
 
                     </div>
 
-                </div>
+                @*</div>
 
                 <div class="clearfix"></div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-10">
+                <div class="row">*@
+                    <div class="col-md-3 mb-4">
                         <label>Product<em style="color: red">*</em></label>
                         <div>
                             @Html.DevExpress().ButtonEdit(
@@ -1688,7 +1732,7 @@
 
                     </div>
 
-                    <div class="col-md-4 mb-10">
+                    <div class="col-md-3 mb-4">
                         <label>Quantity<em style="color: red">*</em></label>
                         <div>
                             @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control ", @id = "txtQuantity", type = "text" })
@@ -1705,7 +1749,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-10">
+                    <div class="col-md-3 mb-4  for-cust-icon">
                         <label>Mfg. Date</label>
                         <div class="date-select">
                             @Html.DevExpress().DateEditFor(x => x.MfgDate,
@@ -1720,11 +1764,11 @@
                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                //deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
                            }).GetHtml()
-
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-10">
+                    <div class="col-md-3 mb-4  for-cust-icon">
                         <label>Exp. Date</label>
                         <div class="date-select">
                             @Html.DevExpress().DateEditFor(x => x.ExpDate,
@@ -1739,11 +1783,11 @@
                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                //deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
                            }).GetHtml()
-
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>
                     </div>
 
-                    <div class=" col-sm-2 mb-3">
+                    <div class=" col-sm-2 mb-4">
                         <label class="">&nbsp; </label>
                         <div class="relative" style="">
                             <button type="button" id="btnAdd" onclick="btnAdd_Click()" class="btn btn-success add-btn"><span class="btn-icon"><i class="fa fa-plus"></i></span> Add</button>
@@ -1771,7 +1815,7 @@
 
 
             <div class="clear"></div>
-            <div class=" px-4">
+            <div class=" px-4 mt-4">
                 @if (Convert.ToInt16(ViewBag.IsView) == 0 || Convert.ToInt16(ViewBag.IsView) == 4)
                 {
                     <button type="button" class="btn btn-success save-btn mr-4" onclick="SaveCurrentStock('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
