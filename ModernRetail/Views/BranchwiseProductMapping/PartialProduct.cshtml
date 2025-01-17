@@ -14,9 +14,9 @@
         settings.Properties.ClientSideEvents.ValueChanged = "ProductSelectionChanged";
         settings.GridViewClientSideEvents.BeginCallback = "ProductStartCallback";
         settings.CommandColumn.Width = System.Web.UI.WebControls.Unit.Pixel(10);
-        settings.GridViewProperties.SettingsPager.PageSize= 10;
-        settings.GridViewProperties.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50", "100" };
-        settings.GridViewProperties.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.GridViewProperties.SettingsPager.PageSize= 5;
+        //settings.GridViewProperties.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50", "100" };
+        //settings.GridViewProperties.SettingsPager.PageSizeItemSettings.Visible = true;
         settings.Properties.SelectionMode = GridLookupSelectionMode.Multiple;
         settings.CommandColumn.Visible = true;
         settings.CommandColumn.ShowSelectCheckbox = true;
@@ -27,13 +27,13 @@
         {
             column.FieldName = "SPRODUCTS_CODE";
             column.Caption = "Code";
-            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(180);
         });
         settings.Columns.Add(column =>
         {
             column.FieldName = "SPRODUCTS_NAME";
             column.Caption = "Name";
-            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(180);
         });
 
         settings.Columns.Add(column =>
