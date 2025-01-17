@@ -16,11 +16,11 @@ namespace ModernRetail.Controllers
     public class DepartmentsController : Controller
     {
         // GET: Departments
-        // GET: DesignationMaster
-        DesignationModel obj = new DesignationModel();
+
+        DepartmentsModel obj = new DepartmentsModel();
         public ActionResult Index()
         {
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "DesignationMaster");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "Departments");
 
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
@@ -31,11 +31,11 @@ namespace ModernRetail.Controllers
             return View();
 
         }
-        public ActionResult PartialGridList(DesignationModel model)
+        public ActionResult PartialGridList(DepartmentsModel model)
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "DesignationMaster");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "Departments");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
@@ -55,7 +55,7 @@ namespace ModernRetail.Controllers
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
-                sqlcmd = new SqlCommand("PRC_MR_DESIGNATIONMASTER", sqlcon);
+                sqlcmd = new SqlCommand("PRC_MR_DEPARTMENTMASTER", sqlcon);
                 sqlcmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDETAILS");
                 sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
                 sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_PageLoad);
@@ -63,7 +63,7 @@ namespace ModernRetail.Controllers
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
                 sqlcon.Close();
-                return PartialView("_PartialDesignationList", GetDetailsList(Is_PageLoad));
+                return PartialView("PartialDepartmentsList", GetDetailsList(Is_PageLoad));
 
             }
             catch
@@ -79,7 +79,7 @@ namespace ModernRetail.Controllers
             if (Is_PageLoad != "Ispageload")
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
-                var q = from d in dc.MR_DESIGNATIONMASTERLISTs
+                var q = from d in dc.MR_DEPARTMENTMASTERLISTs
                         where d.USERID == Convert.ToInt32(Userid)
                         orderby d.SEQ ascending
                         select d;
@@ -88,30 +88,30 @@ namespace ModernRetail.Controllers
             else
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
-                var q = from d in dc.MR_DESIGNATIONMASTERLISTs
+                var q = from d in dc.MR_DEPARTMENTMASTERLISTs
                         where d.SEQ == 0
                         select d;
                 return q;
             }
         }
-        public JsonResult SaveDesignation(string name, string id)
+        public JsonResult SaveDepartments(string name, string id)
         {
             int output = 0;
             string Userid = Convert.ToString(Session["MRuserid"]);
-            output = obj.SaveDesignation(name, Userid, id);
+            output = obj.SaveDepartments(name, Userid, id);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditDesignation(string id)
+        public JsonResult EditDepartments(string id)
         {
             DataTable output = new DataTable();
-            output = obj.EditDesignation(id);
+            output = obj.EditDepartments(id);
 
             if (output.Rows.Count > 0)
             {
                 return Json(new
                 {
-                    NAME = Convert.ToString(output.Rows[0]["deg_designation"]),
+                    NAME = Convert.ToString(output.Rows[0]["cost_description"]),
 
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -130,20 +130,12 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporDesignationList(int type)
+        public ActionResult ExportList(int type)
         {
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));
-                //case 2:
-                //    return GridViewExtension.ExportToPdf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));                
                 default:
                     break;
             }
@@ -157,14 +149,17 @@ namespace ModernRetail.Controllers
             var settings = new GridViewSettings();
             settings.Name = "PartialGridList";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
-            settings.SettingsExport.FileName = "Designation";
+            settings.SettingsExport.FileName = "DEPARTMENT";
 
             settings.Columns.Add(x =>
             {
-                x.FieldName = "DESIGNATIONNAME";
-                x.Caption = "Designation Name";
+                x.FieldName = "DEPARTMENTNAME";
+                x.Caption = "Designation";
                 x.VisibleIndex = 1;
-                x.Width = 200;
+                x.ColumnType = MVCxGridViewColumnType.TextBox;
+                //x.Width = System.Web.UI.WebControls.Unit.Percentage(30);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(300);
+
             });
 
             settings.Columns.Add(x =>
@@ -172,30 +167,46 @@ namespace ModernRetail.Controllers
                 x.FieldName = "CreateUser";
                 x.Caption = "Created By";
                 x.VisibleIndex = 4;
-                x.Width = 200;
+                x.ColumnType = MVCxGridViewColumnType.TextBox;
+                //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(150);
             });
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CreateDate";
                 x.Caption = "Created On";
                 x.VisibleIndex = 5;
-                x.Width = 200;
+                x.Width = 120;
+                //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+
             });
+
             settings.Columns.Add(x =>
             {
                 x.FieldName = "ModifyUser";
                 x.Caption = "Updated By";
                 x.VisibleIndex = 6;
-                x.Width = 200;
+                x.ColumnType = MVCxGridViewColumnType.TextBox;
+                //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
             });
+
             settings.Columns.Add(x =>
             {
                 x.FieldName = "ModifyDate";
                 x.Caption = "Updated On";
                 x.VisibleIndex = 7;
-                x.Width = 200;
+                x.Width = 120;
+                //x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
+                x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+                x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+                (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+
             });
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
             settings.SettingsExport.LeftMargin = 20;
