@@ -833,6 +833,7 @@ namespace ModernRetailAPI.Controllers
                                     {
                                         order_id = Convert.ToString(ds.Tables[1].Rows[j]["order_id"]),
                                         product_id = Convert.ToInt64(ds.Tables[1].Rows[j]["product_id"]),
+                                        product_name = Convert.ToString(ds.Tables[1].Rows[j]["product_name"]),
                                         qty = Convert.ToDecimal(ds.Tables[1].Rows[j]["qty"]),
                                         rate = Convert.ToDecimal(ds.Tables[1].Rows[j]["rate"])
                                     });
