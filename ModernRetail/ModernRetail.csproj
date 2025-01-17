@@ -283,6 +283,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BeatController.cs" />
     <Compile Include="Controllers\BranchMasterController.cs" />
     <Compile Include="Controllers\BranchwiseProductMappingController.cs" />
     <Compile Include="Controllers\BrandMasterController.cs" />
@@ -304,11 +305,13 @@
     <Compile Include="Controllers\SecurityRolesController.cs" />
     <Compile Include="Controllers\StateMasterController.cs" />
     <Compile Include="Controllers\StoreMasterController.cs" />
+    <Compile Include="Controllers\TargetLevelSetupMasterController.cs" />
     <Compile Include="Controllers\UserConfigurationController.cs" />
     <Compile Include="Controllers\WarehouseMasterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BeatModel.cs" />
     <Compile Include="Models\BranchMaster.cs" />
     <Compile Include="Models\BranchwiseProductMappingModel.cs" />
     <Compile Include="Models\BrandMasterModel.cs" />
@@ -336,6 +339,7 @@
     <Compile Include="Models\SecurityRolesModel.cs" />
     <Compile Include="Models\StateMasterModel.cs" />
     <Compile Include="Models\StoreMasterModel.cs" />
+    <Compile Include="Models\TargetLevelSetupModel.cs" />
     <Compile Include="Models\UserMasterModel.cs" />
     <Compile Include="Models\WarehouseMasterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1169,6 +1173,12 @@
     <Content Include="Views\BranchwiseProductMapping\PartialProduct.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
     <Content Include="Views\Departments\PartialDepartmentsList.cshtml" />
+    <Content Include="Views\Beat\BeatImportLog.cshtml" />
+    <Content Include="Views\Beat\BeatImportLogManual.cshtml" />
+    <Content Include="Views\Beat\Index.cshtml" />
+    <Content Include="Views\Beat\PartialGrid.cshtml" />
+    <Content Include="Views\Beat\PartialUserGrid.cshtml" />
+    <Content Include="Views\TargetLevelSetupMaster\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
