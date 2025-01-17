@@ -16,7 +16,7 @@ namespace ModernRetail.Models
 
         //
         public string Is_PageLoad { get; set; }
-        public int SaveDesignation(string name, string Userid, string ID = "0")
+        public int SaveDepartments(string name, string Userid, string ID = "0")
         {
             ProcedureExecute proc;
             try
@@ -26,7 +26,7 @@ namespace ModernRetail.Models
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
-                sqlcmd = new SqlCommand("PRC_MR_DESIGNATIONMASTER", sqlcon);
+                sqlcmd = new SqlCommand("PRC_MR_DEPARTMENTMASTER", sqlcon);
                 if (ID == "0")
                     sqlcmd.Parameters.AddWithValue("@ACTION", "ADD");
                 else
@@ -64,7 +64,7 @@ namespace ModernRetail.Models
         {
             int i;
             int rtrnvalue = 0;
-            ProcedureExecute proc = new ProcedureExecute("PRC_MR_DESIGNATIONMASTER");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_DEPARTMENTMASTER");
             proc.AddNVarcharPara("@action", 50, "DELETE");
             proc.AddNVarcharPara("@ID", 30, ID);
             proc.AddVarcharPara("@ReturnValue", 200, "0", QueryParameterDirection.Output);
@@ -73,14 +73,14 @@ namespace ModernRetail.Models
             return rtrnvalue;
         }
 
-        public DataTable EditDesignation(string ID)
+        public DataTable EditDepartments(string ID)
         {
             ProcedureExecute proc;
             int rtrnvalue = 0;
             DataTable dt = new DataTable();
             try
             {
-                using (proc = new ProcedureExecute("PRC_MR_DESIGNATIONMASTER"))
+                using (proc = new ProcedureExecute("PRC_MR_DEPARTMENTMASTER"))
                 {
                     proc.AddVarcharPara("@ID", 100, ID);
                     proc.AddVarcharPara("@ACTION", 100, "EDIT");

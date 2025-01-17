@@ -1168,6 +1168,7 @@
     <Content Include="Views\BranchwiseProductMapping\PartialParentEmployee.cshtml" />
     <Content Include="Views\BranchwiseProductMapping\PartialProduct.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\PartialDepartmentsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1237,7 +1238,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50377</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44400/</IISUrl>
+          <IISUrl>http://localhost:44401/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
