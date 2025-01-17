@@ -272,6 +272,18 @@ namespace ModernRetail.Controllers
 
                         foreach (DataRow row in dt.Rows)
                         {
+                            
+                            if (Convert.ToString(row["MFGDATETEXT"]) == "01-01-0100" || Convert.ToString(row["MFGDATETEXT"]) == "01-01-1900")
+                            {
+                                row["MFGDATETEXT"] = "";
+                            }
+
+                            if (Convert.ToString(row["EXPDATETEXT"]) == "01-01-0100" || Convert.ToString(row["EXPDATETEXT"]) == "01-01-1900")
+                            {
+                                row["EXPDATETEXT"] = "";
+                            }
+
+
                             Gid = Guid.NewGuid().ToString();
                             productdataobj = new StockProductDetails();
                             productdataobj.Guids = Gid;
@@ -349,7 +361,7 @@ namespace ModernRetail.Controllers
             {
                 var stockid = "";
 
-                if (data.StockId == "")
+                if (data.StockId == "" || data.StockId == null)
                 {
                     stockid = "STK_" + Convert.ToString(Session["MRuserid"]) + DateTime.Now.Date.ToString("yyMMdd") + DateTime.Now.ToString("hhmmss");
                 }
