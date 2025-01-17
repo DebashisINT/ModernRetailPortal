@@ -27,6 +27,11 @@
         width: 100%;
         height: 100%;
     }
+
+        .flex-loader img {
+            width: 120px;
+        }
+
     #grid .dxgvHSDC > div, #grid .dxgvCSD {
         width: 100% !important;
     }
@@ -740,7 +745,7 @@
     }
 
     .dxgvControl_PlasticBlue a {
-        margin: 5px 3px;
+        /*margin: 5px 3px;*/
         display: inline-block;
     }
 
@@ -843,6 +848,11 @@
     .select2-container--default .select2-selection--single .select2-selection__rendered {
         line-height: 32px;
         padding-right: 22px;
+    }
+
+    #ProductGridLookup_DDD_PW-1 {
+        right: 0 !important;
+        left: auto !important;
     }
 </style>
 <script>
@@ -1365,12 +1375,12 @@
 
                 @*</div>
             </div>*@
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <label>Branch<span class="red">*</span></label>
                 @*@Html.Action("GetBranchList", "BranchwiseProductMapping")*@
                 @Html.Action("GetBranchList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <label>Store</label>
                 @*@Html.Action("GetParentEmployeeList", "BranchwiseProductMapping")*@
                 @Html.Action("GetParentEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
