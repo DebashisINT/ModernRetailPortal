@@ -13,13 +13,13 @@ using System.Data;
 
 namespace ModernRetail.Controllers
 {
-    public class BrandMasterController : Controller
+    public class BrandController : Controller
     {
-        // GET: BrandMaster
+        // GET: Brand
         BrandMasterModel obj = new BrandMasterModel();
         public ActionResult Index()
         {
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "BrandMaster");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "Brand");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -33,7 +33,7 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "BrandMaster");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "Brand");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
