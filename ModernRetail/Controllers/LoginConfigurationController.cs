@@ -95,10 +95,10 @@ namespace ModernRetail.Controllers
                 CountryList = APIHelperMethods.ToModelList<CountryList>(dt.Tables[4]);
                 objdata.CountryList = CountryList;
 
-              
-
+                
             }
 
+            objdata.IsActive = true;
 
             return View("~/Views/LoginConfiguration/Index.cshtml", objdata);
         }
@@ -404,6 +404,13 @@ namespace ModernRetail.Controllers
                     
                 }
 
+                var Is_active = 0;
+                if (Convert.ToString(dt.Tables[0].Rows[0]["USER_ISACTIVE"]) == "True")
+                {
+                    Is_active = 1;
+                }
+
+
                 return Json(new
                 {
                     USER_ID = Convert.ToString(dt.Tables[0].Rows[0]["USER_ID"]),
@@ -422,7 +429,7 @@ namespace ModernRetail.Controllers
                     USER_PINID = Convert.ToString(dt.Tables[0].Rows[0]["USER_PINID"]),
                     USER_PHONE = Convert.ToString(dt.Tables[0].Rows[0]["USER_PHONE"]),
                     USER_EMAIL = Convert.ToString(dt.Tables[0].Rows[0]["USER_EMAIL"]),
-                    ISACTIVE = Convert.ToString(dt.Tables[0].Rows[0]["USER_ISACTIVE"]),
+                    ISACTIVE = Is_active,
                     BRANCH_LIST = strBRANCH
 
                 }, JsonRequestBehavior.AllowGet);
