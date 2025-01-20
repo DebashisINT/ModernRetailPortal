@@ -57,6 +57,8 @@ namespace ModernRetail.Controllers
         {
             ViewBag.ValidateMessage = "";
 
+            ViewBag.ApplicationVersion = oDBEngine.GetApplicationVersion();
+
             if ((omodel.username is null || omodel.username == "") && (omodel.password is null || omodel.password == ""))
             {
                 ViewBag.ValidateMessage = "Please enter User Name and Password";

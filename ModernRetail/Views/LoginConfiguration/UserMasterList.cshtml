@@ -1233,22 +1233,43 @@
             a.push(this.value);
         });
         var str1
+        str1 = { user_id: user_id, Statelist: a }
         //  alert(a);
 
-        str1 = { user_id: user_id, Statelist: a }
-        $.ajax({
-            type: "POST",
-            //url: "LoginConfiguration/GetStateListSubmit",
-            url: "@Url.Action("GetStateListSubmit", "LoginConfiguration")",
-            data: JSON.stringify(str1),
-            contentType: "application/json; charset=utf-8",
-            datatype: "json",
-            success: function (responseFromServer) {
-                // alert(responseFromServer.d)
-                $("#myModal").modal('hide');
-                jAlert('State assigned successfully');
-            }
-        });
+        if (str1.Statelist.length == 0) {
+            Swal.fire({
+                title: 'Sorry!',
+                text: 'No State selected.',
+                imageUrl: '/path/to/your/error-icon.png',
+                imageWidth: 50,
+                icon: 'error' // You can also keep the built-in icon type
+            });
+        }
+        else {
+            
+            $.ajax({
+                type: "POST",
+                //url: "LoginConfiguration/GetStateListSubmit",
+                url: "@Url.Action("GetStateListSubmit", "LoginConfiguration")",
+                data: JSON.stringify(str1),
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (responseFromServer) {
+                    // alert(responseFromServer.d)
+                    $("#myModal").modal('hide');
+
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'State assigned successfully',
+                        imageUrl: '/path/to/your/error-icon.png',
+                        imageWidth: 50,
+                        icon: 'success' // You can also keep the built-in icon type
+                    });
+                }
+            });
+        }
+
+
     }
 
     function fn_BranchMap(user_id) {
@@ -1292,22 +1313,43 @@
             a.push(this.value);
         });
         var str1
+        str1 = { user_id: user_id, Branchlist: a }
         //  alert(a);
 
-        str1 = { user_id: user_id, Branchlist: a }
-        $.ajax({
-            type: "POST",
-            //url: "LoginConfiguration/GetBranchListSubmit",
-            url: "@Url.Action("GetBranchListSubmit", "LoginConfiguration")",
-            data: JSON.stringify(str1),
-            contentType: "application/json; charset=utf-8",
-            datatype: "json",
-            success: function (responseFromServer) {
-                // alert(responseFromServer)
-                $("#myModalBranchMap").modal('hide');
-                jAlert('Branch assigned successfully');
-            }
-        });
+        if (str1.Branchlist.length == 0) {
+            Swal.fire({
+                title: 'Sorry!',
+                text: 'No Branch selected.',
+                imageUrl: '/path/to/your/error-icon.png',
+                imageWidth: 50,
+                icon: 'error' // You can also keep the built-in icon type
+            });
+        }
+        else {
+            
+            $.ajax({
+                type: "POST",
+                //url: "LoginConfiguration/GetBranchListSubmit",
+                url: "@Url.Action("GetBranchListSubmit", "LoginConfiguration")",
+                data: JSON.stringify(str1),
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (responseFromServer) {
+                    // alert(responseFromServer)
+                    $("#myModalBranchMap").modal('hide');
+
+                    //jAlert('Branch assigned successfully');
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Branch assigned successfully',
+                        imageUrl: '/path/to/your/error-icon.png',
+                        imageWidth: 50,
+                        icon: 'success' // You can also keep the built-in icon type
+                    });
+                }
+            });
+        }
+
     }
 
      function DeleteClick(ID) {
@@ -1401,7 +1443,7 @@
         //actionButtons.css({
         //    top: rowOffset.top,
         //    left: rowOffset.left + ($(rowElement).outerWidth() / 2) - (actionButtons.outerWidth() / 2),
-        //    zIndex: 9999 
+        //    zIndex: 9999
         //});
 
         // Show the buttons
