@@ -807,7 +807,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "GRP_NAME";
-                x.Caption = "Group Name";
+                x.Caption = "Security Role";
                 x.VisibleIndex = 1;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
@@ -882,15 +882,15 @@ namespace ModernRetail.Controllers
                 ViewData["ModelData"] = model;
                 string Userid = Convert.ToString(Session["MRuserid"]);
 
-                String con = System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"];
+                String con = System.Configuration.ConfigurationManager.AppSettings["DBConnectionDefault"];
                 SqlCommand sqlcmd = new SqlCommand();
                 SqlConnection sqlcon = new SqlConnection(con);
                 sqlcon.Open();
                 sqlcmd = new SqlCommand("PRC_MR_SECURITYROLESDETAILS", sqlcon);
-                sqlcmd.Parameters.Add("@ACTION", "GETGROUPMEMBER");
-                sqlcmd.Parameters.Add("@USER_ID", Userid);
-                sqlcmd.Parameters.Add("@ISPAGELOAD", model.Is_GMPageLoad);
-                sqlcmd.Parameters.Add("@ID", model.grp_id);
+                sqlcmd.Parameters.AddWithValue("@ACTION", "GETGROUPMEMBER");
+                sqlcmd.Parameters.AddWithValue("@USER_ID", Userid);
+                sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_GMPageLoad);
+                sqlcmd.Parameters.AddWithValue("@ID", model.grp_id);
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -926,7 +926,7 @@ namespace ModernRetail.Controllers
             }
         }
 
-        public ActionResult ExporGMList(int type)
+        public ActionResult ExportGMList(int type)
         {
             switch (type)
             {

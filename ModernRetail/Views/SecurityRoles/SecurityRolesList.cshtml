@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "User Groups";
+    ViewBag.Title = "Security Roles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -781,18 +781,6 @@
             gridList.Refresh();
         });
 
-        @*$('#ddlAppIds').on('change', function () {
-            if ($("#ddlAppIds option:selected").index() > 0) {
-                var selectedValue = $(this).val();
-                var desg = $("#drpdesignation").val();
-                var usrtype = $("#ddlusertypes").val();
-                $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporCategoryList", "LMSCategory", new { type = "_type_" })'
-                window.location.href = url.replace("_type_", selectedValue);
-
-            }
-        });*@
-
         $('#ddlAppIds').on('click', function () {
             var selectedValue = "1"; // XLSX export value
             var desg = $("#drpdesignation").val();
@@ -874,13 +862,15 @@
                             /*imageWidth: 50, */
                             icon: 'success' // You can also keep the built-in icon type
                         }).then(() => {
-                            location.reload();
+                            //location.reload();
+                            Is_PageLoad = "1";
+                            gridList.Refresh();
                         });
-                    } else if (parseInt(response) == -10) {
+                    } else if (parseInt(response) == -1) {
                         // SweetAlert error message with custom icon
                         Swal.fire({
                             title: 'Sorry!',
-                            text: 'User Group already mapped with another module. Cannot delete.',
+                            text: 'Security Role already mapped with another module. Cannot delete.',
                             imageUrl: '/path/to/your/error-icon.png',
                             imageWidth: 50,
                             icon: 'error' // You can also keep the built-in icon type
@@ -894,20 +884,13 @@
     /*Rev Pallab: grid modification*/
     function gridRowclick(s, e) {
         $('#gridList').find('tr').removeClass('rowActive');
-
-
         $(s.GetRow(e.visibleIndex)).addClass('rowActive');
-
-
         // Hide all other action-buttons
         $('.action-buttons').removeClass('visible').hide();
-
         // Get the clicked row's DOM element
         var rowElement = $('#gridList_DXDataRow' + e.visibleIndex);
-
         // Find the action-buttons container in the clicked row
         var actionButtons = $(rowElement).find('.action-buttons');
-
         // Get the position of the clicked row
         var rowOffset = $(rowElement).offset();
 
@@ -938,7 +921,7 @@
     }
 </script>
 <div class="breadCumb">
-    <span>User Groups</span>
+    <span>Security Roles</span>
 </div>
 
 @*Rev Pallab: grid modification*@
