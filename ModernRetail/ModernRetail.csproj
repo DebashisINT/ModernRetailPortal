@@ -295,7 +295,7 @@
     <Compile Include="Controllers\CurrentStockController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
-    <Compile Include="Controllers\DesignationMasterController.cs" />
+    <Compile Include="Controllers\DesignationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
@@ -1112,8 +1112,8 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\CityMaster\Index.cshtml" />
     <Content Include="Views\CityMaster\_PartialCityMasterList.cshtml" />
-    <Content Include="Views\DesignationMaster\Index.cshtml" />
-    <Content Include="Views\DesignationMaster\_PartialDesignationList.cshtml" />
+    <Content Include="Views\Designation\Index.cshtml" />
+    <Content Include="Views\Designation\_PartialDesignationList.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
