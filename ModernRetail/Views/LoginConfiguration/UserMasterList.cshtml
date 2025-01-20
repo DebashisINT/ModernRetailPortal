@@ -1084,7 +1084,7 @@
             var selectedValue = "1"; // XLSX export value
             var desg = $("#drpdesignation").val();
             var usrtype = $("#ddlusertypes").val();
-            var url = '@Url.Action("ExporUserList", "UserConfiguration", new { type = "_type_" })';
+            var url = '@Url.Action("ExporUserList", "LoginConfiguration", new { type = "_type_" })';
             window.location.href = url.replace("_type_", selectedValue);
         });
     });
@@ -1104,7 +1104,7 @@
     /*Rev End Pallab: grid modification*/
     function AddUser() {
         $("#hdnID").val('0');
-        var url = '/UserConfiguration/Index?key=Add';
+        var url = '/LoginConfiguration/Index?key=Add';
         window.location.href = url;
     }
 
@@ -1113,11 +1113,11 @@
          if (parseInt(ID) > 0) {
                  $.ajax({
                      type: "POST",
-                     url: "@Url.Action("SetMapDataByID", "UserConfiguration")",
+                     url: "@Url.Action("SetMapDataByID", "LoginConfiguration")",
                      data: { ID: ID, IsView: 0 },
                      success: function (response) {
                          if (response != null && response == true) {
-                             var url = '/UserConfiguration/Index?key=' + ID;
+                             var url = '/LoginConfiguration/Index?key=' + ID;
                              window.location.href = url;
                          }
                          else {
@@ -1136,11 +1136,11 @@
          if (parseInt(ID) > 0) {
                  $.ajax({
                      type: "POST",
-                     url: "@Url.Action("SetMapDataByID", "UserConfiguration")",
+                     url: "@Url.Action("SetMapDataByID", "LoginConfiguration")",
                      data: { ID: ID, IsView: 0 },
                      success: function (response) {
                          if (response != null && response == true) {
-                             var url = '/UserConfiguration/Index?key=' + ID+'&Mode=Copy';
+                             var url = '/LoginConfiguration/Index?key=' + ID+'&Mode=Copy';
                              window.location.href = url;
                          }
                          else {
@@ -1162,7 +1162,7 @@
         // alert();
         $.ajax({
             type: "POST",
-            url: "@Url.Action("GetStateList", "UserConfiguration")",
+            url: "@Url.Action("GetStateList", "LoginConfiguration")",
             data: JSON.stringify(str),
             contentType: "application/json; charset=utf-8",
             datatype: "json",
@@ -1238,8 +1238,8 @@
         str1 = { user_id: user_id, Statelist: a }
         $.ajax({
             type: "POST",
-            //url: "UserConfiguration/GetStateListSubmit",
-            url: "@Url.Action("GetStateListSubmit", "UserConfiguration")",
+            //url: "LoginConfiguration/GetStateListSubmit",
+            url: "@Url.Action("GetStateListSubmit", "LoginConfiguration")",
             data: JSON.stringify(str1),
             contentType: "application/json; charset=utf-8",
             datatype: "json",
@@ -1259,8 +1259,8 @@
         // alert();
         $.ajax({
             type: "POST",
-            //url: "UserConfiguration/GetBranchList",
-            url: "@Url.Action("GetBranchList", "UserConfiguration")",
+            //url: "LoginConfiguration/GetBranchList",
+            url: "@Url.Action("GetBranchList", "LoginConfiguration")",
             data: JSON.stringify(str),
             contentType: "application/json; charset=utf-8",
             datatype: "json",
@@ -1297,8 +1297,8 @@
         str1 = { user_id: user_id, Branchlist: a }
         $.ajax({
             type: "POST",
-            //url: "UserConfiguration/GetBranchListSubmit",
-            url: "@Url.Action("GetBranchListSubmit", "UserConfiguration")",
+            //url: "LoginConfiguration/GetBranchListSubmit",
+            url: "@Url.Action("GetBranchListSubmit", "LoginConfiguration")",
             data: JSON.stringify(str1),
             contentType: "application/json; charset=utf-8",
             datatype: "json",
@@ -1329,7 +1329,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("DeleteUser", "UserConfiguration")',
+                    url: '@Url.Action("DeleteUser", "LoginConfiguration")',
                     data: { user_id: ID },
                     success: function (response) {
                         if (parseInt(response) > 0) {
@@ -1507,7 +1507,7 @@
         <div class="scrooler">
             <div id="refreshgrid">
                 @{
-                    Html.RenderAction("PartialGridList", "UserConfiguration", new { Is_PageLoad = "0" });
+                    Html.RenderAction("PartialGridList", "LoginConfiguration", new { Is_PageLoad = "0" });
                 }
             </div>
         </div>

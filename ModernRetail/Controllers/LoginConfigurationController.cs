@@ -19,20 +19,20 @@ using DevExpress.XtraRichEdit.Import.Html;
 
 namespace ModernRetail.Controllers
 {
-    public class UserConfigurationController : Controller
+    public class LoginConfigurationController : Controller
     {
-        // GET: UserConfiguration
+        // GET: LoginConfiguration
         UserMasterModel objdata = null;
         Int64 DetailsID = 0;
         string UserName = string.Empty;
-        public UserConfigurationController()
+        public LoginConfigurationController()
         {
             objdata = new UserMasterModel();
         }
 
         public ActionResult UserMasterList()
         {
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UserMasterList", "UserConfiguration");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UserMasterList", "LoginConfiguration");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -100,7 +100,7 @@ namespace ModernRetail.Controllers
             }
 
 
-            return View("~/Views/UserConfiguration/Index.cshtml", objdata);
+            return View("~/Views/LoginConfiguration/Index.cshtml", objdata);
         }
 
 
@@ -119,7 +119,7 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UserMasterList", "UserConfiguration");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/UserMasterList", "LoginConfiguration");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;

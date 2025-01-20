@@ -1079,7 +1079,7 @@
     var ID = 0;
     var urlKeys = getUrlVars();
     function UserAdd() {
-        window.location.href = '/UserConfiguration/UserMasterList';
+        window.location.href = '/LoginConfiguration/UserMasterList';
     }
 
     function getUrlVars() {
@@ -1195,14 +1195,14 @@
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/UserConfiguration/UserMasterList';
+                    window.location.href = '/LoginConfiguration/UserMasterList';
 
                 }
             });
         }
 
         else {
-            window.location.href = '/UserConfiguration/UserMasterList';
+            window.location.href = '/LoginConfiguration/UserMasterList';
         }
 
     }
@@ -1214,7 +1214,7 @@
         {
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("EditUser", "UserConfiguration")",
+                url: "@Url.Action("EditUser", "LoginConfiguration")",
                 data: { id: ID },
                 success: function (response) {
                     if (response.USER_ID == "") {
@@ -1383,7 +1383,7 @@
 
         $.ajax({
             type: "POST",
-            url: "@Url.Action("CheckUniqueUserLoginId", "UserConfiguration")",
+            url: "@Url.Action("CheckUniqueUserLoginId", "LoginConfiguration")",
             data: { LoginId: LoginId, User_ID: User_ID },
             async: false,
             success: function (response) {
@@ -1401,7 +1401,7 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Sorry!',
-                            text: 'Please Enter User Name to proceed'
+                            text: 'Please enter User Name to proceed'
                         });
                         return false;
                     }
@@ -1409,7 +1409,7 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Sorry!',
-                            text: 'Please Enter Login Id to proceed'
+                            text: 'Please enter Login Id to proceed'
                         });
                         return false;
                     }
@@ -1417,7 +1417,7 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Sorry!',
-                            text: 'Please Enter Password to proceed'
+                            text: 'Please enter Password to proceed'
                         });
                         return false;
                     }
@@ -1425,7 +1425,7 @@
                          Swal.fire({
                              icon: 'warning',
                              title: 'Sorry!',
-                             text: 'Please Select Branch to proceed.'
+                             text: 'Please select Branch to proceed.'
                          });
                          return false;
                      }
@@ -1433,7 +1433,7 @@
                          Swal.fire({
                              icon: 'warning',
                              title: 'Sorry!',
-                             text: 'Please Select Department to proceed.'
+                             text: 'Please select Department to proceed.'
                          });
                          return false;
                      }
@@ -1441,7 +1441,7 @@
                          Swal.fire({
                              icon: 'warning',
                              title: 'Sorry!',
-                             text: 'Please Select Designation to proceed.'
+                             text: 'Please select Designation to proceed.'
                          });
                          return false;
                      }
@@ -1449,7 +1449,7 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Sorry!',
-                            text: 'Please Enter ReportToTxt to proceed'
+                            text: 'Please enter Report To to proceed'
                         });
                         return false;
                     }
@@ -1457,7 +1457,7 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Sorry!',
-                            text: 'Please Select Group to proceed.'
+                            text: 'Please select Group to proceed.'
                         });
                         return false;
                     }
@@ -1489,7 +1489,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "@Url.Action("SaveUser", "UserConfiguration")",
+                        url: "@Url.Action("SaveUser", "LoginConfiguration")",
                         data: JSON.stringify({ Details: data }), // Fixed JSON formatting
                         async: true,
                         contentType: "application/json; charset=utf-8",
@@ -1518,7 +1518,7 @@
                                     }).then((result) => {
                                         if (result.isConfirmed) {
                                             setTimeout(function () {
-                                                var url = '/UserConfiguration/UserMasterList';
+                                                var url = '/LoginConfiguration/UserMasterList';
                                                 window.location.href = url;
                                             }, 500);
                                         }
