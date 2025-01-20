@@ -129,7 +129,7 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporCountryList(int type)
+        public ActionResult ExportCountryList(int type)
         {
             switch (type)
             {

@@ -969,14 +969,14 @@ namespace ModernRetail.Controllers
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(25);
             });
-            settings.Columns.Add(x =>
-            {
-                x.FieldName = "ONLINESTATUS";
-                x.Caption = "Online Status";
-                x.VisibleIndex = 4;
-                x.ColumnType = MVCxGridViewColumnType.TextBox;
-                x.Width = System.Web.UI.WebControls.Unit.Percentage(25);
-            });
+            //settings.Columns.Add(x =>
+            //{
+            //    x.FieldName = "ONLINESTATUS";
+            //    x.Caption = "Online Status";
+            //    x.VisibleIndex = 4;
+            //    x.ColumnType = MVCxGridViewColumnType.TextBox;
+            //    x.Width = System.Web.UI.WebControls.Unit.Percentage(25);
+            //});
 
 
             settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;

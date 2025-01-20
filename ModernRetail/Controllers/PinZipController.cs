@@ -14,14 +14,14 @@ using System.Data;
 
 namespace ModernRetail.Controllers
 {
-    public class PinZipMasterController : Controller
+    public class PinZipController : Controller
     {
-        // GET: PinZipMaster
+        // GET: PinZip
         PinZipMasterModel obj = new PinZipMasterModel();
         public ActionResult Index()
         {
 
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "PinZipMaster");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "PinZip");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -33,7 +33,7 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "PinZipMaster");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "PinZip");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;

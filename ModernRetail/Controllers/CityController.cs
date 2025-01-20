@@ -14,14 +14,14 @@ using System.Data;
 
 namespace ModernRetail.Controllers
 {
-    public class CityMasterController : Controller
+    public class CityController : Controller
     {
-        // GET: CityMaster
+        // GET: City
         CityMasterModel obj = new CityMasterModel();
         public ActionResult Index()
         {
 
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "CityMaster");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "City");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -42,7 +42,7 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "CityMaster");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "City");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
@@ -137,20 +137,12 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporList(int type)
+        public ActionResult ExportList(int type)
         {
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));
-                //case 2:
-                //    return GridViewExtension.ExportToPdf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));               
                 default:
                     break;
             }

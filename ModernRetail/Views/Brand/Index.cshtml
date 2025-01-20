@@ -888,6 +888,7 @@
 
      function EditClick(ID) {
          $("#hdnID").val(ID);
+         $("#hdnAdd").val('0'); 
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("EditBrand", "Brand")",
