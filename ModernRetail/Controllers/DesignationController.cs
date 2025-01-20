@@ -13,13 +13,13 @@ using System.Data;
 
 namespace ModernRetail.Controllers
 {
-    public class DesignationMasterController : Controller
+    public class DesignationController : Controller
     {
-        // GET: DesignationMaster
+        // GET: Designation
         DesignationModel obj = new DesignationModel();
         public ActionResult Index()
         {
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "DesignationMaster");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "Designation");
 
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
@@ -34,7 +34,7 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "DesignationMaster");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "Designation");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
@@ -129,20 +129,12 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporDesignationList(int type)
+        public ActionResult ExportDesignationList(int type)
         {
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));
-                //case 2:
-                //    return GridViewExtension.ExportToPdf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));                
                 default:
                     break;
             }
@@ -163,7 +155,7 @@ namespace ModernRetail.Controllers
                 x.FieldName = "DESIGNATIONNAME";
                 x.Caption = "Designation Name";
                 x.VisibleIndex = 1;
-                x.Width = 200;
+                x.Width = 400;
             });
 
             settings.Columns.Add(x =>
