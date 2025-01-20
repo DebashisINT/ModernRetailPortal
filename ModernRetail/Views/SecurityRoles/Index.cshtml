@@ -4,7 +4,7 @@
 
 @model ModernRetail.Models.SecurityRolesModel
 @{
-    ViewBag.Title = "User Group";
+    ViewBag.Title = "Security Roles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="/assests/pluggins/easyui/easyui.css" rel="stylesheet" />
@@ -25,28 +25,34 @@
     }
     return vars;
 }
-if (urlKeys.key != 'Add' ) {
-    ID = urlKeys.key;
-    $("#hdnAdd").val(ID);
-    if (ID != 0) {
-    $.ajax({
-        type: "POST",
-        url: "@Url.Action("Edit", "SecurityRoles")",
-        data: { id: ID },
-        success: function (response) {
-            if (response.code == "") {
-                jAlert('No data found');
-            }
-            else {
-                $("#grp_name").val(response.grp_name);            
-                $("#hdnAdd").val(response.grp_id);
+    if (urlKeys.key != 'Add') {
+        ID = urlKeys.key;
+        $("#hdnAdd").val(ID);
+        if (ID != 0) {
+            $("#headertitle").val("Edit Security Role");
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Edit", "SecurityRoles")",
+                data: { id: ID },
+                success: function (response) {
+                    if (response.code == "") {
+                        jAlert('No data found');
+                    }
+                    else {
+                        $("#grp_name").val(response.grp_name);
+                        $("#hdnAdd").val(response.grp_id);
 
 
-            }
+                    }
+                }
+            });
         }
-    });
-}
-}
+    }
+    else {
+        $("#hdnCloseAdd").val("1");
+    }
+
 </script>
 <style>
     #grid .dxgvHSDC > div, #grid .dxgvCSD {
@@ -1004,6 +1010,7 @@ if (urlKeys.key != 'Add' ) {
             e.preventDefault();
             CheckFire = false;
             $('.chckRights').prop('checked', false);
+            $('.tree-checkbox').prop('checked', false);
             GenerateData();
             CheckFire = true;
         });
@@ -1244,6 +1251,7 @@ if (urlKeys.key != 'Add' ) {
             $(".scroller1")
                 .scrollLeft($(".scroller2").scrollLeft());
         });
+      
     });
 </script>
 <script>
@@ -1369,7 +1377,7 @@ if (urlKeys.key != 'Add' ) {
                         Swal.fire({
                             title: 'Success!',
                             /*text: 'Sales Target Number: ' + TargetNo + ' saved successfully.',*/
-                            html: 'User Groups:  saved successfully.',
+                            html: 'Security Role saved successfully.',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then((result) => {
@@ -1405,7 +1413,7 @@ if (urlKeys.key != 'Add' ) {
     }
 
     function CancelAdd() {
-        if ($("#hdnAdd").val() == "1") {
+        if ($("#hdnAdd").val() == "0") {
             Swal.fire({
                 title: 'Are you sure you want to Close with out save data.?',
                 text: "This action cannot be undone!",
@@ -1434,7 +1442,7 @@ if (urlKeys.key != 'Add' ) {
 
 </script>
 <div class="breadCumb" style="padding-bottom:39px !important">
-    <span>Add / Modify User Group</span>
+    <span id="headertitle">Add Security Role</span>
     <div id="ApprovalCross" onclick="SecurityRolesClose()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 
@@ -1443,17 +1451,17 @@ if (urlKeys.key != 'Add' ) {
         <div class="form-horizontal" style="padding: 10px;">
             <div class="row">
                 @*<div class="col-sm-6 mb-3">*@
-                    <div class=" col-sm-3">
-                        <label>Group Name<span style="color:red">*</span></label>
-                        <div class="relative">
-                            @Html.TextBoxFor(m => m.grp_name, new { @class = "form-control", @MaxLength = "100" })
-                        </div>
+                <div class=" col-sm-3">
+                    <label>Security Role<span style="color:red">*</span></label>
+                    <div class="relative">
+                        @Html.TextBoxFor(m => m.grp_name, new { @class = "form-control", @MaxLength = "100" })
                     </div>
-                    <div class="col-sm-4 mt-25">
-                        <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
-                        <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                </div>
+                <div class="col-sm-4 mt-25">
+                    <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
+                    <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
-                    </div>
+                </div>
                 @*</div>*@
             </div>
 
@@ -1463,7 +1471,7 @@ if (urlKeys.key != 'Add' ) {
                         <div class="col-sm-3 divDown">
                             <input type="button" class="btn btn-primary" id="btnTagAll" value="Tag All" />&nbsp;
                             <input type="button" class="btn btn-warning " id="btnUnTagAll" value="Untag All" />
-                            <input type="hidden" value="@Model.UserGroupRights" id="GroupUserRights"  />
+                            <input type="hidden" value="@Model.UserGroupRights" id="GroupUserRights" />
                         </div>
                     </div>
                 </div>
@@ -1483,5 +1491,6 @@ if (urlKeys.key != 'Add' ) {
     </div>
 
     <asp:HiddenField ID="hdnMessage" ClientIDMode="Static" runat="server" />
-    <input type="hidden" value="" id="hdnAdd" />
+    <input type="hidden" value="0" id="hdnAdd" />
+    <input type="hidden" id="hdnCloseAdd" />
 </div>

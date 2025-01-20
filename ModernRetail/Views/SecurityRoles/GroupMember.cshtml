@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "GroupMember";
+    ViewBag.Title = "Member List";
 }
 
 <style>
@@ -768,14 +768,14 @@
             var selectedValue = "1"; // XLSX export value
             var desg = $("#drpdesignation").val();
             var usrtype = $("#ddlusertypes").val();
-            var url = '@Url.Action("ExporGMList", "SecurityRoles", new { type = "_type_" })';
+            var url = '@Url.Action("ExportGMList", "SecurityRoles", new { type = "_type_" })';
             window.location.href = url.replace("_type_", selectedValue);
         });
     });
 </script>
 <div class="breadCumb">
     <span>
-        Group Member(s) of Top Group
+        Member List
     </span>
     <div id="ApprovalCross" onclick="SecurityRolesClose()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
