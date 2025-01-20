@@ -493,25 +493,12 @@ namespace ModernRetail.Controllers
 
         }
 
-        public ActionResult ExportStorelist(int type)
+        public ActionResult ExporStoreList(int type)
         {
-            //List<AttendancerecordModel> model = new List<AttendancerecordModel>();
             switch (type)
             {
-                //case 1:
-                //    return GridViewExtension.ExportToPdf(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
-                //break;
-                case 2:
+                case 1:
                     return GridViewExtension.ExportToXlsx(GetEmployeeBatchGridViewSettings(), GetDataDetails(""));
-                //break;
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
-                ////break;
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
-                ////break;
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetEmployeeBatchGridViewSettings(), TempData["ExportShoplist"]);
                 default:
                     break;
             }

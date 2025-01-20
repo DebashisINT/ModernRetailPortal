@@ -297,7 +297,18 @@ namespace ModernRetail.Controllers
                             productdataobj.ExpDate = Convert.ToString(row["EXPDATE"]);
                             productdataobj.MfgDateText = Convert.ToString(row["MFGDATETEXT"]);
                             productdataobj.ExpDateText = Convert.ToString(row["EXPDATETEXT"]);
-                            
+
+
+                            if (Convert.ToString(row["MFGDATETEXT"]) == "01-01-0100" || Convert.ToString(row["MFGDATETEXT"]) == "01-01-1900")
+                            {
+                                row["MFGDATETEXT"] = "";
+                            }
+
+                            if (Convert.ToString(row["EXPDATETEXT"]) == "01-01-0100" || Convert.ToString(row["EXPDATETEXT"]) == "01-01-1900")
+                            {
+                                row["EXPDATETEXT"] = "";
+                            }
+
 
                             productdata.Add(productdataobj);
 
