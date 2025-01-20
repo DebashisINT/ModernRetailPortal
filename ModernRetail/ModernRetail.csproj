@@ -297,6 +297,7 @@
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DesignationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginConfigurationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
     <Compile Include="Controllers\MasterPopulateController.cs" />
@@ -312,7 +313,6 @@
     <Compile Include="Controllers\StoreMasterController.cs" />
     <Compile Include="Controllers\TargetLevelSetupMasterController.cs" />
     <Compile Include="Controllers\TargetSetUpController.cs" />
-    <Compile Include="Controllers\UserConfigurationController.cs" />
     <Compile Include="Controllers\WarehouseMasterController.cs" />
     <Compile Include="Controllers\WODTargetController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1207,6 +1207,9 @@
     <Content Include="Views\BeatPlan\Index.cshtml" />
     <Content Include="Views\Brand\Index.cshtml" />
     <Content Include="Views\Brand\PartialBrandMasterList.cshtml" />
+    <Content Include="Views\LoginConfiguration\Index.cshtml" />
+    <Content Include="Views\LoginConfiguration\UserMasterList.cshtml" />
+    <Content Include="Views\LoginConfiguration\_PartialUserMasterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
