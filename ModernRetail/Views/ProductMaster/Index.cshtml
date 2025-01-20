@@ -2,7 +2,7 @@
 @using ModernRetail.Models;
 @model ModernRetail.Models.ProductMasterModel
 @{
-    ViewBag.Title = "Products";
+    ViewBag.Title = "Product Master";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -1628,7 +1628,7 @@
         $("#txtProductMRP").val('0');
         $("#txtProductName").val('');
         $("#txtProductPrice").val('0');
-
+        $("#modaltitle").text("Add Product");
         $("#ddlProductClass").val('0').trigger('change');;
         $("#ddlProductStrength").val('0').trigger('change');;
         $("#ddlProductUnit").val('0').trigger('change');;
@@ -2077,7 +2077,7 @@
 </script>
 
 <div class="breadCumb">
-    <span>Products</span>
+    <span>Product Master</span>
 </div>
 
 
