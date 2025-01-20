@@ -1198,16 +1198,15 @@
     <Content Include="Views\TargetSetUp\ImportLogManual.cshtml" />
     <Content Include="Views\TargetSetUp\Index.cshtml" />
     <Content Include="Views\TargetSetUp\_PartialTargetSetUpListing.cshtml" />
-    <Content Include="Views\BeatPlan\Index.cshtml" />
     <Content Include="Views\Beat\BeatImportLog.cshtml" />
     <Content Include="Views\Beat\BeatImportLogManual.cshtml" />
     <Content Include="Views\Beat\Index.cshtml" />
     <Content Include="Views\Beat\PartialGrid.cshtml" />
     <Content Include="Views\Beat\PartialUserGrid.cshtml" />
     <Content Include="Views\TargetLevelSetupMaster\Index.cshtml" />
-    <Content Include="Views\BeatPlan\Index.cshtml" />
     <Content Include="Views\BeatPlan\PartialBeatPlanGridList.cshtml" />
     <Content Include="Views\SearchingInputs\_HeadBranchPartial.cshtml" />
+    <Content Include="Views\BeatPlan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
