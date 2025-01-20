@@ -789,17 +789,7 @@
             gridList.Refresh();
         });
 
-        @*$('#ddlAppIds').on('change', function () {
-            if ($("#ddlAppIds option:selected").index() > 0) {
-                var selectedValue = $(this).val();
-                var desg = $("#drpdesignation").val();
-                var usrtype = $("#ddlusertypes").val();
-                $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporCategoryList", "ProductClassCategory", new { type = "_type_" })'
-                window.location.href = url.replace("_type_", selectedValue);
-
-            }
-        });*@
+       
 
         $('#ddlAppIds').on('click', function () {
             var selectedValue = "1"; // XLSX export value
@@ -807,7 +797,30 @@
             window.location.href = url.replace("_type_", selectedValue);
         });
     });
+    function CancelAdd() {
+        if ($("#hdnAdd").val() == "1") {
+            Swal.fire({
+                title: 'Are you sure you want to Close with out save data.?',
+                text: "This action cannot be undone!",
+                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                imageWidth: 40, // Adjust the width as needed
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#ProductClassModal").modal('hide');
+                }
+            });
+        }
 
+        else {
+            $("#ProductClassModal").modal('hide');
+        }
+
+    }
     function OnStartCallback(s, e) {
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
         /*Rev Pallab: grid modification*/
@@ -816,15 +829,15 @@
     }
     /*Rev Pallab: grid modification*/
     function OnEndCallback() {
-
         document.getElementById("loading-overlay").style.display = "none";
-
     }
     /*Rev End Pallab: grid modification*/
     function AddBrand() {
         $("#hdnID").val('0');
         $("#txtShortName").val('');
         $("#ProductClassModal").modal('show')
+        $("#modaltitle").text("Add Product Class/Category");
+        $("#hdnAdd").val(1); 
     }
 
 
@@ -872,7 +885,9 @@
                         text: 'Product Class/Category saved successfully.'
                     }).then(() => {
                         $("#ProductClassModal").modal('hide');
-                        location.reload();
+                        //location.reload();
+                        Is_PageLoad = "1";
+                        gridList.Refresh();
                     });
                 } else if (parseInt(response) == -1) {
                     // SweetAlert duplicate category name warning
@@ -902,6 +917,7 @@
                         $("#txtShortName").val(response.ProductClass_Code);
                         $("#txtName").val(response.ProductClass_Name);
                         $("#txtDescription").val(response.ProductClass_Description);
+                        $("#modaltitle").text("Edit Product Class/Category");
                         $("#ProductClassModal").modal('show');
                     }
                 }
@@ -938,7 +954,9 @@
                             /*imageWidth: 50, */
                             icon: 'success' // You can also keep the built-in icon type
                         }).then(() => {
-                            location.reload();
+                            //location.reload();
+                            Is_PageLoad = "1";
+                            gridList.Refresh();
                         });
                     } else if (parseInt(response) == -1) {
                         // SweetAlert error message with custom icon
@@ -1061,7 +1079,7 @@
             <div class="modal-header">
 
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add/Modify Product Class/Category</h4>
+                <h4 class="modal-title" id="modaltitle">Add Product Class/Category</h4>
             </div>
             <div class="modal-body">
                 <div id="divModalBody">
@@ -1095,7 +1113,7 @@
                     {
                         <button type="button" id="btnSave" class="btn btn-success" onclick="SaveProductClass()"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
                     }
-                    <button type="button" class="btn btn-cancel cancel-catg" data-dismiss="modal"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                    <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
                 </div>
 
@@ -1104,6 +1122,7 @@
 
     </div>
     <input type="hidden" id="hdnID" />
+    <input type="hidden" id="hdnAdd" />
 </div>
 
 
