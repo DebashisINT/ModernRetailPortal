@@ -128,5 +128,11 @@
         <elementListCompartment Id="20e43a00-7747-4ae4-aa5c-36fb2ad7c9bd" absoluteBounds="3.0149999999999997, 5.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="4b97131a-22ff-4ecd-9f65-37966785671d" isExpanded="false" absoluteBounds="5.875, 5.25, 2, 0.45">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_BEATPLANLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="56700139-a462-4a69-9605-af944114ce98" absoluteBounds="5.89, 5.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

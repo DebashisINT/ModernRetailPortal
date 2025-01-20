@@ -35,16 +35,12 @@
             }
         });
 
-        $('#ddlAppIds').on('change', function () {
-            if ($("#ddlAppIds option:selected").index() > 0) {
-                var selectedValue = $(this).val();
-                //var desg = $("#drpdesignation").val();
-                //var usrtype = $("#ddlusertypes").val();
-                $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExporBeatPlanList", "BeatPlan", new { type = "_type_" })'
-                window.location.href = url.replace("_type_", selectedValue);
-
-            }
+        $('#ddlAppIds').on('click', function () {
+            var selectedValue = "1"; // XLSX export value
+            var desg = $("#drpdesignation").val();
+            var usrtype = $("#ddlusertypes").val();
+            var url = '@Url.Action("ExporBeatList", "BeatPlan", new { type = "_type_" })';
+            window.location.href = url.replace("_type_", selectedValue);
         });
 
         $('#ddlPlan').on('change', function () {
@@ -151,7 +147,7 @@
         lookup.GetGridView().Refresh();
         // Parameter Branch
 
-        $('body').on('click', '#btnshow', function () {
+        @*$('body').on('click', '#btnshow', function () {
             GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeListId").val());
             var emp = empId.join(',');
             var Branch = BranchId.join(',');
@@ -185,6 +181,59 @@
 
 
 
+        });*@
+
+        $('body').on('click', '#btnshow', function () {
+
+            GetEmpSelectedFieldValuesOndemand($("#hdnEmployeeListId").val());
+            var emp = empId.join(',');
+            var Branch = BranchId.join(',');
+
+
+            const selectedOption = $("#dateRangeSelector li.active").attr("id");
+            let datefrm = null, dateto = null;
+
+            if (selectedOption === "custom") {
+                datefrm = dtFrom.GetText();
+                dateto = dtTo.GetText();
+            } else {
+                datefrm = dtFrom.GetText();
+                dateto = dtTo.GetText();
+            }
+
+            // Logic to show data based on selected dates
+            console.log(`Selected Range: ${selectedOption}, From: ${datefrm}, To: ${dateto}`);
+
+            // Hide custom date fields after showing data
+            if (selectedOption === "custom") {
+                $("#customDateFields").slideUp();
+            };
+
+
+            var newdatefrom = datefrm.split("-").reverse().join("-");
+
+            var startdate = new Date(Date.parse(newdatefrom));
+
+
+            var newdateTo = dateto.split("-").reverse().join("-");
+
+            var endDate = new Date(Date.parse(newdateTo));
+
+            if (endDate < startdate) {
+
+                jAlert('From date should be before/equal To date');
+            }
+            else {
+
+                Is_PageLoad = "1";
+
+                Emp_Id = emp;
+                Branch_Id = Branch;
+
+                gridBeatPlan.Refresh();
+                gridBeatPlan.Refresh();
+
+            }
         });
     });
 
@@ -192,6 +241,7 @@
 
 <script>
     var Is_PageLoad = "Ispageload";
+    var Emp_Id = "";
 
     function EmployeeButnClick(s, e) {
         $('#EmployeeModel').modal('show');
@@ -221,7 +271,7 @@
 
             if ($("#txtEmployeeSearch").val() != "") {
                 //callonServer("../../../Models/ShopAddress.asmx/GetEmployeeList", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
-                callonServer("../../../Models/ShopAddress.asmx/GetEmployeeList", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetEmployee");
+                callonServer("../../../Models/MRService.asmx/GetUserList", OtherDetails, "EmployeeTable", HeaderCaption, "dPropertyIndex", "SetEmployee");
             }
         }
         else if (e.code == "ArrowDown") {
@@ -235,8 +285,8 @@
         $('#hdnEmployeeId').val(id)
         if (key != null && key != '') {
             $('#EmployeeModel').modal('hide');
-            EmployeeTxt.SetText(Name);
-            EmployeeTxt.SetFocus();
+            EmployeeTxt1.SetText(Name);
+            EmployeeTxt1.SetFocus();
         }
     }
 
@@ -266,13 +316,13 @@
         $("#hdnMode").val('ADDBEATPLAN');
         $("#hdnPLAN_ID").val(0);
         $("#divPlan").addClass('show');
-        EmployeeTxt.SetEnabled(true);
+        EmployeeTxt1.SetEnabled(true);
 
         $("#myModalLabel").text("Add Beat Plan");
         $("#ddlPlan").val('Daily');
 
         $('#hdnEmployeeId').val('0');
-        EmployeeTxt.SetText('');
+        EmployeeTxt1.SetText('');
 
         $("#ddlBeat").val('0');
         $("#ddlArea").val('0');
@@ -460,8 +510,10 @@
     function OnStartCallback(s, e) {
         e.customArgs["Fromdate"] = dtFrom.GetText();
         e.customArgs["Todate"] = dtTo.GetText();
-        e.customArgs["empcode"] = empId;
-        e.customArgs["BranchId"] = BranchId;
+        //e.customArgs["empcode"] = empId;
+        e.customArgs["empcode"] = Emp_Id;
+        //e.customArgs["BranchId"] = BranchId;
+        e.customArgs["BranchId"] = Branch_Id;
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
     }
 
@@ -573,7 +625,7 @@
     function SelectAllGridLookup(s, e) {
         BranchGridLookup.gridView.SelectRows();
         var Hoid = $('#HeadBranch').val();
-        BranchId = "";
+        BranchId = [];
         BranchGridLookup.SetText("");
         if (Hoid == null || Hoid == "") {
             //Hoid = "0";
@@ -654,14 +706,14 @@
                 $("#hdnPLAN_ID").val(PLAN_ID);
 
                 $("#divPlan").addClass('hide');
-                EmployeeTxt.SetEnabled(false)
+                EmployeeTxt1.SetEnabled(false)
                 txtAssignedFrom.SetEnabled(false);
                 txtAssignedTo.SetEnabled(false);
                 $("#myModalLabel").text("Edit Beat Plan");
 
                 $("#ddlPlan").val(data.Plan);
                // $('#hdnEmployeeId').val(data.EmpCntId);
-                EmployeeTxt.SetText(data.EMPNAME);
+                EmployeeTxt1.SetText(data.EMPNAME);
 
                 $("#ddlBeat").val(data.BeatId);
                 $("#ddlArea").val(data.AreaId);
@@ -719,12 +771,12 @@
         if (e.code == "Enter" || e.code == "NumpadEnter") {
 
             var HeaderCaption = [];
-            HeaderCaption.push("Employee Name");
-            HeaderCaption.push("Employee Code");
+            HeaderCaption.push("User Name");
+            HeaderCaption.push("User Login Id");
 
 
             if ($("#txtEmployeeListSearch").val() != "") {
-                callonServerM("../../../Models/ShopAddress.asmx/GetEmployeeList", OtherDetails, "EmployeeTableList", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
+                callonServerM("../../../Models/MRService.asmx/GetUserList", OtherDetails, "EmployeeTableList", HeaderCaption, "dPropertyIndex", "SetSelectedValues", "EmployeeSource");
             }
         }
         else if (e.code == "ArrowDown") {
@@ -746,6 +798,7 @@
             if (key != null && key != '') {
                 $('#EmployeeListModel').modal('hide');
                 EmployeeListTxt.SetText(Name);
+                txtEmployeeListSearch
                 $('#hdnEmployeeListId').val(key);
             }
             else {
@@ -1251,6 +1304,13 @@
     #myModal .modal-content .modal-body {
         overflow-y: visible;
     }
+    @@media only screen and (max-width: 768px) {
+
+
+        #ddlAppIds .tooltip {
+            display: none;
+        }
+    }
 </style>
 
 <div class="breadCumb">
@@ -1300,7 +1360,7 @@
                     @*Parameter Branch*@
 
                     <div class="col-md-2 for-cust-icon">
-                        <span>Employee(s)</span>
+                        <span>User(s)</span>
                         <div>
                             @Html.DevExpress().ButtonEdit(
                             settings =>
@@ -1360,10 +1420,15 @@
                         <span></span>
                         <div>
                             <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
-                            <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
-                                <option value="0">Export to</option>
-                                <option value="2">XLSX</option>
-                            </select>
+
+                            @*@if (ViewBag.CanExport)
+                            {*@
+                                <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                                    <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                                    <div class="tooltip">Export to XLSX</div>
+                                </button>
+
+                            @*}*@
                         </div>
                     </div>
                 </div>
@@ -1445,12 +1510,12 @@
                             </div>
                         </div>
                         <div class="col-md-4" id="DivAssignTo">
-                            <label>Employee <span class="red">*</span></label>
+                            <label>User <span class="red">*</span></label>
                             <div>
                                 @Html.DevExpress().ButtonEdit(
                                 settings =>
                                 {
-                                    settings.Name = "EmployeeTxt";
+                                    settings.Name = "EmployeeTxt1";
                                     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                     settings.Text = Model.AssignedTo;
                                     settings.ReadOnly = true;
@@ -1601,7 +1666,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Employee Search</h4>
+                <h4 class="modal-title">User Search</h4>
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control" onkeydown="EmployeeListkeydown(event)" id="txtEmployeeListSearch" width="100%" placeholder="Search By Employee Name" />
@@ -1611,8 +1676,8 @@
                         <tr class="HeaderStyle" style="font-size:small">
                             <th>Select</th>
                             <th class="hide">id</th>
-                            <th>Employee Name</th>
-                            <th>Employee Code</th>
+                            <th>User Name</th>
+                            <th>User Login Id</th>
                         </tr>
                     </table>
                 </div>

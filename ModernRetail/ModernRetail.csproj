@@ -299,6 +299,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogOutController.cs" />
+    <Compile Include="Controllers\MasterPopulateController.cs" />
     <Compile Include="Controllers\MeasurementController.cs" />
     <Compile Include="Controllers\PinZipMasterController.cs" />
     <Compile Include="Controllers\ProductClassCategoryController.cs" />
@@ -330,6 +331,7 @@
     <Compile Include="Models\DepartmentsModel.cs" />
     <Compile Include="Models\DesignationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MasterPopulateModel.cs" />
     <Compile Include="Models\MeasurementModel.cs" />
     <Compile Include="Models\ModernRetail.designer.cs">
       <AutoGen>True</AutoGen>
@@ -1203,9 +1205,13 @@
     <Content Include="Views\Beat\PartialGrid.cshtml" />
     <Content Include="Views\Beat\PartialUserGrid.cshtml" />
     <Content Include="Views\TargetLevelSetupMaster\Index.cshtml" />
+    <Content Include="Views\BeatPlan\Index.cshtml" />
+    <Content Include="Views\BeatPlan\PartialBeatPlanGridList.cshtml" />
+    <Content Include="Views\SearchingInputs\_HeadBranchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\MasterPopulate\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
