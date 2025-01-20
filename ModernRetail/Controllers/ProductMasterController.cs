@@ -20,6 +20,7 @@ using System.IO;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Text.RegularExpressions;
+using DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming;
 
 //using DocumentFormat.OpenXml.EMMA;
 //using Models;
@@ -402,21 +403,21 @@ namespace ModernRetail.Controllers
                         dtExcelData.Columns.Add("Item Unit", typeof(string));
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (Convert.ToString(row["Item Code*"]) != "" && Convert.ToString(row["Item Name*"]) != "")
+                            if (Convert.ToString(row["Product Code*"]) != "" && Convert.ToString(row["Product Name*"]) != "")
                             {
 
-                                if (Convert.ToString(row["Item Price*"]) == "")
+                                if (Convert.ToString(row["Product Price*"]) == "")
                                     row["Item Price*"] = "0.00";
 
-                                if (Convert.ToString(row["Item MRP*"]) == "")
+                                if (Convert.ToString(row["Product MRP*"]) == "")
                                     row["Item MRP*"] = "0.00";
 
 
-                                dtExcelData.Rows.Add(Convert.ToString(row["Item Code*"]), Convert.ToString(row["Item Name*"]), 
-                                                Convert.ToString(row["Item Class/Category*"]), 
-                                                Convert.ToString(row["Item Brand*"]), Convert.ToString(row["Item Strangth*"]),
-                                                Convert.ToString(row["Item Price*"]), Convert.ToString(row["Item MRP*"]), 
-                                                Convert.ToString(row["Item Status (Active/Dormant)*"]), Convert.ToString(row["Item Unit*"]));
+                                dtExcelData.Rows.Add(Convert.ToString(row["Product Code*"]), Convert.ToString(row["Product Name*"]), 
+                                                Convert.ToString(row["Product Class/Category*"]), 
+                                                Convert.ToString(row["Product Brand*"]), Convert.ToString(row["Product Strangth*"]),
+                                                Convert.ToString(row["Product Price*"]), Convert.ToString(row["Product MRP*"]), 
+                                                Convert.ToString(row["Product Status*"]), Convert.ToString(row["Product Unit*"]));
                             }
 
                         }
@@ -453,12 +454,21 @@ namespace ModernRetail.Controllers
 
         private string GetValue(SpreadsheetDocument doc, Cell cell)
         {
-            string value = cell.CellValue.InnerText;
-            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+            string value = "";
+            if (cell.CellValue != null)
             {
-                return doc.WorkbookPart.SharedStringTablePart.SharedStringTable.ChildElements.GetItem(int.Parse(value)).InnerText;
+                value = cell.CellValue.InnerText;
+                if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+                {
+                    return doc.WorkbookPart.SharedStringTablePart.SharedStringTable.ChildElements.GetItem(int.Parse(value)).InnerText;
+                }
+                return value;
             }
-            return value;
+            else
+            {
+                return value;
+            }
+            
         }
 
         public static int? GetColumnIndexFromName(string columnName)
@@ -474,7 +484,7 @@ namespace ModernRetail.Controllers
             }
             return number;
         }
-        public ActionResult ExporProductMasterList(int type)
+        public ActionResult ExportProductMasterList(int type)
         {
             switch (type)
             {
@@ -496,7 +506,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "sProducts_Code";
-                x.Caption = "Item Code";
+                x.Caption = "Product Code";
                 x.VisibleIndex = 1;
                 x.ExportWidth = 200;
             });
@@ -504,7 +514,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "sProducts_Name";
-                x.Caption = "Item Name";
+                x.Caption = "Product Name";
                 x.VisibleIndex = 2;
                 x.ExportWidth = 250;
             });
@@ -513,7 +523,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "ProductClass_Name";
-                x.Caption = "Item Class/Category";
+                x.Caption = "Product Class/Category";
                 x.VisibleIndex = 3;
                 x.ExportWidth = 250;
             });
@@ -521,7 +531,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "Brand_Name";
-                x.Caption = "Item Brand";
+                x.Caption = "Product Brand";
                 x.VisibleIndex = 4;
                 x.ExportWidth = 200;
             });
@@ -529,7 +539,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "Size_Name";
-                x.Caption = "Item Strength";
+                x.Caption = "Product Strength";
                 x.VisibleIndex = 5;
                 x.ExportWidth = 100;
             });
@@ -537,7 +547,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "sProduct_Price";
-                x.Caption = "Item Price";
+                x.Caption = "Product Price";
                 x.VisibleIndex = 6;
                 x.ExportWidth = 100;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
@@ -546,7 +556,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "sProduct_MRP";
-                x.Caption = "Item MRP";
+                x.Caption = "Product MRP";
                 x.VisibleIndex = 7;
                 x.ExportWidth = 100;
                 x.PropertiesEdit.DisplayFormatString = "0.00";
@@ -555,7 +565,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "sProduct_Status";
-                x.Caption = "Item Status";
+                x.Caption = "Product Status";
                 x.VisibleIndex = 8;
                 x.ExportWidth = 100;
             });
@@ -563,7 +573,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "UOM_Name";
-                x.Caption = "Item Unit";
+                x.Caption = "Product Unit";
                 x.VisibleIndex = 9;
                 x.ExportWidth = 100;
             });
