@@ -7,7 +7,7 @@
 {
     settings.Name = "gridList";
     settings.KeyFieldName = "Brand_Id";
-    settings.CallbackRouteValues = new { Action = "PartialGridList", Controller = "BrandMaster" };
+    settings.CallbackRouteValues = new { Action = "PartialGridList", Controller = "Brand" };
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
     settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
@@ -34,7 +34,7 @@
         x.VisibleIndex = 1;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
         //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(260);
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(450);
 
     });
 
@@ -43,18 +43,15 @@
         x.FieldName = "CreateUser";
         x.Caption = "Created By";
         x.VisibleIndex = 4;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(240);
+        x.ColumnType = MVCxGridViewColumnType.TextBox;      
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(180);
     });
     settings.Columns.Add(x =>
     {
         x.FieldName = "CreateDate";
         x.Caption = "Created On";
-        x.VisibleIndex = 5;
-        x.Width = 120;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(220);
+        x.VisibleIndex = 5;      
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(180);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -66,19 +63,16 @@
         x.FieldName = "ModifyUser";
         x.Caption = "Updated By";
         x.VisibleIndex = 6;
-        x.ColumnType = MVCxGridViewColumnType.TextBox;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(240);
+        x.ColumnType = MVCxGridViewColumnType.TextBox;      
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(180);
     });
 
     settings.Columns.Add(x =>
     {
         x.FieldName = "ModifyDate";
         x.Caption = "Updated On";
-        x.VisibleIndex = 7;
-        x.Width = 120;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(11);
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(220);
+        x.VisibleIndex = 7;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(180);
         x.ColumnType = MVCxGridViewColumnType.DateEdit;
         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -92,21 +86,8 @@
         x.VisibleIndex = 8;
         x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
-        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-        //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-        x.Width = System.Web.UI.WebControls.Unit.Pixel(0);
-        //x.SetDataItemTemplateContent(c =>
-        //{
-        //    if (ViewBag.CanEdit)
-        //    {
-        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Brand_Id")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
-        //    }
-        //    if (ViewBag.CanDelete)
-        //    {
-        //        ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "Brand_Id")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
-
-        //    }
-        //});
+        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;       
+        x.Width = System.Web.UI.WebControls.Unit.Pixel(0);        
 
         x.SetDataItemTemplateContent(c =>
         {
