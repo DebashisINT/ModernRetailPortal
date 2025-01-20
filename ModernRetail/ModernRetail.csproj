@@ -289,7 +289,7 @@
     <Compile Include="Controllers\BranchwiseProductMappingController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\BrandVolumeValueTargetController.cs" />
-    <Compile Include="Controllers\CityMasterController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\CurrentStockController.cs" />
@@ -302,14 +302,14 @@
     <Compile Include="Controllers\LogOutController.cs" />
     <Compile Include="Controllers\MasterPopulateController.cs" />
     <Compile Include="Controllers\MeasurementController.cs" />
-    <Compile Include="Controllers\PinZipMasterController.cs" />
+    <Compile Include="Controllers\PinZipController.cs" />
     <Compile Include="Controllers\ProductClassCategoryController.cs" />
     <Compile Include="Controllers\ProductMasterController.cs" />
     <Compile Include="Controllers\ProductRatesController.cs" />
     <Compile Include="Controllers\ProductTargetController.cs" />
     <Compile Include="Controllers\SalesTargetController.cs" />
     <Compile Include="Controllers\SecurityRolesController.cs" />
-    <Compile Include="Controllers\StateMasterController.cs" />
+    <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\StoreMasterController.cs" />
     <Compile Include="Controllers\TargetLevelSetupMasterController.cs" />
     <Compile Include="Controllers\TargetSetUpController.cs" />
@@ -1110,8 +1110,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\CityMaster\Index.cshtml" />
-    <Content Include="Views\CityMaster\_PartialCityMasterList.cshtml" />
+    <Content Include="Views\City\Index.cshtml" />
+    <Content Include="Views\City\_PartialCityMasterList.cshtml" />
     <Content Include="Views\Designation\Index.cshtml" />
     <Content Include="Views\Designation\_PartialDesignationList.cshtml" />
     <Content Include="Web.config" />
@@ -1134,8 +1134,8 @@
     <Content Include="Views\BranchMaster\BranchMasterList.cshtml" />
     <Content Include="Views\Country\Index.cshtml" />
     <Content Include="Views\Country\_PartialCountryList.cshtml" />
-    <Content Include="Views\StateMaster\Index.cshtml" />
-    <Content Include="Views\StateMaster\_PartialStateMasterList.cshtml" />
+    <Content Include="Views\State\Index.cshtml" />
+    <Content Include="Views\State\_PartialStateMasterList.cshtml" />
     <Content Include="Views\LogOut\Index.cshtml" />
     <Content Include="Views\SecurityRoles\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
@@ -1166,8 +1166,8 @@
     <Content Include="Views\ProductRates\ProductRatesList.cshtml" />
     <Content Include="Views\ProductRates\_ProductImportManualLogView.cshtml" />
     <Content Include="Views\ProductRates\ImportLog.cshtml" />
-    <Content Include="Views\PinZipMaster\Index.cshtml" />
-    <Content Include="Views\PinZipMaster\PartialPinzipMasterList.cshtml" />
+    <Content Include="Views\PinZip\Index.cshtml" />
+    <Content Include="Views\PinZip\PartialPinzipMasterList.cshtml" />
     <Content Include="Views\StoreMaster\PartialStoreMasterGridList.cshtml" />
     <Content Include="Views\CurrentStock\PartialCurrentStockGridList.cshtml" />
     <Content Include="Views\CurrentStock\CurrentStockImportLog.cshtml" />
@@ -1280,7 +1280,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50377</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44405/</IISUrl>
+          <IISUrl>http://localhost:44406/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

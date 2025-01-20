@@ -14,14 +14,14 @@ using System.Data;
 
 namespace ModernRetail.Controllers
 {
-    public class StateMasterController : Controller
+    public class StateController : Controller
     {
-        // GET: StateMaster
+        // GET: State
         StateMasterModel obj = new StateMasterModel();
         public ActionResult Index()
         {
             
-            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "StateMaster");
+            EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "State");
             ViewBag.CanAdd = rights.CanAdd;
             ViewBag.CanView = rights.CanView;
             ViewBag.CanExport = rights.CanExport;
@@ -42,7 +42,7 @@ namespace ModernRetail.Controllers
         {
             try
             {
-                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "StateMaster");
+                EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index", "State");
                 ViewBag.CanAdd = rights.CanAdd;
                 ViewBag.CanView = rights.CanView;
                 ViewBag.CanExport = rights.CanExport;
@@ -135,20 +135,12 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporList(int type)
+        public ActionResult ExportList(int type)
         {
             switch (type)
             {
                 case 1:
-                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));
-                //case 2:
-                //    return GridViewExtension.ExportToPdf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 3:
-                //    return GridViewExtension.ExportToXls(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 4:
-                //    return GridViewExtension.ExportToRtf(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
-                //case 5:
-                //    return GridViewExtension.ExportToCsv(GetCategoryGridViewSettings(), LGetCountryDetailsList(""));
+                    return GridViewExtension.ExportToXlsx(GetGridViewSettings(), GetDetailsList(""));             
                 default:
                     break;
             }
@@ -157,8 +149,6 @@ namespace ModernRetail.Controllers
 
         private GridViewSettings GetGridViewSettings()
         {
-
-
             var settings = new GridViewSettings();
             settings.Name = "PartialGridList";
             settings.SettingsExport.ExportedRowType = GridViewExportedRowType.All;
@@ -203,8 +193,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "CREATEDATE";
                 x.Caption = "Created On";
-                x.VisibleIndex = 5;
-                x.Width = 120;
+                x.VisibleIndex = 5;               
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(15);
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";                
@@ -224,8 +213,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "MODIFYDATE";
                 x.Caption = "Updated On";
-                x.VisibleIndex = 7;
-                x.Width = 120;
+                x.VisibleIndex = 7;               
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(16);
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";              
