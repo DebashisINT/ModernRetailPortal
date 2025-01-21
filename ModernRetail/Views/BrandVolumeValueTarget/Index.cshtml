@@ -864,10 +864,7 @@
         });
     });
 
-    function CancelAdd() {
-        window.location.href = '/TargetSetUp/Index';
-    }
-
+    
 
     function TargetAdd() {
         window.location.href = '/TargetSetUp/Index';
@@ -978,6 +975,7 @@
         }
     }
     function EntrySave(mode) {
+        $("#hdnAdd").val("0");
         savemode = mode;
         hasmsg = 0;
         var TargetNo = $('#TargetNo').val();
@@ -990,7 +988,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Brand Target Level to proceed.'
+                text: 'Select Employee Group to proceed.'
             });
             return false;
         }
@@ -999,7 +997,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Enter Brand Target No to proceed.'
+                text: 'Enter Document No. to proceed.'
             });
             return false;
         } else if (TargetDate.trim() == "") {
@@ -1007,7 +1005,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Select Target Date to proceed.'
+                text: 'Select Date to proceed.'
             });
             return false;
         }
@@ -1535,6 +1533,33 @@
         }
     }
 </script>
+<script>
+    function CancelAdd() {
+        if ($("#hdnAdd").val() == "1") {
+            Swal.fire({
+                title: 'Are you sure you want to Close with out save data ?',
+                text: "This action cannot be undone!",
+                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                imageWidth: 40, // Adjust the width as needed
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/TargetSetUp/Index';
+
+                }
+            });
+        }
+
+        else {
+            window.location.href = '/TargetSetUp/Index';
+        }
+
+    }
+</script>
 <div class="breadCumb">
     <span id="HeaderLableID">Brand Volume/Value Target</span>
     <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
@@ -1786,3 +1811,4 @@
     </div>
 </div>
 <!-- Grid Brand List-->
+<input type="hidden" value="" id="hdnAdd" />

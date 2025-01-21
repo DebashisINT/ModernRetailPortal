@@ -1069,7 +1069,7 @@ background-image: none !important;*/
     }
     function EntrySave(mode) {
 
-
+        $("#hdnAdd").val("0");
         savemode = mode;
         hasmsg = 0;
         var TargetNo = $('#ProductTargetNo').val();
@@ -1081,7 +1081,7 @@ background-image: none !important;*/
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Select Target Level to proceed.'
+                text: 'Select Employee Group to proceed.'
             });
             return false;
         }
@@ -1090,7 +1090,7 @@ background-image: none !important;*/
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Enter Product Target Document No to proceed.'
+                text: 'Enter Document No to proceed.'
             });
             return false;
         } else if (TargetDate.trim() == "") {
@@ -1098,7 +1098,7 @@ background-image: none !important;*/
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'Enter Product Target Date to proceed.'
+                text: 'Enter Date to proceed.'
             });
             return false;
         }
@@ -1547,7 +1547,33 @@ background-image: none !important;*/
         }
     }
 </script>
+<script>
+    function CancelAdd() {
+        if ($("#hdnAdd").val() == "1") {
+            Swal.fire({
+                title: 'Are you sure you want to Close with out save data ?',
+                text: "This action cannot be undone!",
+                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                imageWidth: 40, // Adjust the width as needed
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/TargetSetUp/Index';
 
+                }
+            });
+        }
+
+        else {
+            window.location.href = '/TargetSetUp/Index';
+        }
+
+    }
+</script>
 <div class="breadCumb">
     <span>Product Target</span>
     <div id="ApprovalCross" onclick="CancelProductTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
@@ -1754,7 +1780,7 @@ background-image: none !important;*/
                 <button type="button" class="btn btn-success" id="btnSave" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 @*}*@
 
-                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelProductTargetAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
             </div>
 
         </div>
@@ -1828,3 +1854,4 @@ background-image: none !important;*/
     </div>
 </div>
 <!-- Grid Product List-->
+<input type="hidden" value="" id="hdnAdd" />
