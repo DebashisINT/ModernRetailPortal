@@ -1,5 +1,4 @@
 ﻿/****************************************************************************************************************************
-1.0     v2.0.40     Priti    19/05/2023      0026145:Modification in the ‘Configure Travelling Allowance’ page.
 *********************************************************************************************************************************/
 
 using DataAccessLayer;
@@ -15,11 +14,10 @@ namespace BusinessLogicLayer
     public class TravelConveyanceClass
     {
 
-
         public DataTable GetConveyanceTypes(string Action = null, string expensetype = null, string Tsid = null)
         {
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("Proc_FTS_Getallmasters");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_GETALLMASTERS");
 
             proc.AddPara("@ExpenseID", expensetype);
             proc.AddPara("@Tcid", Tsid);
@@ -31,7 +29,7 @@ namespace BusinessLogicLayer
         public int GetConveyanceDelete( string Action, string TcID )
         {
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("Proc_TravelConveyanceManage");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_TRAVELCONVEYANCEMANAGE");
 
          
             int i = 0;
@@ -46,7 +44,7 @@ namespace BusinessLogicLayer
         public int GetConveyanceInsert(int VisitlocId, int ExpenseId, int DesignationId, int TravelId, int StateId, int EmpgradeId, decimal EligibleDistanc, decimal EligibleRate, decimal EligibleAmtday, int FuelID,string UserID, string Action, bool IsActive,string TcID=null)
         {
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("Proc_TravelConveyanceManage");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_TRAVELCONVEYANCEMANAGE");
 
             int i = 0;
             proc.AddPara("@VisitlocId", VisitlocId);
@@ -72,7 +70,7 @@ namespace BusinessLogicLayer
         public int GetConveyanceConfig( DataTable dttravel ,string UserID, string Action, bool IsActive,DataTable dtBranch, DataTable dtArea)
         {
             DataTable dt = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("Proc_ReimbesementConfiguration");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_REIMBESEMENTCONFIGURATION");
             int i = 0;
             proc.AddPara("@Conveyance", dttravel);
             proc.AddPara("@USERID", UserID);

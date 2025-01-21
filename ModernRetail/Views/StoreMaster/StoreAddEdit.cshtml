@@ -6,7 +6,7 @@
 
 @model ModernRetail.Models.StoreMasterModel
 @{
-    ViewBag.Title = "LOGIN CONFIGURATION";
+    ViewBag.Title = "STORE MASTER";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <title>Store Master</title>
@@ -1216,6 +1216,16 @@
 </style>
 
 <script>
+    $(function () {
+
+        $('.numbersOnly').keyup(function () {
+            if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            }
+        });
+
+    });
+
     $(document).ready(function () {
         GETPIN();
 
@@ -1249,6 +1259,30 @@
     var urlKeys = getUrlVars();
     function CloseAdd() {
         window.location.href = '/StoreMaster/Index';
+    }
+
+    function CancelAdd() {
+        if (urlKeys.key == 'Add') {
+            Swal.fire({
+                title: 'Are you sure you want to Close with out save data ?',
+                text: "This action cannot be undone!",
+                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                imageWidth: 40, // Adjust the width as needed
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/StoreMaster/Index';
+
+                }
+            });
+        }
+        else {
+            window.location.href = '/StoreMaster/Index';
+        }
     }
 
     function getUrlVars() {
@@ -1442,7 +1476,7 @@
              Swal.fire({
                  icon: 'warning',
                  title: 'Sorry!',
-                 text: 'Please Enter PIN to proceed'
+                 text: 'Select PIN to proceed'
              });
 
              return
@@ -1459,7 +1493,7 @@
              Swal.fire({
                  icon: 'warning',
                  title: 'Sorry!',
-                 text: 'Please Enter Branch to proceed'
+                 text: 'Select Branch to proceed'
              });
              return
          }
@@ -1496,7 +1530,7 @@
              return
          }
 
-         
+
          if ($("#ddlStatus").val() == "Select") {
              //$("#loading-overlay").hide();
              //jAlert("Please select Status.", "Alert", function () {
@@ -1508,7 +1542,7 @@
              Swal.fire({
                  icon: 'warning',
                  title: 'Sorry!',
-                 text: 'Please Enter Status to proceed'
+                 text: 'Select Status to proceed'
              });
              return
          }
@@ -1524,7 +1558,7 @@
              Swal.fire({
                  icon: 'warning',
                  title: 'Sorry!',
-                 text: 'Please Enter Store Type to proceed'
+                 text: 'Select Store Type to proceed'
              });
              return
          }
@@ -1540,7 +1574,7 @@
              Swal.fire({
                  icon: 'warning',
                  title: 'Sorry!',
-                 text: 'Please Enter Assign To to proceed'
+                 text: 'Select Assign To User to proceed'
              });
              return
          }
@@ -1895,13 +1929,13 @@
                 <div class="col-md-3">
                     <label>Store Name <span class="red">*</span></label>
                     <div>
-                        @Html.TextBoxFor(m => m.Store_Name, new { @class = "form-control", @id = "txtStoreName" })
+                        @Html.TextBoxFor(m => m.Store_Name, new { @class = "form-control", @id = "txtStoreName", @maxlength = "200" })
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label>Address <span class="red">*</span></label>
                     <div>
-                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress" })
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @id = "txtAddress", @maxlength = "500" })
                     </div>
                 </div>
 
@@ -1927,27 +1961,27 @@
                 <div class="col-md-3">
                     <label>Area</label>
                     <div>
-                        @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @id = "txtArea" })
+                        @Html.TextBoxFor(m => m.Area, new { @class = "form-control", @id = "txtArea", @maxlength = "200" })
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <label>Location Lat </label>
                     <div>
-                        @Html.TextBoxFor(m => m.location_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLat" })
+                        @Html.TextBoxFor(m => m.location_lat, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLat", @maxlength = "100" })
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Location Long</label>
                     <div>
-                        @Html.TextBoxFor(m => m.location_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLang" })
+                        @Html.TextBoxFor(m => m.location_long, new { @class = "form-control allow_decimal numbersOnly", @id = "txtLocationLang", @maxlength = "100" })
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <label>Remarks</label>
                     <div>
-                        @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks" })
+                        @Html.TextBoxFor(m => m.Remarks, new { @class = "form-control", @id = "txtRemarks", @maxlength = "500" })
                     </div>
                 </div>
 
@@ -2009,7 +2043,7 @@
                 <div class="col-md-3">
                     <label>Contact Name</label>
                     <div>
-                        @Html.TextBoxFor(m => m.contact_name, new { @class = "form-control", @id = "txtContactName" })
+                        @Html.TextBoxFor(m => m.contact_name, new { @class = "form-control", @id = "txtContactName", @maxlength = "200" })
                     </div>
                 </div>
 
@@ -2037,7 +2071,7 @@
                 <div class="col-md-3">
                     <label>Email </label>
                     <div>
-                        @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail" })
+                        @Html.TextBoxFor(m => m.owner_email, new { @class = "form-control", @id = "txtEmail", @maxlength = "100" })
                     </div>
                 </div>
 
@@ -2053,7 +2087,7 @@
                 {
                     <button type="button" class="btn btn-success save-btn mr-3" onclick="AddStore('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save & Exit</button>
                 }
-                <button type="button" class="btn btn-danger cancel-catg" data-dismiss="modal" onclick="ClearData();"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
+                <button type="button" class="btn btn-danger cancel-catg" data-dismiss="modal" onclick="CancelAdd();"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
             </div>
         </div>
