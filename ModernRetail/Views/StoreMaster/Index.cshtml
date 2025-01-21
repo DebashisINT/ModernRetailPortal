@@ -601,6 +601,7 @@
         opacity: 1;
     }
 
+
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
         overflow: visible;
     }
@@ -909,10 +910,17 @@
         width: 33.33%;
         text-align: center;
         border-right: 1px solid #a8a8a8;
+        transition: all .4s;
+        letter-spacing: 1px;
     }
 
-        #dateRangeSelector li:last-child
-        {
+        #dateRangeSelector li:hover {
+            color: #8811a8;
+            background: #f7dbff;
+            font-weight: 600;
+        }
+
+        #dateRangeSelector li:last-child {
             border-right: 0;
         }
 
@@ -925,13 +933,27 @@
             /*border: 1px solid #1843b1;*/
             color: #fff;
             background: #8811a8;
+            font-weight: 600;
         }
 
     #dateRangeSelector {
         border: 1px solid #c0c0c0;
         border-radius: 8px;
-        overflow: hidden;
+        /*overflow: hidden;*/
         margin-bottom: 0;
+    }
+
+        #dateRangeSelector .tooltip {
+            width: 255px;
+            left: 50%;
+        }
+
+        #today {
+            border-radius: 8px 0 0 8px;
+        }
+
+    #custom {
+        border-radius: 0 8px 8px 0;
     }
 
 
@@ -1265,9 +1287,9 @@
 
                 <div class="col-md-4  plr-5" style="">
                     <ul id="dateRangeSelector" class="d-flex">
-                        <li id="today" class="active">Today</li>
-                        <li id="mtd">MTD</li>
-                        <li id="custom"><i class="fa fa-calendar" aria-hidden="true"></i> Custom</li>
+                        <li id="today" class="active tooltip-container">Today <div class="tooltip">View data for today's date only.</div></li>
+                        <li id="mtd" class="tooltip-container">MTD <div class="tooltip">View data from the start of the month up to today's date.</div></li>
+                        <li id="custom" class="tooltip-container"><i class="fa fa-calendar" aria-hidden="true"></i> Custom <div class="tooltip">Select a custom date range to view specific data.</div></li>
                     </ul>
                     @*<span>Date Range</span>
         <select id="dateRangeSelector" class="form-control">
