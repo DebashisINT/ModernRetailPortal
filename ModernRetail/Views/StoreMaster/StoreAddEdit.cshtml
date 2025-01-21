@@ -1227,7 +1227,13 @@
     });
 
     $(document).ready(function () {
-        GETPIN();
+
+        var store_is = $("#hdnStoreCode").val();
+
+        if (store_is == 0)
+        {
+            GETPIN();
+        }
 
 
         $('#ddlPIN').select2({
@@ -1800,8 +1806,9 @@
     if (urlKeys.key != 'Add')
     {
         ID = urlKeys.key;
-        $("#hdnStoreCode").val(ID);
-        $("#hdnstoreMode").val('Edit');
+
+        //$("#hdnStoreCode").val(ID);
+        //$("#hdnstoreMode").val('Edit');
 
         if (ID != null) {
 
@@ -1816,6 +1823,9 @@
                     else
                     {
                         $("#myModalLabel").val("Edit Store");
+
+                        $("#hdnStoreCode").val(ID);
+                        $("#hdnstoreMode").val('Edit');
 
                         $("#txtStoreName").val(response.store_name);
                         $("#txtAddress").val(response.store_address);
