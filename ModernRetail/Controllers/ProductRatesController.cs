@@ -657,12 +657,20 @@ namespace ModernRetail.Controllers
 
         private string GetValue(SpreadsheetDocument doc, Cell cell)
         {
-            string value = cell.CellValue.InnerText;
-            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+            string value = "";
+            if (cell.CellValue != null)
             {
-                return doc.WorkbookPart.SharedStringTablePart.SharedStringTable.ChildElements.GetItem(int.Parse(value)).InnerText;
+                value = cell.CellValue.InnerText;
+                if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+                {
+                    return doc.WorkbookPart.SharedStringTablePart.SharedStringTable.ChildElements.GetItem(int.Parse(value)).InnerText;
+                }
+                return value;
             }
-            return value;
+            else
+            {
+                return value;
+            }
         }
 
         public static int? GetColumnIndexFromName(string columnName)
