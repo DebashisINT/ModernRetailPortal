@@ -864,7 +864,7 @@
         if($("#hdnAdd").val()=="1")
         {
             Swal.fire({
-                title: 'Are you sure you want to Close with out save data.?',
+                title: 'Are you sure you want to Close with out save data ?',
                 text: "This action cannot be undone!",
                 imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
                 imageWidth: 40, // Adjust the width as needed
@@ -891,106 +891,12 @@
 
 
     function SalesTargetAdd() {
-        if($("#hdnAdd").val()=="1")
-        {
-            Swal.fire({
-                title: 'Are you sure you want to Close with out save data.?',
-                text: "This action cannot be undone!",
-                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
-                imageWidth: 40, // Adjust the width as needed
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                     window.location.href = '/TargetSetUp/Index';
-
-                        }
-            });
-        }
-        else
-        {
-             window.location.href = '/TargetSetUp/Index';
-        }
-       
+        window.location.href = '/TargetSetUp/Index';       
     }
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
     }
-    //function AddNewRowWithSl() {
-    //    gridLevelEntryList.batchEditApi.EndEdit();
-    //    gridLevelEntryList.AddNewRow();
-    //    index = globalrowindex;
-    //    resuffleSerial();
-    //    setTimeout(function () {
-    //        gridLevelEntryList.batchEditApi.EndEdit();
-    //        gridLevelEntryList.batchEditApi.StartEdit(index, 1);
-    //    }, 200);
-    //}
-    //function resuffleSerial() {
-    //    var sl = 1;
-    //    var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-    //    if (visiablerow > 0 && rowtime == 0) {
-    //        sl = visiablerow;
-    //        rowtime++;
-    //    }
-    //    for (var i = -1; i > -500; i--) {
-    //        if (gridLevelEntryList.GetRow(i)) {
-    //            gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-    //            gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-    //            gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-    //            sl = sl + 1;
-    //        }
-    //    }
-    //}
-    //function grid_CustomButtonClick(s) {
-
-    //    var noofvisiblerows = gridLevelEntryList.GetVisibleRowsOnPage();
-    //    if (noofvisiblerows != 1) {
-    //        gridLevelEntryList.batchEditApi.StartEdit(globalrowindex);
-    //        gridLevelEntryList.DeleteRow(globalrowindex);
-    //        if ($('#hdnDetailsID').val() == 0) {
-    //            resuffleSerial();
-    //        }
-    //        else {
-    //            DeleteRowProductGrid(s);
-    //        }
-    //        //BOMGridSetTotalAmount();
-    //    }
-
-    //}
-    //function grid_CustomButtonAddClick(s) {
-    //    AddNewRowWithSl();
-    //}
-
-    //function DeleteRowProductGrid(edit) {
-    //    var sl = 1;
-    //    gridLevelEntryList.batchEditApi.EndEdit();
-    //    for (var i = 0; i < 500; i++) {
-    //        if (gridLevelEntryList.GetRow(i)) {
-    //            var tr = gridLevelEntryList.GetRow(i);
-    //            if (tr.style.display != "none") {
-    //                gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-    //                gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-    //                gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-    //                sl = sl + 1;
-    //            }
-    //        }
-    //    }
-    //    for (var i = -1; i > -500; i--) {
-    //        if (gridLevelEntryList.GetRow(i)) {
-    //            var tr = gridLevelEntryList.GetRow(i);
-    //            if (tr.style.display != "none") {
-    //                gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-    //                gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-    //                gridLevelEntryList.batchEditApi.StartEdit(i, 1);
-    //                sl = sl + 1;
-    //            }
-    //        }
-    //    }
-    //}
+  
 
     function OpenLevelList(s, e) {
         if (gridLevelEntryList.GetDataRow(globalrowindex) != null) {
@@ -1108,7 +1014,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Please Select Target Level to proceed.'
+                text: 'Please Select Employee Group to proceed.'
             });
             return false;
         }
@@ -1155,54 +1061,7 @@
         }
 
 
-        @*$.ajax({
-            type: "POST",
-            url: "@Url.Action("SaveSalesTarget", "SalesTarget")",
-            data: "{Details:" + JSON.stringify(data) + "}",
-            async: true,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response != null) {
-                    var Sucess = response.split('~')[0];
-                    var DetailsID = response.split('~')[1];
-                    var TargetNo = response.split('~')[2];
-                    var Message = response.split('~')[3];
-
-
-                    $('#hdnDetailsID').val(DetailsID);
-
-                        var newDetailsID = DetailsID;
-                        if (DetailsID > 0 && TargetNo != "") {
-                            ProductionID = 0;
-                            DetailsID = 0;
-                            jAlert('Sales Target Number : ' + TargetNo + ' saved successfully.', 'Alert!', function (r) {
-                                if (r) {
-
-                                    if (savemode == "Exit") {
-                                        setTimeout(function () {
-                                            var url = $('#hdnListPage').val();
-                                            window.location.href = url;
-                                        }, 500);
-                                    }
-                                }
-                            });
-
-                        }
-                        else {
-
-                            DetailsID = 0;
-                            savemode = "";
-                            jAlert('Please try again later.');
-                            return false;
-                        }
-                        Message = "";
-
-                   // }
-
-                }
-            }
-        });*@
+      
 
 
         $.ajax({
@@ -1263,45 +1122,6 @@
 
     }
 
-    //function addNewRowToEditgrid() {
-    //    gridLevelEntryList.batchEditApi.EndEdit();
-    //    gridLevelEntryList.AddNewRow();
-
-    //    var sl = 1;
-    //    var visiablerow = gridLevelEntryList.GetVisibleRowsOnPage();
-    //    if (visiablerow > 0) {
-    //        sl = visiablerow;
-    //    }
-    //    gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 1);
-    //    gridLevelEntryList.GetEditor('SlNO').SetText(sl);
-
-
-    //    setTimeout(function () {
-    //        gridLevelEntryList.batchEditApi.EndEdit();
-    //        gridLevelEntryList.batchEditApi.StartEdit(globalrowindex, 2);
-    //    }, 200);
-
-
-    //}
-    //function SuffleRows() {
-    //    for (var i = 0; i < 1000; i++) {
-    //        if (gridLevelEntryList.GetRow(i)) {
-    //            if (gridLevelEntryList.GetRow(i).style.display != "none") {
-    //                gridLevelEntryList.batchEditApi.StartEdit(i, 12);
-    //                gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
-    //            }
-    //        }
-    //    }
-
-    //    for (i = -1; i > -1000; i--) {
-    //        if (gridLevelEntryList.GetRow(i)) {
-    //            if (gridLevelEntryList.GetRow(i).style.display != "none") {
-    //                gridLevelEntryList.batchEditApi.StartEdit(i, 12);
-    //                gridLevelEntryList.GetEditor("UpdateEdit").SetText(i);
-    //            }
-    //        }
-    //    }
-    //}
     function GetServerDateFormat(today) {
         if (today != "" && today != null) {
             var dd = today.getDate();
@@ -1474,43 +1294,7 @@
             });
             return false;
         }
-        //else if (parseFloat(_REVISIT) == 0) {
-        //    // SweetAlert for empty category name
-        //    Swal.fire({
-        //        icon: 'warning',
-        //        title: 'Sorry!',
-        //        text: 'Please Enter Revisit to Proceed.'
-        //    });
-        //    return false;
-        //}
-        //else if (parseFloat(_ORDERAMOUNT) == 0) {
-        //    // SweetAlert for empty category name
-        //    Swal.fire({
-        //        icon: 'warning',
-        //        title: 'Sorry!',
-        //        text: 'Please Enter Order Amount to Proceed.'
-        //    });
-        //    return false;
-        //}
-        //else if (parseFloat(_COLLECTION) == 0) {
-        //    // SweetAlert for empty category name
-        //    Swal.fire({
-        //        icon: 'warning',
-        //        title: 'Sorry!',
-        //        text: 'Please Enter Collection to Proceed.'
-        //    });
-        //    return false;
-        //}
-        //else if (parseFloat(_ORDERQTY) == 0) {
-        //    // SweetAlert for empty category name
-        //    Swal.fire({
-        //        icon: 'warning',
-        //        title: 'Sorry!',
-        //        text: 'Please Enter Order Quantity to Proceed.'
-        //    });
-        //    return false;
-        //}
-
+      
 
 
 

@@ -18,6 +18,8 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
 using DocumentFormat.OpenXml.Wordprocessing;
+using DevExpress.XtraEditors;
+using DevExpress.Xpo.DB;
 
 namespace ModernRetail.Controllers
 {
@@ -45,7 +47,7 @@ namespace ModernRetail.Controllers
             SqlCommand sqlcmd = new SqlCommand();
             SqlConnection sqlcon = new SqlConnection(con);
             sqlcon.Open();
-            sqlcmd = new SqlCommand("MR_TARGETASSIGN_LISTING", sqlcon);
+            sqlcmd = new SqlCommand("PRC_MR_TARGETASSIGN_LISTING", sqlcon);
             sqlcmd.Parameters.AddWithValue("@ACTION", dd.TargetType);
             sqlcmd.Parameters.AddWithValue("@USERID", Convert.ToString(Session["MRuserid"]));
             sqlcmd.Parameters.AddWithValue("@fromdate", dd.Fromdate);
@@ -64,7 +66,7 @@ namespace ModernRetail.Controllers
             int i;
             int rtrnvalue = 0;
 
-            ProcedureExecute proc = new ProcedureExecute("MR_TARGETASSIGN_LISTING");
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_TARGETASSIGN_LISTING");
             proc.AddNVarcharPara("@action", 50, "DELETE");
             proc.AddNVarcharPara("@TargetType",100, TargetType);
             proc.AddNVarcharPara("@TARGET_ID", 30, ID);
@@ -693,7 +695,7 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ExporSummaryList(int type, String Name)
+        public ActionResult ExportList(int type, String Name)
         {
             
             DataTable dbDashboardData = new DataTable();
@@ -705,19 +707,19 @@ namespace ModernRetail.Controllers
                 switch (type)
                 {
                     case 1:
-                        return GridViewExtension.ExportToPdf(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
-                    
-                    case 2:
                         return GridViewExtension.ExportToXlsx(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+
+                    //case 2:
+                    //    return GridViewExtension.ExportToXlsx(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
                    
-                    case 3:
-                        return GridViewExtension.ExportToXls(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                    //case 3:
+                    //    return GridViewExtension.ExportToXls(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
                     
-                    case 4:
-                        return GridViewExtension.ExportToRtf(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                    //case 4:
+                    //    return GridViewExtension.ExportToRtf(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
                     
-                    case 5:
-                        return GridViewExtension.ExportToCsv(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
+                    //case 5:
+                    //    return GridViewExtension.ExportToCsv(GetGridView(TempData["TARGETASSIGNGRIDVIEW"], Name), TempData["TARGETASSIGNGRIDVIEW"]);
                     default:
                         break;
                 }
@@ -736,9 +738,15 @@ namespace ModernRetail.Controllers
            
             DataTable dt = (DataTable)datatable;
 
+            if (dt.Columns.Contains("ID"))
+            {
+                dt.Columns.Remove("ID");
+            }            
+
             foreach (System.Data.DataColumn datacolumn in dt.Columns)
             {
                 
+
                 settings.Columns.Add(column =>
                 {
 
@@ -757,12 +765,19 @@ namespace ModernRetail.Controllers
                         column.Caption = datacolumn.ColumnName;
                         column.FieldName = datacolumn.ColumnName;
                     }
+                    
+                    if (datacolumn.DataType == typeof(System.DateTime))
+                    {
+                        column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
+                    }
+
 
                     
-                    //if (datacolumn.DataType.FullName == "System.Decimal" || datacolumn.DataType.FullName == "System.Int32" || datacolumn.DataType.FullName == "System.Int64")
-                    //{
-                        
-                    //}
+
+                    if (datacolumn.DataType.FullName == "System.Decimal" || datacolumn.DataType.FullName == "System.Int32" || datacolumn.DataType.FullName == "System.Int64")
+                    {
+                        column.PropertiesEdit.DisplayFormatString = "0.00";
+                    }
                 });
                
 

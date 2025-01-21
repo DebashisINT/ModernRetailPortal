@@ -3,7 +3,7 @@
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
 
-@model TargetVsAchievement.Models.WODModel
+@model ModernRetail.Models.WODModel
 @{
     ViewBag.Title = "WOD Target";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -856,12 +856,37 @@
     });
 
     function CancelAdd() {
-        window.location.href = '/TargetVsAchievement/TargetSetUp/Index';
+        function CancelAdd() {
+            if ($("#hdnAdd").val() == "1") {
+                Swal.fire({
+                    title: 'Are you sure you want to Close with out save data ?',
+                    text: "This action cannot be undone!",
+                    imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                    imageWidth: 40, // Adjust the width as needed
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/TargetSetUp/Index';
+
+                    }
+                });
+            }
+
+            else {
+                window.location.href = '/TargetSetUp/Index';
+            }
+
+        }
+       
     }
 
 
     function TargetAdd() {
-        window.location.href = '/TargetVsAchievement/TargetSetUp/Index';
+        window.location.href = '/TargetSetUp/Index';
     }
     function gridclick(s, e) {
         globalrowindex = e.visibleIndex;
@@ -1065,7 +1090,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Select WOD Target Level to Proceed.'
+                text: 'Select Employee Group to Proceed.'
             });
             return false;
         }
@@ -1074,7 +1099,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Enter WOD Target Document No. to Proceed.'
+                text: 'Enter Document No. to Proceed.'
             });
             return false;
         } else if (TargetDate.trim() == "") {
@@ -1082,7 +1107,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Select Target Date to Proceed.'
+                text: 'Select Date to Proceed.'
             });
             return false;
         }

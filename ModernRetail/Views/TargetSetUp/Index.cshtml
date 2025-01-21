@@ -6,6 +6,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+    @@media only screen and (max-width: 768px) {
+
+
+        #ddlAppIds .tooltip {
+            display: none;
+        }
+    }
+
     .mt-22 {
         margin-top: 25px;
     }
@@ -566,6 +574,15 @@
             color: #fff;
         }
 
+    .btn-export {
+        background: #d0d0d0;
+    }
+
+        .btn-export .btn-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
     .swal2-confirm.swal2-styled {
         border-radius: 8px !important;
     }
@@ -634,7 +651,7 @@
     }
 
     .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-           overflow: visible;
+        overflow: visible;
     }
 
     #btnSave .btn-icon, .cancel-catg .btn-icon {
@@ -809,8 +826,7 @@
         background-color: #8a3e11 !important;
     }
 
-    .px-15
-    {
+    .px-15 {
         padding-left: 8px;
         padding-right: 8px;
     }
@@ -841,6 +857,8 @@
     }
 
     $(function () {
+
+
         document.getElementById('ddlTargetType').addEventListener('change', function () {
             const selectedValue = this.value;
             const downloadLink = document.getElementById('downloadLink');
@@ -864,10 +882,12 @@
         gridList.Refresh();
 
 
-        $('#ddlAppIds').on('change', function () {
+        /*$('#ddlAppIds').on('change', function () {*/
+
+    $('#ddlAppIds').on('click', function () {
             var TargetType = $('#ddlTargetType').val();
             if (TargetType.trim() == "Select" || TargetType.trim() == "") {
-                // SweetAlert for empty category description
+                // SweetAlert
                 Swal.fire({
                     icon: 'warning',
                     title: 'Warning',
@@ -876,17 +896,16 @@
                 return false;
             }
 
-        if ($("#ddlAppIds option:selected").index() > 0) {
-            var selectedValue = $(this).val();
-           
-            $('#ddlAppIds').prop("selectedIndex", 0);
-            var url = '@Url.Action("ExporSummaryList", "TargetSetUp", new { type = "_type_" })'
-           
+       // if ($("#ddlAppIds option:selected").index() > 0) {
+            var selectedValue = "1";
+            //$('#ddlAppIds').prop("selectedIndex", 0);
+            var url = '@Url.Action("ExportList", "TargetSetUp", new { type = "_type_" })'
+
             url = url.replace("_type_", selectedValue);
             url = url + "&Name=" + TargetType;
             window.location.href = url;
-           // window.location.href = url.replace("_type_", selectedValue);
-            }
+
+           // }
         });
 
     });
@@ -894,7 +913,7 @@
     function ImportPopOpen() {
         var TargetType = $('#ddlTargetType').val();
         if (TargetType.trim() == "Select" || TargetType.trim() == "") {
-            // SweetAlert for empty category description
+            // SweetAlert
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
@@ -1001,24 +1020,50 @@
           processData: false,
           data: fileData,
 
-          success: function (result) {
-              jAlert(result, 'Alert', function () {
-                  $("#fileprod").val('');
-                  $("#myImportModal").modal('hide');
+                    success: function (result) {
+                        Swal.fire({
+                        title: 'Alert',
+                        text: result,
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                        }).then(() => {
+                        // Clear the file input
+                        $("#fileprod").val('');
+
+                        // Hide the modal
+                        $("#myImportModal").modal('hide');
+
+                        // Perform AJAX request
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ImportLog", "TargetSetUp")",
+                            success: function (response) {
+                            if (response) {
+                            pcModalBeatImportLogMode.Show();
+                            gridImportLog.Refresh();
+                            gridImportLog.Refresh(); // Consider if this second refresh is necessary
+                            }
+                            }
+                            });
+                        });
+
+              //jAlert(result, 'Alert', function () {
+              //    $("#fileprod").val('');
+              //    $("#myImportModal").modal('hide');
 
 
-                  $.ajax({
-                      type: "POST",
-                      url: "@Url.Action("ImportLog", "TargetSetUp")",
-                      success: function (response) {
-                          if (response) {
-                              pcModalBeatImportLogMode.Show();
-                              gridImportLog.Refresh();
-                              gridImportLog.Refresh();
-                          }
-                      }
-                  });
-              });
+              //    $.ajax({
+              //        type: "POST",
+                      @*url: "@Url.Action("ImportLog", "TargetSetUp")",*@
+              //        success: function (response) {
+              //            if (response) {
+              //                pcModalBeatImportLogMode.Show();
+              //                gridImportLog.Refresh();
+              //                gridImportLog.Refresh();
+              //            }
+              //        }
+              //    });
+              //});
 
           },
           error: function (err) {
@@ -1402,7 +1447,7 @@
                     </button>
                 </div>
                 @*</div>
-        <div class="col-md-2">*@
+                    <div class="col-md-2">*@
                 <div class="add-show-btns">
                     <button type="button" class="btn add-btn product-target" onclick="AddProductTarget();">
                         <span class="btn-icon"><i class="fa fa-plus"></i></span> Product Target
@@ -1410,7 +1455,7 @@
 
                 </div>
                 @*</div>
-        <div class="col-md-3">*@
+                    <div class="col-md-3">*@
                 <div class="add-show-btns">
                     <button type="button" class="btn add-btn brand-value-target" onclick="AddBrandVolumeValueTarget();">
                         <span class="btn-icon"><i class="fa fa-plus"></i></span> Brand Volume/Value Target
@@ -1418,7 +1463,7 @@
 
                 </div>
                 @*</div>
-        <div class="col-md-2">*@
+                    <div class="col-md-2">*@
 
                 @if (Convert.ToInt16(ViewBag.IsShowWODCountInTarget) == 1)
                 {
@@ -1429,7 +1474,7 @@
 
                     </div>
                 }
-                </div>
+            </div>
         </div>
     </div>
 
@@ -1495,23 +1540,23 @@
                             <option value="Select">Select</option>
                             <option value="SalesTarget">Sales Target</option>
                             <option value="ProductTarget">Product Target</option>
-                            <option value="BrandTarget">Brand Volume/Value Target</option>                           
+                            <option value="BrandTarget">Brand Volume/Value Target</option>
                         </select>
                     </div>
                 }
-                    @if (Convert.ToInt16(ViewBag.IsShowWODCountInTarget) == 1)
-                    {
-                        <div>
-                            <select name="ddlStatus" id="ddlTargetType">
-                                <option value="Select">Select</option>
-                                <option value="SalesTarget">Sales Target</option>
-                                <option value="ProductTarget">Product Target</option>
-                                <option value="BrandTarget">Brand Volume/Value Target</option>
-                                <option value="WODTarget">WOD Target</option>
-                            </select>
-                        </div>
-                    }
-                </div>
+                @if (Convert.ToInt16(ViewBag.IsShowWODCountInTarget) == 1)
+                {
+                    <div>
+                        <select name="ddlStatus" id="ddlTargetType">
+                            <option value="Select">Select</option>
+                            <option value="SalesTarget">Sales Target</option>
+                            <option value="ProductTarget">Product Target</option>
+                            <option value="BrandTarget">Brand Volume/Value Target</option>
+                            <option value="WODTarget">WOD Target</option>
+                        </select>
+                    </div>
+                }
+            </div>
 
 
 
@@ -1521,15 +1566,22 @@
                 <div class="">
                     <div class="add-show-btns">
                         <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
-                        <select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
+
+                        @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
                                 <option value="0">Export to</option>
                                 <option value="1">PDF</option>
                                 <option value="2">XLSX</option>
                                 <option value="3">XLS</option>
                                 <option value="4">RTF</option>
                                 <option value="5">CSV</option>
-                            </select>
-                        @*<button type="button" class="btn btn-warning" onclick="DownloadFormat();"> Download Format</button>*@
+                            </select>*@
+
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                            <div class="tooltip">Export to XLSX</div>
+                        </button>
+
+
                         <a id="downloadLink" href="" class="btn btn-warning download-button" onclick="return theFunction();">
                             Download Format
                         </a>
