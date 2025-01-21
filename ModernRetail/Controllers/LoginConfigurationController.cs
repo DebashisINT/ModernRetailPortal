@@ -215,7 +215,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "USER_LOGINID";
-                x.Caption = "User ID";
+                x.Caption = "Login ID";
                 x.VisibleIndex = 1;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Percentage(20);

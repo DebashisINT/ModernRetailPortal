@@ -1078,7 +1078,8 @@
 <script>
     var ID = 0;
     var urlKeys = getUrlVars();
-    function UserAdd() {
+
+    function CloseAdd() {
         window.location.href = '/LoginConfiguration/UserMasterList';
     }
 
@@ -1180,11 +1181,12 @@
         }
     }
 
-
-    function CancelAdd() {
-        if ($("#hdnAdd").val() == "1") {
+    function CancelAdd()
+    {
+        if (urlKeys.key == 'Add')
+        {
             Swal.fire({
-                title: 'Are you sure you want to Close with out save data.?',
+                title: 'Are you sure you want to Close with out save data ?',
                 text: "This action cannot be undone!",
                 imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
                 imageWidth: 40, // Adjust the width as needed
@@ -1727,7 +1729,7 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Login Configuration</span>
-    <div id="ApprovalCross" onclick="UserAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <div id="ApprovalCross" onclick="CloseAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
     <div class="form_main backBox p-3 mb-3">

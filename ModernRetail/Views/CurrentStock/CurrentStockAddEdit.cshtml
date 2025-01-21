@@ -6,7 +6,7 @@
 @using ModernRetail.Models;
 @model ModernRetail.Models.CurrentStockModel
 @{
-    ViewBag.Title = "LOGIN CONFIGURATION";
+    ViewBag.Title = "CURRENT STOCK";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -1117,8 +1117,35 @@
     var ID = 0;
     var urlKeys = getUrlVars();
 
-    function StockAdd() {
+    function CloseAdd() {
         window.location.href = '/CurrentStock/Index';
+    }
+    function CancelAdd() {
+
+        if (urlKeys.key == 'Add') {
+            Swal.fire({
+                title: 'Are you sure you want to Close with out save data ?',
+                text: "This action cannot be undone!",
+                imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
+                imageWidth: 40, // Adjust the width as needed
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/CurrentStock/Index';
+
+                }
+            });
+        }
+        else {
+            window.location.href = '/CurrentStock/Index';
+        }
+
+
+        
     }
 
     function getUrlVars() {
@@ -1134,7 +1161,7 @@
 
     if (urlKeys.key != 'Add') {
         ID = urlKeys.key;
-        $("#hdnAdd").val(ID);
+        
         if (ID != 0) {
             $.ajax({
                 type: "POST",
@@ -1372,6 +1399,7 @@
             return;
         }
 
+
         var noofvisiblerows = gridStockProductEntryList.GetVisibleRowsOnPage();
         if (noofvisiblerows == 0) {
             Swal.fire({
@@ -1388,6 +1416,8 @@
         else {
             $("#hdnAddEditMode").val("MODIFYCURRENTSTOCK");
         }
+
+        
 
         var action = $("#hdnAddEditMode").val();
 
@@ -1587,7 +1617,51 @@
             return false;
         }
 
+        const mfgDate = new Date(dtMfgDate.GetDate());
+        const expDate = new Date(dtExpDate.GetDate());
 
+        if (mfgDate >= expDate) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Mfg. Date cannot be greater than Exp. Date.'
+            });
+
+            return false;
+        }
+
+        //if (dtMfgDate.GetDate() > dtExpDate.GetDate()) {
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Warning',
+        //        text: 'Mfg. Date cannot be greater than Exp. Date.'
+        //    });
+
+        //    return false;
+        //}
+
+        //if (dtMfgDate.GetText() != "" && dtExpDate.GetText() != "" && dtMfgDate.GetText() != "01-01-0100" && dtExpDate.GetText() != "01-01-0100") {
+
+        //    if (dtMfgDate.GetText() > dtExpDate.GetText()) {
+        //        Swal.fire({
+        //            icon: 'warning',
+        //            title: 'Warning',
+        //            text: 'Mfg. Date cannot be lessthan Exp. Date.'
+        //        });
+
+        //        return false;
+        //    }
+        //}
+        //else if (dtExpDate.GetText() != "" && dtExpDate.GetText() != "01-01-0100" && (dtMfgDate.GetText() == "" || dtMfgDate.GetText() == "01-01-0100" ) ) {
+
+        //    Swal.fire({
+        //        icon: 'warning',
+        //        title: 'Warning',
+        //        text: 'Mfg. Date cannot be lessthan Exp. Date.'
+        //    });
+
+        //    return false;
+        //}
 
         $.ajax({
            type: "POST",
@@ -1659,7 +1733,7 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Current Stock</span>
-    <div id="ApprovalCross" onclick="StockAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <div id="ApprovalCross" onclick="CloseAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 
 <div class="container">
