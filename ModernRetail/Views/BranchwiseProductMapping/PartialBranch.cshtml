@@ -24,19 +24,19 @@
         settings.CommandColumn.ShowClearFilterButton = true;
         settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.None;
 
-
-        settings.Columns.Add(column =>
-        {
-            column.FieldName = "branch_code";
-            column.Caption = "Code";
-            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
-        });
         settings.Columns.Add(column =>
         {
             column.FieldName = "branch_description";
             column.Caption = "Name";
             column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
         });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "branch_code";
+            column.Caption = "Code";
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(200);
+        });
+        
         settings.Properties.Caption = " ";
         settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
         settings.Properties.SelectionMode = DevExpress.Web.GridLookupSelectionMode.Multiple;

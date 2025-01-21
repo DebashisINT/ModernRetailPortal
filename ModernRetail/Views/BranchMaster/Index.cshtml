@@ -5,7 +5,7 @@
 
 @model ModernRetail.Models.BranchMaster
 @{
-    ViewBag.Title = "Branch";
+    ViewBag.Title = "Branch Master";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -941,7 +941,9 @@
                         // $("#ddlCountry").val(response.Country).trigger('change');
                         EditCountryOnChange(response.State);
                         EditStateOnChange(response.City);
+
                         EditCityOnChange(response.PIN);
+                        $("#hdnAdd").val(ID);
                     }
                 }
             });
@@ -1250,7 +1252,7 @@
     }
 
     function CancelAdd() {
-        if ($("#hdnAdd").val() == "1") {
+        if ($("#hdnAdd").val() == "0") {
             Swal.fire({
                 title: 'Are you sure you want to Close with out save data.?',
                 text: "This action cannot be undone!",
@@ -1279,7 +1281,7 @@
 
 
 <div class="breadCumb">
-    <span id="HeaderLableID">Branch</span>
+    <span id="HeaderLableID">Branch Master</span>
     <div id="ApprovalCross" onclick="BranchAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
@@ -1293,13 +1295,7 @@
                 </div>
             </div>
             <div class="col-sm-3  mb-3 h-branch-select">
-                <label>Parent Branch<span style="color:red">*</span></label>
-                @*@Html.DropDownListFor(
-            m => m.ParentBranch,
-            new SelectList(Model.BranchList, "ID", "NAME"),
-            "Select",
-            new { @id = "ddlParentBranch", @class = "form-control" }
-        )*@
+                <label>Parent Branch<span style="color:red">*</span></label>               
                 <select id="ddlParentBranch" class="form-control" ></select>
 
             </div>
@@ -1316,13 +1312,7 @@
                 </div>
             </div>
             <div class="col-sm-3  mb-3 h-branch-select">
-                <label>Country<span style="color:red">*</span></label>
-                @*@Html.DropDownListFor(
-                m => m.Country,
-                new SelectList(Model.CountryList, "ID", "NAME"),
-                "Select",
-                new { @id = "ddlCountry", @class = "form-control", @onchange = "CountryOnChange();" }
-            )*@
+                <label>Country<span style="color:red">*</span></label>              
 
                 <select id="ddlCountry" class="form-control" onchange="CountryOnChange()"></select>
             </div>
@@ -1359,7 +1349,7 @@
     </div>
 
 </div>
-<input type="hidden" value="" id="hdnAdd" />
+<input type="hidden" value="0" id="hdnAdd" />
 <input type="hidden" value="" id="hdnTARGETLEVELID" />
 <input type="hidden" value="" id="hdnINTERNALID" />
 <input type="hidden" value="" id="hdnLevelGuiIDS" />

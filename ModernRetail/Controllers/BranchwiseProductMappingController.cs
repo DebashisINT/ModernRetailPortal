@@ -227,9 +227,27 @@ namespace ModernRetail.Controllers
             }
             catch
             {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
+                return RedirectToAction("Login", "Login");
             }
         }
+
+        public ActionResult GetBranchListingPage()
+        {
+            try
+            {               
+
+                DataTable dtbranch = new DataTable();
+                List<GetBranchList> modelbranch = new List<GetBranchList>();               
+                dtbranch = GetBranchData();
+                modelbranch = APIHelperMethods.ToModelList<GetBranchList>(dtbranch);                
+                return PartialView("PartialBranch", modelbranch);
+            }
+            catch
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+        
         public DataTable GetBranchData()
         {
             DataTable dt = new DataTable();
@@ -543,7 +561,8 @@ namespace ModernRetail.Controllers
                 sqlcmd.Parameters.AddWithValue("@ACTION", "GETLISTINGDETAILS");
                 sqlcmd.Parameters.AddWithValue("@UserId", Userid);
                 sqlcmd.Parameters.AddWithValue("@ISPAGELOAD", model.Is_PageLoad);
-                sqlcmd.Parameters.AddWithValue("@PRODUCTID", model.PRODUCT_IDS); 
+                sqlcmd.Parameters.AddWithValue("@PRODUCTID", model.PRODUCT_IDS);
+                sqlcmd.Parameters.AddWithValue("@BRANCHID", model.Branch_Ids);
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
                 da.Fill(dt);
@@ -629,7 +648,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "PRODUCT_CODE";
-                x.Caption = "Item Code";
+                x.Caption = "Product Code";
                 x.VisibleIndex = 4;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
@@ -638,7 +657,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "PRODUCTS_NAME";
-                x.Caption = "Item Name";
+                x.Caption = "Product Name";
                 x.VisibleIndex = 5;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(100);

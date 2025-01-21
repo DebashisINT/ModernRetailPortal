@@ -984,6 +984,14 @@
             Is_PageLoad = "1";
             GetProductSelectedFieldValuesOndemand($("#hdnProductId").val());
             Product_Ids = ProductId.join(',');
+
+            var BranchIDS = BranchGridLookup.gridView.GetSelectedKeysOnPage();
+            if (BranchIDS != "") {
+                for (var i = 0; i < BranchIDS.length; i++) {                    
+                    Branch_Id += BranchIDS[i] + ',';
+                }
+            }
+
             gridList.Refresh();
             gridList.Refresh();
         });
@@ -1000,9 +1008,9 @@
     function OnStartCallback(s, e) {
         e.customArgs["Is_PageLoad"] = Is_PageLoad;
         e.customArgs["PRODUCT_IDS"] = Product_Ids;
-        /*Rev Pallab: grid modification*/
+        e.customArgs["Branch_Ids"] = Branch_Id;
         document.getElementById("loading-overlay").style.display = "block";
-        /*Rev End Pallab: grid modification*/
+       
     }
     /*Rev Pallab: grid modification*/
     function OnEndCallback() {
@@ -1281,7 +1289,66 @@ function ProductImportUserLog() {
         }
     });
 </script>
+<script>
+    var BranchId = [];
+    var Branch_Id = "";
 
+
+    function BranchStartCallback(s, e) {
+       // e.customArgs["PRODUCTBRANCHMAP_ID"] = urlKeys.key;
+        //e.customArgs["HeadBranch"] = $('#ddlHeadBranch').val();
+    }
+    function BranchSelectionChanged(s, e) {
+        BranchGridLookup.gridView.GetSelectedFieldValues("branch_id", GetBranchSelectedFieldValuesCallback);
+    }
+    function GetBranchSelectedFieldValuesCallback(values) {
+        try {
+            BranchId = [];
+            Branch_Id = "";
+            for (var i = 0; i < values.length; i++) {
+                BranchId.push(values[i]);
+                Branch_Id += values[i] + ',';
+            }
+        } finally {
+
+        }
+    }
+    function SelectAllGridLookupBranch(s, e) {
+        BranchGridLookup.gridView.SelectRows();
+        BranchGridLookup.SetText("");
+
+        var headBranch = $('#ddlHeadBranch').val();
+        $.ajax({
+            type: 'POST',
+            url: "/BranchwiseProductMapping/GetBranchListJson",
+            data: { headBranch: headBranch },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                BranchId = [];
+                Branch_Id = "";
+                $.each(data, function (i, data) {
+                    BranchId.push(data.branch_id);
+                    Branch_Id += data.branch_id + ',';
+                });
+                BranchGridLookup.gridView.SelectRows();
+            },
+            error: function () {
+            }
+        });
+
+    }
+    function DeSelectAllGridLookupBranch(s, e) {
+        BranchGridLookup.gridView.UnselectRows();
+        BranchId = [];
+        Branch_Id = "";
+    }
+    function BranchEndCallback() {
+        //PartialParentGridLookup.gridView.Refresh();
+        //PartialParentGridLookup.gridView.Refresh();
+
+    }
+</script>
 
 
 <div class="breadCumb">
@@ -1310,7 +1377,14 @@ function ProductImportUserLog() {
             }
 
 
-
+            <div class="dis-flex mr-4">
+                <label>
+                    Branch(s)
+                </label>
+                <div>
+                    @Html.Action("GetBranchListingPage", "BranchwiseProductMapping")
+                </div>
+            </div>
             <div class="dis-flex mr-4">
                 <label>
                     Product(s)
