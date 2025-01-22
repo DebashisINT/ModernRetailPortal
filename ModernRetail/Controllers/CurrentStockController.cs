@@ -1,4 +1,8 @@
-﻿using BusinessLogicLayer;
+﻿/***********************************************************************************************************************************************
+ * Written by Sanchita on 13/01/2025 for Modern Retail - Current Stock module
+ ************************************************************************************************************************************************/
+
+using BusinessLogicLayer;
 using BusinessLogicLayer.SalesmanTrack;
 using DataAccessLayer;
 using DevExpress.Utils;

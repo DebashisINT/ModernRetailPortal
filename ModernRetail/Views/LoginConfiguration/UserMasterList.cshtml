@@ -1,4 +1,8 @@
-﻿
+﻿@*************************************************************************************************************************************************
+    Written by Sanchita on 09/12/2024 for Modern Retail - Login Configuration module
+**************************************************************************************************************************************************@
+
+
 @{
     ViewBag.Title = "LOGIN CONFIGURATION";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -1045,7 +1049,7 @@
             .action-buttons a:hover {
                 text-decoration: underline;
             }
-    
+
 
     @@media only screen and (max-width: 768px) {
         #ddlAppIds .tooltip {
@@ -1055,7 +1059,6 @@
         .dxeButtonEdit_PlasticBlue {
             width: 160px !important;
         }
-
     }
 </style>
 <script>
@@ -1246,7 +1249,7 @@
             });
         }
         else {
-            
+
             $.ajax({
                 type: "POST",
                 //url: "LoginConfiguration/GetStateListSubmit",
@@ -1326,7 +1329,7 @@
             });
         }
         else {
-            
+
             $.ajax({
                 type: "POST",
                 //url: "LoginConfiguration/GetBranchListSubmit",
@@ -1571,9 +1574,9 @@
                     <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for States.">
 
                     <ul id="divModalBody" class="listStyle">
-                        
+
                         @*<input type="checkbox" id="idstate" class="statecheck" />
-                        <label id="lblstatename" class="lblstate"></label>*@
+                            <label id="lblstatename" class="lblstate"></label>*@
                     </ul>
                 </div>
                 <input type="button" id="btnsatesubmit" title="SUBMIT" value="SUBMIT" class="btn btn-primary" onclick="STATEPUSHPOP()" />
@@ -1598,8 +1601,8 @@
 
                     <div class="input-group flex-nowrap">
                         @*<div class="input-group-prepend">
-                            <span class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></span>
-                        </div>*@
+                                <span class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></span>
+                            </div>*@
                         <input type="text" id="myInputBranchMap" onkeyup="myFunctionBranchMap()" class="form-control" placeholder="Search for Branch" aria-describedby="addon-wrapping">
                     </div>
 
@@ -1607,9 +1610,9 @@
                     </div>
                 </div>
                 <input type="button" id="btnBranchMapsubmit" title="SUBMIT" value="SUBMIT" class="btn btn-primary" onclick="BranchPushPop()" />
-                
+
             </div>
-            
+
         </div>
 
     </div>

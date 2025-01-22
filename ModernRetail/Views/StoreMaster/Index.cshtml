@@ -1,4 +1,7 @@
-﻿
+﻿@*************************************************************************************************************************************************
+        Written by Sanchita on 25/12/2024 for Modern Retail - Login Configuration module
+**************************************************************************************************************************************************@
+
 @using System.Web.UI.WebControls
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
@@ -879,8 +882,7 @@
             background: #072743;
         }
 
-    .party-add-btn
-    {
+    .party-add-btn {
         width: 130px;
     }
     /*Rev End Pallab: grid modification*/
@@ -924,8 +926,7 @@
             border-right: 0;
         }
 
-        #dateRangeSelector li i
-        {
+        #dateRangeSelector li i {
             margin-right: 6px;
         }
 
@@ -948,9 +949,9 @@
             left: 50%;
         }
 
-        #today {
-            border-radius: 8px 0 0 8px;
-        }
+    #today {
+        border-radius: 8px 0 0 8px;
+    }
 
     #custom {
         border-radius: 0 8px 8px 0;
@@ -997,6 +998,7 @@
             .action-buttons a:hover {
                 text-decoration: underline;
             }
+
     @@media only screen and (max-width: 768px) {
 
 
@@ -1285,35 +1287,75 @@
                     </div>
                     @*<div class="clear"></div>*@
 
-                <div class="col-md-4  plr-5" style="">
-                    <ul id="dateRangeSelector" class="d-flex">
-                        <li id="today" class="active tooltip-container">Today <div class="tooltip">View data for today's date only.</div></li>
-                        <li id="mtd" class="tooltip-container">MTD <div class="tooltip">View data from the start of the month up to today's date.</div></li>
-                        <li id="custom" class="tooltip-container"><i class="fa fa-calendar" aria-hidden="true"></i> Custom <div class="tooltip">Select a custom date range to view specific data.</div></li>
-                    </ul>
-                    @*<span>Date Range</span>
-        <select id="dateRangeSelector" class="form-control">
-            <option value="custom">Custom</option>
-            <option value="today">Today</option>
-            <option value="mtd">MTD</option>
-        </select>*@
+                    <div class="col-md-4  plr-5" style="">
+                        <ul id="dateRangeSelector" class="d-flex">
+                            <li id="today" class="active tooltip-container">Today <div class="tooltip">View data for today's date only.</div></li>
+                            <li id="mtd" class="tooltip-container">MTD <div class="tooltip">View data from the start of the month up to today's date.</div></li>
+                            <li id="custom" class="tooltip-container"><i class="fa fa-calendar" aria-hidden="true"></i> Custom <div class="tooltip">Select a custom date range to view specific data.</div></li>
+                        </ul>
+                        @*<span>Date Range</span>
+                            <select id="dateRangeSelector" class="form-control">
+                                <option value="custom">Custom</option>
+                                <option value="today">Today</option>
+                                <option value="mtd">MTD</option>
+                            </select>*@
 
 
-                    <div id="customDateFields" class="row" style="display: none;">
-                        <div class="col-md-3 for-cust-icon plr-5">
+                        <div id="customDateFields" class="row" style="display: none;">
+                            <div class="col-md-3 for-cust-icon plr-5">
+                                <span>From Date</span>
+                                <div>
+                                    @Html.DevExpress().DateEditFor(x => x.Fromdate,
+                                    deSettings =>
+                                    {
+                                        deSettings.Name = "dtFrom";
+                                        deSettings.Date = DateTime.Now;
+                                        deSettings.Properties.UseMaskBehavior = true;
+                                        deSettings.Properties.EditFormat = EditFormat.Custom;
+                                        deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                        deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                        deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                    }).GetHtml()
+                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 for-cust-icon plr-5">
+                                <span>To Date</span>
+                                <div>
+                                    @Html.DevExpress().DateEditFor(x => x.Todate,
+                                    deSettings =>
+                                    {
+                                        deSettings.Name = "dtTo";
+                                        deSettings.Date = DateTime.Now;
+                                        deSettings.Properties.UseMaskBehavior = true;
+                                        deSettings.Properties.EditFormat = EditFormat.Custom;
+                                        deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                        deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                        deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                    }).GetHtml()
+                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    @*<div class="col-md-3 for-cust-icon plr-5">
                             <span>From Date</span>
                             <div>
                                 @Html.DevExpress().DateEditFor(x => x.Fromdate,
-                                deSettings =>
-                                {
-                                    deSettings.Name = "dtFrom";
-                                    deSettings.Date = DateTime.Now;
-                                    deSettings.Properties.UseMaskBehavior = true;
-                                    deSettings.Properties.EditFormat = EditFormat.Custom;
-                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
+                            deSettings =>
+                            {
+                                deSettings.Name = "dtFrom";
+                                deSettings.Date = DateTime.Now;
+                                deSettings.Properties.UseMaskBehavior = true;
+                                deSettings.Properties.EditFormat = EditFormat.Custom;
+                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                            }).GetHtml()
                                 <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                             </div>
                         </div>
@@ -1321,65 +1363,25 @@
                             <span>To Date</span>
                             <div>
                                 @Html.DevExpress().DateEditFor(x => x.Todate,
-                                deSettings =>
-                                {
-                                    deSettings.Name = "dtTo";
-                                    deSettings.Date = DateTime.Now;
-                                    deSettings.Properties.UseMaskBehavior = true;
-                                    deSettings.Properties.EditFormat = EditFormat.Custom;
-                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
+                            deSettings =>
+                            {
+                                deSettings.Name = "dtTo";
+                                deSettings.Date = DateTime.Now;
+                                deSettings.Properties.UseMaskBehavior = true;
+                                deSettings.Properties.EditFormat = EditFormat.Custom;
+                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                            }).GetHtml()
                                 <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                             </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                    
-
-                    @*<div class="col-md-3 for-cust-icon plr-5">
-            <span>From Date</span>
-            <div>
-                @Html.DevExpress().DateEditFor(x => x.Fromdate,
-            deSettings =>
-            {
-                deSettings.Name = "dtFrom";
-                deSettings.Date = DateTime.Now;
-                deSettings.Properties.UseMaskBehavior = true;
-                deSettings.Properties.EditFormat = EditFormat.Custom;
-                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-            }).GetHtml()
-                <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-            </div>
-        </div>
-        <div class="col-md-3 for-cust-icon plr-5">
-            <span>To Date</span>
-            <div>
-                @Html.DevExpress().DateEditFor(x => x.Todate,
-            deSettings =>
-            {
-                deSettings.Name = "dtTo";
-                deSettings.Date = DateTime.Now;
-                deSettings.Properties.UseMaskBehavior = true;
-                deSettings.Properties.EditFormat = EditFormat.Custom;
-                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
-                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-            }).GetHtml()
-                <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-            </div>
-        </div>*@
+                        </div>*@
 
                     <div class="col-md-3 plr-5" style="">
                         <span></span>
                         <div>
                             <button type="button" id="btnshow" class="btn show-btn" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
-                            
+
                             @if (ViewBag.CanExport)
                             {
                                 <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">

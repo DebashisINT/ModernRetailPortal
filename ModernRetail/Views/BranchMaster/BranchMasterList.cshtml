@@ -1,4 +1,7 @@
-﻿
+﻿@**************************************************************************************************************************************************
+     Written by Sanchita on 10/01/2025 for Modern Retail - Group/Beat module
+***************************************************************************************************************************************************@
+
 @{
     ViewBag.Title = "Branch Master";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -720,14 +723,12 @@
         background: #d0d0d0;
     }
 
-    .btn-export .btn-icon img {
-        width: 30px;
-        height: 30px;
+        .btn-export .btn-icon img {
+            width: 30px;
+            height: 30px;
+        }
 
-    }
-
-    #gridList
-    {
+    #gridList {
         position: relative;
     }
 
@@ -746,6 +747,7 @@
         top: 45px;
         right: -35px;
     }
+
         .action-buttons.visible {
             display: block !important; /* Add this class dynamically */
         }
@@ -758,8 +760,7 @@
             cursor: pointer;
         }
 
-            .action-buttons a img
-            {
+            .action-buttons a img {
                 width: 30px;
                 height: 30px;
             }
@@ -771,12 +772,10 @@
 
     /*Rev End Pallab: grid modification*/
 
-    @@media only screen and (max-width: 768px)
-    {
-        
+    @@media only screen and (max-width: 768px) {
 
-        #ddlAppIds .tooltip
-        {
+
+        #ddlAppIds .tooltip {
             display: none;
         }
     }
@@ -923,14 +922,14 @@
         // Get the position of the clicked row
         var rowOffset = $(rowElement).offset();
 
-        
+
         //actionButtons.css({
         //    top: rowOffset.top,
         //    left: rowOffset.left + ($(rowElement).outerWidth() / 2) - (actionButtons.outerWidth() / 2),
-        //    zIndex: 9999 
+        //    zIndex: 9999
         //});
 
-        
+
         actionButtons.addClass('visible').fadeIn(200);
     }
 
@@ -963,21 +962,21 @@
             <div class="col-md-12 buttons-alignment" style="padding-top: 0;margin-bottom: 15px;">
                 <div class="add-show-btns">
                     @if (ViewBag.CanAdd)
-                        {
-                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddBranch();">
-                        <span class="btn-icon"><i class="fa fa-plus"></i></span> Add New
-                    </button>
+                    {
+                        <button type="button" class="btn add-btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" onclick="AddBranch();">
+                            <span class="btn-icon"><i class="fa fa-plus"></i></span> Add New
+                        </button>
                     }
-                        @if (ViewBag.CanView)
-                        {
-                    <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
+                    @if (ViewBag.CanView)
+                    {
+                        <button type="button" id="btnshow" class="btn show-btn" tabindex=4> <span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show Data</button>
                     }
-                        @if (ViewBag.CanExport)
-                        {
-                            <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
-                                <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
-                                <div class="tooltip">Export to XLSX</div>
-                            </button>
+                    @if (ViewBag.CanExport)
+                    {
+                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                            <div class="tooltip">Export to XLSX</div>
+                        </button>
 
                     }
                 </div>

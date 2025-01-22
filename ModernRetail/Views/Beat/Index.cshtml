@@ -1,4 +1,7 @@
-﻿
+﻿@**************************************************************************************************************************************************
+    Written by Sanchita on 10/01/2025 for Modern Retail - Group/Beat module
+***************************************************************************************************************************************************@
+
 @using ModernRetail.Models;
 @model ModernRetail.Models.BeatModel
 @{
@@ -14,15 +17,12 @@
         $("#txtName").val('');
         $("#ddlAreaB").val('0');
         $("#ddlRoute").val('0');
-        // Rev 1.0
         $("#dvlblBeatCode").hide();
         $("#dvtxtBeatCode").show();
         $("#dvtxtLblBeatCode").show();
-        // End of Rev 1.0
         $("#beatModal").modal('show')
     }
 
-    // Mantis Issue 25536, 25535, 25542, 25543, 25544 [CODE_TYPE added]
     function EditClick(ID, CODE_TYPE) {
         $("#hdnID").val(ID);
         $("#hdnCODE_TYPE").val(CODE_TYPE);
@@ -41,31 +41,23 @@
                     });
                 }
                 else {
-                    // Mantis Issue 25536, 25535, 25542, 25543, 25544
-                    //$("#txtCode").val(response.code)
-                    //$("#txtName").val(response.name)
-                    //$("#beatModal").modal('show')
                     if (CODE_TYPE == "AREA") {
                         $("#txtAreaCode").val(response.code)
                         $("#txtAreaName").val(response.name)
-                        // Rev 1.0
                         $("#dvlblAreaCode").show();
                         $("#dvtxtAreaCode").hide();
                         $("#dvtxtLblAreaCode").hide();
                         $("#lblAreaCode").html(response.code);
-                        // End of Rev 1.0
                         $("#areaModal").modal('show')
                     }
                     else if (CODE_TYPE == "ROUTE") {
                         $("#txtRouteCode").val(response.code)
                         $("#txtRouteName").val(response.name)
                         $("#ddlArea").val(response.area);
-                        // Rev 1.0
                         $("#dvlblRouteCode").show();
                         $("#dvtxtRouteCode").hide();
                         $("#dvtxtLblRouteCode").hide();
                         $("#lblRouteCode").html(response.code);
-                        // End of Rev 1.0
                         $("#routeModal").modal('show')
                     }
                     else if (CODE_TYPE == "BEAT") {
@@ -73,15 +65,12 @@
                         $("#txtName").val(response.name)
                         $("#ddlAreaB").val(response.area);
                         $("#ddlRoute").val(response.route);
-                        // Rev 1.0
                         $("#dvlblBeatCode").show();
                         $("#dvtxtBeatCode").hide();
                         $("#dvtxtLblBeatCode").hide();
                         $("#lblBeatCode").html(response.code);
-                        // End of Rev 1.0
                         $("#beatModal").modal('show')
                     }
-                    // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
                 }
             }
         });
@@ -165,11 +154,9 @@
         $("#hdnID").val('0');
         $("#txtAreaCode").val('');
         $("#txtAreaName").val('');
-        // Rev 1.0
         $("#dvlblAreaCode").hide();
         $("#dvtxtAreaCode").show();
         $("#dvtxtLblAreaCode").show();
-        // End of Rev 1.0
         $("#areaModal").modal('show')
     }
 
@@ -178,11 +165,9 @@
         $("#txtRouteCode").val('');
         $("#txtRouteName").val('');
         $("#ddlArea").val('0');
-        // Rev 1.0
         $("#dvlblRouteCode").hide();
         $("#dvtxtRouteCode").show();
         $("#dvtxtLblRouteCode").show();
-        // End of Rev 1.0
         $("#routeModal").modal('show')
 
         @*$.ajax({
@@ -450,7 +435,6 @@
 }
 
 
-    // Rev 6.0
      function DownloadFormat()
      {
         var url = '@Url.Action("DownloadFormat", "Beat")'
@@ -602,8 +586,7 @@
             }
         });
     }
-     // End of Rev 6.0
-
+ 
 
      function toggleDropdown() {
         const dropdown = $('#moreOptions');
@@ -621,7 +604,7 @@
     });
 
 
-    /*Rev Pallab: grid modification*/
+ 
 function gridRowclick(s, e) {
     $('#gridList').find('tr').removeClass('rowActive');
 
@@ -658,859 +641,846 @@ $(document).on('click', function (e) {
         $('.action-buttons').hide();
     }
 });
-/*Rev End Pallab: grid modification*/
 
 </script>
 
 <style>
-    .modal-header {
-        padding: 8px;
-        background: #094e8c;
-        border-radius: 8px 8px 0 0;
-    }
-
-    button.close {
-        color: #fff;
-        font-weight: 300;
-        opacity: .5;
-    }
-
-    .close:hover, .close:focus {
-        color: #fff;
-        opacity: 1;
-    }
-
-    .modal-content {
-        border-radius: 10px;
-    }
-
-    .modal-footer {
-        padding: 10px 20px 10px;
-    }
-
-    .dxgvLoadingPanel_PlasticBlue {
-        left: 42% !important;
-    }
-    /*Rev 2.0*/
-    #gridUserList {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    /*Rev end 2.0*/
-
-    /*Rev 3.0*/
-
-    #BranchGridLookup {
-        min-height: 34px;
-        border-radius: 5px;
-    }
-
-    .dxeButtonEditButton_PlasticBlue {
-        background: #094e8c !important;
-        border-radius: 4px !important;
-        padding: 0 4px !important;
-    }
-
-    .chosen-container-single .chosen-single div {
-        background: #094e8c;
-        color: #fff;
-        border-radius: 4px;
-        height: 30px;
-        top: 1px;
-        right: 1px;
-        /*position:relative;*/
-    }
-
-        .chosen-container-single .chosen-single div b {
-            display: none;
+        .modal-header {
+            padding: 8px;
+            background: #094e8c;
+            border-radius: 8px 8px 0 0;
         }
 
-        .chosen-container-single .chosen-single div::after {
-            content: '<';
-            position: absolute;
-            top: 2px;
-            right: 3px;
-            font-size: 18px;
-            transform: rotate(269deg);
-            font-weight: 500;
+        button.close {
+            color: #fff;
+            font-weight: 300;
+            opacity: .5;
         }
 
-    .chosen-container-active.chosen-with-drop .chosen-single div {
-        background: #094e8c;
-        color: #fff;
-    }
-
-        .chosen-container-active.chosen-with-drop .chosen-single div::after {
-            transform: rotate(90deg);
-            right: 5px;
+        .close:hover, .close:focus {
+            color: #fff;
+            opacity: 1;
         }
 
-    .calendar-icon {
-        position: absolute;
-        bottom: 8px;
-        right: 14px;
-        z-index: 0;
-        cursor: pointer;
-    }
+        .modal-content {
+            border-radius: 10px;
+        }
 
-    .date-select .form-control {
-        position: relative;
-        z-index: 1;
-        background: transparent;
-    }
+        .modal-footer {
+            padding: 10px 20px 10px;
+        }
 
-    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
-        -webkit-appearance: none;
-        position: relative;
-        z-index: 1;
-        background-color: transparent;
-    }
+        .dxgvLoadingPanel_PlasticBlue {
+            left: 42% !important;
+        }
+        #gridUserList {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        #BranchGridLookup {
+            min-height: 34px;
+            border-radius: 5px;
+        }
 
-    .h-branch-select {
-        position: relative;
-    }
+        .dxeButtonEditButton_PlasticBlue {
+            background: #094e8c !important;
+            border-radius: 4px !important;
+            padding: 0 4px !important;
+        }
 
-        .h-branch-select::after {
-            content: '<';
-            position: absolute;
-            top: 8px;
-            right: -2px;
-            font-size: 18px;
-            transform: rotate(270deg);
-            font-weight: 500;
+        .chosen-container-single .chosen-single div {
             background: #094e8c;
             color: #fff;
-            height: 18px;
-            display: block;
-            width: 28px;
-            /* padding: 10px 0; */
             border-radius: 4px;
-            text-align: center;
-            line-height: 19px;
-            z-index: 0;
-        }
-
-    .multiselect.dropdown-toggle {
-        text-align: left;
-    }
-
-    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
-        -webkit-appearance: none;
-        position: relative;
-        z-index: 1;
-        background-color: transparent;
-    }
-
-    .whclass.selectH {
-        padding-right: 30px;
-    }
-
-    #ddlShowReport:focus-visible {
-        box-shadow: none;
-        outline: none;
-        border: 1px solid #164f93;
-    }
-
-    #ddlShowReport:focus {
-        border: 1px solid #164f93;
-    }
-
-    .whclass.selectH:focus-visible {
-        outline: none;
-    }
-
-    .whclass.selectH:focus {
-        border: 1px solid #164f93;
-    }
-
-    .dxeButtonEdit_PlasticBlue {
-        border: 1px Solid #ccc;
-    }
-
-    .chosen-container-single .chosen-single {
-        border: 1px solid #ccc;
-        background: #fff;
-        box-shadow: none;
-    }
-
-    .daterangepicker td.active, .daterangepicker td.active:hover {
-        background-color: #175396;
-    }
-
-    label {
-        font-weight: 500;
-    }
-
-    .dxgvHeader_PlasticBlue {
-        background: #164f94;
-    }
-
-    .dxgvSelectedRow_PlasticBlue td.dxgv {
-        color: #fff;
-    }
-
-    .dxeCalendarHeader_PlasticBlue {
-        background: #185598;
-    }
-
-    .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
-    .dxbButton_PlasticBlue,
-    .dxeCalendar_PlasticBlue,
-    .dxeEditArea_PlasticBlue {
-        font-family: 'Poppins', sans-serif !important;
-    }
-
-    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        font-weight: 500;
-    }
-
-    .btnPadding .btn {
-        padding: 7px 14px !important;
-        border-radius: 4px;
-    }
-
-    .btnPadding {
-        padding-top: 24px !important;
-    }
-
-    .dxeButtonEdit_PlasticBlue {
-        border-radius: 5px;
-        height: 34px;
-    }
-
-    #dtFrom, #dtTo {
-        position: relative;
-        z-index: 1;
-        background: transparent;
-    }
-
-    #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
-        background: #165092;
-        vertical-align: middle;
-        font-weight: 500;
-    }
-
-    /*#refreshgrid {
-        background: #e5e5e5;
-        padding: 0 10px;
-        margin-top: 15px;
-        border-radius: 8px;
-    }*/
-
-    .styled-checkbox {
-        position: absolute;
-        opacity: 0;
-        z-index: 1;
-    }
-
-        .styled-checkbox + label {
-            position: relative;
-            /*cursor: pointer;*/
-            padding: 0;
-            margin-bottom: 0 !important;
-        }
-
-            .styled-checkbox + label:before {
-                content: "";
-                margin-right: 6px;
-                display: inline-block;
-                vertical-align: text-top;
-                width: 16px;
-                height: 16px;
-                /*background: #d7d7d7;*/
-                margin-top: 2px;
-                border-radius: 2px;
-                border: 1px solid #c5c5c5;
-            }
-
-        .styled-checkbox:hover + label:before {
-            background: #094e8c;
-        }
-
-
-        .styled-checkbox:checked + label:before {
-            background: #094e8c;
-        }
-
-        .styled-checkbox:disabled + label {
-            color: #b8b8b8;
-            cursor: auto;
-        }
-
-            .styled-checkbox:disabled + label:before {
-                box-shadow: none;
-                background: #ddd;
-            }
-
-        .styled-checkbox:checked + label:after {
-            content: "";
-            position: absolute;
-            left: 3px;
-            top: 9px;
-            background: white;
-            width: 2px;
-            height: 2px;
-            box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
-            transform: rotate(45deg);
-        }
-
-    #dtstate {
-        padding-right: 8px;
-    }
-
-    .pmsModal .modal-header {
-        background: #094e8c !important;
-        background-image: none !important;
-        padding: 11px 20px;
-        border: none;
-        border-radius: 5px 5px 0 0;
-        color: #fff;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .pmsModal .modal-content {
-        border: none;
-        border-radius: 10px;
-    }
-
-    .pmsModal .modal-header .modal-title {
-        font-size: 14px;
-    }
-
-    .pmsModal .close {
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        text-shadow: none;
-        opacity: .5;
-    }
-
-    #EmployeeTable {
-        margin-top: 10px;
-    }
-
-        #EmployeeTable table tr th {
-            padding: 5px 10px;
-        }
-
-    .dynamicPopupTbl {
-        font-family: 'Poppins', sans-serif !important;
-    }
-
-        .dynamicPopupTbl > tbody > tr > td,
-        #EmployeeTable table tr th {
-            font-family: 'Poppins', sans-serif !important;
-            font-size: 12px;
-        }
-
-    .w150 {
-        width: 160px;
-    }
-
-    .eqpadtbl > tbody > tr > td:not(:last-child) {
-        padding-right: 20px;
-    }
-
-    #dtFrom_B-1, #dtTo_B-1 {
-        background: transparent !important;
-        border: none;
-        width: 30px;
-        padding: 10px !important;
-    }
-
-        #dtFrom_B-1 #dtFrom_B-1Img,
-        #dtTo_B-1 #dtTo_B-1Img {
-            display: none;
-        }
-
-    #dtFrom_I, #dtTo_I {
-        background: transparent;
-    }
-
-    .for-cust-icon {
-        position: relative;
-        z-index: 1;
-    }
-
-    .pad-md-18 {
-        padding-top: 24px;
-    }
-
-    .open .dropdown-toggle.btn-default {
-        background: transparent !important;
-    }
-
-    .input-group-btn .multiselect-clear-filter {
-        height: 32px;
-        border-radius: 0 4px 4px 0;
-    }
-
-    .btn .caret {
-        display: none;
-    }
-
-    .iminentSpan button.multiselect.dropdown-toggle {
-        height: 34px;
-    }
-
-    .col-lg-2 {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    select:not(.btn) {
-        -webkit-appearance: none;
-        position: relative;
-        z-index: 1;
-        background-color: transparent;
-    }
-
-    .dxgvControl_PlasticBlue a {
-        margin: 0 3px;
-    }
-
-    .dxeButtonDisabled_PlasticBlue {
-        background: #ababab !important;
-    }
-
-    .red {
-        color: red;
-    }
-
-    .linerHd {
-        background: #4e8fcf !important;
-    }
-
-    /*Rev end 3.0*/
-    /*Rev 4.0*/
-    #popup_message {
-        padding-left: 0 !important;
-        text-align: center !important;
-    }
-
-    #popup_panel {
-        margin: 14px 0 5px;
-    }
-
-    #popup_ok, #popup_cancel {
-        border-radius: 4px !important;
-    }
-    /*Rev end 4.0*/
-    /*Rev 5.0*/
-    #gridUserList_DXPagerTop_PSP, #gridUserList_DXPagerBottom_PSP {
-        right: 36px !important;
-        left: auto !important;
-    }
-    /*Rev end 5.0*/
-
-
-    .more-btn .dropdown-menu {
-        display: none;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: all 0.3s ease-in-out;
-        position: absolute;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        /*padding: 10px;*/
-        border-radius: 10px;
-        z-index: 1000;
-    }
-
-        .more-btn .dropdown-menu button.btn {
-            width: 100%;
-            border-radius: 0;
-            color: #111;
-            background: transparent;
-            text-align: left;
-            transition: all .3s;
-            border-bottom: 1px solid #dadada;
-        }
-
-            .more-btn .dropdown-menu button.btn:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-            }
-
-            .more-btn .dropdown-menu button.btn:hover {
-                color: #fff !important;
-                background: #7933d0;
-            }
-
-            .more-btn .dropdown-menu button.btn:focus {
-                color: #fff !important;
-                background: #7933d0;
-            }
-
-    #moreOptions button .btn-icon {
-        margin-right: 5px;
-    }
-
-    .more-btn .dropdown-menu.show {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .more-btn {
-        position: relative;
-    }
-
-    .more-option-buttons {
-        background: #893823;
-    }
-
-    .btn-icon img {
-        width: 22px;
-    }
-
-    #moreOptions .btn .btn-icon {
-        border-radius: 50px;
-        width: 24px;
-        height: 24px;
-        display: inline-block;
-        background: #fff;
-        line-height: 23px;
-        margin-right: 5px;
-        /*color: #054682;*/
-        text-align: center;
-    }
-
-        #moreOptions .btn .btn-icon img {
-            width: 16px;
-        }
-
-    .validationDiv {
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        border-radius: 8px;
-        height: 38px;
-        padding-left: 12px;
-        padding-right: 12px;
-        color: #fff;
-    }
-
-    .add-btn .btn-icon {
-        border-radius: 50px;
-        width: 21px;
-        height: 21px;
-        display: inline-block;
-        background: #fff;
-        line-height: 21px;
-        margin-right: 5px;
-    }
-
-        .add-btn .btn-icon i {
-            color: #238945;
-        }
-
-
-
-    .pmsModal .modal-header {
-        /*background: #094e8c !important;
-background-image: none !important;*/
-        padding: 11px 20px;
-        border: none;
-        border-radius: 15px 15px 0 0 !important;
-        /*color: #fff;*/
-        /*background: linear-gradient(to right, #1f5fbf, #11998e) !important;*/
-    }
-
-    .pmsModal .modal-content {
-        border: none;
-        background: linear-gradient(1deg, #cff3ff, #ffffff);
-    }
-
-    /*.pmsModal .modal-header .modal-title {
-    font-size: 14px;
-}*/
-
-    .pmsModal .modal-header .modal-title {
-        font-size: 16px !important;
-        color: #111;
-        font-size: 24px;
-    }
-
-    .pmsModal .modal-header {
-        background: transparent !important;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #d5d5d5;
-    }
-
-    .close {
-        font-size: 34px;
-        opacity: .8;
-    }
-
-    button.close {
-        color: #111 !important;
-        font-weight: 400 !important;
-        opacity: .8 !important;
-        font-size: 32px !important;
-    }
-
-    .pmsModal .close {
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        text-shadow: none;
-        opacity: .5;
-    }
-
-    .h-branch-select {
-        background: #fff;
-    }
-
-
-    #btnSave .btn-icon, .cancel-catg .btn-icon {
-        border-radius: 50px;
-        width: 21px;
-        height: 21px;
-        display: inline-block;
-        background: #fff;
-        line-height: 20px;
-        margin-right: 5px;
-    }
-
-        #btnSave .btn-icon img {
-            color: #238945;
-            width: 14px;
-        }
-
-        .cancel-catg .btn-icon img {
-            color: #DC0505;
-            width: 16px;
-        }
-
-    .cancel-catg:hover {
-        transform: scale(1.1);
-    }
-
-    .cancel-catg, #btnSave {
-        transition: all .3s ease-in-out;
-    }
-
-        #btnSave:hover {
-            transform: scale(1.1);
-        }
-
-    .cancel-catg {
-        margin-right: 5px;
-    }
-
-
-    /*Rev Pallab: grid modification*/
-
-    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
-        /*overflow: hidden;*/
-        word-break: break-word;
-    }
-
-    .rowActive {
-        background-color: #ebf4ff !important;
-        color: #000 !important;
-    }
-
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        z-index: 9999;
-        display: none; /* Initially hidden */
-    }
-
-    .flex-loader {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-    }
-
-    .dxgvLoadingPanel_PlasticBlue {
-        display: none !important;
-    }
-
-    .flex-loader img {
-        width: 120px;
-    }
-
-    .flex-loader h4 {
-        font-size: 22px;
-        color: #000000;
-    }
-
-    .btn-export {
-        background: #d0d0d0;
-    }
-
-        .btn-export .btn-icon img {
-            width: 30px;
             height: 30px;
+            top: 1px;
+            right: 1px;
+            /*position:relative;*/
         }
 
+            .chosen-container-single .chosen-single div b {
+                display: none;
+            }
 
-    input:focus, textarea:focus, select:focus {
-        outline: none;
-    }
+            .chosen-container-single .chosen-single div::after {
+                content: '<';
+                position: absolute;
+                top: 2px;
+                right: 3px;
+                font-size: 18px;
+                transform: rotate(269deg);
+                font-weight: 500;
+            }
 
-    .select2-container {
-        width: 100% !important;
-        z-index: 99999;
-    }
-
-    .select2-container--default .select2-selection--single {
-        height: 34px;
-        /* padding: 6px 12px; */
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-    }
-
-    /*.select2-container {
-    z-index: 1;
-}*/
-
-    .select2-container--default .select2-selection--single {
-        background-color: transparent;
-    }
-
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            display: none;
+        .chosen-container-active.chosen-with-drop .chosen-single div {
+            background: #094e8c;
+            color: #fff;
         }
 
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        border-radius: 4px;
-    }
+            .chosen-container-active.chosen-with-drop .chosen-single div::after {
+                transform: rotate(90deg);
+                right: 5px;
+            }
 
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 32px;
-        padding-right: 22px;
-    }
-
-
-    #gridList {
-        position: relative;
-    }
-
-    .action-buttons {
-        display: none;
-        position: absolute;
-        /*background: #ffffff;*/
-        /*border: 1px solid #ddd;*/
-        border-radius: 5px;
-        padding: 5px 10px;
-        /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-        white-space: nowrap;
-        z-index: 1000; /* Ensure it appears above other elements */
-        transform: translate(-50%, -100%); /* Position above and centered horizontally */
-        transition: opacity 0.3s ease; /* Smooth fade-in effect */
-        top: 85px;
-        right: -45px;
-    }
-
-        .action-buttons.visible {
-            display: block !important; /* Add this class dynamically */
-        }
-
-
-        .action-buttons a {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 14px;
+        .calendar-icon {
+            position: absolute;
+            bottom: 8px;
+            right: 14px;
+            z-index: 0;
             cursor: pointer;
         }
 
-            .action-buttons a img {
+        .date-select .form-control {
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
+            -webkit-appearance: none;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        .h-branch-select {
+            position: relative;
+        }
+
+            .h-branch-select::after {
+                content: '<';
+                position: absolute;
+                top: 8px;
+                right: -2px;
+                font-size: 18px;
+                transform: rotate(270deg);
+                font-weight: 500;
+                background: #094e8c;
+                color: #fff;
+                height: 18px;
+                display: block;
+                width: 28px;
+                /* padding: 10px 0; */
+                border-radius: 4px;
+                text-align: center;
+                line-height: 19px;
+                z-index: 0;
+            }
+
+        .multiselect.dropdown-toggle {
+            text-align: left;
+        }
+
+        .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+            -webkit-appearance: none;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        .whclass.selectH {
+            padding-right: 30px;
+        }
+
+        #ddlShowReport:focus-visible {
+            box-shadow: none;
+            outline: none;
+            border: 1px solid #164f93;
+        }
+
+        #ddlShowReport:focus {
+            border: 1px solid #164f93;
+        }
+
+        .whclass.selectH:focus-visible {
+            outline: none;
+        }
+
+        .whclass.selectH:focus {
+            border: 1px solid #164f93;
+        }
+
+        .dxeButtonEdit_PlasticBlue {
+            border: 1px Solid #ccc;
+        }
+
+        .chosen-container-single .chosen-single {
+            border: 1px solid #ccc;
+            background: #fff;
+            box-shadow: none;
+        }
+
+        .daterangepicker td.active, .daterangepicker td.active:hover {
+            background-color: #175396;
+        }
+
+        label {
+            font-weight: 500;
+        }
+
+        .dxgvHeader_PlasticBlue {
+            background: #164f94;
+        }
+
+        .dxgvSelectedRow_PlasticBlue td.dxgv {
+            color: #fff;
+        }
+
+        .dxeCalendarHeader_PlasticBlue {
+            background: #185598;
+        }
+
+        .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
+        .dxbButton_PlasticBlue,
+        .dxeCalendar_PlasticBlue,
+        .dxeEditArea_PlasticBlue {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+            font-weight: 500;
+        }
+
+        .btnPadding .btn {
+            padding: 7px 14px !important;
+            border-radius: 4px;
+        }
+
+        .btnPadding {
+            padding-top: 24px !important;
+        }
+
+        .dxeButtonEdit_PlasticBlue {
+            border-radius: 5px;
+            height: 34px;
+        }
+
+        #dtFrom, #dtTo {
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
+            background: #165092;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+
+        /*#refreshgrid {
+            background: #e5e5e5;
+            padding: 0 10px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }*/
+
+        .styled-checkbox {
+            position: absolute;
+            opacity: 0;
+            z-index: 1;
+        }
+
+            .styled-checkbox + label {
+                position: relative;
+                /*cursor: pointer;*/
+                padding: 0;
+                margin-bottom: 0 !important;
+            }
+
+                .styled-checkbox + label:before {
+                    content: "";
+                    margin-right: 6px;
+                    display: inline-block;
+                    vertical-align: text-top;
+                    width: 16px;
+                    height: 16px;
+                    /*background: #d7d7d7;*/
+                    margin-top: 2px;
+                    border-radius: 2px;
+                    border: 1px solid #c5c5c5;
+                }
+
+            .styled-checkbox:hover + label:before {
+                background: #094e8c;
+            }
+
+
+            .styled-checkbox:checked + label:before {
+                background: #094e8c;
+            }
+
+            .styled-checkbox:disabled + label {
+                color: #b8b8b8;
+                cursor: auto;
+            }
+
+                .styled-checkbox:disabled + label:before {
+                    box-shadow: none;
+                    background: #ddd;
+                }
+
+            .styled-checkbox:checked + label:after {
+                content: "";
+                position: absolute;
+                left: 3px;
+                top: 9px;
+                background: white;
+                width: 2px;
+                height: 2px;
+                box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+                transform: rotate(45deg);
+            }
+
+        #dtstate {
+            padding-right: 8px;
+        }
+
+        .pmsModal .modal-header {
+            background: #094e8c !important;
+            background-image: none !important;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .pmsModal .modal-content {
+            border: none;
+            border-radius: 10px;
+        }
+
+        .pmsModal .modal-header .modal-title {
+            font-size: 14px;
+        }
+
+        .pmsModal .close {
+            font-weight: 400;
+            font-size: 25px;
+            color: #fff;
+            text-shadow: none;
+            opacity: .5;
+        }
+
+        #EmployeeTable {
+            margin-top: 10px;
+        }
+
+            #EmployeeTable table tr th {
+                padding: 5px 10px;
+            }
+
+        .dynamicPopupTbl {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+            .dynamicPopupTbl > tbody > tr > td,
+            #EmployeeTable table tr th {
+                font-family: 'Poppins', sans-serif !important;
+                font-size: 12px;
+            }
+
+        .w150 {
+            width: 160px;
+        }
+
+        .eqpadtbl > tbody > tr > td:not(:last-child) {
+            padding-right: 20px;
+        }
+
+        #dtFrom_B-1, #dtTo_B-1 {
+            background: transparent !important;
+            border: none;
+            width: 30px;
+            padding: 10px !important;
+        }
+
+            #dtFrom_B-1 #dtFrom_B-1Img,
+            #dtTo_B-1 #dtTo_B-1Img {
+                display: none;
+            }
+
+        #dtFrom_I, #dtTo_I {
+            background: transparent;
+        }
+
+        .for-cust-icon {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pad-md-18 {
+            padding-top: 24px;
+        }
+
+        .open .dropdown-toggle.btn-default {
+            background: transparent !important;
+        }
+
+        .input-group-btn .multiselect-clear-filter {
+            height: 32px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .btn .caret {
+            display: none;
+        }
+
+        .iminentSpan button.multiselect.dropdown-toggle {
+            height: 34px;
+        }
+
+        .col-lg-2 {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        select:not(.btn) {
+            -webkit-appearance: none;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        .dxgvControl_PlasticBlue a {
+            margin: 0 3px;
+        }
+
+        .dxeButtonDisabled_PlasticBlue {
+            background: #ababab !important;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .linerHd {
+            background: #4e8fcf !important;
+        }
+
+        #popup_message {
+            padding-left: 0 !important;
+            text-align: center !important;
+        }
+
+        #popup_panel {
+            margin: 14px 0 5px;
+        }
+
+        #popup_ok, #popup_cancel {
+            border-radius: 4px !important;
+        }
+        #gridUserList_DXPagerTop_PSP, #gridUserList_DXPagerBottom_PSP {
+            right: 36px !important;
+            left: auto !important;
+        }
+ 
+
+        .more-btn .dropdown-menu {
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease-in-out;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            /*padding: 10px;*/
+            border-radius: 10px;
+            z-index: 1000;
+        }
+
+            .more-btn .dropdown-menu button.btn {
+                width: 100%;
+                border-radius: 0;
+                color: #111;
+                background: transparent;
+                text-align: left;
+                transition: all .3s;
+                border-bottom: 1px solid #dadada;
+            }
+
+                .more-btn .dropdown-menu button.btn:last-child {
+                    border-bottom: none;
+                    margin-bottom: 0;
+                }
+
+                .more-btn .dropdown-menu button.btn:hover {
+                    color: #fff !important;
+                    background: #7933d0;
+                }
+
+                .more-btn .dropdown-menu button.btn:focus {
+                    color: #fff !important;
+                    background: #7933d0;
+                }
+
+        #moreOptions button .btn-icon {
+            margin-right: 5px;
+        }
+
+        .more-btn .dropdown-menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .more-btn {
+            position: relative;
+        }
+
+        .more-option-buttons {
+            background: #893823;
+        }
+
+        .btn-icon img {
+            width: 22px;
+        }
+
+        #moreOptions .btn .btn-icon {
+            border-radius: 50px;
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background: #fff;
+            line-height: 23px;
+            margin-right: 5px;
+            /*color: #054682;*/
+            text-align: center;
+        }
+
+            #moreOptions .btn .btn-icon img {
+                width: 16px;
+            }
+
+        .validationDiv {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            border-radius: 8px;
+            height: 38px;
+            padding-left: 12px;
+            padding-right: 12px;
+            color: #fff;
+        }
+
+        .add-btn .btn-icon {
+            border-radius: 50px;
+            width: 21px;
+            height: 21px;
+            display: inline-block;
+            background: #fff;
+            line-height: 21px;
+            margin-right: 5px;
+        }
+
+            .add-btn .btn-icon i {
+                color: #238945;
+            }
+
+
+
+        .pmsModal .modal-header {
+            /*background: #094e8c !important;
+    background-image: none !important;*/
+            padding: 11px 20px;
+            border: none;
+            border-radius: 15px 15px 0 0 !important;
+            /*color: #fff;*/
+            /*background: linear-gradient(to right, #1f5fbf, #11998e) !important;*/
+        }
+
+        .pmsModal .modal-content {
+            border: none;
+            background: linear-gradient(1deg, #cff3ff, #ffffff);
+        }
+
+        /*.pmsModal .modal-header .modal-title {
+        font-size: 14px;
+    }*/
+
+        .pmsModal .modal-header .modal-title {
+            font-size: 16px !important;
+            color: #111;
+            font-size: 24px;
+        }
+
+        .pmsModal .modal-header {
+            background: transparent !important;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #d5d5d5;
+        }
+
+        .close {
+            font-size: 34px;
+            opacity: .8;
+        }
+
+        button.close {
+            color: #111 !important;
+            font-weight: 400 !important;
+            opacity: .8 !important;
+            font-size: 32px !important;
+        }
+
+        .pmsModal .close {
+            font-weight: 400;
+            font-size: 25px;
+            color: #fff;
+            text-shadow: none;
+            opacity: .5;
+        }
+
+        .h-branch-select {
+            background: #fff;
+        }
+
+
+        #btnSave .btn-icon, .cancel-catg .btn-icon {
+            border-radius: 50px;
+            width: 21px;
+            height: 21px;
+            display: inline-block;
+            background: #fff;
+            line-height: 20px;
+            margin-right: 5px;
+        }
+
+            #btnSave .btn-icon img {
+                color: #238945;
+                width: 14px;
+            }
+
+            .cancel-catg .btn-icon img {
+                color: #DC0505;
+                width: 16px;
+            }
+
+        .cancel-catg:hover {
+            transform: scale(1.1);
+        }
+
+        .cancel-catg, #btnSave {
+            transition: all .3s ease-in-out;
+        }
+
+            #btnSave:hover {
+                transform: scale(1.1);
+            }
+
+        .cancel-catg {
+            margin-right: 5px;
+        }
+
+
+        .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+            /*overflow: hidden;*/
+            word-break: break-word;
+        }
+
+        .rowActive {
+            background-color: #ebf4ff !important;
+            color: #000 !important;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            display: none; /* Initially hidden */
+        }
+
+        .flex-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        .dxgvLoadingPanel_PlasticBlue {
+            display: none !important;
+        }
+
+        .flex-loader img {
+            width: 120px;
+        }
+
+        .flex-loader h4 {
+            font-size: 22px;
+            color: #000000;
+        }
+
+        .btn-export {
+            background: #d0d0d0;
+        }
+
+            .btn-export .btn-icon img {
                 width: 30px;
                 height: 30px;
             }
 
-            .action-buttons a:hover {
-                text-decoration: underline;
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+        }
+
+        .select2-container {
+            width: 100% !important;
+            z-index: 99999;
+        }
+
+        .select2-container--default .select2-selection--single {
+            height: 34px;
+            /* padding: 6px 12px; */
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        /*.select2-container {
+        z-index: 1;
+    }*/
+
+        .select2-container--default .select2-selection--single {
+            background-color: transparent;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                display: none;
             }
 
-    .swal2-styled {
-        border-radius: 12px !important;
-        padding: 8px 20px !important;
-        color: #fff !important;
-        font-size: 14px !important;
-    }
-
-    .swal2-html-container {
-        margin-top: 5px !important;
-    }
-
-    div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
-        width: 90px !important;
-        border-radius: 8px !important;
-    }
-
-    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
-        background: rgb(0 0 0 / 50%) !important;
-    }
-
-    div:where(.swal2-container).swal2-center > .swal2-popup {
-        background: linear-gradient(1deg, #cff3ff, #ffffff);
-    }
-
-    .swal2-confirm.swal2-styled {
-        border-radius: 8px !important;
-    }
-
-    .tooltip-container {
-        position: relative;
-        display: inline-block;
-    }
-
-    .tooltip {
-        visibility: hidden;
-        /*width: 140px;*/
-        background-color: #0d8f24;
-        color: #fff;
-        text-align: center;
-        border-radius: 10px;
-        padding: 8px 10px;
-        position: absolute;
-        z-index: 99;
-        bottom: 130%;
-        left: 42%;
-        transform: translateX(-50%);
-        opacity: 0;
-        transition: opacity 0.3s;
-        word-break: keep-all;
-    }
-
-        .tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -10px;
-            border-width: 10px;
-            border-style: solid;
-            border-color: #0d8f24 transparent transparent transparent;
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            border-radius: 4px;
         }
 
-    .tooltip-container:hover .tooltip {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    @@media only screen and (max-width: 768px) {
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 32px;
+            padding-right: 22px;
+        }
 
 
-        #ddlAppIds .tooltip {
+        #gridList {
+            position: relative;
+        }
+
+        .action-buttons {
             display: none;
+            position: absolute;
+            /*background: #ffffff;*/
+            /*border: 1px solid #ddd;*/
+            border-radius: 5px;
+            padding: 5px 10px;
+            /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+            white-space: nowrap;
+            z-index: 1000; /* Ensure it appears above other elements */
+            transform: translate(-50%, -100%); /* Position above and centered horizontally */
+            transition: opacity 0.3s ease; /* Smooth fade-in effect */
+            top: 85px;
+            right: -45px;
         }
-    }
-    /*Rev End Pallab: grid modification*/
+
+            .action-buttons.visible {
+                display: block !important; /* Add this class dynamically */
+            }
+
+
+            .action-buttons a {
+                color: #007bff;
+                text-decoration: none;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+                .action-buttons a img {
+                    width: 30px;
+                    height: 30px;
+                }
+
+                .action-buttons a:hover {
+                    text-decoration: underline;
+                }
+
+        .swal2-styled {
+            border-radius: 12px !important;
+            padding: 8px 20px !important;
+            color: #fff !important;
+            font-size: 14px !important;
+        }
+
+        .swal2-html-container {
+            margin-top: 5px !important;
+        }
+
+        div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
+            width: 90px !important;
+            border-radius: 8px !important;
+        }
+
+        div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+            background: rgb(0 0 0 / 50%) !important;
+        }
+
+        div:where(.swal2-container).swal2-center > .swal2-popup {
+            background: linear-gradient(1deg, #cff3ff, #ffffff);
+        }
+
+        .swal2-confirm.swal2-styled {
+            border-radius: 8px !important;
+        }
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            /*width: 140px;*/
+            background-color: #0d8f24;
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 8px 10px;
+            position: absolute;
+            z-index: 99;
+            bottom: 130%;
+            left: 42%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            word-break: keep-all;
+        }
+
+            .tooltip::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -10px;
+                border-width: 10px;
+                border-style: solid;
+                border-color: #0d8f24 transparent transparent transparent;
+            }
+
+        .tooltip-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @@media only screen and (max-width: 768px) {
+
+
+            #ddlAppIds .tooltip {
+                display: none;
+            }
+        }
 </style>
 
 <div class="breadCumb">
@@ -1518,17 +1488,13 @@ background-image: none !important;*/
 </div>
 <div class="container">
     <div class="form_main backBox p-3">
-        @*<table class="pull-left tblspace smblock mt-4 mb-3 ">
-        <tr>*@
         <div class="d-flex">
-            @*Mantis Issue 25536, 25535, 25542, 25543, 25544*@
             <div class="mr-3">
                 <button type="button" id="btnAdd" class="btn btn-success add-btn" onclick="AddArea()"><span class="btn-icon"><i class="fa fa-plus"></i></span> Add Area</button>
             </div>
             <div class="mr-3">
                 <button type="button" id="btnAdd" class="btn btn-success add-btn" onclick="AddRoute()"><span class="btn-icon"><i class="fa fa-plus"></i></span> Add Route</button>
             </div>
-            @*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
             <div class="mr-3">
                 <button type="button" id="btnAdd" class="btn btn-success add-btn" onclick="AddBeat()"><span class="btn-icon"><i class="fa fa-plus"></i></span> Add Beat</button>
             </div>
@@ -1541,30 +1507,30 @@ background-image: none !important;*/
                 </button>
                 <div id="moreOptions" class="dropdown-menu">
                     @*@if (ViewBag.CanBulkUpdate)
-                    {*@
-                    
-                        <button type="button" class="btn btn-info btn-clr-3" onclick="DownloadFormat();">
-                            <span class="btn-icon"><img src="../../../assests/images/download-format.svg"></span> Download Format
-                        </button>
-                    
+                        {*@
 
-                    
-                        <button type="button" class="btn btn-primary btn-clr-4" onclick="ImportBeatPopOpen();">
-                            <span class="btn-icon"><img src="../../../assests/images/file-import.svg"></span> Import File
-                        </button>
-                    
-                        <button type="button" class="btn btn-warning btn-clr-5" onclick="ImportLogPopOpen();">
-                            <span class="btn-icon"><img src="../../../assests/images/log-files.svg"></span> View Log
-                        </button>
-                    
+                    <button type="button" class="btn btn-info btn-clr-3" onclick="DownloadFormat();">
+                        <span class="btn-icon"><img src="../../../assests/images/download-format.svg"></span> Download Format
+                    </button>
+
+
+
+                    <button type="button" class="btn btn-primary btn-clr-4" onclick="ImportBeatPopOpen();">
+                        <span class="btn-icon"><img src="../../../assests/images/file-import.svg"></span> Import File
+                    </button>
+
+                    <button type="button" class="btn btn-warning btn-clr-5" onclick="ImportLogPopOpen();">
+                        <span class="btn-icon"><img src="../../../assests/images/log-files.svg"></span> View Log
+                    </button>
+
                 </div>
 
             </div>
         </div>
         @*}*@
         @*</tr>
-            <tr></tr>
-        </table>*@
+                <tr></tr>
+            </table>*@
         <br />
         <div class="scrooler">
             <div id="refreshgrid">
@@ -1574,7 +1540,7 @@ background-image: none !important;*/
             </div>
         </div>
     </div>
-        </div>
+</div>
 
 
 <div id="beatModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
@@ -1590,7 +1556,6 @@ background-image: none !important;*/
                 <div id="divModalBody">
                     <div class="row">
                         <div class="col-md-12">
-                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
                             <div id="dvlblBeatCode" style="display:none; margin-bottom:5px;">
                                 <label>Code : </label> <label id="lblBeatCode"> </label>
                             </div>
@@ -1647,7 +1612,6 @@ background-image: none !important;*/
                 <div id="divModalBody">
                     <div class="row">
                         <div class="col-md-12">
-                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
                             <div id="dvlblAreaCode" style="display:none; margin-bottom:5px;">
                                 <label>Code : </label> <label id="lblAreaCode"> </label>
                             </div>
@@ -1689,7 +1653,6 @@ background-image: none !important;*/
                 <div id="divModalBody">
                     <div class="row">
                         <div class="col-md-12">
-                            @*Rev 1.0 [div id "dvlblBeatCode", "dvtxtLblBeatCode" and "dvtxtBeatCode" added ]  *@
                             <div id="dvlblRouteCode" style="display:none; margin-bottom:5px;">
                                 <label>Code : </label> <label id="lblRouteCode"> </label>
                             </div>
@@ -1721,13 +1684,9 @@ background-image: none !important;*/
     </div>
     <input type="hidden" id="hdnID" />
 </div>
-@*End of Mantis Issue 25536, 25535, 25542, 25543, 25544*@
 
 <div id="usermapModal" class="modal pmsModal  fade" data-backdrop="static" role="dialog">
-    @*Rev 2.0*@
-    @*<div class="modal-dialog" style="width: 750px;">*@
     <div class="modal-dialog" style="width: 780px;">
-        @*Rev end 2.0*@
 
         <!-- Modal content-->
         <div class="modal-content">

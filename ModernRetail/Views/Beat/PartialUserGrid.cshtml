@@ -1,4 +1,8 @@
-﻿
+﻿@**************************************************************************************************************************************************
+    Written by Sanchita on 10/01/2025 for Modern Retail - Group/Beat module
+***************************************************************************************************************************************************@
+
+
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "gridUserList";
@@ -28,7 +32,6 @@
     {
         x.FieldName = "user_name";
         x.Caption = "User Name";
-        // x.Width = 200;
         x.ColumnType = MVCxGridViewColumnType.TextBox;
 
         x.Width = System.Web.UI.WebControls.Unit.Percentage(50);
@@ -39,7 +42,6 @@
      {
          x.FieldName = "user_loginId";
          x.Caption = "user Login ID";
-         //x.Width = 120;
          x.ColumnType = MVCxGridViewColumnType.TextBox;
          x.Width = System.Web.UI.WebControls.Unit.Percentage(50);
      });
