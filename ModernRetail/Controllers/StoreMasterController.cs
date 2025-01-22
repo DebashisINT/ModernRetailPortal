@@ -432,7 +432,7 @@ namespace ModernRetail.Controllers
             DataTable dt = new DataTable();
 
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_STOREMASTERADDUPDATELIST");
-            proc.AddPara("@ACTION", "DELETEUSER");
+            proc.AddPara("@ACTION", "DELETESTORE");
             proc.AddPara("@STORE_ID", store_id);
             proc.AddPara("@USER_ID", Convert.ToString(Session["MRuserid"]));
             proc.AddVarcharPara("@RETURN_VALUE", 50, "", QueryParameterDirection.Output);
