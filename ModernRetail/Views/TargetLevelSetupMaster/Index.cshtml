@@ -1086,19 +1086,37 @@
         });
     }
 
+    function setRadioValue(val) {
+
+        if (val == 1) {
+            const radioButton = document.querySelector('input[name="optBasedOn"][value="1"]');
+            if (radioButton) {
+                radioButton.checked = true;
+            }
+        }
+        else if (val == 2) {
+            const radioButton = document.querySelector('input[name="optBasedOn"][value="2"]');
+            if (radioButton) {
+                radioButton.checked = true;
+            }
+        }
+    }
+
     function ClearData() {
         $("#ddlDesignation").val(0);
         $("#based-on-selection-div").hide();
 
         lblBasedOn.innerText = "";
         $("#transfer1").html('');
-        $('input[name="optBasedOn"]').prop('checked', false);
+        //$('input[name="optBasedOn"]').prop('checked', false);
+        setRadioValue(1);
+
     }
 
     function AddEditLevel(salesmanLevel) {
 
         $("#hdnSalesmanLevel").val(salesmanLevel);
-
+        
         if (salesmanLevel == "ASM") {
             $("#lblHeading").text("Create Target Level");
             $("#lblTargetLevel").text("ASM Level");
@@ -1114,7 +1132,8 @@
 
         ClearData();
 
-        LoadEmployeeOnChange('SHOW')
+        //LoadEmployeeOnChange('SHOW')
+        LoadEmployeeOnChange('GETEMPLOYEELIST');
 
         $("#AddTargetLevelModal").modal('show');
     }

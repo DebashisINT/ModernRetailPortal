@@ -27,7 +27,7 @@ namespace ModernRetail.Controllers
         {
             TargetLevelSetupModel Dtls = new TargetLevelSetupModel();
 
-            Dtls.LevelBasedOn = 0;
+            Dtls.LevelBasedOn = 1;
 
             DataSet ds = new DataSet();
             ProcedureExecute proc = new ProcedureExecute("PRC_MR_TARGETLEVELSETUP_MASTER");
