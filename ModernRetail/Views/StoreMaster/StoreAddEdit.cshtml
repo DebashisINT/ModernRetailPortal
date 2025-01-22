@@ -1,4 +1,7 @@
-﻿
+﻿@*************************************************************************************************************************************************
+    Written by Sanchita on 25/12/2024 for Modern Retail - Login Configuration module
+**************************************************************************************************************************************************@
+
 @using System.Web.UI.WebControls
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
@@ -1873,7 +1876,7 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Store Master</span>
-    <div id="ApprovalCross" onclick="CloseAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 
 <div class="overlay" id="loading-overlay">
@@ -1930,8 +1933,8 @@
                 </div>
 
 
-                    <div class="clear"></div>
-                </div>
+                <div class="clear"></div>
+            </div>
 
             <div class="store-info">
                 <h3 class="store-info-title">Store Info</h3>

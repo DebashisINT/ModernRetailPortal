@@ -1141,9 +1141,6 @@
     <Content Include="Views\LogOut\Index.cshtml" />
     <Content Include="Views\SecurityRoles\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\UserConfiguration\Index.cshtml" />
-    <Content Include="Views\UserConfiguration\UserMasterList.cshtml" />
-    <Content Include="Views\UserConfiguration\_PartialUserMasterList.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\SecurityRoles\SecurityRolesList.cshtml" />
     <Content Include="Views\SecurityRoles\_PartialSecurityRolesListing.cshtml" />

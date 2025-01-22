@@ -1,4 +1,7 @@
-﻿
+﻿@************************************************************************************************************************************************
+    Written by Sanchita on 13/01/2025 for Modern Retail - Current Stock module
+*************************************************************************************************************************************************@
+
 @using System.Web.UI.WebControls
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
@@ -164,12 +167,11 @@
         background: transparent;
     }
 
-    ./*for-cust-icon {
+    . /*for-cust-icon {
         position: relative;
         z-index: 1;
         width: 50%;
     }*/
-
     .date-select .form-control {
         position: relative;
         z-index: 1;
@@ -1090,8 +1092,7 @@
             background-color: #3CA5DF !important;
         }
 
-    .dxgv.dx-ac img
-    {
+    .dxgv.dx-ac img {
         width: 24px;
     }
 
@@ -1145,7 +1146,7 @@
         }
 
 
-        
+
     }
 
     function getUrlVars() {
@@ -1161,7 +1162,7 @@
 
     if (urlKeys.key != 'Add') {
         ID = urlKeys.key;
-        
+
         if (ID != 0) {
             $.ajax({
                 type: "POST",
@@ -1191,7 +1192,7 @@
             });
         }
     }
-    
+
 
     $(document).ready(function () {
         $('#txtQuantity').on('input', function () {
@@ -1417,7 +1418,7 @@
             $("#hdnAddEditMode").val("MODIFYCURRENTSTOCK");
         }
 
-        
+
 
         var action = $("#hdnAddEditMode").val();
 
@@ -1733,7 +1734,7 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Current Stock</span>
-    <div id="ApprovalCross" onclick="CloseAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 
 <div class="container">
@@ -1785,11 +1786,11 @@
 
                     </div>
 
-                @*</div>
+                    @*</div>
 
-                <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
-                <div class="row">*@
+                        <div class="row">*@
                     <div class="col-md-3 mb-4">
                         <label>Product<em style="color: red">*</em></label>
                         <div>

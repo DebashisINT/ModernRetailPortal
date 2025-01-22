@@ -1,4 +1,8 @@
-﻿using DevExpress.Web.Mvc;
+﻿//************************************************************************************************************************************************
+//    Written by Sanchita on 09/12/2024 for Modern Retail - Login Configuration module
+//*************************************************************************************************************************************************
+
+using DevExpress.Web.Mvc;
 using DevExpress.Web;
 using ModernRetail.Models;
 using System;

@@ -1,4 +1,7 @@
-﻿
+﻿@*************************************************************************************************************************************************
+    Written by Sanchita on 09/12/2024 for Modern Retail - Login Configuration module
+**************************************************************************************************************************************************@
+
 @using System.Web.UI.WebControls
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
@@ -823,255 +826,250 @@
 
 
 <style>
-    #ddlBranch + div ul.multiselect-container {
-        max-height: 250px;
-        overflow-y: auto;
-    }
-
-    .multiselect.dropdown-toggle {
-        text-align: left;
-    }
-
-    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
-        -webkit-appearance: none;
-        position: relative;
-        z-index: 1;
-        background-color: transparent;
-    }
-
-    .multiselect-container.dropdown-menu {
-        right: 0 !important;
-        left: auto;
-        min-width: 275px;
-    }
-
-    .iminentSpan .multiselect-container.dropdown-menu {
-        right: auto !important;
-        left: 0;
-        min-width: 340px;
-        margin-top: -12px;
-    }
-
-    .multiselect-container > li > a {
-        padding: 5px 0;
-    }
-
-        .multiselect-container > li > a input[type="checkbox"] {
-            transform: translateY(3px);
+        #ddlBranch + div ul.multiselect-container {
+            max-height: 250px;
+            overflow-y: auto;
         }
 
-    .multiselect-container > li.active > a {
-        background: transparent !important;
-        color: #333;
-    }
-
-        .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
-            background: #f3f3f3 !important;
-            color: #333 !important;
+        .multiselect.dropdown-toggle {
+            text-align: left;
         }
 
-    .multiselect-item.multiselect-filter {
-        padding-bottom: 6px;
-        border-bottom: 1px solid #ccc;
-    }
-
-        .multiselect-item.multiselect-filter .form-control.multiselect-search {
-            height: 32px;
-        }
-
-        .multiselect-item.multiselect-filter .input-group-addon {
-            background: #41a8f1;
-            color: #fff;
-            border-color: #41a8f1;
-        }
-
-    .input-group-btn .multiselect-clear-filter {
-        background: #f98181;
-        color: #fffefe;
-        /* box-shadow: none; */
-        text-shadow: none;
-        border-color: #f96a6a;
-        padding: 5px 10px 4px 10px;
-    }
-
-    .multiselect.dropdown-toggle {
-        background: #fff;
-        border-radius: 5px;
-        border: 1px solid #b7b7b7;
-        /*margin-bottom: 12px;*/
-    }
-
-    #ReportToModel label {
-        font-weight: 500;
-        margin-top: 5px;
-    }
-
-    #ReportToModel label {
-        margin-top: 8px;
-        font-size: 13px;
-        margin-bottom: 2px;
-    }
-
-    #ddlBranch button, .multiselect.dropdown-toggle {
-        color: #111 !important;
-    }
-
-        .multiselect.dropdown-toggle, .multiselect.dropdown-toggle:hover {
+        .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+            -webkit-appearance: none;
+            position: relative;
             z-index: 1;
-            background: transparent;
+            background-color: transparent;
         }
 
-    .dataTables_length label {
-        display: flex;
-        align-items: center;
-    }
+        .multiselect-container.dropdown-menu {
+            right: 0 !important;
+            left: auto;
+            min-width: 275px;
+        }
 
-    .dataTables_filter input {
-        /*display: block;*/
-        width: 60%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555;
-        vertical-align: middle;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
+        .iminentSpan .multiselect-container.dropdown-menu {
+            right: auto !important;
+            left: 0;
+            min-width: 340px;
+            margin-top: -12px;
+        }
 
-    .dataTables_length select {
-        margin-left: 5px;
-        margin-right: 5px;
-    }
+        .multiselect-container > li > a {
+            padding: 5px 0;
+        }
 
+            .multiselect-container > li > a input[type="checkbox"] {
+                transform: translateY(3px);
+            }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-        padding: 0;
-    }
+        .multiselect-container > li.active > a {
+            background: transparent !important;
+            color: #333;
+        }
 
-    .pagination > li > a, .pagination > li > span {
-        padding: 4px 8px;
-    }
+            .multiselect-container > li > a:hover, .multiselect-container > li.active > a:hover {
+                background: #f3f3f3 !important;
+                color: #333 !important;
+            }
 
-    div.dataTables_wrapper div.dataTables_info {
-        padding-top: 10px;
-    }
+        .multiselect-item.multiselect-filter {
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ccc;
+        }
 
-    .crossBtnN {
-        color: #fff;
-        cursor: pointer;
-    }
+            .multiselect-item.multiselect-filter .form-control.multiselect-search {
+                height: 32px;
+            }
 
-    div.dataTables_wrapper div.dataTables_info {
-        font-size: 12px;
-    }
+            .multiselect-item.multiselect-filter .input-group-addon {
+                background: #41a8f1;
+                color: #fff;
+                border-color: #41a8f1;
+            }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        outline: none;
-        border: none;
-    }
+        .input-group-btn .multiselect-clear-filter {
+            background: #f98181;
+            color: #fffefe;
+            /* box-shadow: none; */
+            text-shadow: none;
+            border-color: #f96a6a;
+            padding: 5px 10px 4px 10px;
+        }
 
-    .dataTables_length
-    {
-        padding-top: 0;
-    }
+        .multiselect.dropdown-toggle {
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #b7b7b7;
+            /*margin-bottom: 12px;*/
+        }
 
-    table.dataTable thead th, table.dataTable thead td
-    {
-        padding-left: 10px !important;
-    }
+        #ReportToModel label {
+            font-weight: 500;
+            margin-top: 5px;
+        }
 
-    .dynamicPopupTbl > tbody > tr > td, .dynamicPopupTbl > tbody > tr > td input {
-        font-family: 'Poppins', sans-serif !important;
-    }
+        #ReportToModel label {
+            margin-top: 8px;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
 
-    .dynamicPopupTbl
-    {
-        background: #fff;
-    }
+        #ddlBranch button, .multiselect.dropdown-toggle {
+            color: #111 !important;
+        }
 
-        .dynamicPopupTbl > tbody > tr > td:hover {
-            background: #f6f6f6;
+            .multiselect.dropdown-toggle, .multiselect.dropdown-toggle:hover {
+                z-index: 1;
+                background: transparent;
+            }
+
+        .dataTables_length label {
+            display: flex;
+            align-items: center;
+        }
+
+        .dataTables_filter input {
+            /*display: block;*/
+            width: 60%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555;
+            vertical-align: middle;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .dataTables_length select {
+            margin-left: 5px;
+            margin-right: 5px;
         }
 
 
-    input:focus, textarea:focus, select:focus {
-        outline: none;
-    }
-
-    .select2-container {
-        width: 100% !important;
-        z-index: 99999;
-    }
-
-    .select2-container--default .select2-selection--single {
-        height: 34px;
-        /* padding: 6px 12px; */
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-    }
-
-    /*.select2-container {
-    z-index: 1;
-}*/
-
-    .select2-container--default .select2-selection--single {
-        background-color: transparent;
-    }
-
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            display: none;
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0;
         }
 
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        border-radius: 4px;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 32px;
-        padding-right: 22px;
-    }
-
-    div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
-        z-index: 99999;
-    }
-
-    .dropdown-menu, .modal {
-        z-index: 999999;
-    }
-
-    .multiselect.dropdown-toggle {
-        width: 100% !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .btn-group {
-        width: 100%;
-    }
-
-    @@media only screen and (max-width: 768px) {
-
-
-        #ddlAppIds .tooltip {
-            display: none;
+        .pagination > li > a, .pagination > li > span {
+            padding: 4px 8px;
         }
 
-        #ReportToTxt
-        {
+        div.dataTables_wrapper div.dataTables_info {
+            padding-top: 10px;
+        }
+
+        .crossBtnN {
+            color: #fff;
+            cursor: pointer;
+        }
+
+        div.dataTables_wrapper div.dataTables_info {
+            font-size: 12px;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            outline: none;
+            border: none;
+        }
+
+        .dataTables_length {
+            padding-top: 0;
+        }
+
+        table.dataTable thead th, table.dataTable thead td {
+            padding-left: 10px !important;
+        }
+
+        .dynamicPopupTbl > tbody > tr > td, .dynamicPopupTbl > tbody > tr > td input {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        .dynamicPopupTbl {
+            background: #fff;
+        }
+
+            .dynamicPopupTbl > tbody > tr > td:hover {
+                background: #f6f6f6;
+            }
+
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+        }
+
+        .select2-container {
             width: 100% !important;
+            z-index: 99999;
         }
 
-        #btnReportToSearch {
-            display: inline-block;
-            position: absolute;
-            right: 0;
-            border-radius: 0 7px 7px 0;
+        .select2-container--default .select2-selection--single {
+            height: 34px;
+            /* padding: 6px 12px; */
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
-    }
 
+        /*.select2-container {
+        z-index: 1;
+    }*/
+
+        .select2-container--default .select2-selection--single {
+            background-color: transparent;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                display: none;
+            }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            border-radius: 4px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 32px;
+            padding-right: 22px;
+        }
+
+        div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swal2-noanimation {
+            z-index: 99999;
+        }
+
+        .dropdown-menu, .modal {
+            z-index: 999999;
+        }
+
+        .multiselect.dropdown-toggle {
+            width: 100% !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn-group {
+            width: 100%;
+        }
+
+        @@media only screen and (max-width: 768px) {
+
+
+            #ddlAppIds .tooltip {
+                display: none;
+            }
+
+            #ReportToTxt {
+                width: 100% !important;
+            }
+
+            #btnReportToSearch {
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                border-radius: 0 7px 7px 0;
+            }
+        }
 </style>
 
 
@@ -1729,7 +1727,7 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Login Configuration</span>
-    <div id="ApprovalCross" onclick="CloseAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
 </div>
 <div class="container">
     <div class="form_main backBox p-3 mb-3">

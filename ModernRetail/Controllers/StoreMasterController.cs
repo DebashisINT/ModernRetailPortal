@@ -1,4 +1,8 @@
-﻿using BusinessLogicLayer;
+﻿//************************************************************************************************************************************************
+//    Written by Sanchita on 25/12/2024 for Modern Retail - Login Configuration module
+//*************************************************************************************************************************************************
+
+using BusinessLogicLayer;
 using DataAccessLayer;
 using DevExpress.Data.WcfLinq;
 using DevExpress.Web.Mvc;

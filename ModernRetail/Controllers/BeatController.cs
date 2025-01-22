@@ -1,4 +1,8 @@
-﻿using BusinessLogicLayer.SalesmanTrack;
+﻿//*************************************************************************************************************************************************
+//    Written by Sanchita on 10/01/2025 for Modern Retail - Group/Beat module
+//**************************************************************************************************************************************************
+
+using BusinessLogicLayer.SalesmanTrack;
 using ModernRetail.Models;
 using System;
 using System.Collections;
@@ -7,10 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-// Mantis Issue 25536, 25535, 25542, 25543, 25544
 using UtilityLayer;
-// End of Mantis Issue 25536, 25535, 25542, 25543, 25544
-// Rev 1.0
 using DataAccessLayer;
 using System.Configuration;
 using System.Data.OleDb;
@@ -25,7 +26,6 @@ namespace ModernRetail.Controllers
         // GET: /Beat/
         public ActionResult Index()
         {
-            // Mantis Issue 25536, 25535, 25542, 25543, 25544
             BeatModel Dtls = new BeatModel();
             DataSet ds = GroupBeat.Obj.GetListDataDetails();
 
@@ -38,15 +38,12 @@ namespace ModernRetail.Controllers
             RouteLst = APIHelperMethods.ToModelList<RouteList>(ds.Tables[1]);
             Dtls.RouteList = RouteLst;
             Dtls.Route = 0;
-            // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
 
-            // Rev 2.0
             TempData["FromManualLog"] = null;
             TempData["BeatImportLog"] = null;
 
             EntityLayer.CommonELS.UserRightsForPage rights = BusinessLogicLayer.CommonBLS.CommonBL.GetUserRightSession("/Index","Beat");
             ViewBag.CanBulkUpdate = rights.CanBulkUpdate;
-            // End of Rev 2.0
 
 
             return View(Dtls);
@@ -57,7 +54,6 @@ namespace ModernRetail.Controllers
             return PartialView(GetList());
         }
 
-        // Mantis Issue 25536, 25535, 25542, 25543, 25544 [area and route added]
         public JsonResult SaveGroupBeat(string code, string name, string id, int route)
         {
             int output = 0;
@@ -74,7 +70,6 @@ namespace ModernRetail.Controllers
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
-        // Mantis Issue 25536, 25535, 25542, 25543, 25544 [ type added ]
         public JsonResult EditGroupBeat(string id, string type)
         {
             DataTable output = new DataTable();
@@ -91,7 +86,6 @@ namespace ModernRetail.Controllers
 
         }
 
-        //Mantis Issue 25536, 25535, 25542, 25543, 25544
         public JsonResult SaveArea(string code, string name, string id)
         {
             int output = 0;
@@ -108,7 +102,6 @@ namespace ModernRetail.Controllers
             output = GroupBeat.Obj.SaveRoute(code, name, area, Userid, id);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
-        // End of Mantis Issue 25536, 25535, 25542, 25543, 25544
 
         public IEnumerable GetList()
         {
@@ -122,13 +115,11 @@ namespace ModernRetail.Controllers
 
         public PartialViewResult PartialUserGrid(string id)
         {
-            // Rev 1.0
             DataSet ds = new DataSet();
             ProcedureExecute proc = new ProcedureExecute("PRC_GROUPBEAT");
             proc.AddPara("@ACTION", "GETMAPUSERLISTDATA");
             proc.AddPara("@USER_ID", Convert.ToString(Session["MRuserid"]));
             ds = proc.GetDataSet();
-            // End of Rev 1.0
 
             return PartialView(GetUserList());
         }
@@ -137,9 +128,6 @@ namespace ModernRetail.Controllers
         {
             string connectionString = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["DBConnectionDefault"]);
             ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
-            // Rev 1.0
-            //var q = from d in dc.tbl_master_users
-            //        select d;
 
             int userid = Convert.ToInt32(Session["MRuserid"]);
 
@@ -147,7 +135,6 @@ namespace ModernRetail.Controllers
                     where d.userid == userid
                     orderby d.user_id
                     select d;
-            // End of Rev 1.0
             return q;
 
         }
@@ -163,11 +150,9 @@ namespace ModernRetail.Controllers
 
             var Selected = GroupBeatUsers.ObjList;
 
-
             return Json(Selected);
         }
 
-        // Mantis Issue 25536, 25535, 25542, 25543, 25544 [ type added]
         public JsonResult Delete(string ID, string type)
         {
             int output = 0;
@@ -175,7 +160,6 @@ namespace ModernRetail.Controllers
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
-        // Rev 2.0
         public ActionResult DownloadFormat()
         {
             string FileName = "BeatList.xlsx";
@@ -422,7 +406,6 @@ namespace ModernRetail.Controllers
             }
             return Json(output_msg, JsonRequestBehavior.AllowGet);
         }
-        // End of Rev 2.0
 
     }
 }
