@@ -1210,6 +1210,19 @@
     }
 
     function SaveTargetEmpMap() {
+        if (selectedEmployeeBasedOnMapList == "" || selectedEmployeeBasedOnMapList == null) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Alert',
+                text: 'Please select Users.'
+            }).then(() => {
+                setTimeout(() => {
+                    $("#optBasedOn").focus();
+                }, 200);
+            });
+            return;
+        }
+
         Swal.fire({
             title: 'Are you sure you want to save?',
             icon: 'question',
@@ -1233,18 +1246,18 @@
                 //    return;
                 //}
 
-                if (selectedEmployeeBasedOnMapList == "" || selectedEmployeeBasedOnMapList == null) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Alert',
-                        text: 'Please select Users.'
-                    }).then(() => {
-                        setTimeout(() => {
-                            $("#optBasedOn").focus();
-                        }, 200);
-                    });
-                    return;
-                }
+                //if (selectedEmployeeBasedOnMapList == "" || selectedEmployeeBasedOnMapList == null) {
+                //    Swal.fire({
+                //        icon: 'warning',
+                //        title: 'Alert',
+                //        text: 'Please select Users.'
+                //    }).then(() => {
+                //        setTimeout(() => {
+                //            $("#optBasedOn").focus();
+                //        }, 200);
+                //    });
+                //    return;
+                //}
 
 
                 //showLoader();
