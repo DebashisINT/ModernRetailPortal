@@ -514,6 +514,7 @@
 
     .dxeButtonDisabled_PlasticBlue {
         background: #ababab !important;
+        cursor:not-allowed;
     }
 
     .red {
@@ -1093,6 +1094,23 @@
         width: 24px;
     }
 
+    .disablefield {
+        background: #c9c9c96b !important;
+        cursor:not-allowed;
+        
+    }
+
+        .disablefield #dtCurrentStockDate_I {
+            color: #9d9d9d !important;
+            cursor: not-allowed;
+        }
+
+        .disablefield #dtCurrentStockDate_B-1, #StoreNameTxt_I {
+            cursor: not-allowed;
+        }
+
+
+
     @@media only screen and (max-width: 768px) {
         #ddlAppIds .tooltip {
             display: none;
@@ -1160,6 +1178,7 @@
     function disableHeaderControls() {
         // Disable the DateEdit control
         const dateEditControl = ASPxClientControl.GetControlCollection().GetByName("dtCurrentStockDate");
+        $("#dtCurrentStockDate").addClass("disablefield");
         if (dateEditControl) {
             dateEditControl.SetEnabled(false); // Disable the DateEdit control
         }
@@ -1635,7 +1654,7 @@
         const mfgDate = new Date(dtMfgDate.GetDate());
         const expDate = new Date(dtExpDate.GetDate());
 
-        if (mfgDate >= expDate) {
+        if (mfgDate > expDate) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
@@ -1754,13 +1773,13 @@
 </div>
 
 <div class="container">
-    <div class="form_main backBox p-3 pt-5 mb-3">
+    <div class="form_main backBox p-3 pt-4 mb-3">
         <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN">×</div>
         <div class="row mb-3">
 
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-3 mb-4  for-cust-icon">
+                    <div class="col-md-3  for-cust-icon">
                         <label>Current Stock Date<em style="color: red">*</em></label>
                         <div class="date-select">
                             @Html.DevExpress().DateEditFor(x => x.CurrentStockDate,
@@ -1781,7 +1800,7 @@
 
 
 
-                    <div class="col-md-8 mb-4">
+                    <div class="col-md-3 ">
                         <label>Store<em style="color: red">*</em></label>
                         <div>
                             @Html.DevExpress().ButtonEdit(
@@ -1807,8 +1826,10 @@
 
                 <div class="clearfix"></div>
 
+                <hr class="header-part-separator" />
+
                 <div class="row">
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-2 mb-4">
                         <label>Product<em style="color: red">*</em></label>
                         <div>
                             @Html.DevExpress().ButtonEdit(
@@ -1829,7 +1850,7 @@
 
                     </div>
 
-                    <div class="col-md-3 mb-4">
+                    <div class="col-md-2 mb-4">
                         <label>Quantity<em style="color: red">*</em></label>
                         <div>
                             @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control ", @id = "txtQuantity", type = "text", placeholder = "0.0000" })
@@ -1845,12 +1866,12 @@
                             <input type="hidden" id="hdnUOMID">
                         </div>
                     </div>
-                </div>
+                    @*</div>
 
-                <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-                <div class="row">
-                    <div class="col-md-3 mb-4  for-cust-icon">
+        <div class="row">*@
+                    <div class="col-md-2 mb-4  for-cust-icon">
                         <label>Mfg. Date</label>
                         <div class="date-select">
                             @Html.DevExpress().DateEditFor(x => x.MfgDate,
@@ -1869,7 +1890,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb-4  for-cust-icon">
+                    <div class="col-md-2 mb-4  for-cust-icon">
                         <label>Exp. Date</label>
                         <div class="date-select">
                             @Html.DevExpress().DateEditFor(x => x.ExpDate,

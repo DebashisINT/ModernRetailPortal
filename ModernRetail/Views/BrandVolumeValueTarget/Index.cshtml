@@ -780,7 +780,7 @@
     }
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -800,6 +800,10 @@
     .dynamicPopupTbl > tbody > tr > td input {
         width: 100%;
         white-space: break-spaces;
+    }
+
+    #ORDERAMOUNT_EC, #ORDERQTY_EC {
+        display: none;
     }
 </style>
 <script>
@@ -1328,7 +1332,7 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Sorry!',
-                text: 'Please Enter at least one value Out Order Amount,Order Quantity to Proceed.'
+                text: 'Please Enter at least one value Out Order Amount, Order Quantity to Proceed.'
             });
             return false;
         }
@@ -1562,14 +1566,15 @@
 </script>
 <div class="breadCumb">
     <span id="HeaderLableID">Brand Volume/Value Target</span>
-    <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    @*<div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 <div class="container">
-    <div class="form_main backBox p-3 mb-3">
+    <div class="form_main backBox p-3 pt-5 mb-3">
+        <div id="ApprovalCross" onclick="TargetAdd()" class="crossBtnN">×</div>
         <div class="row mb-3">
             <div class="col-sm-4 h-branch-select">
                 <label>Employee Group <span style="color:red">*</span></label>
-                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "Select", 
+                @Html.DropDownListFor(m => m.TargetType, new SelectList(Model.LevelList, "ID", "LEVEL_NAME", null), "Select",
                new { @id = "ddlTargetLevel", @class = "form-control" })
 
                 @*<select id="ddlTargetLevel" class="form-control">
@@ -1608,9 +1613,10 @@
                 </div>
             </div>
         </div>
-    </div>
+        <hr class="header-part-separator" />
+        @*</div>
 
-    <div class="form_main backBox p-3">
+        <div class="form_main backBox p-3">*@
         <div class="row mb-4">
             <div class=" col-sm-3 mb-3">
                 <label>Target For<span style="color:red">*</span></label>
