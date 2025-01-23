@@ -788,7 +788,7 @@
     }
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -812,6 +812,10 @@
 
     #PartyTypeGridLookup_ET > tbody > tr > td: first - child {
         display: none;
+    }
+
+    .multiselect.dropdown-toggle {
+        border-radius: 4px !important;
     }
 </style>
 
@@ -962,7 +966,7 @@
         }
 
         .crossBtnN {
-            color: #fff;
+            /*color: #fff;*/
             cursor: pointer;
         }
 
@@ -1727,10 +1731,13 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Login Configuration</span>
-    <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    @*<div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 <div class="container">
-    <div class="form_main backBox p-3 mb-3">
+    <div class="form_main backBox p-3 pt-5 mb-3">
+
+        <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN">×</div>
+
         <div class="row mb-3">
 
             <div class=" col-sm-3 mb-3">

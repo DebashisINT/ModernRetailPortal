@@ -817,7 +817,7 @@
     }
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -1443,11 +1443,14 @@
 </script>
 <div class="breadCumb" style="padding-bottom:39px !important">
     <span id="headertitle">Add Security Role</span>
-    <div id="ApprovalCross" onclick="SecurityRolesClose()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    @*<div id="ApprovalCross" onclick="SecurityRolesClose()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 
 <div class="container">
     <div class="form_main backBox p-3 mb-3">
+
+        <div id="ApprovalCross" onclick="SecurityRolesClose()" class="crossBtnN">×</div>
+
         <div class="form-horizontal" style="padding: 10px;">
             <div class="row">
                 @*<div class="col-sm-6 mb-3">*@

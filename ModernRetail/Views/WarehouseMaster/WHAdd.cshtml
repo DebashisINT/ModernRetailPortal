@@ -747,7 +747,7 @@
     /*Rev End Pallab: grid modification*/
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -1224,21 +1224,22 @@
         <span>
             Warehouse Master
         </span>
-        <div id="ApprovalCross" onclick="WarehouseClose()" class="crossBtnN"><i class="fa fa-times"></i></div>
+        @*<div id="ApprovalCross" onclick="WarehouseClose()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
     </div>
 
     <div class="container">
-        <div class="backBox mt-5 p-3 ">
+        <div class="backBox mt-5 pt-5 p-3 ">
+            <div id="ApprovalCross" onclick="WarehouseClose()" class="crossBtnN">×</div>
             <div class="form-group">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label>Name <span style="color:red">*</span></label>                    
+                        <label>Name <span style="color:red">*</span></label>
                         @Html.TextBoxFor(m => m.WarehouseName, new { @class = "form-control", @id = "txtWarehouse", @MaxLength = "300" })
-                    </div>                   
+                    </div>
                     <div class="col-md-6">
-                        <label>Address <span style="color:red">*</span></label>                      
+                        <label>Address <span style="color:red">*</span></label>
                         @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @id = "txtAddress1", @MaxLength = "500" })
-                    </div>                    
+                    </div>
                 </div>
 
                 <div class="row mb-3">
@@ -1258,7 +1259,7 @@
                     <div class="col-md-3  h-branch-select">
                         <label>City/District <span style="color:red">*</span></label>
                         <div id="divCity">
-                            <select id="ddlCityDistrict" class="form-control" ></select>
+                            <select id="ddlCityDistrict" class="form-control"></select>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -1275,7 +1276,7 @@
 
                     <div class="col-md-3">
                         <label>Contact Person Phone <span style="color:red">*</span></label>
-                        @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", @id = "txtContactPhone" ,@MaxLength = "10" })
+                        @Html.TextBoxFor(m => m.ContactPhone, new { @class = "form-control", @id = "txtContactPhone", @MaxLength = "10" })
                     </div>
                     <div class="col-md-3">
                         <label>Distributor <span style="color:red">*</span></label>
