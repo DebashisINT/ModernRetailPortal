@@ -1,0 +1,1171 @@
+﻿
+@model ModernRetail.Models.PJPListModel
+@using ModernRetail.Models;
+@{
+    ViewBag.Title = "PJP Details";
+}
+
+
+
+<script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
+<link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
+<script>
+    var Is_PageLoad = "Ispageload";
+    $(function () {
+
+        $("#divEmployee").addClass("disabledbutton");
+
+        var d = new Date();
+
+
+        dtFrom.SetValue(d);
+        dtTo.SetValue(d);
+
+        $("#drpuser").chosen({
+            width: "100%"
+        })
+        $("#drpstate").chosen({
+            width: "100%"
+        })
+        $("#drpshop").chosen({
+            width: "100%"
+        })
+
+        $('#txtfromDate').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            locale: {
+                format: 'DD-MM-YYYY'
+            }
+        });
+
+        $('#txttoDate').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            mask: true,
+            locale: {
+                format: 'DD-MM-YYYY'
+            }
+        });
+
+        $('body').on('click', '#btnshow', function () {
+
+            datefrm = dtFrom.GetText();
+            var newdatefrom = datefrm.split("-").reverse().join("-");
+
+            var startdate = new Date(Date.parse(newdatefrom));
+            //  alert(startdate);
+
+            dateto = dtTo.GetText();
+            var newdateTo = dateto.split("-").reverse().join("-");
+
+            var endDate = new Date(Date.parse(newdateTo));
+
+            if (endDate < startdate) {
+
+                jAlert('From date should be before/equal To date');
+            }
+            else {
+                var start = $('#dtFrom_I').val();
+                var end = $('#dtTo_I').val();
+                start = start.split('-')[1] + '-' + start.split('-')[0] + '-' + start.split('-')[2];
+                end = end.split('-')[1] + '-' + end.split('-')[0] + '-' + end.split('-')[2];
+
+                var dayse = Math.round((Date.parse(end) - Date.parse(start)) / (1000 * 60 * 60 * 24));
+
+                if (dayse <= 30) {
+                    Is_PageLoad = "1";
+
+                    $.ajax({
+                        url: "@Url.Action("GetPJPDetails", "PJPDetails")",
+                        async: false,
+                        data: {
+                            Fromdate: dtFrom.GetText(),
+                            Todate: dtTo.GetText(),
+                            empcode: empId,
+                            StateId: StateId,
+                            Is_PageLoad: Is_PageLoad
+                        },
+                        type: 'POST',
+                        success: function (data) {
+                            gridPJPDetails.Refresh();
+                            gridPJPDetails.Refresh();
+                        },
+                        error: function () {
+                        },
+                    });
+                }
+                else {
+                    jAlert("Searching days must be within One month.");
+                }
+            }
+        });
+
+
+        $('#ddlAppIds').on('change', function () {
+            if ($("#ddlAppIds option:selected").index() > 0) {
+                var selectedValue = $(this).val();
+                var desg = $("#drpdesignation").val();
+                var usrtype = $("#ddlusertypes").val();
+                $('#ddlAppIds').prop("selectedIndex", 0);
+                var url = '@Url.Action("ExportList", "PJPDetails", new { type = "_type_" })'
+                window.location.href = url.replace("_type_", selectedValue);
+
+            }
+        });
+    });
+
+    var StateId = [];
+    function StateSelectionChanged(s, e) {
+        StateGridLookup.gridView.GetSelectedFieldValues("ID", GetSelectedFieldValuesCallback);
+    }
+    function GetSelectedFieldValuesCallback(values) {
+
+        try {
+            StateId = [];
+            for (var i = 0; i < values.length; i++) {
+                StateId.push(values[i]);
+            }
+        } finally {
+            console.log(StateId);
+        }
+    }
+
+    var empId = [];
+    function EmpSelectionChanged(s, e) {
+        EmpGridLookup.gridView.GetSelectedFieldValues("empcode", GetEmpSelectedFieldValuesCallback);
+    }
+    function GetEmpSelectedFieldValuesCallback(values) {
+        try {
+            empId = [];
+            for (var i = 0; i < values.length; i++) {
+                empId.push(values[i]);
+            }
+        } finally {
+            console.log(empId);
+        }
+    }
+
+
+    var CountryStateId = [];
+    function CountryStateSelectionChanged(s, e) {
+        CountryStateGridLookup.gridView.GetSelectedFieldValues("ID", GetSelectedFieldValuesCallback);
+    }
+    function GetSelectedFieldValuesCallback(values) {
+
+        try {
+            CountryStateId = [];
+            for (var i = 0; i < values.length; i++) {
+                CountryStateId.push(values[i]);
+            }
+        } finally {
+            console.log(CountryStateId);
+        }
+    }
+
+    var CityId = [];
+    function CitySelectionChanged(s, e) {
+        CityGridLookup.gridView.GetSelectedFieldValues("CityID", GetCitySelectedFieldValuesCallback);
+    }
+    function GetCitySelectedFieldValuesCallback(values) {
+        try {
+            CityId = [];
+            for (var i = 0; i < values.length; i++) {
+                CityId.push(values[i]);
+            }
+        } finally {
+            console.log(CityId);
+        }
+    }
+
+    var AreaId = [];
+    function AreaSelectionChanged(s, e) {
+        AreaGridLookup.gridView.GetSelectedFieldValues("AreaID", GetAreaSelectedFieldValuesCallback);
+    }
+    function GetAreaSelectedFieldValuesCallback(values) {
+        try {
+            AreaId = [];
+            for (var i = 0; i < values.length; i++) {
+                AreaId.push(values[i]);
+            }
+        } finally {
+            console.log(AreaId);
+        }
+    }
+
+    var CountryId = [];
+    function SingleCountrySelectionChanged(s, e) {
+        SingleCountryGridLookup.gridView.GetSelectedFieldValues("cou_id", GetCountrySelectedFieldValuesCallback);
+    }
+    function GetCountrySelectedFieldValuesCallback(values) {
+        try {
+            CountryId = [];
+            for (var i = 0; i < values.length; i++) {
+                CountryId.push(values[i]);
+            }
+        } finally {
+            console.log(CountryId);
+        }
+    }
+
+    function OnStartCallback(s, e) {
+        e.customArgs["Fromdate"] = dtFrom.GetText();
+        e.customArgs["Todate"] = dtTo.GetText();
+        e.customArgs["empcode"] = empId;
+        e.customArgs["StateId"] = StateId;
+        e.customArgs["Is_PageLoad"] = Is_PageLoad;
+    }
+
+    function LookupValChange() {
+        EmpGridLookup.GetGridView().Refresh()
+    }
+
+    function LookupCityValChange() {
+        CityGridLookup.GetGridView().Refresh()
+    }
+
+    function LookupAreaValChange() {
+        AreaGridLookup.GetGridView().Refresh()
+    }
+
+    function CountryStateLookupValChange() {
+        CountryStateGridLookup.GetGridView().Refresh()
+    }
+
+    //function SingleCountryLookupValChange() {
+    //    SingleCountryGridLookup.GetGridView().Refresh()
+    //}
+
+    function EmpStartCallback(s, e) {
+        e.customArgs["StateId"] = StateId;
+    }
+
+    function AreaStartCallback(s, e) {
+        e.customArgs["CityId"] = CityId;
+    }
+
+    function CityStartCallback(s, e) {
+        e.customArgs["StateId"] = CountryStateId;
+    }
+
+    function CountryStateStartCallback(s, e) {
+        e.customArgs["CountryId"] = SingleCountryGridLookup.GetSelectedKeyFieldValues();
+    }
+
+    function DownloadFormat() {
+        $("#myModal").modal('show');
+    }
+
+    var ActiveEmpId = [];
+    function ActiveEmpSelectionChanged(s, e) {
+        ActiveEmpGridLookup.gridView.GetSelectedFieldValues("empcode", GetActiveEmpSelectedFieldValuesCallback);
+    }
+    function GetActiveEmpSelectedFieldValuesCallback(values) {
+        try {
+            ActiveEmpId = [];
+            for (var i = 0; i < values.length; i++) {
+                ActiveEmpId.push(values[i]);
+            }
+        } finally {
+            console.log(ActiveEmpId);
+        }
+    }
+
+    function ActiveEmpStartCallback(s, e) {
+        e.customArgs["StateId"] = CountryStateId;
+        e.customArgs["desgid"] = null;
+    }
+    function ActiveLookupValChange() {
+        ActiveEmpGridLookup.GetGridView().Refresh()
+        //EmpGridLookup.GetGridView().Refresh()
+    }
+
+    function chkDownloadFor_Change() {
+        ActiveEmpId = [];
+        AreaId = [];
+        CityId = [];
+        AreaGridLookup.GetGridView().SelectAllRowsOnPage(false);
+        CityGridLookup.GetGridView().SelectAllRowsOnPage(false);
+        ActiveEmpGridLookup.GetGridView().SelectAllRowsOnPage(false);
+        if ($("#chkDownloadFor").prop("checked") == true) {
+
+            $("#divEmployee").removeClass("disabledbutton");
+            $("#divCity").addClass("disabledbutton");
+            $("#divArea").addClass("disabledbutton");
+        }
+        else {
+            $("#divEmployee").addClass("disabledbutton");
+            $("#divCity").removeClass("disabledbutton");
+            $("#divArea").removeClass("disabledbutton");
+        }
+    }
+
+    function ExportLogGrid() {
+        var url = '@Url.Action("ExportEmployeesPJPLogList", "PJPDetails", new { type = "_type_" })'
+        window.location.href = url.replace("_type_", 3);
+    }
+
+</script>
+
+<script>
+    function ImportPartyPopOpen() {
+        $("#myImportModal").modal('show');
+    }
+
+    function ChekEmpSettingsUpload() {
+        todate = null;
+        fromdate = null;
+        var isprocess = false;
+        var filename = $("#fileprod").val();
+        if ($('#fileprod').get(0).files.length === 0) {
+            jAlert("No files selected.");
+            return false;
+        }
+        else {
+            var extension = filename.replace(/^.*\./, '');
+            switch (extension.toLowerCase()) {
+                case 'xls':
+                    isprocess = true;
+                case 'xlsx':
+                    isprocess = true;
+                default:
+                    // Cancel the form submission
+                    if (!isprocess) {
+                        jAlert('Only excel file require.');
+                        return false;
+                    }
+            }
+        }
+
+        if (isprocess == true) {
+            var fileUpload = $("#fileprod").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("ImportExcel", "PJPDetails")",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+                    jAlert(result, 'Alert', function () {
+                        $("#fileprod").val('');
+                        //$("#myImportModal").toggle();
+                        $("#myImportModal").modal('hide');
+                        //gridPJPDetails.Refresh();
+                        //gridPJPDetails.Refresh();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("GetPJPDetailsImportLog", "PJPDetails")",
+                            success: function (response) {
+                                if (response) {
+                                    pcModalTemplateImportLogMode.Show();
+                                    gridTemplateImportLogList.Refresh();
+                                    gridTemplateImportLogList.Refresh();
+                                }
+                            }
+                        });
+                    });
+
+                },
+                error: function (err) {
+                    jAlert(err.statusText);
+                }
+            });
+        }
+    }
+
+
+    function getTemplateByStateDesignation() {
+        var stus = true;
+        var data = {
+            AreaId: AreaId,
+            EmpId: ActiveEmpId
+        }
+
+        if ($("#chkDownloadFor").prop("checked") == true) {
+            if (ActiveEmpId == "") {
+                jAlert("Please select Employee.");
+                stus = false;
+            }
+        }
+        else {
+            if (AreaId == "") {
+                jAlert("Please select Area.");
+                stus = false;
+            }
+        }
+
+        if (stus) {
+            $.ajax({
+                url: "@Url.Action("GetShopListTemplateByArea", "PJPDetails")",
+                type: "POST",
+                async: false,
+                data: { model: data },
+                success: function (result) {
+                    var url = "@Url.Action("getExportPJP", "PJPDetails")";
+                    window.location.href = url;
+                 //   jAlert(result, 'Alert', function () {
+                        $("#myModal").modal('hide');
+                  //  });
+                },
+                error: function (err) {
+                    // jAlert(err.statusText);
+                }
+            });
+        }
+        else {
+          //  jAlert("Please select Area");
+
+        }
+    }
+
+
+
+</script>
+
+<style>
+    .padTabl > tbody > tr > td {
+        padding: 3px 10px;
+    }
+
+    #tblshoplist > thead > tr > th {
+        background: #5F65AD !important;
+        border-top: 1px solid #0f87cc;
+        color: #fff;
+    }
+
+    #tblshoplist tbody > tr > th, #tblshoplist tfoot > tr > th, #tblshoplist thead > tr > td, #tblshoplist tbody > tr > td, #tblshoplist tfoot > tr > td {
+        padding: 1px 5px !important;
+    }
+
+    .scrooler {
+        width: 100%;
+        overflow-x: scroll;
+    }
+
+    .w1 {
+        width: 107px;
+    }
+
+    .date {
+        width: 62px;
+    }
+
+    .labelTbl > tbody > tr > td {
+        padding-right: 20px;
+        padding-bottom: 5px;
+    }
+
+    #StateGridLookup_ET > tbody > tr > td:first-child, #ShopGridLookup_ET > tbody > tr > td:first-child, #EmpGridLookup_ET > tbody > tr > td:first-child {
+        display: none;
+    }
+
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>
+
+<style>
+    #ActiveEmpGridLookup_DDD_PW-1, #PJPListIndex, #CountryStateGridLookup_DDD_PW-1, #SingleCountryGridLookup_DDD_PW-1, #AreaGridLookup_DDD_PW-1, #CityGridLookup_DDD_PW-1, #ActiveEmpGridLookup_DDD_gv {
+        left: 15px !important;
+    }
+
+    .w40 .modal-dialog {
+        width: 40%;
+    }
+
+    .pmsModal .modal-header h4 {
+        font-size: 16px;
+    }
+
+    /*Rev 1.0*/
+
+    body, .dxtcLite_PlasticBlue {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    #BranchGridLookup {
+        min-height: 34px;
+        border-radius: 5px;
+    }
+
+    .dxeButtonEditButton_PlasticBlue {
+        background: #094e8c !important;
+        border-radius: 4px !important;
+        padding: 0 4px !important;
+    }
+
+    .dxeButtonDisabled_PlasticBlue {
+        background: #ababab !important;
+    }
+
+    .chosen-container-single .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+        border-radius: 4px;
+        height: 30px;
+        top: 1px;
+        right: 1px;
+        /*position:relative;*/
+    }
+
+        .chosen-container-single .chosen-single div b {
+            display: none;
+        }
+
+        .chosen-container-single .chosen-single div::after {
+            /*content: '<';*/
+            content: url(../../../assests/images/left-arw.png);
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            font-size: 13px;
+            transform: rotate(269deg);
+            font-weight: 500;
+        }
+
+    .chosen-container-active.chosen-with-drop .chosen-single div {
+        background: #094e8c;
+        color: #fff;
+    }
+
+        .chosen-container-active.chosen-with-drop .chosen-single div::after {
+            transform: rotate(90deg);
+            right: 7px;
+        }
+
+    .calendar-icon {
+        position: absolute;
+        bottom: 9px;
+        right: 25px;
+        z-index: 0;
+        cursor: pointer;
+    }
+
+    .date-select .form-control {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #ddlState, #ddlPartyType, #divoutletStatus, #slmonth, #slyear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    .h-branch-select {
+        position: relative;
+    }
+
+        .h-branch-select::after {
+            content: '<';
+            /*content: url(../../../assests/images/left-arw.png);*/
+            position: absolute;
+            top: 33px;
+            right: 13px;
+            font-size: 18px;
+            transform: rotate(269deg);
+            font-weight: 500;
+            background: #094e8c;
+            color: #fff;
+            height: 18px;
+            display: block;
+            width: 28px;
+            /* padding: 10px 0; */
+            border-radius: 4px;
+            text-align: center;
+            line-height: 19px;
+            z-index: 0;
+        }
+
+    select:not(.btn):focus {
+        border-color: #094e8c;
+    }
+
+    select:not(.btn):focus-visible {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .multiselect.dropdown-toggle {
+        text-align: left;
+    }
+
+    .multiselect.dropdown-toggle, #ddlMonth, #ddlYear {
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    select:not(.btn) {
+        padding-right: 30px;
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+    }
+
+    #ddlShowReport:focus-visible {
+        box-shadow: none;
+        outline: none;
+        border: 1px solid #164f93;
+    }
+
+    #ddlShowReport:focus {
+        border: 1px solid #164f93;
+    }
+
+    .whclass.selectH:focus-visible {
+        outline: none;
+    }
+
+    .whclass.selectH:focus {
+        border: 1px solid #164f93;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border: 1px Solid #ccc;
+    }
+
+    .chosen-container-single .chosen-single {
+        border: 1px solid #ccc;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .daterangepicker td.active, .daterangepicker td.active:hover {
+        background-color: #175396;
+    }
+
+    label {
+        font-weight: 500;
+    }
+
+    .dxgvHeader_PlasticBlue {
+        background: #164f94;
+    }
+
+    .dxgvSelectedRow_PlasticBlue td.dxgv {
+        color: #fff;
+    }
+
+    .dxeCalendarHeader_PlasticBlue {
+        background: #185598;
+    }
+
+    .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue,
+    .dxbButton_PlasticBlue,
+    .dxeCalendar_PlasticBlue,
+    .dxeEditArea_PlasticBlue,
+    .dxgvControl_PlasticBlue, .dxgvDisabled_PlasticBlue {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .dxgvEditFormDisplayRow_PlasticBlue td.dxgv, .dxgvDataRow_PlasticBlue td.dxgv, .dxgvDataRowAlt_PlasticBlue td.dxgv, .dxgvSelectedRow_PlasticBlue td.dxgv, .dxgvFocusedRow_PlasticBlue td.dxgv {
+        font-weight: 500;
+    }
+
+    .btnPadding .btn {
+        padding: 7px 14px !important;
+        border-radius: 4px;
+    }
+
+    .btnPadding {
+        padding-top: 24px !important;
+    }
+
+    .dxeButtonEdit_PlasticBlue {
+        border-radius: 5px;
+        height: 34px;
+    }
+
+    #dtFrom, #dtTo, #FormDate, #toDate {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    #tblshoplist_wrapper .dataTables_scrollHeadInner table tr th {
+        background: #165092;
+        vertical-align: middle;
+        font-weight: 500;
+    }
+
+    /*#refreshgrid {
+        background: #e5e5e5;
+        padding: 0 10px;
+        margin-top: 15px;
+        border-radius: 8px;
+    }*/
+
+    .styled-checkbox {
+        position: absolute;
+        opacity: 0;
+        z-index: 1;
+    }
+
+        .styled-checkbox + label {
+            position: relative;
+            /*cursor: pointer;*/
+            padding: 0;
+            margin-bottom: 0 !important;
+        }
+
+            .styled-checkbox + label:before {
+                content: "";
+                margin-right: 6px;
+                display: inline-block;
+                vertical-align: text-top;
+                width: 16px;
+                height: 16px;
+                /*background: #d7d7d7;*/
+                margin-top: 2px;
+                border-radius: 2px;
+                border: 1px solid #c5c5c5;
+            }
+
+        .styled-checkbox:hover + label:before {
+            background: #094e8c;
+        }
+
+
+        .styled-checkbox:checked + label:before {
+            background: #094e8c;
+        }
+
+        .styled-checkbox:disabled + label {
+            color: #b8b8b8;
+            cursor: auto;
+        }
+
+            .styled-checkbox:disabled + label:before {
+                box-shadow: none;
+                background: #ddd;
+            }
+
+        .styled-checkbox:checked + label:after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 9px;
+            background: white;
+            width: 2px;
+            height: 2px;
+            box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+            transform: rotate(45deg);
+        }
+
+    #dtstate {
+        padding-right: 8px;
+    }
+
+    .modal-header {
+        background: #094e8c !important;
+        background-image: none !important;
+        padding: 11px 20px;
+        border: none;
+        border-radius: 5px 5px 0 0;
+        color: #fff;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .modal-content {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .modal-header .modal-title {
+        font-size: 14px;
+    }
+
+    .close {
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-shadow: none;
+        opacity: .5;
+    }
+
+    #EmployeeTable {
+        margin-top: 10px;
+    }
+
+        #EmployeeTable table tr th {
+            padding: 5px 10px;
+        }
+
+    .dynamicPopupTbl {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+        .dynamicPopupTbl > tbody > tr > td,
+        #EmployeeTable table tr th {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 12px;
+        }
+
+    .w150 {
+        width: 160px;
+    }
+
+    .eqpadtbl > tbody > tr > td:not(:last-child) {
+        padding-right: 20px;
+    }
+
+    #dtFrom_B-1, #dtTo_B-1, #cmbDOJ_B-1, #cmbLeaveEff_B-1, #FormDate_B-1, #toDate_B-1 {
+        background: transparent !important;
+        border: none;
+        width: 30px;
+        padding: 10px !important;
+    }
+
+        #dtFrom_B-1 #dtFrom_B-1Img,
+        #dtTo_B-1 #dtTo_B-1Img, #cmbDOJ_B-1 #cmbDOJ_B-1Img, #cmbLeaveEff_B-1 #cmbLeaveEff_B-1Img, #FormDate_B-1 #FormDate_B-1Img, #toDate_B-1 #toDate_B-1Img {
+            display: none;
+        }
+
+    #FormDate_I, #toDate_I {
+        background: transparent;
+    }
+
+    .for-cust-icon {
+        position: relative;
+        /*z-index: 1;*/
+    }
+
+    .pad-md-18 {
+        padding-top: 24px;
+    }
+
+    .open .dropdown-toggle.btn-default {
+        background: transparent !important;
+    }
+
+    .input-group-btn .multiselect-clear-filter {
+        height: 32px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .btn .caret {
+        display: none;
+    }
+
+    .iminentSpan button.multiselect.dropdown-toggle {
+        height: 34px;
+    }
+
+    .col-lg-2 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .dxeCalendarSelected_PlasticBlue {
+        color: White;
+        background-color: #185598;
+    }
+
+    .dxeTextBox_PlasticBlue {
+        height: 34px;
+        border-radius: 4px;
+    }
+
+    #cmbDOJ_DDD_PW-1 {
+        z-index: 9999 !important;
+    }
+
+    #cmbDOJ, #cmbLeaveEff {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+
+    .btn-sm, .btn-xs {
+        padding: 7px 10px !important;
+    }
+
+    #productAttributePopUp_PWH-1 span, #ASPxPopupControl2_PWH-1 span {
+        color: #fff !important;
+    }
+
+    #marketsGrid_DXPEForm_tcefnew, .dxgvPopupEditForm_PlasticBlue {
+        height: 220px !important;
+    }
+
+    .btn {
+        height: 34px;
+    }
+    /*Rev end 1.0*/
+
+    @@media only screen and (max-width: 768px) {
+        .pjp-parameter-btns {
+            width: 100% !important;
+            max-width: 300px !important;
+        }
+
+        .pjp-parameter-btns .btn
+        {
+            margin-bottom: 8px;
+        }
+    }
+</style>
+<link href="~/Content/media.css" rel="stylesheet" />
+
+<div class="breadCumb">
+    <span>PJP Details</span>
+</div>
+<div class="container">
+    <div class="bdPad mt-2">
+        <div class="">
+            <div class="col-md-12">
+                <div class="row">
+                    <table class="eqpadtbl  mb-3">
+                        <tr>
+                            <td class="w150">
+                                <label>State</label>
+                                <div>
+                                    @Html.Action("GetStateList", "MasterPopulate")
+                                </div>
+                            </td>
+                            <td class="w150">
+                                <label>Employee</label>
+                                <div>
+                                    @Html.Action("GetEmpList", "MasterPopulate")
+                                </div>
+                            </td>
+                            @*Rev 1.0*@
+                            @*<td class="w150">*@
+                            <td class="w150 for-cust-icon">
+                                @*Rev end 1.0*@
+                                <label>From Date</label>
+                                <div>
+                                    @Html.DevExpress().DateEditFor(x => x.Fromdate,
+                                deSettings =>
+                                {
+                                    deSettings.Name = "dtFrom";
+                                    deSettings.Date = DateTime.Now;
+                                    deSettings.Properties.UseMaskBehavior = true;
+                                    deSettings.Properties.EditFormat = EditFormat.Custom;
+                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                }).GetHtml()
+                                    @*Rev 1.0*@
+                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                                    @*Rev end 1.0*@
+                                </div>
+                            </td>
+                            @*Rev 1.0*@
+                            @*<td class="w150">*@
+                            <td class="w150 for-cust-icon">
+                                @*Rev end 1.0*@
+                                <label>To Date</label>
+                                <div>
+                                    @Html.DevExpress().DateEditFor(x => x.Todate,
+                                deSettings =>
+                                {
+                                    deSettings.Name = "dtTo";
+                                    deSettings.Date = DateTime.Now;
+                                    deSettings.Properties.UseMaskBehavior = true;
+                                    deSettings.Properties.EditFormat = EditFormat.Custom;
+                                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                    deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                }).GetHtml()
+                                    @*Rev 1.0*@
+                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                                    @*Rev end 1.0*@
+                                </div>
+                            </td>
+                            <td style="padding-top: 24px;width:430px !important;" class="pjp-parameter-btns">
+                                <label></label>
+                                @if (ViewBag.CanView)
+                                {
+                                    <button type="button" id="btnshow" class="btn btn-success btnwidth" tabindex=4>Show</button>
+                                }
+                                @if (ViewBag.CanExport)
+                                {
+                                    <select name="ddlAppIds" class="btn btn-sm btn-primary" id="ddlAppIds">
+                                        <option value="0">Export to</option>
+                                        <option value="1">PDF</option>
+                                        <option value="2">XLSX</option>
+                                        <option value="3">XLS</option>
+                                        <option value="2">RTF</option>
+                                        <option value="2">CSV</option>
+
+                                    </select>
+                                }
+                                <button type="button" class="btn btn-info mr-1" onclick="DownloadFormat();">
+                                    Download Format
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="ImportPartyPopOpen();">
+                                    Import File
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form_main">
+                <div class="clear"></div>
+                <div id="refreshgrid">
+                </div>
+                <div id="refreshgridstatusinvoiceorderreportregister">
+                    @{
+                        Html.RenderAction("PartialPJPDetailsGridList", "PJPDetails", new { Fromdate = Model.Fromdate, Todate = Model.Todate, Is_PageLoad = "Ispageload" });
+                    }
+                    @*change for design*@
+
+                </div>
+
+
+                <input type="hidden" id="hdnuser_id" />
+                <input type="hidden" id="hdnuser_state" />
+                <input type="hidden" id="hdnuser_shop" />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myImportModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="close()">&times;</button>
+                <h4 class="modal-title">Import Excel Template For PJP</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divproduct">
+                                    <label class="uplabel">Select File to Import (Add/Update)</label>
+                                    <div><input type="file" id="fileprod" accept=".xls,.xlsx"></div>
+                                    <div class="pTop10  mTop5" style="margin-top:10px"><input type="submit" value="Import (Add/Update)" onclick="return ChekEmpSettingsUpload();" id="btnimportxls" class="btn btn-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="myModal" class="modal fade pmsModal w30" data-backdrop="static" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Download Excel Template For PJP Assignment</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+
+                        <div class="row">
+                            <div>
+
+                                <div class="clearfix ">
+                                    <div class="col-lg-12 lblmTop8">
+                                        <input type="checkbox" id="chkDownloadFor" onchange="chkDownloadFor_Change();" /> PJP for Employee
+                                    </div>
+                                    <div class="col-lg-12 lblmTop8">
+                                        <label><b>Country</b></label>
+                                        <div class="iminentSpan">
+                                            @Html.Action("GetCountryList", "MasterPopulate")
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 lblmTop8">
+                                        <label><b>State</b></label>
+                                        <div class="iminentSpan">
+                                            @Html.Action("GetStateListByCountry", "MasterPopulate")
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 lblmTop8">
+                                        <label><b>Employee(s)</b></label>
+                                        <div class="iminentSpan" id="divEmployee">
+                                            @Html.Action("GetEmpListActive", "MasterPopulate")
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 lblmTop8">
+                                        <label><b>City</b></label>
+                                        <div class="iminentSpan" id="divCity">
+                                            @Html.Action("GetCityList", "MasterPopulate")
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12 lblmTop8">
+                                        <label><b>Area</b></label>
+                                        <div class="iminentSpan" id="divArea">
+                                            @Html.Action("GetAreaList", "MasterPopulate")
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 mTop5" style="margin-top:10px">
+                                        <button type="button" onclick="getTemplateByStateDesignation();" class="btn btn-success mTop5">Download Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalTemplateImportLogMode";
+            settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
+            //settings.Height = 220;
+            //settings.ScrollBars.v
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.CloseOnEscape = true;
+            settings.PopupAnimationType = AnimationType.None;
+            settings.HeaderText = "Import Log";
+            settings.Modal = true;
+            settings.AutoUpdatePosition = true;
+            settings.Top = 50;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Above;
+            settings.SetContent(() =>
+            {
+                Html.RenderPartial("GetPJPDetailsImportLog", new List<PJPImportLog>());
+                ViewContext.Writer.Write("<button type='button' class='btn btn-primary pull-right mtop8' title='Export To Excel' onclick='ExportLogGrid();'>Export</button>");
+            });
+
+            settings.ClientSideEvents.CloseUp = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(null, '', true);  }";
+        }).GetHtml()
+
