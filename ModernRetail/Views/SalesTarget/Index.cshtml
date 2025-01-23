@@ -776,7 +776,7 @@
     }
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -796,6 +796,10 @@
     .dynamicPopupTbl > tbody > tr > td input {
         width: 100%;
         white-space: break-spaces;
+    }
+
+    #NEWVISIT_EC, #REVISIT_EC, #ORDERAMOUNT_EC, #COLLECTION_EC, #ORDERQTY_EC {
+        display: none;
     }
 </style>
 <script>
@@ -1498,10 +1502,11 @@
 </script>
 <div class="breadCumb">
     <span id="HeaderLableID">Sales Target</span>
-    <div id="ApprovalCross" onclick="SalesTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    @*<div id="ApprovalCross" onclick="SalesTargetAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 <div class="container">
-    <div class="form_main backBox p-3 mb-3">
+    <div class="form_main backBox p-3 pt-5 mb-3">
+        <div id="ApprovalCross" onclick="SalesTargetAdd()" class="crossBtnN">×</div>
         <div class="row mb-3">
             <div class="col-sm-4  h-branch-select">
                 <label>Employee Group <span style="color:red">*</span></label>
@@ -1514,14 +1519,14 @@
                 )
 
                 @*<select id="ddlTargetLevel" class="form-control">
-                        <option value="Select">Select</option>
-                        <option value="Region">Region level</option>
-                        <option value="ASM">ASM level</option>
-                        <option value="SalesOfficer">Sales Officer level</option>
-                        <option value="Salesman">Salesman Level</option>
-                        <option value="Beat">Beat level</option>
-                        <option value="Outlet">Outlet Level</option>
-                    </select>*@
+                    <option value="Select">Select</option>
+                    <option value="Region">Region level</option>
+                    <option value="ASM">ASM level</option>
+                    <option value="SalesOfficer">Sales Officer level</option>
+                    <option value="Salesman">Salesman Level</option>
+                    <option value="Beat">Beat level</option>
+                    <option value="Outlet">Outlet Level</option>
+                </select>*@
             </div>
             <div class=" col-sm-4">
                 <label>Document No. <span style="color:red">*</span></label>
@@ -1550,9 +1555,10 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="form_main backBox p-3">
+        <hr class="header-part-separator"/>
+    @*</div>
+        
+    <div class="form_main backBox p-3">*@
         <div class="row mb-4">
             <div class=" col-sm-3 mb-3">
                 <label>Target For<span style="color:red">*</span></label>

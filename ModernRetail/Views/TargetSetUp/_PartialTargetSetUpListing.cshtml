@@ -11,7 +11,7 @@
     settings.CallbackRouteValues = new { Action = "_PartialTargetSetUpListing", Controller = "TargetSetUp" };
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
-   // settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+    // settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
     settings.SettingsContextMenu.FooterMenuItemVisibility.SummaryCount = true;
     settings.SettingsSearchPanel.Visible = true;
     settings.Settings.ShowFilterRow = true;
@@ -46,6 +46,7 @@
                     {
                         x.CellStyle.CssClass = "hide";
                         x.HeaderStyle.CssClass = "hide";
+                        x.Visible = false;
                         x.FieldName = column.ColumnName;
                         x.Caption = column.ColumnName;
                         x.VisibleIndex = visibleindex;
@@ -53,6 +54,40 @@
                         visibleindex = visibleindex + 1;
                         //x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
                         //x.Width = 0;
+                    }
+
+                    else if (column.ColumnName == "Action")
+                    {
+                        x.FieldName = column.ColumnName;
+                        x.Caption = column.ColumnName;
+                        //x.HeaderStyle.CssClass = "action-column-header";
+                        //x.CellStyle.CssClass = "action-column-cell";
+
+                        x.Width = System.Web.UI.WebControls.Unit.Pixel(0);
+
+                        //x.VisibleIndex = visibleindex;
+                        //x.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+                        //visibleindex = visibleindex + 1;
+                        //x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        //x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                        //x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        //x.Width = System.Web.UI.WebControls.Unit.Percentage(0);
+                        //x.Width = System.Web.UI.WebControls.Unit.Pixel(0);
+
+                        x.SetDataItemTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write("<div class='action-buttons' style=' position: absolute;'>");
+                            //if (ViewBag.CanEdit)
+                            //{
+                            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/edit.svg' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
+                            //}
+                            //            if (ViewBag.CanDelete)
+                            //{
+                            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/delete.svg'/><div class=\"tooltip\">Delete</div></a>");
+
+                            // }
+                            ViewContext.Writer.Write("</div>");
+                        });
                     }
                     else
                     {
@@ -64,7 +99,7 @@
                         //x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
                         x.Width = 150;
                     }
-                    
+
                     if (column.DataType.FullName == "System.Decimal" || column.DataType.FullName == "System.Int32" || column.DataType.FullName == "System.Int64")
                     {
                         x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
@@ -75,25 +110,7 @@
                     {
                         x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                     }
-                    if (column.Caption == "Action")
-                    {
-                        x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-                        x.HeaderStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
-                        x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
-                        x.Width = System.Web.UI.WebControls.Unit.Percentage(20);
-                        x.SetDataItemTemplateContent(c =>
-                        {
-                            //if (ViewBag.CanEdit)
-                            //{
-                            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"EditClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/Edit.png' style='margin-right:3px' /><div class=\"tooltip\">Edit</div></a>");
-                            //}
-                            //            if (ViewBag.CanDelete)
-                            //{
-                            ViewContext.Writer.Write("<a style='cursor:pointer' class='pad tooltip-container' onclick=\"DeleteClick('" + Convert.ToString(DataBinder.Eval(c.DataItem, "ID")) + "')\"><img src='/assests/images/Delete.png'/><div class=\"tooltip\">Delete</div></a>");
 
-                            // }
-                        });
-                    }
 
 
 
