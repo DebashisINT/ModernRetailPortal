@@ -1160,6 +1160,22 @@
         return vars;
     }
 
+    function disableHeaderControls() {
+        // Disable the DateEdit control
+        const dateEditControl = ASPxClientControl.GetControlCollection().GetByName("dtCurrentStockDate");
+        if (dateEditControl) {
+            dateEditControl.SetEnabled(false); // Disable the DateEdit control
+        }
+
+        // Disable the ButtonEdit control
+        const buttonEditControl = ASPxClientControl.GetControlCollection().GetByName("StoreNameTxt");
+        if (buttonEditControl) {
+            buttonEditControl.SetEnabled(false); // Disable the ButtonEdit control
+        }
+
+      
+    }
+
     if (urlKeys.key != 'Add') {
         ID = urlKeys.key;
 
@@ -1185,7 +1201,7 @@
 
                         //gridStockProductEntryList.Refresh();
                         // gridStockProductEntryList.Refresh();
-
+                        disableHeaderControls();
 
                     }
                 }
@@ -1204,9 +1220,9 @@
                 parts[0] = parts[0].substring(0, 11);
             }
 
-            // Limit decimals to 2
-            if (parts[1] && parts[1].length > 2) {
-                parts[1] = parts[1].substring(0, 2);
+            // Limit decimals to 4
+            if (parts[1] && parts[1].length > 4) {
+                parts[1] = parts[1].substring(0, 4);
             }
 
             // Combine the integer and decimal parts with only one decimal point
@@ -1621,7 +1637,7 @@
         const mfgDate = new Date(dtMfgDate.GetDate());
         const expDate = new Date(dtExpDate.GetDate());
 
-        if (mfgDate >= expDate) {
+        if (mfgDate > expDate) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
@@ -1682,6 +1698,8 @@
                }
                else
                {
+                   disableHeaderControls();
+
                     var data = {
                         StockId: $('#hdnStockId').val(),
                         StoreCode: $("#hdnStoreCode").val(),
@@ -1712,7 +1730,7 @@
                                 gridStockProductEntryList.Refresh();
 
                                 ClearData();
-
+                                
                                 /*$("#btnAdd").text("Add");*/
                                 $("#btnAdd").html('<span class="btn-icon"><i class="fa fa-plus"></i></span> Add');
                             }
@@ -1764,7 +1782,7 @@
 
 
 
-                    <div class="col-md-3 mb-4">
+                    <div class="col-md-8 mb-4">
                         <label>Store<em style="color: red">*</em></label>
                         <div>
                             @Html.DevExpress().ButtonEdit(
@@ -1786,12 +1804,12 @@
 
                     </div>
 
-                    @*</div>
+                </div>
 
-                        <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-                        <div class="row">*@
-                    <div class="col-md-3 mb-4">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
                         <label>Product<em style="color: red">*</em></label>
                         <div>
                             @Html.DevExpress().ButtonEdit(
@@ -1815,12 +1833,12 @@
                     <div class="col-md-3 mb-4">
                         <label>Quantity<em style="color: red">*</em></label>
                         <div>
-                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control ", @id = "txtQuantity", type = "text" })
+                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control ", @id = "txtQuantity", type = "text", placeholder = "0.0000" })
                             @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class=" col-sm-3 mb-3">
+                    <div class=" col-sm-2 mb-3">
                         <label>UOM</label>
                         <div class="relative">
                             @Html.TextBoxFor(m => m.UOM, new { @class = "form-control", @id = "txtUOM", @readonly = "readonly" })
@@ -1828,7 +1846,11 @@
                             <input type="hidden" id="hdnUOMID">
                         </div>
                     </div>
+                </div>
 
+                <div class="clearfix"></div>
+
+                <div class="row">
                     <div class="col-md-3 mb-4  for-cust-icon">
                         <label>Mfg. Date</label>
                         <div class="date-select">
