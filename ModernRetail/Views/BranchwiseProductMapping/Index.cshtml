@@ -795,7 +795,7 @@
     }
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -1334,7 +1334,7 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Branchwise Product Mapping</span>
-    <div id="ApprovalCross" onclick="BPMClose()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    @*<div id="ApprovalCross" onclick="BPMClose()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 <div class="overlay" id="loading-overlay">
     <div class="flex-loader">
@@ -1344,16 +1344,18 @@
 
 </div>
 <div class="container">
-    <div class="form_main backBox p-3 mb-3">
+    <div class="form_main backBox p-3 pt-5 mb-3">
+
+        <div id="ApprovalCross" onclick="BPMClose()" class="crossBtnN">×</div>
         <div class="row mb-3">
 
             <!--<div class="col-md-2 h-branch-select" id="DivHeadBranch">
-                <label>Head Branch</label>
-                <div>-->
-                    @*<select id="ddlHeadBranch" class="form-control"></select>*@
-                    @*@Html.DropDownListFor(m => m.HeadBranchID, new SelectList(Model.HeadBranchList, "ID", "NAME", Model.HeadBranchID), new { @id = "ddlHeadBranch", @class = "form-control" })*@
+            <label>Head Branch</label>
+            <div>-->
+            @*<select id="ddlHeadBranch" class="form-control"></select>*@
+            @*@Html.DropDownListFor(m => m.HeadBranchID, new SelectList(Model.HeadBranchList, "ID", "NAME", Model.HeadBranchID), new { @id = "ddlHeadBranch", @class = "form-control" })*@
 
-                @*</div>
+            @*</div>
             </div>*@
             <div class="col-md-4">
                 <label>Branch<span class="red">*</span></label>
@@ -1366,9 +1368,8 @@
                 @Html.Action("GetParentEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })
             </div>
             <!--<div class="col-md-2">
-                <label>Child Employee</label>-->
-               
-                @*@Html.Action("GetChildEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })*@
+            <label>Child Employee</label>-->
+            @*@Html.Action("GetChildEmployeeList", "BranchwiseProductMapping", new { PRODUCTBRANCHMAP_ID = @Model.PRODUCTBRANCHMAP_ID })*@
             @*</div>*@
             <div class="col-md-4">
                 <label>Product<span class="red">*</span></label>

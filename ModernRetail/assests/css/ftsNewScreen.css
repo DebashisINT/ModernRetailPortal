@@ -1178,20 +1178,21 @@ ul{
 }*/
 .crossBtnN {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 0;
+    right: 0;
     width: 35px;
     height: 35px;
     line-height: 30px;
-    font-size: 22px;
+    font-size: 32px;
     font-weight: 500;
     transition: all .3s;
     /* box-shadow: 1px 1px 14px #1111116e; */
-    background: #ffe5e5;
-    color: #fc2828;
-    border: 1px solid #fc2828;
+    /*background: #ffe5e5;*/
+    color: #111;
+    /*border: 1px solid #fc2828;*/
     border-radius: 50px;
     text-align: center;
+    cursor: pointer;
 }
 
     .crossBtnN img
@@ -1201,14 +1202,18 @@ ul{
 
     .crossBtnN:hover {
         transform: scale(1.1);
+        color: #fc2828;
     }
 
-    .crossBtnN > a {
+.backBox
+{
+    position: relative;
+}
+/*.crossBtnN > a {
         color: #fff !important;
-    }
-
+    }*/
 .dxtc-strip.dxtc-stripContainer {
-   height:auto !important;
+    height: auto !important;
 }
 .dxbButton_PlasticBlue {
     background-image: none !important;
@@ -1634,7 +1639,7 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
     }
 
 .more-option-buttons {
-    background: #ccf1ff !important;
+    background: #f0ccff !important;
     padding: 0 !important;
     width: 38px;
     color: #111;
@@ -1642,7 +1647,7 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
 }
 
     .more-option-buttons:hover {
-        background: #8EE3F2 !important;
+        background: #e6abff !important;
     }
 
 .more-btn .dropdown-menu button.btn {
@@ -1663,7 +1668,7 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
     height: 100%;
     background: rgba(255, 255, 255, 0.8);
     z-index: 9999;
-    display: none; /* Initially hidden */
+    display: none; 
 }
 
 .flex-loader {

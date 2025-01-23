@@ -780,7 +780,7 @@
     }
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -1269,10 +1269,12 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Product Rates</span>
-    <div id="ApprovalCross" onclick="ProductRatesAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    @*<div id="ApprovalCross" onclick="ProductRatesAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 <div class="container">
-    <div class="form_main backBox p-3 mb-3">
+    <div class="form_main backBox p-3 pt-5 mb-3">
+        <div id="ApprovalCross" onclick="ProductRatesAdd()" class="crossBtnN">×</div>
+        
         <div class="row mb-3">
 
 
@@ -1316,16 +1318,16 @@
                 }).GetHtml()
             </div>
             <div class="col-sm-3  mb-3">
-                <label>Special Price<span style="color:red">*</span></label>             
+                <label>Special Price<span style="color:red">*</span></label>
                 @Html.TextBoxFor(m => m.SpecialPrice, new { @class = "form-control allow_decimal numbersOnly", @id = "txtSpecialPrice", type = "text" })
                 @Html.ValidationMessageFor(m => m.SpecialPrice, "", new { @class = "text-danger" })
-            </div>          
+            </div>
 
             <div class="clear"></div>
             <div class="mt-4 px-4">
                 @if (ViewBag.CanAdd)
                 {
-                <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
+                    <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
                 }
                 <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 

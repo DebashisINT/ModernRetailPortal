@@ -812,7 +812,7 @@
     }
 
     .crossBtnN {
-        color: #fff;
+        /*color: #fff;*/
         cursor: pointer;
     }
 
@@ -985,10 +985,7 @@
         padding-top: 10px;
     }
 
-    .crossBtnN {
-        color: #fff;
-        cursor: pointer;
-    }
+   
 
     div.dataTables_wrapper div.dataTables_info {
         font-size: 12px;
@@ -1734,11 +1731,12 @@
 
 <div class="breadCumb">
     <span id="HeaderLableID">Current Stock</span>
-    <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>
+    @*<div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 
 <div class="container">
-    <div class="form_main backBox p-3 mb-3">
+    <div class="form_main backBox p-3 pt-5 mb-3">
+        <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN">×</div>
         <div class="row mb-3">
 
             <div class="col-md-12">
@@ -1788,9 +1786,9 @@
 
                     @*</div>
 
-                        <div class="clearfix"></div>
+                    <div class="clearfix"></div>
 
-                        <div class="row">*@
+                    <div class="row">*@
                     <div class="col-md-3 mb-4">
                         <label>Product<em style="color: red">*</em></label>
                         <div>
