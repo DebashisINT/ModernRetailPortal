@@ -993,7 +993,7 @@ namespace ModernRetail.Controllers
                 x.Caption = "Item(s)";
                 x.VisibleIndex = 5;
                 x.ExportWidth = 100;
-                x.PropertiesEdit.DisplayFormatString = "0.00";
+                x.PropertiesEdit.DisplayFormatString = "0";
             });
 
             settings.Columns.Add(x =>
