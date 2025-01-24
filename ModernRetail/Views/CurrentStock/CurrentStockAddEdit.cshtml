@@ -1214,6 +1214,9 @@
                         StoreNameTxt.SetText(response.StoreName);
 
                         $('#hdnStockId').val(ID);
+                        document.getElementById("divDocNo").style.display = "block";
+                        document.getElementById("txtDocumentNo").value = ID;
+
                         disableHeaderControls();
 
                         //gridStockProductEntryList.Refresh();
@@ -1804,6 +1807,13 @@
 
             <div class="col-md-12">
                 <div class="row">
+                    <div class="col-md-3 mb-10" id="divDocNo" style="display:none;" >
+                        <label>Document No.<em style="color: red">*</em></label>
+                        <div>
+                            @Html.TextBoxFor(m => m.stock_id, new { @class = "form-control", @id = "txtDocumentNo",  @disabled = "disabled" })
+                        </div>
+                    </div>
+                    
                     <div class="col-md-3  for-cust-icon">
                         <label>Current Stock Date<em style="color: red">*</em></label>
                         <div class="date-select">
