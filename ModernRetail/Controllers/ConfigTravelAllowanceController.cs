@@ -12,9 +12,9 @@ using DevExpress.Web;
 
 namespace ModernRetail.Controllers
 {
-    public class ConfigTravekAllowanceController : Controller
+    public class ConfigTravelAllowanceController : Controller
     {
-        // GET: ConfigTravekAllowance
+        // GET: ConfigTravelAllowance
         CommonBL objSystemSettings = new CommonBL();
         DataTable dtvisitloc = new DataTable();
         DataTable dtexpensetype = new DataTable();
@@ -35,7 +35,7 @@ namespace ModernRetail.Controllers
         List<Class_Master> modelemployeegrade = new List<Class_Master>();
         List<Class_Master> modelsate = new List<Class_Master>();
 
-        ConfigTravekAllowanceModel omodel = new ConfigTravekAllowanceModel();
+        ConfigTravelAllowanceModel omodel = new ConfigTravelAllowanceModel();
 
 
         public ActionResult Configuration()
@@ -84,10 +84,10 @@ namespace ModernRetail.Controllers
         public ActionResult ConfigurationPartial()
         {
             dtconveyance = lstuser.GetConveyanceTypes("TravelAllowance");
-            List<ConfigTravekAllowanceModel> modelallowance = new List<ConfigTravekAllowanceModel>();
+            List<ConfigTravelAllowanceModel> modelallowance = new List<ConfigTravelAllowanceModel>();
             if (dtconveyance.Rows.Count > 0)
             {
-                modelallowance = APIHelperMethods.ToModelList<ConfigTravekAllowanceModel>(dtconveyance);
+                modelallowance = APIHelperMethods.ToModelList<ConfigTravelAllowanceModel>(dtconveyance);
                 omodel.conveyancemode = modelallowance;
                 TempData["ExportConveyance"] = omodel.conveyancemode;
                 TempData.Keep();
@@ -111,7 +111,7 @@ namespace ModernRetail.Controllers
         }
 
 
-        public ActionResult ConfigurationInsert(ConfigTravekAllowanceModel model)
+        public ActionResult ConfigurationInsert(ConfigTravelAllowanceModel model)
         {
 
             string state = "";
@@ -219,7 +219,7 @@ namespace ModernRetail.Controllers
 
         }
 
-        public ActionResult ConfigurationUpdate(ConfigTravekAllowanceModel model)
+        public ActionResult ConfigurationUpdate(ConfigTravelAllowanceModel model)
         {
 
             string userid = Convert.ToString(Session["userid"]);
@@ -247,8 +247,8 @@ namespace ModernRetail.Controllers
 
             DataTable dt = new DataTable();
             dt = lstuser.GetConveyanceTypes("TravelAllowancebyID", "", Tsid);
-            ConfigTravekAllowanceModel modelallowance = new ConfigTravekAllowanceModel();
-            modelallowance = APIHelperMethods.ToModel<ConfigTravekAllowanceModel>(dt);
+            ConfigTravelAllowanceModel modelallowance = new ConfigTravelAllowanceModel();
+            modelallowance = APIHelperMethods.ToModel<ConfigTravelAllowanceModel>(dt);
 
 
             omodel = modelallowance;

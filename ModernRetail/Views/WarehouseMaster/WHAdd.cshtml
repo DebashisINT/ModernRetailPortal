@@ -785,9 +785,10 @@
         window.location.href = '/WarehouseMaster/WarehouseIndex';
     }
     function CancelAdd() {
-        if ($("#hdnAdd").val() == "0") {
+        //if ($("#hdnAdd").val() == "0") {
+        if (urlKeys.key == 'Add') {
             Swal.fire({
-                title: 'Are you sure you want to Close with out save data.?',
+                title: 'Are you sure you want to Close with out save data ?',
                 text: "This action cannot be undone!",
                 imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
                 imageWidth: 40, // Adjust the width as needed
@@ -1229,7 +1230,7 @@
 
     <div class="container">
         <div class="backBox mt-5 pt-5 p-3 ">
-            <div id="ApprovalCross" onclick="WarehouseClose()" class="crossBtnN">×</div>
+            <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN">×</div>
             <div class="form-group">
                 <div class="row mb-3">
                     <div class="col-md-6">

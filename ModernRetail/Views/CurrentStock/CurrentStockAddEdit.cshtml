@@ -1571,6 +1571,7 @@
                     }
                     // End ExpDate
 
+                    MfgDateValidate();
 
                     /* $("#btnAdd").text("Save");*/
                     $("#btnAdd").html('<span class="btn-icon saveicon"><img src="../../../assests/images/save-instagram.svg"></span> Save');
@@ -1762,7 +1763,31 @@
 
     }
 
+    function MfgDateValidate() {
+        //dtExpDate.SetMinDate(dtMfgDate.GetDate() + 1);
 
+        var newdate = new Date(dtMfgDate.GetDate());
+        newdate.setDate(newdate.getDate() + 1);
+        dtExpDate.SetMinDate(newdate);
+
+
+        if (dtMfgDate.GetDate() >= dtExpDate.GetDate()) {
+            dtExpDate.SetDate(newdate);
+        }
+       
+    }
+
+    function ExpDateValidate() {
+        if (dtMfgDate.GetDate() == null) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Select Mfg. Date.'
+            });
+
+            dtExpDate.Clear();
+        }
+    }
 
 </script>
 
@@ -1884,6 +1909,7 @@
                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                               deSettings.Properties.ClientSideEvents.DateChanged = "MfgDateValidate";
                                //deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
                            }).GetHtml()
                             <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
@@ -1903,7 +1929,9 @@
                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                               deSettings.Properties.ClientSideEvents.DateChanged = "ExpDateValidate";
                                //deSettings.Properties.MinDate = DateTime.Now.AddDays(-1);
+
                            }).GetHtml()
                             <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
                         </div>

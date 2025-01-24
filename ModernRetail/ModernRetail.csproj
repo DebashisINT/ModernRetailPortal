@@ -291,7 +291,7 @@
     <Compile Include="Controllers\BrandVolumeValueTargetController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
-    <Compile Include="Controllers\ConfigTravekAllowanceController.cs" />
+    <Compile Include="Controllers\ConfigTravelAllowanceController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\CurrentStockController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -327,7 +327,7 @@
     <Compile Include="Models\BrandMasterModel.cs" />
     <Compile Include="Models\BrandVolumeValueTargetModel.cs" />
     <Compile Include="Models\CityMasterModel.cs" />
-    <Compile Include="Models\ConfigTravekAllowanceModel.cs" />
+    <Compile Include="Models\ConfigTravelAllowanceModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\CurrentStockModel .cs" />
     <Compile Include="Models\DashboardModel.cs" />
@@ -1211,9 +1211,9 @@
     <Content Include="Views\LoginConfiguration\Index.cshtml" />
     <Content Include="Views\LoginConfiguration\UserMasterList.cshtml" />
     <Content Include="Views\LoginConfiguration\_PartialUserMasterList.cshtml" />
-    <Content Include="Views\ConfigTravekAllowance\Configuration.cshtml" />
-    <Content Include="Views\ConfigTravekAllowance\_PartialEmployeeGrade.cshtml" />
-    <Content Include="Views\ConfigTravekAllowance\_PartialTAConfiguration.cshtml" />
+    <Content Include="Views\ConfigTravelAllowance\Configuration.cshtml" />
+    <Content Include="Views\ConfigTravelAllowance\_PartialEmployeeGrade.cshtml" />
+    <Content Include="Views\ConfigTravelAllowance\_PartialTAConfiguration.cshtml" />
     <Content Include="Views\PJPDetails\GetPJPDetailsImportLog.cshtml" />
     <Content Include="Views\PJPDetails\PartialPJPDetailsGridList.cshtml" />
     <Content Include="Views\PJPDetails\PJPListIndex.cshtml" />

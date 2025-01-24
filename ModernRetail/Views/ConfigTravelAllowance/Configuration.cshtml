@@ -1,5 +1,5 @@
 ﻿
-@model  ModernRetail.Models.ConfigTravekAllowanceModel
+@model  ModernRetail.Models.ConfigTravelAllowanceModel
 
 @{
     ViewBag.Title = "Configure Travelling Allowance ";
@@ -145,7 +145,7 @@
             }
 
             if (f == true) {
-                var surl = '@Url.Action("ConfigurationInsert", "ConfigTravekAllowance")';
+                var surl = '@Url.Action("ConfigurationInsert", "ConfigTravelAllowance")';
                 $.ajax({
                     url: surl,
                     data: {
@@ -250,7 +250,7 @@
                 $("#spaneligible").show();
             }
             if (f == true) {
-                var surl = '@Url.Action("ConfigurationUpdate", "ConfigTravekAllowance")';
+                var surl = '@Url.Action("ConfigurationUpdate", "ConfigTravelAllowance")';
                 $.ajax({
                     url: surl,
                     async: false,
@@ -326,7 +326,7 @@
             if ($("#ddlAppIds option:selected").index() > 0) {
                 var selectedValue = $(this).val();
                 $('#ddlAppIds').prop("selectedIndex", 0);
-                var url = '@Url.Action("ExportConveyance", "ConfigTravekAllowance", new { type = "_type_" })'
+                var url = '@Url.Action("ExportConveyance", "ConfigTravelAllowance", new { type = "_type_" })'
                 window.location.href = url.replace("_type_", selectedValue);
 
 
@@ -349,7 +349,7 @@
 
 
 
-        var surl = '@Url.Action("EditConveyance", "ConfigTravekAllowance")';
+        var surl = '@Url.Action("EditConveyance", "ConfigTravelAllowance")';
         $.ajax({
             async:false,
             url: surl,
@@ -415,7 +415,7 @@
 
         jConfirm('Confirm delete?', 'Confirmation Dialog', function (r) {
             if (r == true) {
-                var surl = '@Url.Action("DeleteConveyance", "ConfigTravekAllowance")';
+                var surl = '@Url.Action("DeleteConveyance", "ConfigTravelAllowance")';
                 $.ajax({
 
                     url: surl,
@@ -494,7 +494,7 @@
 
             $("#spaneligible").hide();
         }
-        var surl = '@Url.Action("GetTravelMode", "ConfigTravekAllowance")';
+        var surl = '@Url.Action("GetTravelMode", "ConfigTravelAllowance")';
         $.ajax({
             url: surl,
             async: false,
@@ -557,7 +557,7 @@
         if (type == 'true') {
 
 
-            var surl = '@Url.Action("GetFuelMode", "ConfigTravekAllowance")';
+            var surl = '@Url.Action("GetFuelMode", "ConfigTravelAllowance")';
             $.ajax({
                 url: surl,
                 async: false,
@@ -1110,7 +1110,7 @@
 
                     @*@Html.DropDownListFor(m => m.EmpgradeId, new SelectList(Model.empgrade, "ID", "Name", Model.EmpgradeId), "Select", new { @id = "idempgrade", @class = "form-control", @tabindex = 2 })*@
 
-                    @Html.Action("GetEmployeeGradeList", "ConfigTravekAllowance")
+                    @Html.Action("GetEmployeeGradeList", "ConfigTravelAllowance")
 
                 </div>
             </div>
@@ -1248,7 +1248,7 @@
         <div id="refreshgridsalessummary">
 
             @{
-                Html.RenderAction("ConfigurationPartial", "ConfigTravekAllowance");
+                Html.RenderAction("ConfigurationPartial", "ConfigTravelAllowance");
             }
         </div>
     </div>

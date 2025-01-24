@@ -5,10 +5,10 @@ using System.Web;
 
 namespace ModernRetail.Models
 {
-    public class ConfigTravekAllowanceModel
+    public class ConfigTravelAllowanceModel
     {
 
-        public List<ConfigTravekAllowanceModel> conveyancemode { get; set; }
+        public List<ConfigTravelAllowanceModel> conveyancemode { get; set; }
         public List<Class_Master> visitloc { get; set; }
         public List<Class_Master> expensetype { get; set; }
         public List<Class_Master> designation { get; set; }
