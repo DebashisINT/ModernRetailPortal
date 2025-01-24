@@ -46,6 +46,7 @@
         column.Width = System.Web.UI.WebControls.Unit.Pixel(80);
         column.VisibleIndex = 1;
     });
+
     settings.Columns.Add(column =>
     {
         column.FieldName = "STORENAME";
@@ -56,12 +57,21 @@
         column.CellStyle.Wrap = DevExpress.Utils.DefaultBoolean.True;
     });
 
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "STOCK_ID";
+        column.Caption = "Document No.";
+        column.VisibleIndex = 3;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(250);
+        //column.Width = 300;
+        column.CellStyle.Wrap = DevExpress.Utils.DefaultBoolean.True;
+    });
 
     settings.Columns.Add(column =>
     {
         column.FieldName = "CURRENTSTOCKDATE";
         column.Caption = "Current Stock Date";
-        column.VisibleIndex = 3;
+        column.VisibleIndex = 4;
         column.ColumnType = MVCxGridViewColumnType.DateEdit;
         column.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
@@ -69,6 +79,25 @@
         column.Width = System.Web.UI.WebControls.Unit.Pixel(140);
     });
 
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TOTAL_ITEMS";
+        column.Caption = "Item(s)";
+        column.VisibleIndex = 5;
+        column.PropertiesEdit.DisplayFormatString = "0.00";
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TOTAL_QUANTITY";
+        column.Caption = "Total Quantity";
+        column.VisibleIndex = 6;
+        column.PropertiesEdit.DisplayFormatString = "0.00";
+        //column.Width = 150;
+        column.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+    });
 
     settings.Columns.Add(column =>
     {
@@ -79,7 +108,7 @@
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
         //column.Width = 150;
         column.Width = System.Web.UI.WebControls.Unit.Pixel(140);
-        column.VisibleIndex = 4;
+        column.VisibleIndex = 7;
     });
 
     settings.Columns.Add(column =>
@@ -90,7 +119,7 @@
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
         //column.Width = 150;
         column.Width = System.Web.UI.WebControls.Unit.Pixel(230);
-        column.VisibleIndex = 5;
+        column.VisibleIndex = 8;
     });
 
     settings.Columns.Add(column =>
@@ -102,7 +131,7 @@
         (column.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
         //column.Width = 150;
         column.Width = System.Web.UI.WebControls.Unit.Pixel(140);
-        column.VisibleIndex = 6;
+        column.VisibleIndex = 9;
     });
 
     settings.Columns.Add(column =>
@@ -113,7 +142,7 @@
         column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox;
         //column.Width = 0;
         column.Width = System.Web.UI.WebControls.Unit.Pixel(230);
-        column.VisibleIndex = 7;
+        column.VisibleIndex = 10;
     });
 
     settings.Columns.Add(column =>
@@ -145,7 +174,7 @@
         column.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
         column.Caption = "Action";
-        column.VisibleIndex = 8;
+        column.VisibleIndex = 11;
         //column.FixedStyle = GridViewColumnFixedStyle.Left;
 
 

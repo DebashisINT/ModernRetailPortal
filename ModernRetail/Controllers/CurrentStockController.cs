@@ -968,24 +968,48 @@ namespace ModernRetail.Controllers
                 x.ExportWidth = 200;
             });
 
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "STOCK_ID";
+                x.Caption = "Document No.";
+                x.VisibleIndex = 3;
+                x.ExportWidth = 200;
+            });
 
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CURRENTSTOCKDATE";
                 x.Caption = "Current Stock Date";
-                x.VisibleIndex = 3;
+                x.VisibleIndex = 4;
                 x.ExportWidth = 100;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
             });
 
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "TOTAL_ITEMS";
+                x.Caption = "Item(s)";
+                x.VisibleIndex = 5;
+                x.ExportWidth = 100;
+                x.PropertiesEdit.DisplayFormatString = "0.00";
+            });
+
+            settings.Columns.Add(x =>
+            {
+                x.FieldName = "TOTAL_QUANTITY";
+                x.Caption = "Total Quantity";
+                x.VisibleIndex = 6;
+                x.ExportWidth = 100;
+                x.PropertiesEdit.DisplayFormatString = "0.00";
+            });
 
             settings.Columns.Add(x =>
             {
                 x.FieldName = "CREATED_DATE";
                 x.Caption = "Created Date";
-                x.VisibleIndex = 4;
+                x.VisibleIndex = 7;
                 x.ExportWidth = 100;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
@@ -995,8 +1019,8 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "CREATED_BY";
                 x.Caption = "Created By";
-                x.VisibleIndex = 5;
-                x.ExportWidth = 100;
+                x.VisibleIndex = 8;
+                x.ExportWidth = 150;
             });
 
 
@@ -1004,7 +1028,7 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "MODIFIED_DATE";
                 x.Caption = "Modified Date";
-                x.VisibleIndex = 6;
+                x.VisibleIndex = 9;
                 x.ExportWidth = 120;
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
@@ -1014,8 +1038,8 @@ namespace ModernRetail.Controllers
             {
                 x.FieldName = "MODIFIED_BY";
                 x.Caption = "Modified By";
-                x.VisibleIndex = 7;
-                x.ExportWidth = 100;
+                x.VisibleIndex = 10;
+                x.ExportWidth = 150;
             });
 
 

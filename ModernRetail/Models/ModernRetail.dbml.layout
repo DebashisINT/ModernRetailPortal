@@ -104,12 +104,6 @@
         <elementListCompartment Id="7267ab64-e8d3-4aa6-a692-47a5e72c7889" absoluteBounds="5.89, 3.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ef3be144-2d77-4d6f-abaa-a068a87caaf6" isExpanded="false" absoluteBounds="3, 2.75, 2, 0.45">
-      <DataClassMoniker Name="/ModernRetailDataContext/MR_CURRENTSTOCK_LISTING" />
-      <nestedChildShapes>
-        <elementListCompartment Id="79a47bc5-a0e7-40ff-8eda-30c6812d1647" absoluteBounds="3.015, 3.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="9525f103-2dbe-4f4e-bec3-91f66853f470" isExpanded="false" absoluteBounds="6, 3.625, 2, 0.45">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_DEPARTMENTMASTERLIST" />
       <nestedChildShapes>
@@ -134,10 +128,16 @@
         <elementListCompartment Id="56700139-a462-4a69-9605-af944114ce98" absoluteBounds="5.89, 5.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8a75740b-25b5-41de-a78e-260471dee591" absoluteBounds="8.5, 0.75, 2, 3.8862125651041666">
+    <classShape Id="8a75740b-25b5-41de-a78e-260471dee591" isExpanded="false" absoluteBounds="8.5, 0.75, 2, 0.45">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_PJPLIST_REPORT" />
       <nestedChildShapes>
         <elementListCompartment Id="bf506347-4662-4884-b507-8312f2e52056" absoluteBounds="8.515, 1.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ab64b588-c787-49d7-9e82-bc262ffd38b9" isExpanded="false" absoluteBounds="3, 2.75, 2, 0.45">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_CURRENTSTOCK_LISTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="60272a85-48da-4459-8264-0b21fca4bc3f" absoluteBounds="3.015, 3.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
