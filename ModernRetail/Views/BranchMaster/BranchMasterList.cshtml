@@ -1,5 +1,5 @@
 ﻿@**************************************************************************************************************************************************
-     Written by Sanchita on 10/01/2025 for Modern Retail - Group/Beat module
+     Written by Priti on 10/01/2025 for Modern Retail - Branch 
 ***************************************************************************************************************************************************@
 
 @{
@@ -885,9 +885,11 @@
                             /*imageWidth: 50, */
                             icon: 'success' // You can also keep the built-in icon type
                         }).then(() => {
-                            location.reload();
+                            // location.reload();
+                            Is_PageLoad = "1";
+                            gridList.Refresh();
                         });
-                    } else if (parseInt(response) == -10) {
+                    } else if (parseInt(response) == -1) {
                         // SweetAlert error message with custom icon
                         Swal.fire({
                             title: 'Sorry!',
