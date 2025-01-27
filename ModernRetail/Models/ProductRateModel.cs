@@ -10,13 +10,13 @@ namespace ModernRetail.Models
     public class ProductRateModel
     {
         public decimal SpecialPrice { get; set; }
-        public string Employee { get; set; }
+        //public string Employee { get; set; }
         public string Is_PageLoad { get; set; }
 
         public string Product_Ids { get; set; }
         public Int64 branch_ID { get; set; }
 
-        public string Designation { get; set; }
+        //public string Designation { get; set; }
 
         public string Product { get; set; }
 
@@ -24,9 +24,11 @@ namespace ModernRetail.Models
 
         public List<BranchList> BranchList { get; set; }
 
-        
+        public String StoreName { get; set; }
 
-        public DataSet ProductRateEntryInsertUpdate(String action, Int64 ID, Int64 branch_ID, Int32 Designation, Int64 Employee, Int64 Product,
+        public String StoreId { get; set; }
+
+        public DataSet ProductRateEntryInsertUpdate(String action, Int64 ID, Int64 branch_ID, string StoreId, Int64 Product,
                     String SpecialPrice,
             Int64 userid = 0
            )
@@ -37,8 +39,7 @@ namespace ModernRetail.Models
             proc.AddVarcharPara("@ACTION", 150, action);
             proc.AddBigIntegerPara("@ID", ID);           
             proc.AddBigIntegerPara("@BRANCH_ID", branch_ID);
-            proc.AddBigIntegerPara("@Designation", Designation);           
-            proc.AddBigIntegerPara("@Employee", Employee);
+            proc.AddVarcharPara("@StoreId",500, StoreId);
             proc.AddBigIntegerPara("@Product", Product);
             proc.AddVarcharPara("@SpecialPrice",100, SpecialPrice);          
             proc.AddBigIntegerPara("@USER_ID", userid);

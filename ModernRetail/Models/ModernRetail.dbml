@@ -193,29 +193,6 @@
       <Column Name="cou_country" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.MR_PRODUCTRATESDETAILSLIST" Member="MR_PRODUCTRATESDETAILSLISTs">
-    <Type Name="MR_PRODUCTRATESDETAILSLIST">
-      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PRODUCT_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="STATE_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="BRANCH_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="DESIGID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="EMP_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="STORE_RATE" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="PRODUCT_CODE" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="PRODUCT_NAME" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="BRANCH" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
-      <Column Name="STATE_NAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
-      <Column Name="DESIGNATION" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="EMP_NAME" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
-      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreateUser" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ModifyUser" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.MR_PINZIPMASTERLIST" Member="MR_PINZIPMASTERLISTs">
     <Type Name="MR_PINZIPMASTERLIST">
       <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -358,6 +335,27 @@
       <Column Name="CREATED_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="MODIFIED_BY" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="MODIFIED_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MR_PRODUCTRATESDETAILSLIST" Member="MR_PRODUCTRATESDETAILSLISTs">
+    <Type Name="MR_PRODUCTRATESDETAILSLIST">
+      <Column Name="USERID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SEQ" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PRODUCT_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="STATE_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="BRANCH_ID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="STORE_RATE" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="PRODUCT_CODE" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PRODUCT_NAME" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="BRANCH" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="STATE_NAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateUser" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifyUser" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="STORE_ID" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="STORE_NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
