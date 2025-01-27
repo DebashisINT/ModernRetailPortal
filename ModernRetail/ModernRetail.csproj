@@ -297,6 +297,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DesignationController.cs" />
+    <Compile Include="Controllers\FormTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginConfigurationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -333,6 +334,7 @@
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\DepartmentsModel.cs" />
     <Compile Include="Models\DesignationModel.cs" />
+    <Compile Include="Models\FormTypeModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MasterPopulateModel.cs" />
     <Compile Include="Models\MeasurementModel.cs" />
@@ -1236,6 +1238,8 @@
     <Content Include="Views\SearchingInputs\_ProductPartial.cshtml" />
     <Content Include="Views\SearchingInputs\_ShopPartial.cshtml" />
     <Content Include="Views\SearchingInputs\_SupervisorPartial.cshtml" />
+    <Content Include="Views\FormType\Index.cshtml" />
+    <Content Include="Views\FormType\_PartialFormTypeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

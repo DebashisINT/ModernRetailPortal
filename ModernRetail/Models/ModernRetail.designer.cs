@@ -239,6 +239,14 @@ namespace ModernRetail.Models
 				return this.GetTable<MR_PRODUCTRATESDETAILSLIST>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MR_FORMTYPELIST> MR_FORMTYPELISTs
+		{
+			get
+			{
+				return this.GetTable<MR_FORMTYPELIST>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_BRANCHDETAILSLIST")]
@@ -5249,6 +5257,213 @@ namespace ModernRetail.Models
 				if ((this._STORE_NAME != value))
 				{
 					this._STORE_NAME = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_FORMTYPELIST")]
+	public partial class MR_FORMTYPELIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _FORMTYPE_ID;
+		
+		private string _FORMTYPE_SURVEYDESC;
+		
+		private string _FORMTYPE_REMARKS;
+		
+		private string _FORMTYPE_SECGROUPNAME;
+		
+		private string _FORMTYPE_ISACTIVE;
+		
+		private System.Nullable<System.DateTime> _CREATEDON;
+		
+		private string _CREATEDBY;
+		
+		private System.Nullable<System.DateTime> _MODIFIEDON;
+		
+		private string _MODIFIEDBY;
+		
+		public MR_FORMTYPELIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FORMTYPE_ID", DbType="Int")]
+		public System.Nullable<int> FORMTYPE_ID
+		{
+			get
+			{
+				return this._FORMTYPE_ID;
+			}
+			set
+			{
+				if ((this._FORMTYPE_ID != value))
+				{
+					this._FORMTYPE_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FORMTYPE_SURVEYDESC", DbType="VarChar(200)")]
+		public string FORMTYPE_SURVEYDESC
+		{
+			get
+			{
+				return this._FORMTYPE_SURVEYDESC;
+			}
+			set
+			{
+				if ((this._FORMTYPE_SURVEYDESC != value))
+				{
+					this._FORMTYPE_SURVEYDESC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FORMTYPE_REMARKS", DbType="VarChar(500)")]
+		public string FORMTYPE_REMARKS
+		{
+			get
+			{
+				return this._FORMTYPE_REMARKS;
+			}
+			set
+			{
+				if ((this._FORMTYPE_REMARKS != value))
+				{
+					this._FORMTYPE_REMARKS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FORMTYPE_SECGROUPNAME", DbType="VarChar(200)")]
+		public string FORMTYPE_SECGROUPNAME
+		{
+			get
+			{
+				return this._FORMTYPE_SECGROUPNAME;
+			}
+			set
+			{
+				if ((this._FORMTYPE_SECGROUPNAME != value))
+				{
+					this._FORMTYPE_SECGROUPNAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FORMTYPE_ISACTIVE", DbType="VarChar(10)")]
+		public string FORMTYPE_ISACTIVE
+		{
+			get
+			{
+				return this._FORMTYPE_ISACTIVE;
+			}
+			set
+			{
+				if ((this._FORMTYPE_ISACTIVE != value))
+				{
+					this._FORMTYPE_ISACTIVE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATEDON
+		{
+			get
+			{
+				return this._CREATEDON;
+			}
+			set
+			{
+				if ((this._CREATEDON != value))
+				{
+					this._CREATEDON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATEDBY", DbType="NVarChar(100)")]
+		public string CREATEDBY
+		{
+			get
+			{
+				return this._CREATEDBY;
+			}
+			set
+			{
+				if ((this._CREATEDBY != value))
+				{
+					this._CREATEDBY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIEDON", DbType="DateTime")]
+		public System.Nullable<System.DateTime> MODIFIEDON
+		{
+			get
+			{
+				return this._MODIFIEDON;
+			}
+			set
+			{
+				if ((this._MODIFIEDON != value))
+				{
+					this._MODIFIEDON = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIEDBY", DbType="NVarChar(100)")]
+		public string MODIFIEDBY
+		{
+			get
+			{
+				return this._MODIFIEDBY;
+			}
+			set
+			{
+				if ((this._MODIFIEDBY != value))
+				{
+					this._MODIFIEDBY = value;
 				}
 			}
 		}
