@@ -4,9 +4,6 @@
 @{
     ViewBag.Title = "PJP Details";
 }
-
-
-
 <script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
 <link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
 <script>
@@ -306,7 +303,6 @@
     }
 
 </script>
-
 <script>
     function ImportPartyPopOpen() {
         $("#myImportModal").modal('show');
@@ -432,7 +428,6 @@
 
 
 </script>
-
 <style>
     .padTabl > tbody > tr > td {
         padding: 3px 10px;
@@ -475,7 +470,6 @@
         opacity: 0.4;
     }
 </style>
-
 <style>
     #ActiveEmpGridLookup_DDD_PW-1, #PJPListIndex, #CountryStateGridLookup_DDD_PW-1, #SingleCountryGridLookup_DDD_PW-1, #AreaGridLookup_DDD_PW-1, #CityGridLookup_DDD_PW-1, #ActiveEmpGridLookup_DDD_gv {
         left: 15px !important;
@@ -946,10 +940,9 @@
                                     @Html.Action("GetEmpList", "MasterPopulate")
                                 </div>
                             </td>
-                            @*Rev 1.0*@
-                            @*<td class="w150">*@
+                          
                             <td class="w150 for-cust-icon">
-                                @*Rev end 1.0*@
+                                
                                 <label>From Date</label>
                                 <div>
                                     @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -963,15 +956,12 @@
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
                                 }).GetHtml()
-                                    @*Rev 1.0*@
-                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-                                    @*Rev end 1.0*@
+                                   
+                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />                                   
                                 </div>
                             </td>
-                            @*Rev 1.0*@
-                            @*<td class="w150">*@
-                            <td class="w150 for-cust-icon">
-                                @*Rev end 1.0*@
+                           
+                            <td class="w150 for-cust-icon">                               
                                 <label>To Date</label>
                                 <div>
                                     @Html.DevExpress().DateEditFor(x => x.Todate,
@@ -984,10 +974,9 @@
                                     deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
                                     deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
                                     deSettings.Properties.EditFormatString = "dd-MM-yyyy";
-                                }).GetHtml()
-                                    @*Rev 1.0*@
-                                    <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
-                                    @*Rev end 1.0*@
+                                }).GetHtml()                                   
+                                <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                                   
                                 </div>
                             </td>
                             <td style="padding-top: 24px;width:430px !important;" class="pjp-parameter-btns">
@@ -1028,8 +1017,7 @@
                     @{
                         Html.RenderAction("PartialPJPDetailsGridList", "PJPDetails", new { Fromdate = Model.Fromdate, Todate = Model.Todate, Is_PageLoad = "Ispageload" });
                     }
-                    @*change for design*@
-
+                   
                 </div>
 
 
@@ -1148,8 +1136,7 @@
         {
             settings.Name = "pcModalTemplateImportLogMode";
             settings.Width = 1200; //System.Web.UI.WebControls.Unit.Percentage(80);
-            //settings.Height = 220;
-            //settings.ScrollBars.v
+          
             settings.AllowDragging = true;
             settings.CloseAction = CloseAction.CloseButton;
             settings.CloseOnEscape = true;

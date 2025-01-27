@@ -1219,6 +1219,23 @@
     <Content Include="Views\PJPDetails\PartialPJPDetailsGridList.cshtml" />
     <Content Include="Views\PJPDetails\PJPListIndex.cshtml" />
     <Content Include="Views\SearchingInputs\_StatesPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_AreaBranchWisePartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_AreaPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_BranchPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_ChannelPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_CityPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_CountryListPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_CountrywiseStatesPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_DepartmentPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_DesigPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_EmpAEPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_EmployeeWiseStatePartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_EmpPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_EmpPartialActive.cshtml" />
+    <Content Include="Views\SearchingInputs\_EmpSinglePartialActive.cshtml" />
+    <Content Include="Views\SearchingInputs\_ProductPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_ShopPartial.cshtml" />
+    <Content Include="Views\SearchingInputs\_SupervisorPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1289,7 +1306,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50377</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44406/</IISUrl>
+          <IISUrl>http://localhost:44407/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
