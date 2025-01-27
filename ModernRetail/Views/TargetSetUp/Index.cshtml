@@ -417,6 +417,7 @@
     .for-cust-icon {
         position: relative;
         z-index: 1;
+        width: 50%;
     }
 
     .pad-md-18 {
@@ -493,8 +494,8 @@
 
     .add-btn .btn-icon {
         border-radius: 50px;
-        width: 21px;
-        height: 21px;
+        width: 20px;
+        height: 20px;
         display: inline-block;
         background: #fff;
         line-height: 21px;
@@ -526,6 +527,7 @@
         padding-left: 12px;
         padding-right: 12px;
         color: #fff;
+        transition: all .3s ease-in-out;
     }
 
         .btn:active, .btn:hover, .btn:focus {
@@ -820,10 +822,20 @@
 
     .download-button {
         background-color: #8b2abf !important;
+        transition: all .3s ease-in-out;
     }
 
     .view-log-btn {
         background-color: #8a3e11 !important;
+        transition: all .3s ease-in-out;
+    }
+
+    .download-button:hover {
+        background-color: #6f0ea3 !important;
+    }
+
+    .view-log-btn:hover {
+        background-color: #672903 !important;
     }
 
     .px-15 {
@@ -896,6 +908,96 @@
     /*.dxgvTable_PlasticBlue .dxgvHEC {
         display: none;
     }*/
+
+
+    #customDateFields {
+        display: block;
+        position: absolute;
+        background: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 10px #11111163;
+        top: 62px;
+        right: 12px;
+        width: 95%;
+        z-index: 99;
+    }
+
+    #dateRangeSelector li {
+        height: 34px;
+        padding: 5px 10px;
+        /*border: 1px solid #ccc;*/
+        color: #8f8f91;
+        line-height: 26px;
+        /*margin-right: 10px;
+border-radius: 8px;*/
+        cursor: pointer;
+        /*width: 33.33%;*/
+        text-align: center;
+        border-right: 1px solid #e9e9e9;
+        transition: all .4s;
+        letter-spacing: 1px;
+    }
+
+        #dateRangeSelector li:hover {
+            color: #054682;
+            background: #f6f6f6;
+            font-weight: 600;
+        }
+
+
+
+        #dateRangeSelector li:last-child {
+            border-right: 0;
+        }
+
+        #dateRangeSelector li i {
+            margin-right: 6px;
+        }
+
+        #dateRangeSelector li.active {
+            /*border: 1px solid #1843b1;*/
+            color: #000;
+            background: #f6f6f6;
+            font-weight: 600;
+        }
+
+            #dateRangeSelector li.active:hover {
+                color: #054682;
+            }
+
+    #dateRangeSelector {
+        border: 1px solid #e9e9e9;
+        border-radius: 50px;
+        /*overflow: hidden;*/
+        margin-bottom: 0;
+    }
+
+        #dateRangeSelector .tooltip {
+            width: 255px;
+            left: 50%;
+        }
+
+    #today {
+        border-radius: 50px 0 0 50px;
+        padding-left: 15px !important;
+        width: 28%;
+    }
+
+    #mtd {
+        width: 25%;
+    }
+
+    #custom {
+        border-radius: 0 50px 50px 0;
+        width: 47%;
+    }
+
+    .mrt-24
+    {
+        margin-top: 24px;
+    }
+
 </style>
 <script>
 
@@ -918,6 +1020,72 @@
         location.reload();
     }
 
+
+
+    $(document).ready(function () {
+        const today = new Date();
+        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        // Initialize dates with "Today" as default
+        dtFrom.SetValue(today);
+        dtTo.SetValue(today);
+
+        // Toggle custom date fields visibility
+        function toggleCustomFields(show) {
+            if (show) {
+                $("#customDateFields").slideDown();
+            } else {
+                $("#customDateFields").slideUp();
+            }
+        }
+
+        // Event listener for date range selection
+        $("#dateRangeSelector li").on("click", function (e) {
+            e.stopPropagation(); // Prevent event from propagating to the document
+
+            const selectedOption = $(this).attr("id");
+
+            if (selectedOption === "custom") {
+                // Toggle the custom date fields visibility but keep the "Custom" button active
+                if ($("#customDateFields").is(":hidden")) {
+                    toggleCustomFields(true);
+                } else {
+                    toggleCustomFields(false);
+                }
+                $("#dateRangeSelector li").removeClass("active");
+                $(this).addClass("active"); // Ensure "Custom" stays active
+            } else {
+                // Activate "Today" or "MTD" and hide custom date fields
+                $("#dateRangeSelector li").removeClass("active");
+                $(this).addClass("active");
+                toggleCustomFields(false);
+
+                if (selectedOption === "today") {
+                    dtFrom.SetValue(today);
+                    dtTo.SetValue(today);
+                } else if (selectedOption === "mtd") {
+                    dtFrom.SetValue(firstDayOfMonth);
+                    dtTo.SetValue(today);
+                }
+            }
+        });
+
+        // Hide custom date fields when clicking outside
+        $(document).on("click", function () {
+            if ($("#customDateFields").is(":visible")) {
+                toggleCustomFields(false);
+            }
+        });
+
+        // Prevent hiding custom fields when clicking inside them
+        $("#customDateFields").on("click", function (e) {
+            e.stopPropagation();
+        });
+    });
+
+
+
+
     $(function () {
 
 
@@ -932,12 +1100,12 @@
             }
         });
 
-        var d = new Date();
-        dtFrom.SetValue(d);
-        dtTo.SetValue(d);
+        //var d = new Date();
+        //dtFrom.SetValue(d);
+        //dtTo.SetValue(d);
 
-        fromdate = dtFrom.GetDate();
-        todate = dtTo.GetDate();
+        //fromdate = dtFrom.GetDate();
+        //todate = dtTo.GetDate();
         TargetType = $('#ddlTargetType').val();
 
         gridList.Refresh();
@@ -1252,9 +1420,39 @@
             });
             return false;
         }
-        fromdate = dtFrom.GetDate();
-        todate = dtTo.GetDate();
+        //fromdate = dtFrom.GetDate();
+        //todate = dtTo.GetDate();
         TargetType = $('#ddlTargetType').val();
+
+
+
+        const selectedOption = $("#dateRangeSelector li.active").attr("id");
+        let datefrm = null, dateto = null;
+
+        if (selectedOption === "custom") {
+            datefrm = dtFrom.GetText();
+            dateto = dtTo.GetText();
+        } else {
+            datefrm = dtFrom.GetText();
+            dateto = dtTo.GetText();
+        }
+
+        console.log(`Selected Range: ${selectedOption}, From: ${datefrm}, To: ${dateto}`);
+
+        const newdatefrom = datefrm.split("-").reverse().join("-");
+        const startdate = new Date(Date.parse(newdatefrom));
+        const newdateTo = dateto.split("-").reverse().join("-");
+        const endDate = new Date(Date.parse(newdateTo));
+
+        if (endDate < startdate) {
+            jAlert('From date should be before/equal To date');
+        } else {
+            Is_PageLoad = "1";
+            gridList.Refresh();
+            gridList.Refresh();
+        }
+
+
 
         gridList.Refresh();
         gridList.Refresh();
@@ -1571,7 +1769,82 @@
 
     <div class="form_main backBox p-3">
         <div class="row px-15">
-            <div class="col-md-2 mb-3">
+
+            <div class="col-md-4">
+                <label>Select Date Range </label>
+                <ul id="dateRangeSelector" class="d-flex">
+                    <li id="today" class="active tooltip-container">
+                        Today
+                        <div class="tooltip">View data for today's date only.</div>
+                    </li>
+                    <li id="mtd" class="tooltip-container">
+                        MTD
+                        <div class="tooltip">View data from the start of the month up to today's date.</div>
+                    </li>
+                    <li id="custom" class="tooltip-container">
+                        <i class="fa fa-calendar" aria-hidden="true"></i> Custom
+                        <div class="tooltip">Select a custom date range to view specific data.</div>
+                    </li>
+                </ul>
+
+
+                <div id="customDateFields" style="display: none;">
+                    <div class="col-md-2 for-cust-icon">
+                        <label>From Date</label>
+                        <div>
+                            @Html.DevExpress().DateEditFor(x => x.Fromdate,
+                            deSettings =>
+                            {
+                                deSettings.Name = "dtFrom";
+                                deSettings.Date = DateTime.Now;
+                                deSettings.Properties.UseMaskBehavior = true;
+                                deSettings.Properties.EditFormat = EditFormat.Custom;
+                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                deSettings.Properties.ShowOutOfRangeWarning = false;
+                                deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateFrom";
+                            }).GetHtml()
+
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+                            <span id="MandatoryFromDate" style="display: none" class="validclass">
+                                <img id="img_MandatoryFromDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3 for-cust-icon">
+                        <label>To Date</label>
+                        <div>
+
+                            @Html.DevExpress().DateEditFor(x => x.Todate,
+                            deSettings =>
+                            {
+                                deSettings.Name = "dtTo";
+                                deSettings.Date = DateTime.Now;
+                                deSettings.Properties.UseMaskBehavior = true;
+                                deSettings.Properties.EditFormat = EditFormat.Custom;
+                                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                deSettings.Properties.DisplayFormatString = "dd-MM-yyyy";
+                                deSettings.Properties.EditFormatString = "dd-MM-yyyy";
+                                deSettings.Properties.ShowOutOfRangeWarning = false;
+                                deSettings.Properties.ClientSideEvents.DateChanged = "DateValidateTo";
+
+                            }).GetHtml()
+
+                            <img src="/assests/images/calendar-icon.png" class="calendar-icon" />
+
+                            <span id="MandatoryToDate" style="display: none" class="validclass">
+                                <img id="img_MandatoryToDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            
+
+                @*<div class="col-md-2 mb-3">
                 <label>From Date</label>
                 <div>
                     @Html.DevExpress().DateEditFor(x => x.Fromdate,
@@ -1619,81 +1892,81 @@
                         <img id="img_MandatoryToDate" class="dxEditors_edtError_PlasticBlue" src="/DXR.axd?r=1_36-tyKfc" title="Mandatory">
                     </span>
                 </div>
+            </div>*@
+                <div class="col-md-2 mb-3  h-branch-select">
+                    <label>Target Type </label>
+
+                    @if (Convert.ToInt16(ViewBag.IsShowWODCountInTarget) == 0)
+                    {
+                        <div>
+                            <select name="ddlStatus" id="ddlTargetType">
+                                <option value="Select">Select</option>
+                                <option value="SalesTarget">Sales Target</option>
+                                <option value="ProductTarget">Product Target</option>
+                                <option value="BrandTarget">Brand Volume/Value Target</option>
+                            </select>
+                        </div>
+                    }
+                    @if (Convert.ToInt16(ViewBag.IsShowWODCountInTarget) == 1)
+                    {
+                        <div>
+                            <select name="ddlStatus" id="ddlTargetType">
+                                <option value="Select">Select</option>
+                                <option value="SalesTarget">Sales Target</option>
+                                <option value="ProductTarget">Product Target</option>
+                                <option value="BrandTarget">Brand Volume/Value Target</option>
+                                <option value="WODTarget">WOD Target</option>
+                            </select>
+                        </div>
+                    }
+                </div>
+
+
+
+
+
+                <div class="col-md-6 mt-22">
+                    <div class="">
+                        <div class="add-show-btns">
+                            <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
+
+                            @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
+                            <option value="0">Export to</option>
+                            <option value="1">PDF</option>
+                            <option value="2">XLSX</option>
+                            <option value="3">XLS</option>
+                            <option value="4">RTF</option>
+                            <option value="5">CSV</option>
+                        </select>*@
+
+                            <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
+                                <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
+                                <div class="tooltip">Export to XLSX</div>
+                            </button>
+
+
+                            <a id="downloadLink" href="" class="btn btn-warning download-button" onclick="return theFunction();">
+                                Download Format
+                            </a>
+                            <button type="button" class="btn btn-info" onclick="ImportPopOpen();"> Import File</button>
+                            <button type="button" class="btn btn-warning view-log-btn" onclick="ImportLogPopOpen();">View Log</button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2 mb-3  h-branch-select">
-                <label>Target Type </label>
-
-                @if (Convert.ToInt16(ViewBag.IsShowWODCountInTarget) == 0)
-                {
-                    <div>
-                        <select name="ddlStatus" id="ddlTargetType">
-                            <option value="Select">Select</option>
-                            <option value="SalesTarget">Sales Target</option>
-                            <option value="ProductTarget">Product Target</option>
-                            <option value="BrandTarget">Brand Volume/Value Target</option>
-                        </select>
-                    </div>
-                }
-                @if (Convert.ToInt16(ViewBag.IsShowWODCountInTarget) == 1)
-                {
-                    <div>
-                        <select name="ddlStatus" id="ddlTargetType">
-                            <option value="Select">Select</option>
-                            <option value="SalesTarget">Sales Target</option>
-                            <option value="ProductTarget">Product Target</option>
-                            <option value="BrandTarget">Brand Volume/Value Target</option>
-                            <option value="WODTarget">WOD Target</option>
-                        </select>
-                    </div>
-                }
-            </div>
 
 
 
-
-
-            <div class="col-md-6 mt-22">
-                <div class="">
-                    <div class="add-show-btns">
-                        <button type="button" id="btnshow" class="btn show-btn" onclick="GetData();" tabindex=4><span class="btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></span> Show</button>
-
-                        @*<select name="ddlAppIds" class="btn btn-sm btn-export" id="ddlAppIds">
-                                <option value="0">Export to</option>
-                                <option value="1">PDF</option>
-                                <option value="2">XLSX</option>
-                                <option value="3">XLS</option>
-                                <option value="4">RTF</option>
-                                <option value="5">CSV</option>
-                            </select>*@
-
-                        <button type="button" name="ddlAppIds" id="ddlAppIds" class="btn btn-sm btn-export tooltip-container">
-                            <span class="btn-icon"><img src="/assests/images/excel.png" /></span>
-                            <div class="tooltip">Export to XLSX</div>
-                        </button>
-
-
-                        <a id="downloadLink" href="" class="btn btn-warning download-button" onclick="return theFunction();">
-                            Download Format
-                        </a>
-                        <button type="button" class="btn btn-info" onclick="ImportPopOpen();"> Import File</button>
-                        <button type="button" class="btn btn-warning view-log-btn" onclick="ImportLogPopOpen();">View Log</button>
-                    </div>
-
+            <div class="clearfix"></div>
+            <div class="scrooler">
+                <div id="refreshgrid">
+                    @{
+                        @Html.Partial("_PartialTargetSetUpListing", new System.Data.DataTable())
+                    }
                 </div>
             </div>
         </div>
-
-
-
-        <div class="clearfix"></div>
-        <div class="scrooler">
-            <div id="refreshgrid">
-                @{
-                    @Html.Partial("_PartialTargetSetUpListing", new System.Data.DataTable())
-                }
-            </div>
-        </div>
-    </div>
 </div>
 <input type="hidden" value="@Url.Action("EDITINDEX", "SalesTarget")" id="hdnAddUpdateSalesTarget" />
 <input type="hidden" value="@Url.Action("EDITINDEX", "BrandVolumeValueTarget")" id="hdnAddUpdateBrandValueTarget" />
