@@ -268,7 +268,7 @@ namespace ModernRetail.Controllers
             }
             catch
             {
-                return RedirectToAction("Logout", "Login", new { Area = "" });
+                return RedirectToAction("Login", "Login");
             }
         }
         public IEnumerable GetBranchDetailsList(string Is_PageLoad)

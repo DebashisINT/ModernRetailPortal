@@ -44,12 +44,12 @@ namespace ModernRetail.Models
         public DataTable GetStateList()
         {
             DataTable ds = new DataTable();
-            ProcedureExecute proc = new ProcedureExecute("SP_API_State_Userwise");
-
+            ProcedureExecute proc = new ProcedureExecute("PRC_MR_MASTERPOPULATE");
+            proc.AddPara("@Action", "GETSTATE");
             ds = proc.GetTable();
             return ds;
         }
-        //Rev 2.0
+      
         public DataTable GetBranchList(string StateId)
         {
             DataTable ds = new DataTable();
@@ -326,5 +326,11 @@ namespace ModernRetail.Models
     public class SessionLogoutCheck
     {
         public string SessionLoddedOut;
+    }
+
+    public class GetStates
+    {
+        public Int32 ID { get; set; }
+        public string StateName { get; set; }
     }
 }

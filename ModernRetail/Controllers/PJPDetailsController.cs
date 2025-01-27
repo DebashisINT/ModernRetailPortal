@@ -29,7 +29,7 @@ namespace ModernRetail.Controllers
             try
             {
                 PJPListModel omodel = new PJPListModel();
-                string userid = Session["userid"].ToString();
+                string userid = Session["MRuserid"].ToString();
                 omodel.Fromdate = DateTime.Now.ToString("dd-MM-yyyy");
                 omodel.Todate = DateTime.Now.ToString("dd-MM-yyyy");
                 ViewBag.CanView = rights.CanView;
@@ -54,7 +54,7 @@ namespace ModernRetail.Controllers
         public IEnumerable GetDataDetails(string Is_PageLoad)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ERP_ConnectionString"].ConnectionString;
-            string Userid = Convert.ToString(Session["userid"]);
+            string Userid = Convert.ToString(Session["MRuserid"]);
             if (Is_PageLoad != "Ispageload")
             {
                 ModernRetailDataContext dc = new ModernRetailDataContext(connectionString);
@@ -97,7 +97,7 @@ namespace ModernRetail.Controllers
 
                 string datfrmat = model.Fromdate.Split('-')[2] + '-' + model.Fromdate.Split('-')[1] + '-' + model.Fromdate.Split('-')[0];
                 string dattoat = model.Todate.Split('-')[2] + '-' + model.Todate.Split('-')[1] + '-' + model.Todate.Split('-')[0];
-                string Userid = Convert.ToString(Session["userid"]);
+                string Userid = Convert.ToString(Session["MRuserid"]);
 
                 string state = "";
                 int i = 1;
@@ -551,7 +551,7 @@ namespace ModernRetail.Controllers
                         }
                         if (workTable != null && workTable.Rows.Count > 0)
                         {
-                            string userid = Session["userid"].ToString();
+                            string userid = Session["MRuserid"].ToString();
                             DataTable dtEmp = obj.GetPJPDetailsImport(workTable, userid);
                             if (dtEmp != null && dtEmp.Rows.Count > 0)
                             {
