@@ -104,13 +104,13 @@ namespace ModernRetail.Controllers
 
             if (Convert.ToInt64(Details.ID) > 0 && Convert.ToInt16(TempData["IsView"]) == 0)
             {
-                dt = objdata.ProductRateEntryInsertUpdate("UPDATEPRODUCTRATE", Convert.ToInt64(Details.ID),Convert.ToInt64(Details.branch_ID), Convert.ToInt32(Details.Designation), Convert.ToInt64(Details.Employee), Convert.ToInt64(Details.Product),
+                dt = objdata.ProductRateEntryInsertUpdate("UPDATEPRODUCTRATE", Convert.ToInt64(Details.ID),Convert.ToInt64(Details.branch_ID), Convert.ToString(Details.StoreId), Convert.ToInt64(Details.Product),
                     Convert.ToString(Details.SpecialPrice), Convert.ToInt64(Session["MRuserid"]));
 
             }
             else
             {
-                dt = objdata.ProductRateEntryInsertUpdate("INSERTPRODUCTRATE", Convert.ToInt64(Details.ID), Convert.ToInt64(Details.branch_ID), Convert.ToInt32(Details.Designation), Convert.ToInt64(Details.Employee), Convert.ToInt64(Details.Product),
+                dt = objdata.ProductRateEntryInsertUpdate("INSERTPRODUCTRATE", Convert.ToInt64(Details.ID), Convert.ToInt64(Details.branch_ID), Convert.ToString(Details.StoreId), Convert.ToInt64(Details.Product),
                     Convert.ToString(Details.SpecialPrice), Convert.ToInt64(Session["MRuserid"]));
 
             }
@@ -227,8 +227,8 @@ namespace ModernRetail.Controllers
             });
             settings.Columns.Add(x =>
             {
-                x.FieldName = "EMP_NAME";
-                x.Caption = "Employee";
+                x.FieldName = "STORE_NAME";
+                x.Caption = "Store";
                 x.VisibleIndex = 2;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
@@ -237,7 +237,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "PRODUCT_CODE";
-                x.Caption = "Item Code";
+                x.Caption = "Product Code";
                 x.VisibleIndex = 3;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(250);
@@ -246,7 +246,7 @@ namespace ModernRetail.Controllers
             settings.Columns.Add(x =>
             {
                 x.FieldName = "PRODUCT_NAME";
-                x.Caption = "Item Name";
+                x.Caption = "Product Name";
                 x.VisibleIndex = 4;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(200);
@@ -328,9 +328,8 @@ namespace ModernRetail.Controllers
                     PRODUCT_ID = Convert.ToString(output.Tables[0].Rows[0]["PRODUCT_ID"]),
                     sProducts_Name = Convert.ToString(output.Tables[0].Rows[0]["sProducts_Name"]),
                     BRANCH_ID = Convert.ToString(output.Tables[0].Rows[0]["BRANCH_ID"]),
-                    DESIGID = Convert.ToString(output.Tables[0].Rows[0]["DESIGID"]),
-                    USER_ID = Convert.ToString(output.Tables[0].Rows[0]["USER_ID"]),
-                    USER_NAME = Convert.ToString(output.Tables[0].Rows[0]["USER_NAME"]),
+                    STORE_NAME = Convert.ToString(output.Tables[0].Rows[0]["STORE_NAME"]),
+                    STORE_ID = Convert.ToString(output.Tables[0].Rows[0]["STORE_ID"]),                   
                     STORE_RATE = Convert.ToString(output.Tables[0].Rows[0]["STORE_RATE"]),
                 
 

@@ -864,14 +864,23 @@
             allowClear: false
         });
 
-        $('#ddlDesignation').select2({
-            placeholder: "Select",
-            allowClear: false
+        $('#StoreSearchModel').on('shown.bs.modal', function () {
+            $('#txtStoreSearch').focus();
         });
 
-        
-    });
+        //$('#ddlDesignation').select2({
+        //    placeholder: "Select",
+        //    allowClear: false
+        //});
 
+
+    });
+    function StorePopulate() {
+        $('#hdnStoreCode').val("");
+        StoreNameTxt.SetText("");
+        //$("#txtStoreSearch").val("");
+        Store_keydown();
+    }
     function GETDESIGNATION() {
         $.ajax({
             type: "POST",
@@ -941,32 +950,36 @@
                         GETDESIGNATION();
                             $("#ddlBranch").val(response.BRANCH_ID);
                             $("#ddlDesignation").val(response.DESIGID);
-                            txtEmployee.SetText(response.USER_NAME);
+                            //txtEmployee.SetText(response.USER_NAME);
                             txtProductNameAdd.SetText(response.sProducts_Name);
-                            $("#txtEmployee_hidden").val(response.USER_ID);
+                            //$("#txtEmployee_hidden").val(response.USER_ID);
                             $("#HiddenProductID").val(response.PRODUCT_ID);
                             $("#txtSpecialPrice").val(response.STORE_RATE);
+
+                        $("#hdnStoreCode").val(response.STORE_ID);
+                        $("#StoreNameTxt").val(response.STORE_NAME);
                     }
                 }
             });
         }
-    }  
+    }
 
     function EntrySave(mode) {
 
     $("#hdnAdd").val("0");
     savemode = mode;
     hasmsg = 0;
-   
-    var Branch = $('#ddlBranch option:selected').val();   
+
+    var Branch = $('#ddlBranch option:selected').val();
     var Designation = $('#ddlDesignation option:selected').val();
     var Employee = $('#txtEmployee_hidden').val();
-    var Product = $('#HiddenProductID').val();  
+    var Product = $('#HiddenProductID').val();
     var SpecialPrice = $("#txtSpecialPrice").val();
-   
+    var StoreID = $('#hdnStoreCode').val();
+
     if ($('#ddlBranch option:selected').val() == null || $('#ddlBranch option:selected').val() == "0" || $('#ddlBranch option:selected').val() == "Select" || $('#ddlBranch option:selected').val() == "undefined") {
 
-        // SweetAlert for empty category description
+        // SweetAlert for empty Branch description
         Swal.fire({
             icon: 'warning',
             title: 'Sorry!',
@@ -974,25 +987,25 @@
         });
         return false;
         }
-    else if ($('#ddlDesignation option:selected').val() == null || $('#ddlDesignation option:selected').val() == "0" || $('#ddlDesignation option:selected').val() == "Select" || $('#ddlDesignation option:selected').val() == "undefined") {
+    //else if ($('#ddlDesignation option:selected').val() == null || $('#ddlDesignation option:selected').val() == "0" || $('#ddlDesignation option:selected').val() == "Select" || $('#ddlDesignation option:selected').val() == "undefined") {
 
-    // SweetAlert for empty category description
-        Swal.fire({
-            icon: 'warning',
-            title: 'Sorry!',
-            text: 'Please Select Designation to proceed.'
-        });
-        return false;
-    }
-    else if (Employee.trim() == "") {
-        // SweetAlert for empty category description
-        Swal.fire({
-            icon: 'warning',
-            title: 'Sorry!',
-            text: 'Please Enter Employee to proceed.'
-        });
-        return false;
-    }
+    //// SweetAlert for empty category description
+    //    Swal.fire({
+    //        icon: 'warning',
+    //        title: 'Sorry!',
+    //        text: 'Please Select Designation to proceed.'
+    //    });
+    //    return false;
+    //}
+    //else if (Employee.trim() == "") {
+    //    // SweetAlert for empty category description
+    //    Swal.fire({
+    //        icon: 'warning',
+    //        title: 'Sorry!',
+    //        text: 'Please Enter Employee to proceed.'
+    //    });
+    //    return false;
+    //}
 
     else if (Product == null || Product.trim() == "" ) {
         // SweetAlert for empty category description
@@ -1011,15 +1024,15 @@
             text: 'Please Enter Special Price to proceed.'
         });
         return false;
-    }                       
+    }
 
     var hdnDetailsID = $('#hdnDetailsID').val();
 
     var data = {
         ID: hdnDetailsID,
         branch_ID: Branch,
-        Designation: Designation,
-        Employee: Employee,
+        StoreId: StoreID,
+        //Employee: Employee,
         Product: Product,
         SpecialPrice: SpecialPrice
     }
@@ -1034,14 +1047,14 @@
             success: function (response) {
                 if (response != null) {
                     var Sucess = response.split('~')[0];
-                    var DetailsID = response.split('~')[1];                  
+                    var DetailsID = response.split('~')[1];
                     var Message = response.split('~')[2];
                     $('#hdnDetailsID').val(DetailsID);
                     if (DetailsID > 0) {
                         ProductionID = 0;
                         DetailsID = 0;
                         Swal.fire({
-                            title: 'Success!',                         
+                            title: 'Success!',
                             html: 'Product Rates saved successfully.',
                             icon: 'success',
                             confirmButtonText: 'OK'
@@ -1083,13 +1096,13 @@
                     Message = "";
                 }
             }
-        });              
+        });
     }
 
     function CancelAdd() {
-        if ($("#hdnAdd").val() == "1") {
+        if (urlKeys.key == "Add") {
             Swal.fire({
-                title: 'Are you sure you want to Close with out save data.?',
+                title: 'Are you sure you want to Close with out save data ?',
                 text: "This action cannot be undone!",
                 imageUrl: '/assests/images/delete-big.png', // Custom icon for confirmation
                 imageWidth: 40, // Adjust the width as needed
@@ -1115,7 +1128,7 @@
     function DesignationOnChange() {
         var OtherDetails = {}
         OtherDetails.SearchKey = $("#txtEmployeeSearch").val();
-        OtherDetails.DesignationId = $('#ddlDesignation option:selected').val();       
+        OtherDetails.DesignationId = $('#ddlDesignation option:selected').val();
         var HeaderCaption = [];
         HeaderCaption.push("Employee Name");
         HeaderCaption.push("Employee Code");
@@ -1123,7 +1136,7 @@
     }
     function EmployeeButnClick(s, e) {
         $('#EmployeeModel').modal('show');
-       // $("#txtEmployeeSearch").focus();
+        // $("#txtEmployeeSearch").focus();
         setTimeout(function () { $("#txtEmployeeSearch").focus(); }, 500);
         $('#txtEmployeeSearch').val('');
     }
@@ -1166,51 +1179,51 @@
     }
 </script>
 <script>
-        function AddProductButnClick(s, e) {
-            $("#AddProductTable").empty();
-            var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Code</th><th>Product Name</th></tr></table>";
-            $("#AddProductTable").html(html);
-            setTimeout(function () { $("#txtAddProdSearch").focus(); }, 500);
-            $('#txtAddProdSearch').val('');
-            $('#AddProductModel').modal('show');
+    function AddProductButnClick(s, e) {
+        $("#AddProductTable").empty();
+        var html = "<table border='1' width='100%' class='dynamicPopupTbl'><tr class='HeaderStyle'><th style='display:none'>id</th><th>Product Code</th><th>Product Name</th></tr></table>";
+        $("#AddProductTable").html(html);
+        setTimeout(function () { $("#txtAddProdSearch").focus(); }, 500);
+        $('#txtAddProdSearch').val('');
+        $('#AddProductModel').modal('show');
+    }
+    function AddProductKeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter" || e.htmlEvent.key == "NumpadEnter") {
+            //shouldCheck = 0;
+            s.OnButtonClick(0);
         }
-        function AddProductKeyDown(s, e) {
-            if (e.htmlEvent.key == "Enter" || e.htmlEvent.key == "NumpadEnter") {
-                //shouldCheck = 0;
-                s.OnButtonClick(0);
-            }
+    }
+    function Addprodkeydown(e) {
+        var OtherDetails = {}
+        if ($.trim($("#txtAddProdSearch").val()) == "" || $.trim($("#txtAddProdSearch").val()) == null) {
+            return false;
         }
-        function Addprodkeydown(e) {
-            var OtherDetails = {}
-            if ($.trim($("#txtAddProdSearch").val()) == "" || $.trim($("#txtAddProdSearch").val()) == null) {
-                return false;
-            }
-            OtherDetails.SearchKey = $("#txtAddProdSearch").val();
-            if (e.code == "Enter" || e.code == "NumpadEnter") {
-                var HeaderCaption = [];
-                HeaderCaption.push("Product Code");
-                HeaderCaption.push("Product Name");
+        OtherDetails.SearchKey = $("#txtAddProdSearch").val();
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+            var HeaderCaption = [];
+            HeaderCaption.push("Product Code");
+            HeaderCaption.push("Product Name");
 
-                if ($("#txtAddProdSearch").val() != '') {
-                    callonServer("../../../Models/MRService.asmx/GetProduct", OtherDetails, "AddProductTable", HeaderCaption, "AddProdIndex", "SetProduct");
-                }
-            }
-            else if (e.code == "ArrowDown") {
-                if ($("input[AddProdIndex=0]"))
-                    $("input[AddProdIndex=0]").focus();
+            if ($("#txtAddProdSearch").val() != '') {
+                callonServer("../../../Models/MRService.asmx/GetProduct", OtherDetails, "AddProductTable", HeaderCaption, "AddProdIndex", "SetProduct");
             }
         }
-        function SetProduct(Id, Name) {
-            if (Id) {
-                $('#AddProductModel').modal('hide');
-                SetProdNametxt(Id, Name);
-            }
+        else if (e.code == "ArrowDown") {
+            if ($("input[AddProdIndex=0]"))
+                $("input[AddProdIndex=0]").focus();
         }
-        function SetProdNametxt(id, name) {
-            txtProductNameAdd.SetText(name);
-           // ctxtProductNameAdd.SetText(name);
-            $("#HiddenProductID").val(id);
-           // document.getElementById('').value = varproductid;
+    }
+    function SetProduct(Id, Name) {
+        if (Id) {
+            $('#AddProductModel').modal('hide');
+            SetProdNametxt(Id, Name);
+        }
+    }
+    function SetProdNametxt(id, name) {
+        txtProductNameAdd.SetText(name);
+        // ctxtProductNameAdd.SetText(name);
+        $("#HiddenProductID").val(id);
+        // document.getElementById('').value = varproductid;
 
     }
 
@@ -1266,41 +1279,131 @@
 
 
 </script>
+<script>
+    // Store Name
+    function StoreButnClick(s, e) {
+        $('#StoreSearchModel').modal('show');
+        $("#txtStoreSearch").focus();
+    }
 
+    function Store_KeyDown(s, e) {
+        if (e.htmlEvent.key == "Enter" || e.code == "NumpadEnter") {
+            $('#StoreSearchModel').modal('show');
+            $("#txtStoreSearch").focus();
+        }
+    }
+    function Storekeydown(e) {
+        var OtherDetails = {}
+        if ($.trim($("#txtStoreSearch").val()) == "" || $.trim($("#txtStoreSearch").val()) == null) {
+            return false;
+        }
+        if ($.trim($("#ddlBranch").val()) == "" || $.trim($("#ddlBranch").val()) == null) {
+            return false;
+        }
+       
+        OtherDetails.SearchKey = $("#txtStoreSearch").val();
+        OtherDetails.branchid = $("#ddlBranch").val();
+        if (e.code == "Enter" || e.code == "NumpadEnter") {
+            var HeaderCaption = [];
+            HeaderCaption.push("Store Name");
+            HeaderCaption.push("Store Type");
+
+            if ($("#txtStoreSearch").val() != "") {
+                callonServer("../../../Models/MRService.asmx/GetBranchWiseStoreList", OtherDetails, "StoreTable", HeaderCaption, "StoreIndex", "SetStore");
+            }
+        }
+        else if (e.code == "ArrowDown") {
+            if ($("input[ShopIndex=0]"))
+                $("input[ShopIndex=0]").focus();
+        }
+    }
+    function SetStore(id, Name) {
+        var key = id;
+        $('#hdnStoreCode').val(id);
+        if (key != null && key != '') {
+            $('#StoreSearchModel').modal('hide');
+            StoreNameTxt.SetText(Name);
+            StoreNameTxt.SetFocus();
+        }
+    }
+
+    function Store_keydown() {
+        var OtherDetails = {}
+       
+
+        OtherDetails.SearchKey = $("#txtStoreSearch").val();
+        OtherDetails.branchid = $("#ddlBranch").val();
+       // if (e.code == "Enter" || e.code == "NumpadEnter") {
+            var HeaderCaption = [];
+            HeaderCaption.push("Store Name");
+            HeaderCaption.push("Store Type");
+
+            if ($("#txtStoreSearch").val() != "") {
+                callonServer("../../../Models/MRService.asmx/GetBranchWiseStoreList", OtherDetails, "StoreTable", HeaderCaption, "StoreIndex", "SetStore");
+            }
+        //}
+        //else if (e.code == "ArrowDown") {
+        //    if ($("input[ShopIndex=0]"))
+        //        $("input[ShopIndex=0]").focus();
+        //}
+    }
+    // End Stoe Name
+</script>
 <div class="breadCumb">
     <span id="HeaderLableID">Product Rates</span>
     @*<div id="ApprovalCross" onclick="ProductRatesAdd()" class="crossBtnN"><i class="fa fa-times"></i></div>*@
 </div>
 <div class="container">
     <div class="form_main backBox p-3 pt-5 mb-3">
-        <div id="ApprovalCross" onclick="ProductRatesAdd()" class="crossBtnN">×</div>
-        
+        <div id="ApprovalCross" onclick="CancelAdd()" class="crossBtnN">×</div>
+
         <div class="row mb-3">
 
 
             <div class="col-sm-3  mb-3 h-branch-select">
                 <label>Branch<span style="color:red">*</span></label>
-                <select id="ddlBranch" class="form-control"></select>
+                <select id="ddlBranch" class="form-control" onchange="StorePopulate()"></select>
             </div>
 
-            <div class="col-sm-3  mb-3 h-branch-select">
-                <label>Designation<span style="color:red">*</span></label>
-                <select id="ddlDesignation" class="form-control" onchange="DesignationOnChange()"></select>
-            </div>
-            <div class=" col-sm-3 mb-3">
-                <label>Employee(s)<span style="color:red">*</span></label>
-                @Html.DevExpress().ButtonEdit(
-                settings =>
-                {
-                    settings.Name = "txtEmployee";
-                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                    settings.Text = @Model.Employee;
-                    settings.ReadOnly = true;
-                    settings.Properties.Buttons.Add("...");
-                    settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){EmployeeButnClick(s,e);}";
-                    settings.Properties.ClientSideEvents.KeyDown = "function(s,e){EmployeebtnKeyDown(s,e);}";
+            @*<div class="col-sm-3  mb-3 h-branch-select">
+                    <label>Designation<span style="color:red">*</span></label>
+                    <select id="ddlDesignation" class="form-control" onchange="DesignationOnChange()"></select>
+                </div>*@
+            @*<div class=" col-sm-3 mb-3">
+                    <label>Employee(s)<span style="color:red">*</span></label>
+                    @Html.DevExpress().ButtonEdit(
+                    settings =>
+                    {
+                        settings.Name = "txtEmployee";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.Text = @Model.Employee;
+                        settings.ReadOnly = true;
+                        settings.Properties.Buttons.Add("...");
+                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){EmployeeButnClick(s,e);}";
+                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){EmployeebtnKeyDown(s,e);}";
 
-                }).GetHtml()
+                    }).GetHtml()
+                </div>*@
+            <div class="col-md-3 ">
+                <label>Store</label>
+                <div>
+                    @Html.DevExpress().ButtonEdit(
+                    settings =>
+                    {
+                        settings.Name = "StoreNameTxt";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.Text = Model.StoreName;
+                        settings.ReadOnly = true;
+                        settings.Properties.Buttons.Add("...");
+                        settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){StoreButnClick(s,e);}";
+                        settings.Properties.ClientSideEvents.KeyDown = "function(s,e){Store_KeyDown(s,e);}";
+
+                    }).GetHtml()
+
+                    @*<input type="hidden" id="hdnStockId" value="@Model.NewUserid">*@
+                    <input type="hidden" id="hdnStoreCode" value="@Model.StoreId">
+                </div>
+
             </div>
             <div class=" col-sm-3 mb-3">
                 <label>Product(s)<span style="color:red">*</span></label>
@@ -1309,7 +1412,7 @@
                 {
                     settings.Name = "txtProductNameAdd";
                     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
-                    settings.Text = @Model.Employee;
+                    settings.Text = @Model.Product;
                     settings.ReadOnly = true;
                     settings.Properties.Buttons.Add("...");
                     settings.Properties.ClientSideEvents.ButtonClick = "function(s,e){AddProductButnClick(s,e);}";
@@ -1325,10 +1428,10 @@
 
             <div class="clear"></div>
             <div class="mt-4 px-4">
-                @if (ViewBag.CanAdd)
-                {
+                @*@if (ViewBag.CanAdd)
+                {*@
                     <button type="button" class="btn btn-success  save-btn" onclick="EntrySave('Exit');"><span class="btn-icon"><img src="../../../assests/images/save-instagram.svg"></span> Save and Exit</button>
-                }
+                @*}*@
                 <button type="button" class="btn btn-cancel cancel-catg" onclick="CancelAdd()"><span class="btn-icon"><img src="../../../assests/images/cancel.svg"></span> Cancel & Exit</button>
 
             </div>
@@ -1367,7 +1470,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="btnSaveEmployee" class="btnOkformultiselection btn btn-success" data-dismiss="modal" onclick="OKPopup('EmployeeSource')">OK</button>
-               
+
                 <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -1407,3 +1510,31 @@
 
     </div>
 </div>
+
+<div class="modal fade pmsModal w70" id="StoreSearchModel" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog w-50">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Store Search</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-3" onkeydown="Storekeydown(event)" id="txtStoreSearch" autofocus style="width:100%" placeholder="Search By Store Name" />
+                <div id="StoreTable">
+                    <table border='1' width="100%" class="dynamicPopupTbl">
+                        <tr class="HeaderStyle">
+                            <th class="hide">id</th>
+                            <th>Store Name</th>
+                            <th>Store Type</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -80,12 +80,6 @@
         <elementListCompartment Id="6b73dc05-d5ce-4158-8e68-05e16cdda18c" absoluteBounds="3.015, 3.96, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="55942413-20a1-40bb-b65f-3f350fc58449" isExpanded="false" absoluteBounds="5.75, 1.25, 2, 0.45">
-      <DataClassMoniker Name="/ModernRetailDataContext/MR_PRODUCTRATESDETAILSLIST" />
-      <nestedChildShapes>
-        <elementListCompartment Id="6491af4b-ed97-443f-867f-36937b6fafd9" absoluteBounds="5.765, 1.71, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="c006fb27-7978-4064-bf33-94a39dc26c3c" isExpanded="false" absoluteBounds="5.875, 2, 2, 0.45">
       <DataClassMoniker Name="/ModernRetailDataContext/MR_PINZIPMASTERLIST" />
       <nestedChildShapes>
@@ -138,6 +132,12 @@
       <DataClassMoniker Name="/ModernRetailDataContext/MR_CURRENTSTOCK_LISTING" />
       <nestedChildShapes>
         <elementListCompartment Id="60272a85-48da-4459-8264-0b21fca4bc3f" absoluteBounds="3.015, 3.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e88537a8-b71e-47eb-9c7d-26c392dcb520" isExpanded="false" absoluteBounds="5.875, 1.375, 2, 0.45">
+      <DataClassMoniker Name="/ModernRetailDataContext/MR_PRODUCTRATESDETAILSLIST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f345cbd9-c6e0-4cc9-80c1-3c47878a4931" absoluteBounds="5.89, 1.835, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

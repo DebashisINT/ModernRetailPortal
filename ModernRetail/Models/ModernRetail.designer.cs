@@ -160,14 +160,6 @@ namespace ModernRetail.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<MR_PRODUCTRATESDETAILSLIST> MR_PRODUCTRATESDETAILSLISTs
-		{
-			get
-			{
-				return this.GetTable<MR_PRODUCTRATESDETAILSLIST>();
-			}
-		}
-		
 		public System.Data.Linq.Table<MR_PINZIPMASTERLIST> MR_PINZIPMASTERLISTs
 		{
 			get
@@ -237,6 +229,14 @@ namespace ModernRetail.Models
 			get
 			{
 				return this.GetTable<MR_CURRENTSTOCK_LISTING>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MR_PRODUCTRATESDETAILSLIST> MR_PRODUCTRATESDETAILSLISTs
+		{
+			get
+			{
+				return this.GetTable<MR_PRODUCTRATESDETAILSLIST>();
 			}
 		}
 	}
@@ -2914,357 +2914,6 @@ namespace ModernRetail.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_PRODUCTRATESDETAILSLIST")]
-	public partial class MR_PRODUCTRATESDETAILSLIST
-	{
-		
-		private System.Nullable<int> _USERID;
-		
-		private System.Nullable<long> _SEQ;
-		
-		private System.Nullable<int> _ID;
-		
-		private System.Nullable<long> _PRODUCT_ID;
-		
-		private System.Nullable<long> _STATE_ID;
-		
-		private System.Nullable<long> _BRANCH_ID;
-		
-		private System.Nullable<long> _DESIGID;
-		
-		private System.Nullable<long> _EMP_ID;
-		
-		private System.Nullable<decimal> _STORE_RATE;
-		
-		private string _PRODUCT_CODE;
-		
-		private string _PRODUCT_NAME;
-		
-		private string _BRANCH;
-		
-		private string _STATE_NAME;
-		
-		private string _DESIGNATION;
-		
-		private string _EMP_NAME;
-		
-		private System.Nullable<System.DateTime> _CreateDate;
-		
-		private string _CreateUser;
-		
-		private System.Nullable<System.DateTime> _ModifyDate;
-		
-		private string _ModifyUser;
-		
-		public MR_PRODUCTRATESDETAILSLIST()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
-		public System.Nullable<int> USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this._USERID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
-		public System.Nullable<long> SEQ
-		{
-			get
-			{
-				return this._SEQ;
-			}
-			set
-			{
-				if ((this._SEQ != value))
-				{
-					this._SEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int")]
-		public System.Nullable<int> ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_ID", DbType="BigInt")]
-		public System.Nullable<long> PRODUCT_ID
-		{
-			get
-			{
-				return this._PRODUCT_ID;
-			}
-			set
-			{
-				if ((this._PRODUCT_ID != value))
-				{
-					this._PRODUCT_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATE_ID", DbType="BigInt")]
-		public System.Nullable<long> STATE_ID
-		{
-			get
-			{
-				return this._STATE_ID;
-			}
-			set
-			{
-				if ((this._STATE_ID != value))
-				{
-					this._STATE_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH_ID", DbType="BigInt")]
-		public System.Nullable<long> BRANCH_ID
-		{
-			get
-			{
-				return this._BRANCH_ID;
-			}
-			set
-			{
-				if ((this._BRANCH_ID != value))
-				{
-					this._BRANCH_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESIGID", DbType="BigInt")]
-		public System.Nullable<long> DESIGID
-		{
-			get
-			{
-				return this._DESIGID;
-			}
-			set
-			{
-				if ((this._DESIGID != value))
-				{
-					this._DESIGID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMP_ID", DbType="BigInt")]
-		public System.Nullable<long> EMP_ID
-		{
-			get
-			{
-				return this._EMP_ID;
-			}
-			set
-			{
-				if ((this._EMP_ID != value))
-				{
-					this._EMP_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_RATE", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> STORE_RATE
-		{
-			get
-			{
-				return this._STORE_RATE;
-			}
-			set
-			{
-				if ((this._STORE_RATE != value))
-				{
-					this._STORE_RATE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_CODE", DbType="NVarChar(100)")]
-		public string PRODUCT_CODE
-		{
-			get
-			{
-				return this._PRODUCT_CODE;
-			}
-			set
-			{
-				if ((this._PRODUCT_CODE != value))
-				{
-					this._PRODUCT_CODE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_NAME", DbType="NVarChar(100)")]
-		public string PRODUCT_NAME
-		{
-			get
-			{
-				return this._PRODUCT_NAME;
-			}
-			set
-			{
-				if ((this._PRODUCT_NAME != value))
-				{
-					this._PRODUCT_NAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH", DbType="NVarChar(250)")]
-		public string BRANCH
-		{
-			get
-			{
-				return this._BRANCH;
-			}
-			set
-			{
-				if ((this._BRANCH != value))
-				{
-					this._BRANCH = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATE_NAME", DbType="NVarChar(250)")]
-		public string STATE_NAME
-		{
-			get
-			{
-				return this._STATE_NAME;
-			}
-			set
-			{
-				if ((this._STATE_NAME != value))
-				{
-					this._STATE_NAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESIGNATION", DbType="NVarChar(100)")]
-		public string DESIGNATION
-		{
-			get
-			{
-				return this._DESIGNATION;
-			}
-			set
-			{
-				if ((this._DESIGNATION != value))
-				{
-					this._DESIGNATION = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMP_NAME", DbType="NVarChar(300)")]
-		public string EMP_NAME
-		{
-			get
-			{
-				return this._EMP_NAME;
-			}
-			set
-			{
-				if ((this._EMP_NAME != value))
-				{
-					this._EMP_NAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreateDate
-		{
-			get
-			{
-				return this._CreateDate;
-			}
-			set
-			{
-				if ((this._CreateDate != value))
-				{
-					this._CreateDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(100)")]
-		public string CreateUser
-		{
-			get
-			{
-				return this._CreateUser;
-			}
-			set
-			{
-				if ((this._CreateUser != value))
-				{
-					this._CreateUser = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ModifyDate
-		{
-			get
-			{
-				return this._ModifyDate;
-			}
-			set
-			{
-				if ((this._ModifyDate != value))
-				{
-					this._ModifyDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(100)")]
-		public string ModifyUser
-		{
-			get
-			{
-				return this._ModifyUser;
-			}
-			set
-			{
-				if ((this._ModifyUser != value))
-				{
-					this._ModifyUser = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_PINZIPMASTERLIST")]
 	public partial class MR_PINZIPMASTERLIST
 	{
@@ -5285,6 +4934,321 @@ namespace ModernRetail.Models
 				if ((this._MODIFIED_DATE != value))
 				{
 					this._MODIFIED_DATE = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_PRODUCTRATESDETAILSLIST")]
+	public partial class MR_PRODUCTRATESDETAILSLIST
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<long> _SEQ;
+		
+		private System.Nullable<int> _ID;
+		
+		private System.Nullable<long> _PRODUCT_ID;
+		
+		private System.Nullable<long> _STATE_ID;
+		
+		private System.Nullable<long> _BRANCH_ID;
+		
+		private System.Nullable<decimal> _STORE_RATE;
+		
+		private string _PRODUCT_CODE;
+		
+		private string _PRODUCT_NAME;
+		
+		private string _BRANCH;
+		
+		private string _STATE_NAME;
+		
+		private System.Nullable<System.DateTime> _CreateDate;
+		
+		private string _CreateUser;
+		
+		private System.Nullable<System.DateTime> _ModifyDate;
+		
+		private string _ModifyUser;
+		
+		private string _STORE_ID;
+		
+		private string _STORE_NAME;
+		
+		public MR_PRODUCTRATESDETAILSLIST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="BigInt")]
+		public System.Nullable<long> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int")]
+		public System.Nullable<int> ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_ID", DbType="BigInt")]
+		public System.Nullable<long> PRODUCT_ID
+		{
+			get
+			{
+				return this._PRODUCT_ID;
+			}
+			set
+			{
+				if ((this._PRODUCT_ID != value))
+				{
+					this._PRODUCT_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATE_ID", DbType="BigInt")]
+		public System.Nullable<long> STATE_ID
+		{
+			get
+			{
+				return this._STATE_ID;
+			}
+			set
+			{
+				if ((this._STATE_ID != value))
+				{
+					this._STATE_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH_ID", DbType="BigInt")]
+		public System.Nullable<long> BRANCH_ID
+		{
+			get
+			{
+				return this._BRANCH_ID;
+			}
+			set
+			{
+				if ((this._BRANCH_ID != value))
+				{
+					this._BRANCH_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_RATE", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> STORE_RATE
+		{
+			get
+			{
+				return this._STORE_RATE;
+			}
+			set
+			{
+				if ((this._STORE_RATE != value))
+				{
+					this._STORE_RATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_CODE", DbType="NVarChar(100)")]
+		public string PRODUCT_CODE
+		{
+			get
+			{
+				return this._PRODUCT_CODE;
+			}
+			set
+			{
+				if ((this._PRODUCT_CODE != value))
+				{
+					this._PRODUCT_CODE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PRODUCT_NAME", DbType="NVarChar(100)")]
+		public string PRODUCT_NAME
+		{
+			get
+			{
+				return this._PRODUCT_NAME;
+			}
+			set
+			{
+				if ((this._PRODUCT_NAME != value))
+				{
+					this._PRODUCT_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BRANCH", DbType="NVarChar(250)")]
+		public string BRANCH
+		{
+			get
+			{
+				return this._BRANCH;
+			}
+			set
+			{
+				if ((this._BRANCH != value))
+				{
+					this._BRANCH = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATE_NAME", DbType="NVarChar(250)")]
+		public string STATE_NAME
+		{
+			get
+			{
+				return this._STATE_NAME;
+			}
+			set
+			{
+				if ((this._STATE_NAME != value))
+				{
+					this._STATE_NAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this._CreateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUser", DbType="NVarChar(100)")]
+		public string CreateUser
+		{
+			get
+			{
+				return this._CreateUser;
+			}
+			set
+			{
+				if ((this._CreateUser != value))
+				{
+					this._CreateUser = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ModifyDate
+		{
+			get
+			{
+				return this._ModifyDate;
+			}
+			set
+			{
+				if ((this._ModifyDate != value))
+				{
+					this._ModifyDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifyUser", DbType="NVarChar(100)")]
+		public string ModifyUser
+		{
+			get
+			{
+				return this._ModifyUser;
+			}
+			set
+			{
+				if ((this._ModifyUser != value))
+				{
+					this._ModifyUser = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_ID", DbType="VarChar(100)")]
+		public string STORE_ID
+		{
+			get
+			{
+				return this._STORE_ID;
+			}
+			set
+			{
+				if ((this._STORE_ID != value))
+				{
+					this._STORE_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORE_NAME", DbType="VarChar(200)")]
+		public string STORE_NAME
+		{
+			get
+			{
+				return this._STORE_NAME;
+			}
+			set
+			{
+				if ((this._STORE_NAME != value))
+				{
+					this._STORE_NAME = value;
 				}
 			}
 		}

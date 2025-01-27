@@ -161,6 +161,34 @@ namespace ModernRetail.Models
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object GetBranchWiseStoreList(string SearchKey,Int64 branchid)
+        {
+            List<StoreListModel> listStore = new List<StoreListModel>();
+            if (HttpContext.Current.Session["MRuserid"] != null)
+            {
+                SearchKey = SearchKey.Replace("'", "''");
+                ProcedureExecute proc = new ProcedureExecute("PRC_MR_PRODUCTRATES");
+                proc.AddPara("@ACTION", "GETBRANCHWISESTORE");
+                proc.AddPara("@USER_ID", Convert.ToInt32(Session["MRuserid"]));
+                proc.AddPara("@BRANCH_ID", Convert.ToInt32(branchid)); 
+                proc.AddPara("@SearchKey", SearchKey);
+                DataTable Store = proc.GetTable();
+
+                listStore = (from DataRow dr in Store.Rows
+                             select new StoreListModel()
+                             {
+                                 STORE_ID = dr["STORE_ID"].ToString(),
+                                 STORE_NAME = dr["STORE_NAME"].ToString(),
+                                 STORETYPE_NAME = dr["STORETYPE_NAME"].ToString(),
+
+                             }).ToList();
+            }
+
+            return listStore;
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public object GetProductList(string SearchKey)
         {
             List<ProductListModel> listProduct = new List<ProductListModel>();
