@@ -19,7 +19,7 @@ namespace ModernRetail.Models
         }
 
 
-
+        
         public DataTable GetUserList(string userid, string Type)
         {
             DataTable ds = new DataTable();
