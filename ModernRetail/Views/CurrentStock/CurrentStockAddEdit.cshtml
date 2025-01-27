@@ -1185,7 +1185,7 @@
 
         // Disable the ButtonEdit control
         const buttonEditControl = ASPxClientControl.GetControlCollection().GetByName("StoreNameTxt");
-        if (buttonEditControl) {
+        if (buttonEditControl && buttonEditControl.SetEnabled ) {
             buttonEditControl.SetEnabled(false); // Disable the ButtonEdit control
         }
 

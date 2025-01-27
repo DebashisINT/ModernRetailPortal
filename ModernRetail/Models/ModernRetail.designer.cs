@@ -224,14 +224,6 @@ namespace ModernRetail.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<MR_CURRENTSTOCK_LISTING> MR_CURRENTSTOCK_LISTINGs
-		{
-			get
-			{
-				return this.GetTable<MR_CURRENTSTOCK_LISTING>();
-			}
-		}
-		
 		public System.Data.Linq.Table<MR_PRODUCTRATESDETAILSLIST> MR_PRODUCTRATESDETAILSLISTs
 		{
 			get
@@ -245,6 +237,14 @@ namespace ModernRetail.Models
 			get
 			{
 				return this.GetTable<MR_FORMTYPELIST>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MR_CURRENTSTOCK_LISTING> MR_CURRENTSTOCK_LISTINGs
+		{
+			get
+			{
+				return this.GetTable<MR_CURRENTSTOCK_LISTING>();
 			}
 		}
 	}
@@ -4740,213 +4740,6 @@ namespace ModernRetail.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_CURRENTSTOCK_LISTING")]
-	public partial class MR_CURRENTSTOCK_LISTING
-	{
-		
-		private System.Nullable<int> _USERID;
-		
-		private System.Nullable<int> _SEQ;
-		
-		private string _STOCK_ID;
-		
-		private string _STORENAME;
-		
-		private System.Nullable<System.DateTime> _CURRENTSTOCKDATE;
-		
-		private System.Nullable<long> _TOTAL_ITEMS;
-		
-		private System.Nullable<long> _TOTAL_QUANTITY;
-		
-		private string _CREATED_BY;
-		
-		private System.Nullable<System.DateTime> _CREATED_DATE;
-		
-		private string _MODIFIED_BY;
-		
-		private System.Nullable<System.DateTime> _MODIFIED_DATE;
-		
-		public MR_CURRENTSTOCK_LISTING()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
-		public System.Nullable<int> USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this._USERID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
-		public System.Nullable<int> SEQ
-		{
-			get
-			{
-				return this._SEQ;
-			}
-			set
-			{
-				if ((this._SEQ != value))
-				{
-					this._SEQ = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STOCK_ID", DbType="VarChar(100)")]
-		public string STOCK_ID
-		{
-			get
-			{
-				return this._STOCK_ID;
-			}
-			set
-			{
-				if ((this._STOCK_ID != value))
-				{
-					this._STOCK_ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORENAME", DbType="NVarChar(500)")]
-		public string STORENAME
-		{
-			get
-			{
-				return this._STORENAME;
-			}
-			set
-			{
-				if ((this._STORENAME != value))
-				{
-					this._STORENAME = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CURRENTSTOCKDATE", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CURRENTSTOCKDATE
-		{
-			get
-			{
-				return this._CURRENTSTOCKDATE;
-			}
-			set
-			{
-				if ((this._CURRENTSTOCKDATE != value))
-				{
-					this._CURRENTSTOCKDATE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTAL_ITEMS", DbType="BigInt")]
-		public System.Nullable<long> TOTAL_ITEMS
-		{
-			get
-			{
-				return this._TOTAL_ITEMS;
-			}
-			set
-			{
-				if ((this._TOTAL_ITEMS != value))
-				{
-					this._TOTAL_ITEMS = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTAL_QUANTITY", DbType="BigInt")]
-		public System.Nullable<long> TOTAL_QUANTITY
-		{
-			get
-			{
-				return this._TOTAL_QUANTITY;
-			}
-			set
-			{
-				if ((this._TOTAL_QUANTITY != value))
-				{
-					this._TOTAL_QUANTITY = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_BY", DbType="VarChar(200)")]
-		public string CREATED_BY
-		{
-			get
-			{
-				return this._CREATED_BY;
-			}
-			set
-			{
-				if ((this._CREATED_BY != value))
-				{
-					this._CREATED_BY = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_DATE", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CREATED_DATE
-		{
-			get
-			{
-				return this._CREATED_DATE;
-			}
-			set
-			{
-				if ((this._CREATED_DATE != value))
-				{
-					this._CREATED_DATE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_BY", DbType="VarChar(200)")]
-		public string MODIFIED_BY
-		{
-			get
-			{
-				return this._MODIFIED_BY;
-			}
-			set
-			{
-				if ((this._MODIFIED_BY != value))
-				{
-					this._MODIFIED_BY = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_DATE", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MODIFIED_DATE
-		{
-			get
-			{
-				return this._MODIFIED_DATE;
-			}
-			set
-			{
-				if ((this._MODIFIED_DATE != value))
-				{
-					this._MODIFIED_DATE = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_PRODUCTRATESDETAILSLIST")]
 	public partial class MR_PRODUCTRATESDETAILSLIST
 	{
@@ -5464,6 +5257,213 @@ namespace ModernRetail.Models
 				if ((this._MODIFIEDBY != value))
 				{
 					this._MODIFIEDBY = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MR_CURRENTSTOCK_LISTING")]
+	public partial class MR_CURRENTSTOCK_LISTING
+	{
+		
+		private System.Nullable<int> _USERID;
+		
+		private System.Nullable<int> _SEQ;
+		
+		private string _STOCK_ID;
+		
+		private string _STORENAME;
+		
+		private System.Nullable<System.DateTime> _CURRENTSTOCKDATE;
+		
+		private System.Nullable<long> _TOTAL_ITEMS;
+		
+		private System.Nullable<decimal> _TOTAL_QUANTITY;
+		
+		private string _CREATED_BY;
+		
+		private System.Nullable<System.DateTime> _CREATED_DATE;
+		
+		private string _MODIFIED_BY;
+		
+		private System.Nullable<System.DateTime> _MODIFIED_DATE;
+		
+		public MR_CURRENTSTOCK_LISTING()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", DbType="Int")]
+		public System.Nullable<int> USERID
+		{
+			get
+			{
+				return this._USERID;
+			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this._USERID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SEQ", DbType="Int")]
+		public System.Nullable<int> SEQ
+		{
+			get
+			{
+				return this._SEQ;
+			}
+			set
+			{
+				if ((this._SEQ != value))
+				{
+					this._SEQ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STOCK_ID", DbType="VarChar(100)")]
+		public string STOCK_ID
+		{
+			get
+			{
+				return this._STOCK_ID;
+			}
+			set
+			{
+				if ((this._STOCK_ID != value))
+				{
+					this._STOCK_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STORENAME", DbType="NVarChar(500)")]
+		public string STORENAME
+		{
+			get
+			{
+				return this._STORENAME;
+			}
+			set
+			{
+				if ((this._STORENAME != value))
+				{
+					this._STORENAME = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CURRENTSTOCKDATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CURRENTSTOCKDATE
+		{
+			get
+			{
+				return this._CURRENTSTOCKDATE;
+			}
+			set
+			{
+				if ((this._CURRENTSTOCKDATE != value))
+				{
+					this._CURRENTSTOCKDATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTAL_ITEMS", DbType="BigInt")]
+		public System.Nullable<long> TOTAL_ITEMS
+		{
+			get
+			{
+				return this._TOTAL_ITEMS;
+			}
+			set
+			{
+				if ((this._TOTAL_ITEMS != value))
+				{
+					this._TOTAL_ITEMS = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TOTAL_QUANTITY", DbType="Decimal(18,4)")]
+		public System.Nullable<decimal> TOTAL_QUANTITY
+		{
+			get
+			{
+				return this._TOTAL_QUANTITY;
+			}
+			set
+			{
+				if ((this._TOTAL_QUANTITY != value))
+				{
+					this._TOTAL_QUANTITY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_BY", DbType="VarChar(200)")]
+		public string CREATED_BY
+		{
+			get
+			{
+				return this._CREATED_BY;
+			}
+			set
+			{
+				if ((this._CREATED_BY != value))
+				{
+					this._CREATED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CREATED_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CREATED_DATE
+		{
+			get
+			{
+				return this._CREATED_DATE;
+			}
+			set
+			{
+				if ((this._CREATED_DATE != value))
+				{
+					this._CREATED_DATE = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_BY", DbType="VarChar(200)")]
+		public string MODIFIED_BY
+		{
+			get
+			{
+				return this._MODIFIED_BY;
+			}
+			set
+			{
+				if ((this._MODIFIED_BY != value))
+				{
+					this._MODIFIED_BY = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MODIFIED_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> MODIFIED_DATE
+		{
+			get
+			{
+				return this._MODIFIED_DATE;
+			}
+			set
+			{
+				if ((this._MODIFIED_DATE != value))
+				{
+					this._MODIFIED_DATE = value;
 				}
 			}
 		}
