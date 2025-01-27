@@ -1089,7 +1089,11 @@
                             /*imageWidth: 50, */
                             icon: 'success' // You can also keep the built-in icon type
                         }).then(() => {
-                            location.reload();
+                            //location.reload();
+                            Is_PageLoad = "1";
+                            GetProductSelectedFieldValuesOndemand($("#hdnProductId").val());
+                            Product_Ids = ProductId.join(',');
+                            gridList.Refresh();
                         });
                     } else if (parseInt(response) == -10) {
                         // SweetAlert error message with custom icon
@@ -1210,9 +1214,18 @@ function ChekEmpSettingsUpload() {
             processData: false,
             data: fileData,
             success: function (result) {
-                jAlert(result, 'Alert', function () {
+                Swal.fire({
+                    title: 'Alert',
+                    text: result,
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                }).then(() => {
                     $("#fileprod").val('');
                     $("#myImportProductModal").modal('hide');
+                    Is_PageLoad = "1";
+                    GetProductSelectedFieldValuesOndemand($("#hdnProductId").val());
+                    Product_Ids = ProductId.join(',');
+                    gridList.Refresh();
                 });
 
             },

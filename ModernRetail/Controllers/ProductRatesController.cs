@@ -259,7 +259,7 @@ namespace ModernRetail.Controllers
                 x.VisibleIndex = 5;
                 x.ColumnType = MVCxGridViewColumnType.TextBox;
                 x.Width = System.Web.UI.WebControls.Unit.Pixel(100);
-
+                x.PropertiesEdit.DisplayFormatString = "0.00";
             });
 
             settings.Columns.Add(x =>
@@ -280,6 +280,8 @@ namespace ModernRetail.Controllers
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
 
             });
 
@@ -302,7 +304,8 @@ namespace ModernRetail.Controllers
                 x.ColumnType = MVCxGridViewColumnType.DateEdit;
                 x.PropertiesEdit.DisplayFormatString = "dd-MM-yyyy";
                 (x.PropertiesEdit as DateEditProperties).EditFormatString = "dd-MM-yyyy";
-
+                x.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+                x.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
             });
 
 
@@ -531,14 +534,14 @@ namespace ModernRetail.Controllers
                        
                         DataTable dtExcelData = new DataTable();
                         dtExcelData.Columns.Add("BRANCH", typeof(string));
-                        dtExcelData.Columns.Add("ITEM CODE", typeof(string));
-                        dtExcelData.Columns.Add("ITEM NAME", typeof(string));
+                        dtExcelData.Columns.Add("PRODUCT CODE", typeof(string));
+                        dtExcelData.Columns.Add("PRODUCT NAME", typeof(string));
                         dtExcelData.Columns.Add("SPECIAL PRICE", typeof(string));
-                        dtExcelData.Columns.Add("USER LOGIN ID", typeof(string));
+                       
                       
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (Convert.ToString(row["ITEM CODE"]) != "" && Convert.ToString(row["ITEM NAME"]) != "")
+                            if (Convert.ToString(row["PRODUCT CODE"]) != "" && Convert.ToString(row["PRODUCT NAME"]) != "")
                             {
 
                                 if (Convert.ToString(row["SPECIAL PRICE"]) == "")
@@ -546,9 +549,9 @@ namespace ModernRetail.Controllers
 
                                 
 
-                                dtExcelData.Rows.Add(Convert.ToString(row["BRANCH"]), Convert.ToString(row["ITEM CODE"]),
-                                                Convert.ToString(row["ITEM NAME"]),
-                                                Convert.ToString(row["SPECIAL PRICE"]), Convert.ToString(row["USER LOGIN ID"])
+                                dtExcelData.Rows.Add(Convert.ToString(row["BRANCH"]), Convert.ToString(row["PRODUCT CODE"]),
+                                                Convert.ToString(row["PRODUCT NAME"]),
+                                                Convert.ToString(row["SPECIAL PRICE"])
                                                );
                             }
 
