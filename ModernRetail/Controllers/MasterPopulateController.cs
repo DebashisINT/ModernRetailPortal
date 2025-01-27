@@ -45,6 +45,72 @@ namespace ModernRetail.Controllers
             }
         }
 
+        public ActionResult GetStateList()
+        {
+            try
+            {
+                List<GetUsersStates> modelstate = new List<GetUsersStates>();
+                DataTable dtstate = lstuser.GetStateList();
+                modelstate = APIHelperMethods.ToModelList<GetUsersStates>(dtstate);
+
+                return PartialView("~/Areas/MYSHOP/Views/SearchingInputs/_StatesPartial.cshtml", modelstate);
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+            }
+        }
+
+        public ActionResult GetAreaBranchWise(TravelConveyanceModelclass model)
+        {
+            try
+            {
+                string BranchId = "";
+                int i = 1;
+
+                if (model.BranchId != null && model.BranchId.Count > 0)
+                {
+                    foreach (string item in model.BranchId)
+                    {
+                        if (i > 1)
+                            BranchId = BranchId + "," + item;
+                        else
+                            BranchId = item;
+                        i++;
+                    }
+
+                }
+
+                List<GetmasterArea> modelBranch = new List<GetmasterArea>();
+                DataTable dtArea = lstuser.GetArealistByBranch(BranchId);
+                modelBranch = APIHelperMethods.ToModelList<GetmasterArea>(dtArea);
+
+                return PartialView("~/Areas/MYSHOP/Views/SearchingInputs/_AreaBranchWisePartial.cshtml", dtArea);
+
+
+
+                //DataTable dtemp = lstuser.Getemplist(state, desig, Convert.ToString(Session["userid"]), dept);
+
+
+
+                //DataView view = new DataView(dtemp);
+                //DataTable distinctValues = view.ToTable(true, "empcode", "empname");
+
+                //List<GetAllEmployee> modelemp = new List<GetAllEmployee>();
+                //modelemp = APIHelperMethods.ToModelList<GetAllEmployee>(distinctValues);
+
+                //return PartialView("~/Areas/MYSHOP/Views/SearchingInputs/_EmpPartial.cshtml", modelemp);
+
+
+
+            }
+            catch
+            {
+                return RedirectToAction("Logout", "Login", new { Area = "" });
+
+            }
+        }
+
         public ActionResult checkSessionLogout()
         {
             SessionLogoutCheck ret = new SessionLogoutCheck();

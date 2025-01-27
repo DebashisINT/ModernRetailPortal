@@ -356,6 +356,7 @@
     <Compile Include="Models\StateMasterModel.cs" />
     <Compile Include="Models\StoreMasterModel.cs" />
     <Compile Include="Models\TargetLevelSetupModel.cs" />
+    <Compile Include="Models\TravelConveyanceModelclass.cs" />
     <Compile Include="Models\UserMasterModel.cs" />
     <Compile Include="Models\WarehouseMasterModel.cs" />
     <Compile Include="Models\WODModel.cs" />
@@ -1217,6 +1218,7 @@
     <Content Include="Views\PJPDetails\GetPJPDetailsImportLog.cshtml" />
     <Content Include="Views\PJPDetails\PartialPJPDetailsGridList.cshtml" />
     <Content Include="Views\PJPDetails\PJPListIndex.cshtml" />
+    <Content Include="Views\SearchingInputs\_StatesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -120,7 +120,11 @@ namespace ModernRetail.Models
         public Int64 BRANCH_ID { get; set; }
         public string CODE { get; set; }
     }
-
+    public class GetUsersStates
+    {
+        public string ID { get; set; }
+        public string StateName { get; set; }
+    }
 
 
 }
