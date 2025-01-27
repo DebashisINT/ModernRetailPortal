@@ -96,7 +96,7 @@ ul{
     padding: 15px 0;
 }
 .dateTime {
-    margin: 0 38px;
+    margin: 0 20px 0 38px;
 
     padding: 8px 15px 8px 15px;
     border-radius: 32px;
@@ -1640,7 +1640,7 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
     }
 
 .more-option-buttons {
-    background: #f0ccff !important;
+    background: #ad47d8 !important;
     padding: 0 !important;
     width: 38px;
     color: #111;
@@ -1648,7 +1648,7 @@ div:where(.swal2-container).swal2-backdrop-show, div:where(.swal2-container).swa
 }
 
     .more-option-buttons:hover {
-        background: #e6abff !important;
+        background: #7e13ab !important;
     }
 
 .more-btn .dropdown-menu button.btn {
@@ -1713,10 +1713,32 @@ div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
     border-radius: 8px !important;
 }
 
+.backtodashboard_btn a img
+{
+    width: 21px;
+}
+
+.backtodashboard_btn a {
+    padding: 8px 15px 8px 15px;
+    background: #ededed;
+    border-radius: 50px;
+    color: #1D1D1D;
+    height: 38px;
+    display: block;
+    transition: all .3s ease-in-out;
+    line-height: 21px;
+}
+
+    .backtodashboard_btn a:hover {
+        text-decoration: none;
+        background: #d6d6ff;
+        transform: scale(1.1);
+    }
 
 
-@media only screen and (min-width: 768px) and (max-width: 1299px) {
-    .mainDashBoxes .flex-itm {
+
+    @media only screen and (min-width: 768px) and (max-width: 1299px) {
+        .mainDashBoxes .flex-itm {
         width: 35%;
     }
 
